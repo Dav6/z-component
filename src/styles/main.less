@@ -1,0 +1,277 @@
+/*
+  author: 戴伟
+  date: 001 2022/06/01 11:44:40
+  file: src\styles\main.less
+  des:
+    全局样式的设置 包括组件UI的
+*/
+
+
+
+.el-select .el-select__tags-text {
+  display: block;
+
+}
+
+
+
+// 表格样式重置
+.el-table.el-table--border {
+  --el-table-border-color: #CFD6E5;
+  --el-table-border: 1px solid var(--el-table-border-color);
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  //&:before ,&:after {
+  //  background-color: #CFD6E5;
+  //
+  //}
+  //.el-table__inner-wrapper{
+  //  &:before ,&:after {
+  //    background-color: #CFD6E5;
+  //  }
+  //
+  //}
+
+  .el-scrollbar .el-scrollbar__bar.is-horizontal {
+    visibility: unset;
+  }
+
+  thead {
+    tr {
+      .el-table__cell {
+        padding: 0;
+        height: 53px;
+        font-size: 14px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #33475B;
+        background: #F5F8FC;
+      }
+    }
+
+  }
+
+  tbody {
+    tr {
+      .el-table__cell {
+        border-color: #CFD6E5;
+        //background: #fff;
+        font-size: 14px;
+        color: #4F6D95;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+
+      }
+
+      &.hover-row {
+        .el-table__cell {
+
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+
+          background: #F2FAFE;
+        }
+      }
+    }
+
+  }
+
+}
+
+
+.el-overlay {
+  .el-drawer {
+
+    .el-drawer__header {
+      margin: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border-bottom: 1px solid #E4E5F1;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #33475B;
+
+      .el-drawer__close-btn {
+        //top: 0;
+        right: 24px;
+        //height: 56px;
+        //width: 56px;
+        position: absolute;
+
+        .el-icon {
+          vertical-align: unset;
+        }
+      }
+    }
+
+    .el-drawer__body {
+      padding: 0;
+
+    }
+
+  }
+
+
+}
+
+
+.el-overlay-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .el-dialog {
+    //position:absolute;
+    //margin: 0;
+    //top:calc(20%);
+    //left:calc(50%);
+    //transform:translate(-50%,-50%);
+    max-width: 200%;
+    margin: 0;
+
+    .el-dialog__header {
+      margin: 0px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding:0px 58px 0px  24px;
+      border-bottom: 1px solid #E4E5F1;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #33475B;
+    }
+
+    .el-dialog__headerbtn {
+      top: 0;
+      height: 56px;
+    }
+
+    .el-dialog__body {
+      padding: 0;
+      max-height: calc(100vh - 56px - 52px);
+      overflow: auto;
+    }
+
+    .el-dialog__footer {
+      padding: 0 24px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 52px;
+      border-top: 1px solid #E4E5F1;
+
+    }
+
+
+  }
+
+}
+
+
+
+
+
+
+.el-tabs.global-tabs {
+
+  .el-tabs__nav-wrap {
+    &:after {
+      display: none;
+    }
+  }
+
+  .el-tabs__active-bar {
+    display: none;
+  }
+
+  .el-tabs__nav {
+    width: 100%;
+    display: flex;
+
+    background: #F5F8FC;
+
+    .el-tabs__item {
+      flex: 1;
+      padding: 0;
+      text-align: center;
+      font-size: 14px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #33475B;
+      transition: all .22s ease-in-out;
+
+      &.is-active {
+        color: #04A5F9,
+      }
+    }
+  }
+
+
+}
+
+
+
+
+
+
+
+// 按钮文字内容显示省略号
+.el-button.text-overflow {
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span {
+    width: 100%;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.el-link.text-overflow {
+  width: auto;
+  max-width: 100%;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  span {
+    width: 100%;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+
+
+// 去掉输入框密码填充时的 背景颜色 和 文字颜色
+input.el-input__inner:-webkit-autofill {
+  background-color: transparent;
+  background-image: none;
+  color: inherit;
+  //-webkit-text-fill-color: #fff; // 记住密码的字的颜色
+  transition: all 9999s ease-in-out 0s; // 延时渲染背景色来去除背景色
+  // caret-color: #fff; // 光标颜色
+  box-shadow: unset;
+}
+
+// ElMessageBox弹窗的背景色
+.bgc {
+  background-color: #283d54;
+  border: 1px solid rgb(46, 66, 90);
+
+  span {
+    color: #fff;
+  }
+}

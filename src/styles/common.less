@@ -1,0 +1,24 @@
+@import "./fonts/font.css";
+
+html {
+    background: #fff;
+    transition: color 300ms, background-color 300ms;
+
+    &.dark {
+        filter: contrast(100%) invert(100%);
+
+        img {
+            filter: hue-rotate(180deg);
+        }
+    }
+}
+
+
+#app {
+    font-family: PingFangSC-Regular, PingFang SC, Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: border-box;
+}
