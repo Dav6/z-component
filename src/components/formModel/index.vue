@@ -8,7 +8,7 @@
 
 
 <template>
-  <d-el-config-provider   >
+<!--  <d-el-config-provider   >-->
     <el-form :label-position="labelPosition" :model="_formList" ref="formModelRef" class="d-form-model"
              :class="formModelClassCOM"
              :label-width="labelWidth"
@@ -49,7 +49,7 @@
 
       <!--    </el-row>-->
     </el-form>
-  </d-el-config-provider>
+<!--  </d-el-config-provider>-->
 </template>
 
 <script setup>

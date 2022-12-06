@@ -25,8 +25,6 @@ console.log('components-files',files)
 
 
 const defaultOptions = {
-  isImportElementPlus:false,
-  isImportElementPlusIcon:false,
   uploadFileMethod:'',
   elConfig:{},
 }
@@ -76,22 +74,8 @@ const install = (app,options=defaultOptions)=>{
 
 
 
-  let _isImportElementPlusIcon = options?.isImportElementPlusIcon?true:false;
 
-  if(_isImportElementPlusIcon){
-    Object.keys(ElementPlusIconsVue)?.map(key=>{
-      const elementPlusIcon  = ElementPlusIconsVue[key];
-      app.component(elementPlusIcon.name, elementPlusIcon);
-    })
-  }
 
-  // let _isImportElementPlus = options?.isImportElementPlus?true:false;
-  // if(_isImportElementPlus){
-  //   app.use(ElementPlus, {
-  //     locale: zhCn,
-  //     size: "default",
-  //   });
-  // }
 
   Object.keys(files)?.map(item=>{
     // console.log(item)
@@ -123,6 +107,4 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 
-export default {
-  install,
-};
+export default install

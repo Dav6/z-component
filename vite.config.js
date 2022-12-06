@@ -28,30 +28,30 @@ export default defineConfig({
     // 使用build.cssCodeSplit: true ， 给xxx.umd.js 生成内链css
     libCss(),
     // VitePluginStyleInject(),
-    AutoImport({
-      resolvers: [
-        ElementPlusResolver(),
-        IconsResolver({
-          prefix: 'Icon',
-        }),
-      ],
-      // dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
-    }),
-    Components({
-      resolvers: [
-        ElementPlusResolver(),
-        IconsResolver({
-          enabledCollections: ['ep'],
-        })
-      ],
-      // dts: path.resolve(pathSrc, 'components.d.ts'),
+    // AutoImport({
+    //   resolvers: [
+    //     ElementPlusResolver(),
+    //     IconsResolver({
+    //       prefix: 'Icon',
+    //     }),
+    //   ],
+    //   // dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
+    // }),
+    // Components({
+    //   resolvers: [
+    //     ElementPlusResolver(),
+    //     IconsResolver({
+    //       enabledCollections: ['ep'],
+    //     })
+    //   ],
+    //   // dts: path.resolve(pathSrc, 'components.d.ts'),
+    //
+    // }),
 
-    }),
-
-    ElementPlus(),
-    Icons({
-      autoInstall: true,
-    }),
+    // ElementPlus(),
+    // Icons({
+    //   autoInstall: true,
+    // }),
   ],
   resolve: {
     alias: {
@@ -78,7 +78,7 @@ export default defineConfig({
         },
       },
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ["vue"],
+      external: ["vue","element","element-plus"],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {
