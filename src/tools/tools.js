@@ -133,15 +133,39 @@ export const randomNum = function (minNum,maxNum){
 
   let _len = arguments.length
 
+  console.log('minNum,maxNum',minNum,maxNum)
+  console.log('maxNum',typeof( maxNum * 1))
+
   switch(_len){
     case 1:
-      return parseInt(Math.random()*minNum+1,10);
+      let _forLen = parseInt(Math.random()*minNum+1,10)+10;
+      let _numList = [];
+      for(let i = 0; i < _forLen; i++){
+        // console.log('i',i)
+        _numList.push(parseInt(Math.random()*minNum+1,10));
+      }
+      // console.log(_numList);
+      let _numListIndex = parseInt(Math.random()*_numList.length+1,10)
+
+      return _numList[_numListIndex-1];
+
       break;
     case 2:
-      return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
+      let _forLen2 = parseInt(Math.random()*minNum+1,10)+10;
+      let _numList2 = [];
+      for(let i = 0; i < _forLen2; i++){
+        // console.log('i',i)
+        _numList2.push(parseInt(Math.random()*(maxNum-minNum+1)+minNum,10));
+      }
+      // console.log(_numList2);
+      let _numListIndex2 = parseInt(Math.random()*_numList2.length+1,10)
+      return _numList2[_numListIndex2-1];
+      // return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
       break;
     default:
       return 0;
       break;
   }
 }
+
+// console.log('randomNum',randomNum(5,99))

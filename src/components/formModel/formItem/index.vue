@@ -7,287 +7,127 @@
 -->
 
 <template>
-      <el-form-item
-        ref="formItemRef"
-        class="form-item"
-        :class="formItemClassCOM"
-        :label="item.name"
-        :label-width="item.labelWidth"
-        :rules="!item.isHiddenRulers ? item.rules : []"
-        :prop="[...prop,'value'].join('.')"
-      >
+  <el-form-item
+    ref="formItemRef"
+    class="form-item"
+    :class="formItemClassCOM"
+    :label="item.name"
+    :label-width="item.labelWidth"
+    :rules="!item.isHiddenRulers ? item.rules : []"
+    :prop="[...prop,'value'].join('.')"
+  >
 
-        <template v-if="!item.isText">
+    <template v-if="!item.isText">
 
-          <template v-if="item.formType == 'custom' ">
-            <!--        {{item.formType}}-->
-            <!--        {{item.slotName}}-->
-            <slot :name="item.slotName" :data="item"></slot>
+      <template v-if="item.formType == 'custom' ">
+        <!--        {{item.formType}}-->
+        <!--        {{item.slotName}}-->
+        <slot :name="item.slotName" :data="item"></slot>
 
-          </template>
-
-          <template v-if="item.formType == 'tag' ">
-            <!--        {{item.formType}}-->
-            <!--        {{item.slotName}}-->
-            <el-tag
-              class="form-tag"
-              :size="item.size"
-              :type="item.type"
-              v-html="item.value"
-            ></el-tag>
-
-          </template>
-
-          <template v-if="item.formType == 'line' ">
-            <div class="form-line"></div>
-          </template>
-          <template v-if="item.formType == 'divider'">
-
-            <el-divider
-              class="form-divider"
-              :border-style="item.borderStyle"
-              :content-position="item.contentPosition"
-            >{{item.value}}</el-divider>
-          </template>
+      </template>
 
 
-          <template v-if="item.formType == 'radio' ">
-            <el-radio-group v-model="item.value"
-                            :disabled="item.disabled"
-                            @change="(data)=>{goTo('onChange',{prop:onChangeProp,item,index,data})}"
 
-            >
-              <el-radio v-for="(oItem,oIndex) in item.options" :key="oIndex" :label="oItem.value">
-
-                {{ oItem.label }}
-              </el-radio>
-            </el-radio-group>
-          </template>
-
-          <template v-if="item.formType == 'radioButton'">
-            <el-radio-group v-model="item.value" :disabled="item.disabled"
-                            @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }">
-              <el-radio-button v-for="(oItem, oIndex) in item.options" :key="oIndex" :label="oItem.value">
-                {{ oItem.label }}
-              </el-radio-button>
-            </el-radio-group>
-          </template>
-
-          <template v-if="item.formType == 'input'">
-
-            <el-input class="form-input"
-                      :disabled="item.disabled"
-                      v-model="item.value"
-                      :clearable="item.clearable"
-                      :max="item.max" :min="item.min" :maxlength="item.maxlength" :minlength="item.minlength"
-                      :show-word-limit="item.showWordLimit" :show-password="item.showPassword"
-                      :prefix-icon="item.prefixIcon"
-                      :suffix-icon="item.suffixIcon"
-                      @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
-
-                      :placeholder="placeholderCOM(item)"/>
-          </template>
-
-          <template v-if="item.formType == 'inputNumber'">
-            <el-input-number class="form-input-number" :class="{ textAlignLeft: item.textAlign == 'left' }"
-                             :disabled="item.disabled" v-model="item.value" :min="item.min" :max="item.max"
-                             :step="item.step"
-                             :precision="item.precision" :clearable="item.clearable" :placeholder="placeholderCOM(item)"
-                             :controls="item.controls" :controls-position="item.controlsPosition"
-                             @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"/>
-
-          </template>
-
-          <template v-if="item.formType == 'textArea'">
-            <el-input :disabled="item.disabled" v-model="item.value" :maxlength="item.maxlength ? item.maxlength : 1000"
-                      :rows="item.rows ? item.rows : 5" :placeholder="placeholderCOM(item)"
-                      :show-word-limit="item.showWordLimit"
-                      type="textarea"
-                      @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"/>
-          </template>
-
-          <template v-if="item.formType == 'editor'">
+      <template v-if="item.formType == 'line' ">
+        <div class="form-line"></div>
+      </template>
 
 
-            <template v-if="isShowEditor">
-              <!--          <wang-editor-->
-              <!--            v-model="item.value"-->
-              <!--            :height="item.height"-->
-              <!--            :placeholder="item.placeholder"-->
-              <!--            :disabled="item.disabled"-->
-              <!--            :toolbarConfig="item.toolbarConfig?item.toolbarConfig:''"-->
-              <!--            @onChange="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"-->
-              <!--            @onFocus="(data) => { goTo('onFocus', { prop: onChangeProp, item, index, data }) }"-->
-              <!--            @onBlur="(data) => { goTo('onBlur', { prop: onChangeProp, item, index, data }) }"-->
+      <!--         section  Component formTypeKeyMap[item.formType] -->
+      <template v-if="formTypeKeyMap[item.formType]">
 
-              <!--          ></wang-editor>-->
-            </template>
+        <Component
+          :is="formTypeKeyMap[item.formType]"
+          :item="item"
+          @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
+        />
 
 
-          </template>
+      </template>
 
 
-          <template v-if="item.formType == 'imageVideoUpload' ">
-            <d-image-video-upload v-model="item.value" :limit="item.limit"
-                                  :size="item.size"
-                                  :uploadIcon="item.uploadIcon"
-                                  :disabled="item.disabled"
-                                  :previewTeleported="item.previewTeleported"
-                                  :accept="item.accept"
-                                  @change="(data)=>{goTo('onChange',{prop:onChangeProp,item,index,data})}"
-            ></d-image-video-upload>
-
-          </template>
-
-          <template v-if="item.formType == 'select'">
-
-            <el-select class="form-select"
-                       v-model="item.value"
-                       :value-key="item.valueKey"
-                       :disabled="item.disabled"
-                       :multiple="item.multiple"
-                       :collapse-tags="item.collapseTags"
-                       :collapse-tags-tooltip="item.collapseTagsTooltip"
-                       :placeholder="placeholderCOM(item)"
-                       :clearable="item.clearable"
-                       :filterable="item.filterable"
-                       @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }">
-              <el-option v-for="(oItem, oIndex) in item.options" :key="oIndex" :label="oItem.label"
-                         :disabled="oItem.disabled" :value="oItem.value"/>
-
-            </el-select>
-          </template>
-          <template v-if="item.formType == 'treeSelect'">
-            <el-tree-select
-              class="form-tree-select"
-              v-model="item.value"
-              :data="item?.options?.length>0?item.options:[]"
-              :props="item.props"
-              :multiple="item.multiple"
-              :collapse-tags="item.collapseTags"
-              :collapse-tags-tooltip="item.collapseTagsTooltip"
-              :treeNodeKey="item.treeNodeKey"
-              :check-on-click-node="item.checkOnClickNode"
-              :check-strictly="item.checkStrictly"
-              :render-after-expand="item.renderAfterExpand"
-              :show-checkbox="item.showCheckbox"
-              :disabled="item.disabled"
-              :filterable="item.filterable"
-              :placeholder="placeholderCOM(item)"
-
-              @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
-            >
-
-            </el-tree-select>
-          </template>
+      <template v-if="item.formType == 'editor'">
 
 
-          <template v-if="item.formType == 'cascader'">
+        <template v-if="isShowEditor">
+          <!--          <wang-editor-->
+          <!--            v-model="item.value"-->
+          <!--            :height="item.height"-->
+          <!--            :placeholder="item.placeholder"-->
+          <!--            :disabled="item.disabled"-->
+          <!--            :toolbarConfig="item.toolbarConfig?item.toolbarConfig:''"-->
+          <!--            @onChange="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"-->
+          <!--            @onFocus="(data) => { goTo('onFocus', { prop: onChangeProp, item, index, data }) }"-->
+          <!--            @onBlur="(data) => { goTo('onBlur', { prop: onChangeProp, item, index, data }) }"-->
 
-            <el-cascader class="form-cascader" style="width: 100%;" v-model="item.value"
-                         :options="item.options" :clearable="item.clearable"
-                         :placeholder="placeholderCOM(item)"
-                         :disabled="item.disabled"
-                         :props="item.props"/>
-
-          </template>
-
-
-          <template v-if="item.formType == 'timePicker'">
-
-            <el-time-picker
-              :disabled="item.disabled" class="form-time-picker" v-model="item.value"
-              :clearable="item.clearable" :placeholder="placeholderCOM(item)"
-              :format="item.format ? item.format : 'HH:mm:ss'"
-              :value-format="item.valueFormat ? item.valueFormat : 'HH:mm:ss'"
-
-
-              @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"/>
-          </template>
-
-          <template v-if="item.formType == 'datePicker'">
-            <el-date-picker
-              style="box-sizing: border-box " class="form-date-picker" :clearable="item.clearable"
-              v-model="item.value" :type="item.dateType"
-              :disabled="item.disabled"
-              :range-separator="item.rangeSeparator ? item.rangeSeparator : '-'"
-              :format="item.format ? item.format : 'YYYY-MM-DD HH:mm:ss'"
-              :value-format="item.valueFormat ? item.valueFormat : 'YYYY-MM-DD HH:mm:ss'"
-              :shortcuts="item.shortcuts ? item.shortcuts : getShortcut(item.dateType)"
-              :placeholder="placeholderCOM(item)"
-              :start-placeholder="item.startPlaceholder" :end-placeholder="item.endPlaceholder"
-              :disabled-date="(date) => dateChangeDisabled.disabledDate(date, item)"
-              @calendar-change="(date) => dateChangeDisabled.calendarChange(date)"
-              @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"/>
-
-          </template>
-
-
+          <!--          ></wang-editor>-->
         </template>
 
+
+      </template>
+
+
+
+    </template>
+
+    <template v-else>
+      <template v-if="item.formType == 'imageVideoUpload'">
+        <Component
+          :is="formTypeKeyMap[item.formType]"
+          :item="item"
+          @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
+        />
+
+
+      </template>
+
+
+      <template v-else-if="item.formType == 'select'">
+        {{ selectTextValueCOM(item) }}
+      </template>
+
+
+      <template v-else-if="item.formType == 'datePicker'">
+        <template v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
+          {{ item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : '' }}
+        </template>
         <template v-else>
-          <template v-if="item.formType == 'imageVideoUpload'">
-            <d-image-video-upload
-              v-model="item.value" :limit="item.limit"
-              :size="item.size"
-              :uploadIcon="item.uploadIcon"
-              :disabled="item.disabled"
-              :previewTeleported="item.previewTeleported"
-
-              :previewMode="item.isText"
-              :accept="item.accept"
-              @change="(data)=>{goTo('onChange',{prop:onChangeProp,item,index,data})}"
-            ></d-image-video-upload>
-
-          </template>
-
-
-          <template v-else-if="item.formType == 'select'">
-            {{ selectTextValueCOM(item) }}
-          </template>
-
-
-          <template v-else-if="item.formType == 'datePicker'">
-            <template v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
-              {{ item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : '' }}
-            </template>
-            <template v-else>
-              {{ item.value }}
-            </template>
-          </template>
-
-          <template v-else-if="item.formType == 'custom' ">
-            <!--        {{item.formType}}-->
-            <!--        {{item.slotName}}-->
-            <slot :name="item.slotName" :data="item"></slot>
-
-          </template>
-
-
-          <template v-else>
-            {{ item.value }}
-          </template>
+          {{ item.value }}
         </template>
+      </template>
+
+      <template v-else-if="item.formType == 'custom' ">
+        <!--        {{item.formType}}-->
+        <!--        {{item.slotName}}-->
+        <slot :name="item.slotName" :data="item"></slot>
+
+      </template>
 
 
-        <!--    <template v-if="item.isShowFormItemButton">-->
-        <!--      <el-button style="margin-left:10px" :type="item.formItemButtonType" @click="goTo('onFormItemButtonClick',{item,index})">{{ item.formItemButtonText }}</el-button>-->
-        <!--    </template>-->
+      <template v-else>
+        {{ item.value }}
+      </template>
+    </template>
 
 
-        <template v-for="(bItem, bIndex) in item.buttonList" :key="index">
-          <el-button
-            class="form-item-button"
-            :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon }"
-            :type="bItem.type"
-            :text="bItem.isText" :icon="bItem.icon" :color="bItem.color"
-            @click="goTo('onFormItemButtonClick', { propPath: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
-            {{ bItem.name }}
-          </el-button>
-        </template>
+    <!--    <template v-if="item.isShowFormItemButton">-->
+    <!--      <el-button style="margin-left:10px" :type="item.formItemButtonType" @click="goTo('onFormItemButtonClick',{item,index})">{{ item.formItemButtonText }}</el-button>-->
+    <!--    </template>-->
 
 
-      </el-form-item>
+    <template v-for="(bItem, bIndex) in item.buttonList" :key="index">
+      <el-button
+        class="form-item-button"
+        :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon }"
+        :type="bItem.type"
+        :text="bItem.isText" :icon="bItem.icon" :color="bItem.color"
+        @click="goTo('onFormItemButtonClick', { propPath: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
+        {{ bItem.name }}
+      </el-button>
+    </template>
+
+
+  </el-form-item>
 </template>
 
 <script setup>
@@ -333,8 +173,8 @@ const props = defineProps({
   item: {
     type: [Object],
     default: {
-      ownSpan:12,
-      childrenSpan:12,
+      ownSpan: 12,
+      childrenSpan: 12,
       clearable: false,
       isText: false,
       isHiddenRulers: false,
@@ -362,6 +202,22 @@ const props = defineProps({
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onFormItemButtonClick', 'onChange']);
+// section formTypeKeyMap
+const formTypeKeyMap = ref({
+  input: 'd-el-input',
+  inputNumber: 'd-el-input-number',
+  radio: 'd-el-radio',
+  select: 'd-el-select',
+  treeSelect: 'd-el-tree-select',
+  cascader: 'd-el-cascader',
+  timePicker: 'd-el-time-picker',
+  datePicker: 'd-el-date-picker',
+  imageVideoUpload:'d-el-image-video-upload',
+  tag:'d-el-tag',
+  divider:'d-el-divider',
+})
+
+
 const formItemRef = ref()
 const placeholderCOM = computed(() => {
   return (data) => {
@@ -422,120 +278,10 @@ const formItemClassCOM = computed(() => {
 });
 
 
-const dateChangeDisabled = computed(() => {
-  let currentValue = [];
-  return {
-    disabledDate(data, item){
-      // console.log(data);
-      // item.disabledDate
-      if ((typeof item?.disabledDate) == 'function') {
-        return item?.disabledDate(data, currentValue);
-      }
-    },
-    calendarChange(date){
-      // console.log(date);
-      currentValue = date;
-    }
-
-  }
-})
-
-
 // const test = (data,item)=>{
 //   console.log(data,item);
 // }
 
-
-const shortcut = [
-
-
-  {
-    text: '一周前',
-    value: () => {
-      // const date = new Date()
-      // date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-      return dayjs().subtract(1, 'week')
-    },
-  },
-  {
-    text: '昨天',
-    value: () => {
-      // const date = new Date()
-      // date.setTime(date.getTime() - 3600 * 1000 * 24)
-      return dayjs().subtract(1, 'day')
-
-    },
-  },
-  {
-    text: '今天',
-    value: dayjs(),
-  },
-  {
-    text: '明天',
-    value: () => {
-      // const date = new Date()
-      // date.setTime(date.getTime() + 3600 * 1000 * 24 * 1)
-      return dayjs().add(1, 'day')
-    },
-  },
-  {
-    text: '一周后',
-    value: () => {
-      // const date = new Date()
-      // date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
-      return dayjs().add(1, 'week')
-    },
-  },
-  {
-    text: '一年后',
-    value: () => {
-      // const date = new Date()
-      // date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
-
-      return dayjs().add(1, 'year')
-    },
-  },
-]
-
-const shortcuts = [
-
-  {
-    text: '最近一周',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-      return [start, end]
-    },
-  },
-  {
-    text: '最近一个月',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-      return [start, end]
-    },
-  },
-  {
-    text: '最近三个月',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-      return [start, end]
-    },
-  },
-]
-
-const getShortcut = (type) => {
-  // <!--   year/month/date/datetime/ week/datetimerange/daterange	-->
-  let _shortcut = shortcut;
-  if (type == 'datetimerange' || type == 'daterange') {
-    _shortcut = shortcuts
-  }
-  return _shortcut;
-}
 
 const isShowEditor = ref(true)
 
@@ -569,6 +315,7 @@ watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig]
 
 
 }, {deep: true, immediate: false})
+
 
 //section goTo
 const goTo = (key, data) => {
@@ -691,29 +438,27 @@ init();
   &.el-form-item.is-error {
     :deep(.el-form-item__content) {
 
-        //align-items:flex-start;
-        textarea::placeholder {
+      //align-items:flex-start;
+      textarea::placeholder {
+        color: var(--el-color-danger);
+        opacity: 0.6;
+
+      }
+
+      input::placeholder {
+        color: var(--el-color-danger);
+        opacity: 0.6;
+      }
+
+      .el-input__wrapper {
+        //box-shadow: var(--el-color-danger);
+        box-shadow: 0 0 0 1px var(--el-color-danger) inset;
+
+        .el-input__validateIcon, .el-select__icon {
           color: var(--el-color-danger);
-          opacity: 0.6;
-
         }
 
-        input::placeholder {
-          color: var(--el-color-danger);
-          opacity: 0.6;
-        }
-
-        .el-input__wrapper {
-          //box-shadow: var(--el-color-danger);
-          box-shadow: 0 0 0 1px var(--el-color-danger) inset;
-
-          .el-input__validateIcon, .el-select__icon {
-            color: var(--el-color-danger);
-          }
-
-        }
-
-
+      }
 
 
     }
@@ -744,12 +489,12 @@ init();
   }
 
 
-
-  .form-divider{
+  .form-divider {
     width: auto;
     flex: 1;
-    &.el-divider--horizontal{
-      margin:12px 0;
+
+    &.el-divider--horizontal {
+      margin: 12px 0;
     }
   }
 
@@ -783,7 +528,7 @@ init();
     flex: 1;
   }
 
-  .form-cascader {
+  :deep(.form-cascader) {
     width: auto;
     flex: 1;
   }

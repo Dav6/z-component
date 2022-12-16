@@ -31,14 +31,15 @@ npm run build
 ```
 
 # 使用方式
-
 ### 组件安装方式
-
+1. package.json 加入 
 ```
 "dependencies": { 
     "zr-component": "git+http://192.168.10.100:8070/develops/zr-component.git"
 },
 ```
+2. npm install zr-component --force  
+
 
 ### 组件使用之前 先安装[element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html)
  

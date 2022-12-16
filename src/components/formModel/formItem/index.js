@@ -6,23 +6,8 @@
  @description： do.....
  */
 
-const files = import.meta.glob('./*.vue',{eager:true} )
-// console.log('files-c',files)
-let module = {};
-Object.keys(files)?.map(item=>{
-  let _module = files[item]?.default
-  let _name = _module?.name;
-  if(_name){
-    module =  _module
-  }
-})
-// import index from "./index.vue"
-// console.log(module)
-// console.log(index);
-let _name = module?.name;
+import exportFile from "@/components/exportFile";
 
-module.install = Vue => Vue.component(_name, module);
-//
-// export default MoorSwitch;
-
-export default module
+import file from "./index.vue"
+const module = exportFile(file);
+export default module;

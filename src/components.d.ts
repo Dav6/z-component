@@ -7,7 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    DElImage: typeof import('./components/eles/d-el-image.vue')['default']
+    DElImage: typeof import('./components/eles/d-el-image/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCol: typeof import('element-plus/es')['ElCol']
@@ -32,6 +32,6 @@ declare module '@vue/runtime-core' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     FormItem: typeof import('./components/formModel/formItem/index.vue')['default']
     FormModel: typeof import('./components/formModel/index.vue')['default']
-    ImageVideoUpload: typeof import('./components/upload/index.vue')['default']
+    ImageVideoUpload: typeof import('./components/upload/d-el-image-video-upload/index.vue')['default']
   }
 }
