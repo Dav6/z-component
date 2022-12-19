@@ -16,11 +16,12 @@
 -->
 
 <template>
-  <el-image :hide-on-click-modal="true" :fit="fit" :src="src" :lazy="lazy"
-            :style="{ width: widthCOM, height: heightCOM, borderRadius: borderRadiusCOM }"
-            :preview-src-list="previewList"
-            :initial-index="initialIndex"
-            :close-on-press-escape="closeOnPressEscapeCOM" :z-index="zIndex" :preview-teleported="previewTeleported">
+  <el-image
+    :hide-on-click-modal="true" :fit="fit" :src="src" :lazy="lazy"
+    :style="{ width: widthCOM, height: heightCOM, borderRadius: borderRadiusCOM }"
+    :preview-src-list="previewList"
+    :initial-index="initialIndex"
+    :close-on-press-escape="closeOnPressEscapeCOM" :z-index="zIndex" :preview-teleported="previewTeleported">
     <template #error>
       <div class="mine-el-image-error D-abso D-abso-XY-center D-white-space-nowrap">{{ errorTxtCOM(src) }}</div>
     </template>
@@ -49,8 +50,8 @@ const props = defineProps({
     type: [String],
     default: 'cover'
   },
-  initialIndex:{
-    type:[Number],
+  initialIndex: {
+    type: [Number],
   },
   previewList: {
     type: [Array]

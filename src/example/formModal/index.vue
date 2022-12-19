@@ -113,7 +113,7 @@ const formList = ref([
 
 
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
 
   },
@@ -130,7 +130,7 @@ const formList = ref([
     ],
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -146,7 +146,7 @@ const formList = ref([
     marginBottom: "",
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -159,7 +159,7 @@ const formList = ref([
     rules: [{required: true, message: "请输入数字", trigger: "blur"}],
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -191,7 +191,7 @@ const formList = ref([
     ]
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -201,7 +201,7 @@ const formList = ref([
     placeholder: "请选择选项",
     disabled: false,
     formType: "radio",
-    isRadioBorder:true,
+    isRadioBorder: true,
     span: 12,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
     options: [
@@ -224,7 +224,7 @@ const formList = ref([
     ]
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -234,7 +234,7 @@ const formList = ref([
     placeholder: "请选择选项",
     disabled: false,
     formType: "radio",
-    isRadioButton:true,
+    isRadioButton: true,
     span: 12,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
     options: [
@@ -257,7 +257,7 @@ const formList = ref([
     ]
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -291,7 +291,7 @@ const formList = ref([
     ]
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -328,7 +328,7 @@ const formList = ref([
   },
 
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -364,7 +364,7 @@ const formList = ref([
     ]
   },
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -384,11 +384,11 @@ const formList = ref([
       {
         label: "选项1",
         value: 1,
-        children:[
+        children: [
           {
             label: "选项1",
             value: 1.1,
-            children:[]
+            children: []
           },
           {
             label: "选项2",
@@ -420,7 +420,7 @@ const formList = ref([
   },
 
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
   },
   {
@@ -435,17 +435,17 @@ const formList = ref([
     multiple: true,
     collapseTags: true,
     collapseTagsTooltip: true,
-    showCheckbox:true,
+    showCheckbox: true,
     clearable: true,
     options: [
       {
         label: "选项1",
         value: 1,
-        children:[
+        children: [
           {
             label: "选项1",
             value: 1.1,
-            children:[]
+            children: []
           },
           {
             label: "选项2",
@@ -476,8 +476,8 @@ const formList = ref([
     ]
   },
   {
-    formType: "line",
-    span:24,
+    formType: "divider",
+    span: 24,
   },
   {
     name: "选项",
@@ -493,11 +493,11 @@ const formList = ref([
       {
         label: "选项1",
         value: 1,
-        children:[
+        children: [
           {
             label: "选项1",
             value: 1.1,
-            children:[]
+            children: []
           },
           {
             label: "选项2",
@@ -528,16 +528,16 @@ const formList = ref([
     ]
 
   },
-  {formType: "line",span:24},
+  {formType: "divider", span: 24},
   {
     name: "时间（time)",
     key: "timePicker",
     formType: "timePicker",
     placeholder: "请选择",
     span: 12,
-    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
   },
-  {formType: "line",span:24},
+  {formType: "divider", span: 24},
 
   {
     name: "时间(date)",
@@ -557,7 +557,7 @@ const formList = ref([
       return new Date(date).getTime() < _nowTime;
     }
   },
-  {formType: "line",span:24},
+  {formType: "divider", span: 24},
 
   {
     name: "时间(date)",
@@ -585,16 +585,16 @@ const formList = ref([
     formType: "datePicker",
     type: "datetimerange",
     span: 12,
-    startPlaceholder:"开始时间",
-    endPlaceholder:"结束时间",
-    labelWidth:"5em",
-    isClearable:true,
-    disabledDate:(date,value)=>{
+    startPlaceholder: "开始时间",
+    endPlaceholder: "结束时间",
+    labelWidth: "5em",
+    isClearable: true,
+    disabledDate: (date, value) => {
       // console.log(date);
       // console.log(value);
 
       let daysTime = 12 * 24 * 60 * 60 * 1000
-      if(value?.length > 0 && value[0] ){
+      if (value?.length > 0 && value[0]) {
 
         // console.log('选项',dayjs(dayjs(date).format('YYYY-MM-DD')).valueOf())
         // console.log('当前',dayjs(dayjs(value[0]).format('YYYY-MM-DD')).valueOf())
@@ -602,10 +602,10 @@ const formList = ref([
         let itemData = dayjs(dayjs(date).format('YYYY-MM-DD')).valueOf();
         let currentData = dayjs(dayjs(value[0]).format('YYYY-MM-DD')).valueOf();
 
-        if(!value[1]){
+        if (!value[1]) {
           // 选项里的的时间戳 和 第一个选中的值 比较
           // 只能选 12天以内的
-          return Math.abs((itemData - currentData)) > daysTime ;
+          return Math.abs((itemData - currentData)) > daysTime;
         }
 
       }
@@ -614,7 +614,7 @@ const formList = ref([
   },
   {
     labelWidth: '0',
-    formType: "line",
+    formType: "divider",
   },
   {
     formType: "tag",
@@ -624,7 +624,7 @@ const formList = ref([
 
   {
     formType: "tag",
-    isHtml:true,
+    isHtml: true,
     value: `1.test
             2.123123
     `
@@ -634,41 +634,30 @@ const formList = ref([
   {
     labelWidth: '0',
     formType: "divider",
-    value:"",
-    marginBottom:0,
+    value: "",
+    marginBottom: 0,
   },
-
-
-
-
-
-
-
-
-
-
-
 
 
   {
     labelWidth: '0',
     formType: "divider",
-    value:"复杂嵌套1"
+    value: "复杂嵌套1"
   },
   {
     name: "层级1", key: "layer1", value: "", placeholder: "层级1", disabled: false, formType: "",
     rules: [{required: true, message: "", trigger: "blur"}],
     span: 24,
-    ownSpan:24,
-    width:"110",
-    childrenSpan:24,
+    ownSpan: 24,
+    width: "110",
+    childrenSpan: 24,
     children: [
       {
         labelWidth: '0em',
         name: "", key: "layer11", value: "", placeholder: "层级1-1", disabled: false, formType: "", span: 24,
         // rules: [{required: true, message: "请输入", trigger: "blur"}],
-        ownSpan:0,
-        childrenSpan:24,
+        ownSpan: 0,
+        childrenSpan: 24,
         children: [
 
           {
@@ -683,7 +672,7 @@ const formList = ref([
             rules: [{required: true, message: "请输入", trigger: "blur"}],
           },
           {
-            marginBottom:0,
+            marginBottom: 0,
           },
           {
             labelWidth: '8em',
@@ -703,8 +692,8 @@ const formList = ref([
         // width: "600",
         name: "层级1-2", key: "layer12", value: "", placeholder: "层级1-2", disabled: false, formType: "input", span: 12,
         rules: [{required: true, message: "请输入", trigger: "blur"}],
-        childrenSpan:24,
-        isChildrenBr:true,
+        childrenSpan: 24,
+        isChildrenBr: true,
         children: [
           {
             labelWidth: '8em',
@@ -729,7 +718,7 @@ const formList = ref([
             rules: [{required: true, message: "请输入", trigger: "blur"}],
           },
           {
-            marginBottom:0,
+            marginBottom: 0,
           },
           {
             labelWidth: '8em',
@@ -751,7 +740,7 @@ const formList = ref([
   {
     labelWidth: '0',
     formType: "divider",
-    value:"复杂嵌套2"
+    value: "复杂嵌套2"
   },
   {
     name: "层级1", key: "layer1", value: "", placeholder: "层级1", disabled: false, formType: "input", span: 12,
@@ -760,12 +749,12 @@ const formList = ref([
 
       {
         labelWidth: '8em',
-        value:"1123",
-        name: "层级1-1", key: "layer11",  placeholder: "层级1-1", disabled: false, formType: "input",
+        value: "1123",
+        name: "层级1-1", key: "layer11", placeholder: "层级1-1", disabled: false, formType: "input",
         span: 12,
-        ownSpan:12,
-        childrenSpan:18,
-        isChildrenBr:true,
+        ownSpan: 12,
+        childrenSpan: 18,
+        isChildrenBr: true,
         // width:800,
         rules: [{required: true, message: "请输入", trigger: "blur"}],
         children: [
@@ -806,7 +795,7 @@ const formList = ref([
             disabled: false,
             formType: "select",
             span: 24,
-            width:200,
+            width: 200,
 
             rules: [{required: true, message: "请选择层级1-1-3", trigger: "blur"}],
             multiple: true,
@@ -898,7 +887,7 @@ const formList = ref([
 
 
   {
-    formType: "line",
+    formType: "divider",
     span: 24,
 
   },
@@ -987,7 +976,7 @@ const formList = ref([
 
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {
-  console.log('example-formModel',key, data);
+  console.log('example-formModel', key, data);
   if (key == 'cancel') {
     addEditFormRef.value.formModelRef.clearValidate();
   }

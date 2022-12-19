@@ -77,7 +77,7 @@
           :item="item"
           @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
         />
-
+        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />
 
       </template>
 

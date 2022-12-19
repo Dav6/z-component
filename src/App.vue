@@ -13,7 +13,8 @@
         <template v-for="(item,index) in list" :key="index">
           <el-tab-pane  class="example-tab-pane"  :label="item.name"  >
 
-            <component :is="item.component" />
+            <Component :is="item.component" />
+
           </el-tab-pane>
 
         </template>

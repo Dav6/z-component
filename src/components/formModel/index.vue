@@ -8,48 +8,49 @@
 
 
 <template>
-<!--  <d-el-config-provider   >-->
-    <el-form :label-position="labelPosition" :model="_formList" ref="formModelRef" class="d-form-model"
-             :class="formModelClassCOM"
-             :label-width="labelWidth"
-             :status-icon="statusIcon"
-             @submit.prevent="(data)=>goTo('submit',data)"
-             :scroll-to-error="scrollToError"
+  <!--  <d-el-config-provider   >-->
+  <el-form
+    :label-position="labelPosition" :model="_formList" ref="formModelRef" class="d-form-model"
+    :class="formModelClassCOM"
+    :label-width="labelWidth"
+    :status-icon="statusIcon"
+    @submit.prevent="(data)=>goTo('submit',data)"
+    :scroll-to-error="scrollToError"
 
+  >
+    <d-el-form-list
+      :formModelRef="formModelRef"
+      :formList="_formList"
+      :buttonList="buttonList"
+      @onChange="(data) => goTo('onChange', data)"
+      @submit="(data)=>goTo('submit', {...data})"
     >
-      <d-el-form-list
-        :formModelRef="formModelRef"
-        :formList="_formList"
-        :buttonList="buttonList"
-        @onChange="(data) => goTo('onChange', data)"
-        @submit="(data)=>goTo('submit', {...data})"
-      >
 
-        <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
-          <slot :name="item.name" :data="data.data"></slot>
-        </template>
+      <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
+        <slot :name="item.name" :data="data.data"></slot>
+      </template>
 
-      </d-el-form-list>
+    </d-el-form-list>
 
-      <!--    <el-row :gutter="20">-->
-      <!--      <template v-for="(item, index) in _formModel" :key="index">-->
-      <!--        <template v-if="!item.isHidden" :key="Symbol()">-->
-      <!--          <el-col :span="item.span" :class="{ 'fixedWidth': item.width >= 0 }" :style="{ width: item.width + 'px' }">-->
-      <!--            <d-el-form-item :formModelRef="formModelRef" :item="item" :index="index" :prop="[index]" :buttonProp="[index]"-->
-      <!--                       :onChangeProp="[index]" @onChange="(data) => goTo('onChange', data)"-->
-      <!--                       @onFormItemButtonClick="(data) => { goTo(data.key, data) }">-->
-      <!--              <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">-->
-      <!--                <slot :name="item.name" :data="data.data"></slot>-->
-      <!--              </template>-->
-      <!--            </d-el-form-item>-->
-      <!--          </el-col>-->
-      <!--        </template>-->
-      <!--      </template>-->
+    <!--    <el-row :gutter="20">-->
+    <!--      <template v-for="(item, index) in _formModel" :key="index">-->
+    <!--        <template v-if="!item.isHidden" :key="Symbol()">-->
+    <!--          <el-col :span="item.span" :class="{ 'fixedWidth': item.width >= 0 }" :style="{ width: item.width + 'px' }">-->
+    <!--            <d-el-form-item :formModelRef="formModelRef" :item="item" :index="index" :prop="[index]" :buttonProp="[index]"-->
+    <!--                       :onChangeProp="[index]" @onChange="(data) => goTo('onChange', data)"-->
+    <!--                       @onFormItemButtonClick="(data) => { goTo(data.key, data) }">-->
+    <!--              <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">-->
+    <!--                <slot :name="item.name" :data="data.data"></slot>-->
+    <!--              </template>-->
+    <!--            </d-el-form-item>-->
+    <!--          </el-col>-->
+    <!--        </template>-->
+    <!--      </template>-->
 
 
-      <!--    </el-row>-->
-    </el-form>
-<!--  </d-el-config-provider>-->
+    <!--    </el-row>-->
+  </el-form>
+  <!--  </d-el-config-provider>-->
 </template>
 
 <script setup>
@@ -60,10 +61,6 @@ defineOptions({
 });
 import {ref, reactive, computed, watch, nextTick, useSlots, useAttrs, onMounted, onBeforeUpdate, inject} from "vue"
 // import "dayjs/locale/zh-cn";
-
-
-
-
 
 
 let slots = useSlots()
@@ -98,9 +95,9 @@ const props = defineProps({
   statusIcon: {
     type: [Boolean]
   },
-  scrollToError:{
-    type:[Boolean],
-    default:false,
+  scrollToError: {
+    type: [Boolean],
+    default: false,
   },
   labelWidth: {
     type: [String, Number],
@@ -109,7 +106,7 @@ const props = defineProps({
     }
   },
   labelPosition: {
-    type: [String,Boolean,'right','top','left'],
+    type: [String, Boolean, 'right', 'top', 'left'],
     default: 'right'
   },
   isHiddenItemMarginBottom: {
@@ -265,19 +262,19 @@ watch(
 
 // section goTo
 const goTo = (key, data) => {
-  console.log('formModel',key, data);
+  console.log('formModel', key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {...data})
   }
   if (key == 'onChange') {
 
-    let _prop = [...data.prop,'value'].join('.');
-    console.log('_prop',_prop);
-    setTimeout(()=>{
-      formModelRef.value?.validateField(_prop, ()=>null)
+    let _prop = [...data.prop, 'value'].join('.');
+    console.log('_prop', _prop);
+    setTimeout(() => {
+      formModelRef.value?.validateField(_prop, () => null)
 
-    },  300)
+    }, 300)
 
 
     emits('onChange', {...data})

@@ -78,12 +78,13 @@ const install = (app,options=defaultOptions)=>{
 
 
   Object.keys(files)?.map(item=>{
-    // console.log(item)
     //console.log(files[item].default)
     //
     // console.log( 'name',files[item]?.default?.name)
     let _module = files[item]?.default
     let _name = _module?.name;
+    console.log('component',_name);
+
     if(_name){
       let _component = _module
       app.component(_name, _component)
