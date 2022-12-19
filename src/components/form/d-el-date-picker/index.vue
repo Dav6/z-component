@@ -18,6 +18,7 @@
     :placeholder="placeholderCOM(item)"
     :start-placeholder="item.startPlaceholder" :end-placeholder="item.endPlaceholder"
     :disabled-date="(date) => dateChangeDisabled.disabledDate(date, item)"
+    :teleported="item.teleported"
     @calendar-change="(date) => dateChangeDisabled.calendarChange(date)"
   />
 
