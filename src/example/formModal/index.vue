@@ -8,7 +8,7 @@
 
 <template>
   <div class="form-model">
-    <d-el-form-model
+    <d-form-model
 
       ref="addEditFormRef"
       :statusIcon="true"
@@ -46,7 +46,7 @@
       </template>
 
 
-    </d-el-form-model>
+    </d-form-model>
 
     <el-affix position="bottom" :offset="30">
       <el-button @click="goTo('cancel')">清空</el-button>

@@ -56,7 +56,7 @@
 <script setup>
 
 defineOptions({
-  name: 'd-el-form-model',
+  name: 'd-form-model',
   isExposed: false
 });
 import {ref, reactive, computed, watch, nextTick, useSlots, useAttrs, onMounted, onBeforeUpdate, inject} from "vue"

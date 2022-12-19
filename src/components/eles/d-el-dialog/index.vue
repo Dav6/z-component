@@ -11,8 +11,6 @@
   <Component
     :is="'el-dialog'"
     v-bind="$props"
-    :append-to-body="true"
-
   >
     <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
       <slot :name="item.name" :data="data.data"></slot>
@@ -21,7 +19,7 @@
 
 </template>
 
-<script setup>
+<script setup >
 defineOptions({
   name: 'd-el-dialog',
 });

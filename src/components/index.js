@@ -18,7 +18,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // const
 
 import * as injectKeys from "@/injection/keys"
-console.log('injectKeys',injectKeys)
+// console.log('injectKeys',injectKeys)
 
 const files = import.meta.glob(['@/components/**/index.js'],{eager:true} )
 console.log('components-files',files)
@@ -38,7 +38,7 @@ const install = (app,options=defaultOptions)=>{
 
   // 默认注册所有 injectKeys
   Object.keys(injectKeys)?.map(key=>{
-    console.log(key)
+    // console.log(key)
 
 
     if(key == 'EL_CONFIG'){
@@ -83,7 +83,7 @@ const install = (app,options=defaultOptions)=>{
     // console.log( 'name',files[item]?.default?.name)
     let _module = files[item]?.default
     let _name = _module?.name;
-    console.log('component',_name);
+    // console.log('component',_name);
 
     if(_name){
       let _component = _module
@@ -98,7 +98,7 @@ const install = (app,options=defaultOptions)=>{
 
   // app.provide(/* 注入名 */ 'message', /* 值 */ ()=>{return '123'})
 
-  console.log(app)
+  // console.log(app)
 
 
 
