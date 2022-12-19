@@ -110,14 +110,10 @@ const formList = ref([
     previewTeleported: true,
     rules: [{required: true, message: "请上传图片", trigger: "blur"}],
   },
-
-
   {
     formType: "divider",
     span: 24,
-
   },
-
   {
     name: "名称", key: "name", value: "", formType: "input", placeholder: "请输入", disabled: false, span: 12,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
