@@ -8,8 +8,11 @@
 
 <template>
   <el-time-picker
-    :disabled="item.disabled" class="form-time-picker" v-model="item.value"
-    :clearable="item.clearable" :placeholder="placeholderCOM(item)"
+    class="form-time-picker"
+    v-model="item.value"
+    :disabled="item.disabled"
+    :clearable="item.clearable"
+    :placeholder="placeholderCOM(item)"
     :format="item.format ? item.format : 'HH:mm:ss'"
     :teleported="item.teleported"
     :value-format="item.valueFormat ? item.valueFormat : 'HH:mm:ss'"

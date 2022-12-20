@@ -18,7 +18,7 @@
     :placeholder="placeholderCOM(item)"
     :start-placeholder="item.startPlaceholder" :end-placeholder="item.endPlaceholder"
     :disabled-date="(date) => dateChangeDisabled.disabledDate(date, item)"
-    :teleported="item.teleported"
+    :teleported="teleportedCOM"
     @calendar-change="(date) => dateChangeDisabled.calendarChange(date)"
   />
 
@@ -47,7 +47,6 @@ const emits = defineEmits([]);
 
 const placeholderCOM = computed(() => {
   return (data) => {
-    // console.log('placeholderCOM',data);
     if (data.placeholder) return data.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
@@ -56,6 +55,22 @@ const placeholderCOM = computed(() => {
     return _placeholder;
   }
 })
+const teleportedCOM = computed(()=>{
+  let _item = props.item;
+  console.log('teleportedCOM',_item);
+  console.log(_item.teleported == false)
+
+  let _teleported = true;
+
+  if(_item.teleported === false){
+    _teleported = false;
+  }
+
+
+
+  return _teleported;
+})
+
 
 
 const dateChangeDisabled = computed(() => {
@@ -166,6 +181,7 @@ const shortcuts = [
 
 
 const getShortcut = (type) => {
+
   // <!--   year/month/date/datetime/ week/datetimerange/daterange	-->
   let _shortcut = shortcut;
   if (type == 'datetimerange' || type == 'daterange') {
