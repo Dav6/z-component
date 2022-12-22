@@ -38,7 +38,10 @@ npm run build
     "zr-component": "git+http://192.168.10.100:8070/develops/zr-component.git"
 },
 ```
-2. npm install zr-component --force  
+2. 插件安装 
+```
+npm install zr-component --force  
+```
 
 
 ### 组件使用之前 先安装[element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html)
