@@ -168,4 +168,7 @@ export const randomNum = function (minNum,maxNum){
   }
 }
 
+
+
+
 // console.log('randomNum',randomNum(5,99))

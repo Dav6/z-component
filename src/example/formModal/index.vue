@@ -589,6 +589,8 @@ const formList = ref([
     endPlaceholder: "结束时间",
     labelWidth: "5em",
     isClearable: true,
+    rules: [{required: true, message: "请选择开始时间", trigger: "blur"}],
+
     disabledDate: (date, value) => {
       // console.log(date);
       // console.log(value);
@@ -898,7 +900,7 @@ const formList = ref([
     value: 123123,
     placeholder: "请输入内容",
     formType: "custom",
-    slotName: "test",
+    customName: "test",
     span: 24,
   },
   {
@@ -907,7 +909,7 @@ const formList = ref([
     value: 123123,
     placeholder: "请输入内容",
     formType: "custom",
-    slotName: "test1",
+    customName: "test1",
     span: 12,
   },
   {
@@ -967,7 +969,7 @@ const formList = ref([
     value: 123123,
     placeholder: "请输入内容",
     formType: "custom",
-    slotName: "test",
+    customName: "test",
     span: 24,
   },
 

@@ -21,8 +21,8 @@
 
       <template v-if="item.formType == 'custom' ">
         <!--        {{item.formType}}-->
-        <!--        {{item.slotName}}-->
-        <slot :name="item.slotName" :data="item"></slot>
+        <!--        {{item.customName}}-->
+        <slot :name="item.customName" :data="item"></slot>
 
       </template>
 
@@ -98,8 +98,8 @@
 
       <template v-else-if="item.formType == 'custom' ">
         <!--        {{item.formType}}-->
-        <!--        {{item.slotName}}-->
-        <slot :name="item.slotName" :data="item"></slot>
+        <!--        {{item.customName}}-->
+        <slot :name="item.customName" :data="item"></slot>
 
       </template>
 
@@ -179,6 +179,7 @@ const props = defineProps({
       isText: false,
       isHiddenRulers: false,
       marginBottom: "",
+      customName:"",
     },
   },
   index: {
@@ -572,7 +573,7 @@ init();
     &.el-date-editor.el-input__wrapper:hover {
       //box-shadow-color:var(--el-border-color);
       //--el-input-border-color: ;
-      box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset
+      //box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset
     }
   }
 

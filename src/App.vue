@@ -9,9 +9,9 @@
 
 <template>
     <div class="App">
-      <el-tabs :tab-position="tabPosition"  class="example-tabs">
+      <el-tabs :tab-position="tabPosition" v-model="tabCurrent"  class="example-tabs"  @tab-change="(data)=>goTo('tabChange',data)">
         <template v-for="(item,index) in list" :key="index">
-          <el-tab-pane  class="example-tab-pane"  :label="item.name"  >
+          <el-tab-pane  class="example-tab-pane"  :label="item.name"  :name="index" >
 
             <Component :is="item.component" />
 
@@ -27,10 +27,23 @@ import {ref,reactive,markRaw,computed,watch} from  "vue"
 
 import dayjs from 'dayjs'
 
+import {getWindowLocation} from "@/tools/tools"
+
 const files = import.meta.glob('./example/**/index.vue',{eager:true} )
 
 console.log('app-files',files)
 const tabPosition = ref('left')
+const tabCurrent = ref(0);
+
+const getTabCurrent = ()=>{
+  let _location = getWindowLocation();
+  console.log(_location,)
+  let _hash  = _location.hash.split('#')[1]
+  console.log(Number(_hash))
+
+  tabCurrent.value = Number(_hash);
+}
+getTabCurrent();
 
 const list = markRaw([])
 Object.keys(files)?.map((key,index)=>{
@@ -49,6 +62,7 @@ Object.keys(files)?.map((key,index)=>{
 console.log(list)
 
 
+// window.location.href = "#anchor1"
 
 const props = defineProps({
   // 配合emits v-model
@@ -71,6 +85,14 @@ const defaultCOM = computed(() => {
 
 
 
+const goTo = (key,data)=>{
+  if(key == 'tabChange'){
+    console.log(data);
+    let _index = data;
+    window.location.href = `#${_index}`
+    console.log(list[_index])
+  }
+}
 
 
 
@@ -128,12 +150,13 @@ init();
     .el-tabs__content{
       height:100%;
       //width:100%;
-      overflow-y: auto;
+      //overflow-y: auto;
 
     }
 
     .example-tab-pane{
-
+      height:100%;
+      overflow-y: auto;
       //height:300vh;
       //background:blue;
     }
