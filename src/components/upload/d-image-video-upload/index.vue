@@ -423,6 +423,14 @@ init();
   }
 
 
+
+  :deep(.el-upload--picture-card:hover){
+    i{
+      color:var(--el-color-primary);
+    }
+
+  }
+
   // el-list-leave-from el-list-leave-active
 
   //

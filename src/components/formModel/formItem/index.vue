@@ -522,6 +522,7 @@ init();
   .form-select {
     width: auto;
     flex: 1;
+
   }
 
   .form-tree-select {

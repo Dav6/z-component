@@ -14,6 +14,7 @@
 
     <d-table-list
       :keyList="keyListCOM"
+      :pageData="pageData"
       :settingsButtonList="settingsButtonList"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
     >

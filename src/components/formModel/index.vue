@@ -16,7 +16,6 @@
     :status-icon="statusIcon"
     @submit.prevent="(data)=>goTo('submit',data)"
     :scroll-to-error="scrollToError"
-
   >
     <d-el-form-list
       :formModelRef="formModelRef"

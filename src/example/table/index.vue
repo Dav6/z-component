@@ -10,7 +10,7 @@
   <d-table-model
     :list="list"
     :keyList="keyList"
-
+    :pageData="pageData"
     :isShowExpand="isShowExpand"
     :isShowSelection="isShowSelection"
     :isShowIndex="isShowIndex"
@@ -120,9 +120,13 @@ const isShowSettings = ref(true)
 //   isShowSettings.value = true
 // },8000)
 
-
- const image = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-93dd36bf20dad23a01a51698733ed306_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674282885&t=f05370c806711f9117370dd745bb0d19'
-const list = ref([{
+const pageData = ref({
+  page:1,
+  pageSize:20,
+})
+const image = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-93dd36bf20dad23a01a51698733ed306_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674282885&t=f05370c806711f9117370dd745bb0d19'
+const list = ref([
+  {
   "recordId": "1604677243008716802",
   "personnelRole": 5,
   "personnelRoleName": "未授权人员",

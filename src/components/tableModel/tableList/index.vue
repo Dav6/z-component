@@ -11,6 +11,7 @@
 
     <d-table-item
       :item="item"
+      :pageData="pageData"
       :settingsButtonList="settingsButtonList"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
 
