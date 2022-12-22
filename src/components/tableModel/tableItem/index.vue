@@ -36,6 +36,7 @@
               :is="settingsButtonItemCOM(bItem)"
               :text="bItem.type=='button'"
               :list="bItem.list"
+              :trigger="bItem.trigger"
               @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"
               @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"
             >

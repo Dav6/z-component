@@ -79,6 +79,7 @@ const settingsButtonList = ref([
   {
 
     type: "dropdown",
+    trigger:"click", // hover/click/contextmenu
     list:[
       {
         name:"修改",
