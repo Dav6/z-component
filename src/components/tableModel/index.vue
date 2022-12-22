@@ -88,7 +88,7 @@ const slotListCOM = computed(() => {
         name: item,
       }
     })
-    console.log(_slots);
+    // console.log(_slots);
     return _slots
   }
 })
