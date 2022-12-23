@@ -9,7 +9,7 @@
 <template>
   <el-table
     :data="list"
-    v-bind="$props"
+    v-bind="{...$props,...$attrs}"
   >
 
     <d-table-list

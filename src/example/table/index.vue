@@ -18,8 +18,10 @@
     :settingsButtonList="settingsButtonList"
     height="100%"
     @select="(selection, row)=>goTo('select',{selection, row})"
-
     @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+
+    v-bind="$props"
+
   >
     <template #expand="{data}">
       <!-- {{  images  }} -->
@@ -77,7 +79,6 @@ const settingsButtonList = ref([
     type:'button',
   },
   {
-
     type: "dropdown",
     trigger:"click", // hover/click/contextmenu
     list:[
