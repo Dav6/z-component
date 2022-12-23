@@ -15,7 +15,6 @@
     <d-table-list
       :keyList="keyListCOM"
       :pageData="pageData"
-      :settingsButtonList="settingsButtonList"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
     >
 
@@ -24,45 +23,6 @@
       </template>
 
     </d-table-list>
-
-    <!--    <el-table-column type="selection" fixed="left" width="60" align="center"></el-table-column>-->
-    <!--    <el-table-column type="index" :index="getIndex" label="序号"  :show-overflow-tooltip="true" width="60" align="center">-->
-    <!--      <template #default="scope">-->
-    <!--      </template>-->
-    <!--    </el-table-column>-->
-    <!--    <template v-for="(item,index) in keyList" :key="index">-->
-
-    <!--      <el-table-column :label="item.name" :type="item.type" :width="item.width" :show-overflow-tooltip="item.showOverflowTooltip">-->
-    <!--        <template #default="scope">-->
-    <!--          {{ scope.row[item.key] }}-->
-    <!--        </template>-->
-    <!--      </el-table-column>-->
-
-    <!--    </template>-->
-
-    <!--    <el-table-column-->
-    <!--      label="操作"-->
-    <!--      fixed="right"-->
-    <!--    >-->
-    <!--      <template #default="scope">-->
-    <!--        <el-button-group style="width: 100%">-->
-    <!--          <el-button-->
-    <!--            type="primary"-->
-    <!--            text-->
-    <!--            @click="goTo('showAttendanceStatisticsDialog',scope.row)"-->
-    <!--          >查看-->
-    <!--          </el-button>-->
-    <!--          <el-button-->
-    <!--            type="primary"-->
-    <!--            text-->
-    <!--            @click="goTo('showAttendanceStatisticsDialog',scope.row)"-->
-    <!--          >查看-->
-    <!--          </el-button>-->
-    <!--        </el-button-group>-->
-
-    <!--      </template>-->
-
-    <!--    </el-table-column>-->
 
   </el-table>
 
@@ -118,15 +78,15 @@ const props = defineProps({
   isShowSettings: {
     type: [Boolean]
   },
-  settingsButtonList: {
-    type: [Array]
+  settingsConfig: {
+    type: [Object]
   }
 });
 
 
 // <!--selection / index / expand / settings -->
 
-let _indexTableItemDefault = {
+let _tableIndexDefault = {
   label: "序号",
   key: "",
   type: "index",
@@ -134,7 +94,7 @@ let _indexTableItemDefault = {
   fixed: 'left',
   showOverflowTooltip: true,
 }
-let _selectionTableItemDefault = {
+let _tableSelectionDefault = {
   label: "选项",
   key: "",
   type: "selection",
@@ -143,20 +103,48 @@ let _selectionTableItemDefault = {
   width: 40,
 
 }
-let _expandTableItemDefault = {
+let _tableExpandDefault = {
   label: "展开",
   key: "",
   type: "expand",
   fixed: 'left',
   width: 60,
 }
-let _settingsTableItemDefault = {
+let _tableSettingsDefault = {
   label: "设置",
   key: "",
   type: "settings",
   fixed: 'right',
   align: "center",
-  buttonList: []
+  buttonList: [
+    {
+      name: "详情",
+      key: "detail",
+      type: 'button',
+    },
+    {
+      type: "dropdown",
+      trigger: "click", // hover/click/contextmenu
+      placement: "bottom-start",
+      teleported: false,//top/top-start/top-end/bottom/bottom-start/bottom-end
+      list: [
+        {
+          name: "修改",
+          key: "edit"
+        },
+        {
+          name: "删除",
+          key: "delete"
+        },
+
+        {
+          name: "设置",
+          key: "delete",
+          divided: true,
+        }
+      ]
+    }
+  ]
 }
 
 
@@ -164,34 +152,44 @@ const keyListCOM = computed(() => {
 
   console.log('keyListCOM', props)
   let _keyList = JSON.parse(JSON.stringify(props.keyList));
+  let _settingsConfig = JSON.parse(JSON.stringify(props.settingsConfig))
   let _isShowExpand = props.isShowExpand;
   let _isShowSelection = props.isShowSelection;
   let _isShowIndex = props.isShowIndex;
   let _isShowSettings = props.isShowSettings;
-  let _expandTableItem = _expandTableItemDefault;
-  let _selectionTableItem = _selectionTableItemDefault;
-  let _indexTableItem = _indexTableItemDefault;
-  let _settingsTableItem = _settingsTableItemDefault;
+  let _tableExpand = _tableExpandDefault;
+  let _tableSelection = _tableSelectionDefault;
+  let _tableIndex = _tableIndexDefault;
+  let _tableSettings = {
+    ..._tableSettingsDefault,
+    ..._settingsConfig,
+    type: "settings",
+
+  };
+
+
+
+
   if (!_isShowExpand) {
-    _expandTableItem = ''
+    _tableExpand = ''
   }
   if (!_isShowSelection) {
-    _selectionTableItem = ''
+    _tableSelection = ''
   }
   if (!_isShowIndex) {
-    _indexTableItem = ''
+    _tableIndex = ''
   }
   if (!_isShowSettings) {
-    _settingsTableItem = ''
+    _tableSettings = ''
   }
 
 
   _keyList = [
-    _expandTableItem,
-    _selectionTableItem,
-    _indexTableItem,
+    _tableExpand,
+    _tableSelection,
+    _tableIndex,
     ..._keyList,
-    _settingsTableItem
+    _tableSettings
   ].filter(item => item != '')
 
 

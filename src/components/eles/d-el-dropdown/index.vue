@@ -10,6 +10,7 @@
 <template>
   <el-dropdown
     :trigger="trigger"
+    :placement="placement"
     v-bind="$props"
   >
     <slot></slot>
@@ -42,6 +43,9 @@ const props = defineProps({
     type: [Array],
   },
   trigger:{
+    type:[String]
+  },
+  placement:{
     type:[String]
   }
 

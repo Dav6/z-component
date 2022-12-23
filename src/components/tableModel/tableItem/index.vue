@@ -29,7 +29,7 @@
       <template v-else-if="item.type == 'settings'">
 
         <el-button-group class="settings-group">
-          <template v-for="(bItem,bIndex) in settingsButtonList" :key="bIndex">
+          <template v-for="(bItem,bIndex) in item.buttonList" :key="bIndex">
 
 
             <Component
@@ -37,6 +37,7 @@
               :text="bItem.type=='button'"
               :list="bItem.list"
               :trigger="bItem.trigger"
+              :placement="bItem.placement"
               @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"
               @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"
             >
@@ -44,11 +45,9 @@
                 {{ bItem.name }}
               </template>
               <template v-else-if="bItem.type == 'dropdown'">
-                <d-el-button text class="settings-dropdown-button">{{ bItem.name?bItem.name:'···' }} </d-el-button>
+                <d-el-button text class="settings-dropdown-button">{{ bItem.name ? bItem.name : '···' }}</d-el-button>
               </template>
             </Component>
-
-
 
 
           </template>
@@ -61,22 +60,22 @@
       </template>
 
       <template v-else-if="item.type == 'image'">
-<!--        {{ scope.row[item.key] }}-->
-<!--        {{scope.row[item.key]}}-->
+        <!--        {{ scope.row[item.key] }}-->
+        <!--        {{scope.row[item.key]}}-->
+        <div class="image-list">
+          <template v-for="(cItem,cIndex) in imageCOM('list',{scope,keyItem:item})" :key="cItem">
 
-        <template v-for="(cItem,cIndex) in imageCOM('list',{scope,keyItem:item})" :key="cItem">
+            <d-el-image
+              class="image-item"
+              :src="cItem"
+              :size="imageCOM('size',{scope,keyItem:item,data:cItem})"
+              :previewList="imageCOM('previewList',{scope,keyItem:item,data:cItem})"
+              :previewTeleported="imageCOM('previewTeleported',{scope,keyItem:item,data:cItem})">
 
-          <d-el-image
-            class="image-item"
-            :src="cItem"
-            :size="imageCOM('size',{scope,keyItem:item,data:cItem})"
-            :previewList="imageCOM('previewList',{scope,keyItem:item,data:cItem})"
-            :previewTeleported="imageCOM('previewTeleported',{scope,keyItem:item,data:cItem})">
+            </d-el-image>
+          </template>
 
-          </d-el-image>
-        </template>
-
-
+        </div>
 
 
       </template>
@@ -98,7 +97,6 @@
 
 <script setup>
 
-// import re from "../../../../dist/zr-component.es";
 
 defineOptions({
   name: 'd-table-item',
@@ -124,9 +122,6 @@ const props = defineProps({
       format: 'YYYY-MM-DD HH:mm:ss',
       type: '',//expand / selection / index / settings / time
     }
-  },
-  settingsButtonList: {
-    type: [Array]
   },
   pageData: {
     type: [Object]
@@ -186,13 +181,12 @@ const getIndex = (data) => {
 }
 
 
-
-const settingsButtonItemCOM = computed(()=>{
-  return (data)=>{
+const settingsButtonItemCOM = computed(() => {
+  return (data) => {
     // console.log(data);
     let _settingsButtonItem = data;
     let _component = 'd-el-button'
-    if(_settingsButtonItem.type == 'dropdown'){
+    if (_settingsButtonItem.type == 'dropdown') {
       _component = 'd-el-dropdown';
     }
     return _component
@@ -200,22 +194,35 @@ const settingsButtonItemCOM = computed(()=>{
 })
 
 
-const imageCOM = computed(()=>{
-  return (key,data)=>{
-    // console.log(key,data)
+const imageCOM = computed(() => {
+  return (key, data) => {
+    // console.log('imageCOM',key,data)
     let _keyItem = data?.keyItem;
     let _scope = data?.scope;
     let _result = '';
 
-    switch(key){
+    if(!_scope?.row[_keyItem?.key]) return '';
+
+    switch(key) {
 
       case 'previewList':
       case 'list':
+        let _limit = _keyItem?.limit || 1;
         _result = [];
-        _result = _scope?.row[_keyItem?.key] || '';
-         if(!Array.isArray(_result)){
-           _result = [_result];
-         }
+        // _result = _scope?.row[_keyItem?.key];
+        let _data = _scope?.row[_keyItem?.key]
+        if (_data && Array.isArray(_data)) {
+          _result = _data;
+        }
+        if (_data && !Array.isArray(_data)) {
+          _result = [_data];
+        }
+        if(key == 'list'){
+          _result = _result?.filter((item,index)=>index<_limit)
+        }
+
+
+
 
         // console.log(key,_result);
 
@@ -224,7 +231,7 @@ const imageCOM = computed(()=>{
         _result = _keyItem?.size || '80 80';
         break;
       case 'previewTeleported':
-        _result = _keyItem?.previewTeleported == false?_keyItem?.previewTeleported:true;
+        _result = _keyItem?.previewTeleported == false ? _keyItem?.previewTeleported : true;
 
         break;
       default:
@@ -246,7 +253,6 @@ const imageCOM = computed(()=>{
 })
 
 
-
 //section goTo
 const goTo = (key, data) => {
   console.log(key, data);
@@ -266,9 +272,9 @@ const goTo = (key, data) => {
     let _settingItem = data?.settingItem;
     let _buttonKey = _settingItem?.key;
     let _dropdownIndex = ''
-    if(_settingItem?.type == 'dropdown'){
+    if (_settingItem?.type == 'dropdown') {
       _buttonKey = data?.dropdownItemKey;
-      _dropdownIndex = _settingItem?.list?.findIndex(item=>item.key == _buttonKey)
+      _dropdownIndex = _settingItem?.list?.findIndex(item => item.key == _buttonKey)
       // console.log(_dropdownIndex);
     }
 
@@ -282,11 +288,6 @@ const goTo = (key, data) => {
 
     emits('onSettingsButtonClick', _emitsData)
   }
-
-
-
-
-
 
 
 }
@@ -316,14 +317,22 @@ init();
     padding: 8px;
   }
 
-  .settings-dropdown-button{
+  .settings-dropdown-button {
     padding: 8px;
   }
 }
 
-
-.image-item{
-  margin-right: 8px;
+.image-list {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  .image-item {
+    margin-right: 8px;
+    max-width: 100%;
+  }
 }
+
 
 </style>
