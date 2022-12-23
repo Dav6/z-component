@@ -28,25 +28,25 @@ export default defineConfig({
     // 使用build.cssCodeSplit: true ， 给xxx.umd.js 生成内链css
     libCss(),
     // VitePluginStyleInject(),
-    // AutoImport({
-    //   resolvers: [
-    //     ElementPlusResolver(),
-    //     IconsResolver({
-    //       prefix: 'Icon',
-    //     }),
-    //   ],
-    //   // dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
-    // }),
-    // Components({
-    //   resolvers: [
-    //     ElementPlusResolver(),
-    //     IconsResolver({
-    //       enabledCollections: ['ep'],
-    //     })
-    //   ],
-    //   // dts: path.resolve(pathSrc, 'components.d.ts'),
-    //
-    // }),
+  // AutoImport({
+  //   resolvers: [
+  //     ElementPlusResolver(),
+  //     IconsResolver({
+  //       prefix: 'Icon',
+  //     }),
+  //   ],
+  //   // dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
+  // }),
+  //   Components({
+  //     resolvers: [
+  //       ElementPlusResolver(),
+  //       IconsResolver({
+  //         enabledCollections: ['ep'],
+  //       })
+  //     ],
+  //     // dts: path.resolve(pathSrc, 'components.d.ts'),
+  //
+  //   }),
 
     // ElementPlus(),
     // Icons({

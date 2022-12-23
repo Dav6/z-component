@@ -98,7 +98,7 @@
 
 <script setup>
 
-import re from "../../../../dist/zr-component.es";
+// import re from "../../../../dist/zr-component.es";
 
 defineOptions({
   name: 'd-table-item',
