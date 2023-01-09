@@ -121,10 +121,8 @@ const getFormKeyData = (list, dataList) => {
   let _data = {}
   list?.map(item => {
     if (item.key) {
-      // console.log(item.key)
-
+      console.log(item.key)
       _data[item.key] = item.value;
-
     }
     let _childrenData = {};
     if (item.children?.length > 0) {
@@ -132,23 +130,18 @@ const getFormKeyData = (list, dataList) => {
       // console.log('_childrenDataList',_childrenDataList)
       _data = {..._data, ..._childrenData}
     }
-
   })
-
-
   return _data
 }
 
 const getFormData = () => {
 
-  // console.log('getFormData', _formList.value);
+  console.log('getFormData', _formList.value);
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
   // console.log(_list);
   let _data = getFormKeyData(_list);
-
-  // console.log('_data', _data)
-
+  console.log('_data', _data)
   _data = JSON.parse(JSON.stringify(_data))
   return _data;
 }
