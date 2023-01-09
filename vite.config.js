@@ -68,7 +68,7 @@ export default defineConfig({
       fileName: (format) => `zr-component.${format}.js`,
       formats: ['es', 'umd']
     }, //库编译模式配置
-    minify: 'esbuild',
+    // minify: 'esbuild',
     rollupOptions: {
       // 清除console和debugger
       terserOptions: {
