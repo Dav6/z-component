@@ -141,7 +141,7 @@ const getFormData = () => {
   _list = _list?.length > 0 ? _list : [];
   // console.log(_list);
   let _data = getFormKeyData(_list);
-  console.log('_data', _data)
+  console.log('_data-1111', _data)
   // _data = JSON.parse(JSON.stringify(_data))
   return _data;
 }
