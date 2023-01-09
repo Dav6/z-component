@@ -68,7 +68,12 @@ export default defineConfig({
       fileName: (format) => `zr-component.${format}.js`,
       formats: ['es', 'umd']
     }, //库编译模式配置
-
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      }
+    },
     rollupOptions: {
       // 清除console和debugger
       terserOptions: {
