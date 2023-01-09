@@ -7,7 +7,8 @@
 -->
 
 <template>
-  <d-table-model
+  <Component
+    is="d-table-model"
     :list="list"
     :keyList="keyList"
     :pageData="pageData"
@@ -19,7 +20,6 @@
     height="100%"
     @select="(selection, row)=>goTo('select',{selection, row})"
     @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-
     v-bind="$props"
 
   >
@@ -37,7 +37,7 @@
     </template>
 
 
-  </d-table-model>
+  </Component>
 </template>
 
 <script setup>
