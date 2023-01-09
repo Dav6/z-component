@@ -16,7 +16,7 @@
                           :formList="formList"
                           :buttonProp="[...prop,index]"
                           :onChangeProp="[...prop,index]" @onChange="(data) => goTo('onChange', data)"
-                          @onFormItemButtonClick="(data) => { goTo(data.key, data) }">
+                          @onFormItemButtonClick="(data) => { goTo('onFormItemButtonClick', data) }">
             <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
               <slot :name="item.name" :data="data.data"></slot>
             </template>

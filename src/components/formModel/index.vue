@@ -23,6 +23,7 @@
       :buttonList="buttonList"
       @onChange="(data) => goTo('onChange', data)"
       @submit="(data)=>goTo('submit', {...data})"
+      @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
     >
 
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
@@ -261,7 +262,7 @@ watch(
 
 // section goTo
 const goTo = (key, data) => {
-  console.log('formModel', key, data);
+  // console.log('formModel', key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {...data})

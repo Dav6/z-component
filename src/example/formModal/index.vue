@@ -16,7 +16,10 @@
       :formList="formList"
       :buttonList="buttonList"
       labelPosition="top"
+      @onclick="(data)=>goTo('onclick', data)"
       @onChange="(data) => { goTo('onChange', data) }"
+      @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
+
     >
       <template #imagePre="imagePre">
         <div style="white-space: pre-wrap">
@@ -993,6 +996,9 @@ const goTo = (key, data) => {
     })
 
 
+  }
+  if(key == 'onclick'){
+    console.log(data);
   }
 
 }
