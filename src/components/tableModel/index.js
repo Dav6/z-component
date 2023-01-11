@@ -9,5 +9,6 @@
 import exportFile from "@/components/exportFile";
 
 import file from "./index.vue"
+
 const module = exportFile(file);
 export default module;

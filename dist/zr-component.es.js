@@ -1,6 +1,5 @@
-import './assets/index.2ec792a6.css';
+import './assets/index.e0879da0.css';
 import { defineComponent as N, inject as ke, ref as X, resolveComponent as T, openBlock as f, createBlock as M, mergeProps as Oe, unref as k, withCtx as D, renderSlot as q, useSlots as de, computed as S, resolveDynamicComponent as se, normalizeProps as Ce, guardReactiveProps as je, createSlots as re, renderList as U, createVNode as G, createElementBlock as E, Fragment as L, createTextVNode as W, toDisplayString as J, normalizeStyle as Me, createElementVNode as _e, normalizeClass as ie, useCssVars as Te, watch as ve, createCommentVNode as Q, nextTick as Pe, withModifiers as Le, getCurrentInstance as ze } from "vue";
-import "element-plus";
 const I = (e) => {
   let p = e, r = p == null ? void 0 : p.name;
   return p.install = (u) => u.component(r, p), p;
@@ -1274,6 +1273,10 @@ const an = N({
       type: [Array],
       default: []
     },
+    isButtonsRow: {
+      type: Boolean,
+      default: !1
+    },
     buttonList: {
       type: [Array]
     }
@@ -1369,7 +1372,7 @@ const an = N({
             }), 128)),
             ((v = e.buttonList) == null ? void 0 : v.length) > 0 ? (f(), M($, {
               key: 0,
-              class: ie({ fixedWidth: !0 })
+              class: ie({ fixedWidth: !e.isButtonsRow })
             }, {
               default: D(() => [
                 G(o, {
@@ -1393,14 +1396,14 @@ const an = N({
                 })
               ]),
               _: 1
-            })) : Q("", !0)
+            }, 8, ["class"])) : Q("", !0)
           ];
         }),
         _: 3
       });
     };
   }
-}), un = /* @__PURE__ */ fe(sn, [["__scopeId", "data-v-9dc22831"]]), dn = I(un), cn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), un = /* @__PURE__ */ fe(sn, [["__scopeId", "data-v-55256b75"]]), dn = I(un), cn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: dn
 }, Symbol.toStringTag, { value: "Module" }));
