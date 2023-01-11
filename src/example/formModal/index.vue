@@ -988,6 +988,7 @@ const goTo = (key, data) => {
   }
   if (key == 'confirm') {
 
+    console.log(addEditFormRef.value.getFormDataByNoHidden())
     console.log(addEditFormRef.value.getFormData())
     addEditFormRef.value.formModelRef.validate((valid) => {
       console.log(valid)

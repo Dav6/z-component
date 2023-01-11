@@ -125,7 +125,7 @@ const getFormKeyData = (list, dataList) => {
   let _data = {}
   list?.map(item => {
     if (item.key) {
-      console.log(item)
+      // console.log(item)
       _data[item.key] = item.value;
     }
     let _childrenData = {};
@@ -151,7 +151,7 @@ const getFormKeyDataByNoHidden = (list, dataList) => {
   let _data = {}
   list?.map(item => {
     if (item.key) {
-      console.log(item)
+      // console.log(item)
       if(!item.isHidden){
         _data[item.key] = item.value;
       }
