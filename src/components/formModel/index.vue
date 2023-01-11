@@ -21,6 +21,7 @@
       :formModelRef="formModelRef"
       :formList="_formList"
       :buttonList="buttonList"
+      :isButtonsRow="isButtonsRow"
       @onChange="(data) => goTo('onChange', data)"
       @submit="(data)=>goTo('submit', {...data})"
       @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
@@ -91,6 +92,9 @@ const props = defineProps({
   },
   buttonList: {
     type: [Array],
+  },
+  isButtonsRow:{
+    type:Boolean,
   },
   statusIcon: {
     type: [Boolean]

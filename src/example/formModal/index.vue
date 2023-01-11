@@ -15,6 +15,7 @@
       labelWidth="8em"
       :formList="formList"
       :buttonList="buttonList"
+      :isButtonsRow="true"
       labelPosition="top"
       @onclick="(data)=>goTo('onclick', data)"
       @onChange="(data) => { goTo('onChange', data) }"
