@@ -125,7 +125,7 @@ const getFormKeyData = (list, dataList) => {
   let _data = {}
   list?.map(item => {
     if (item.key) {
-      // console.log(item.key)
+      console.log(item)
       _data[item.key] = item.value;
     }
     let _childrenData = {};
@@ -139,19 +139,43 @@ const getFormKeyData = (list, dataList) => {
 }
 
 const getFormData = () => {
-
   // console.log('getFormData', _formList.value);
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
-  // console.log(_list);
   let _data = getFormKeyData(_list);
-  // console.log('_data-1111', _data)
-  // _data = JSON.parse(JSON.stringify(_data))
+  return _data;
+}
+
+const getFormKeyDataByNoHidden = (list, dataList) => {
+  // console.log(list)
+  let _data = {}
+  list?.map(item => {
+    if (item.key) {
+      console.log(item)
+      if(!item.isHidden){
+        _data[item.key] = item.value;
+      }
+    }
+    let _childrenData = {};
+    if (item.children?.length > 0) {
+      _childrenData = getFormKeyDataByNoHidden(item.children)
+      // console.log('_childrenDataList',_childrenDataList)
+      _data = {..._data, ..._childrenData}
+    }
+  })
+  return _data
+}
+const getFormDataByNoHidden = () => {
+  // console.log('getFormData', _formList.value);
+  let _list = JSON.parse(JSON.stringify(_formList.value))
+  _list = _list?.length > 0 ? _list : [];
+  let _data = getFormKeyDataByNoHidden(_list);
   return _data;
 }
 defineExpose({
   formModelRef,
-  getFormData
+  getFormData,
+  getFormDataByNoHidden
 })
 
 const formModelClassCOM = computed(() => {
@@ -240,13 +264,13 @@ watch(
     // console.log('formList', formList);
     //console.log('oldValue', oldValue);
     // defaultActive = newValue.path;
-    _formModel.value = formList?.length > 0 ? formList : [];
-    setFormList(props.formList);
-    console.log('formModelRef', formModelRef.value);
-    nextTick(() => {
-      // formModelRef?.value?.clearValidate();
-      // formModelRef.value.validate(()=>{});
-    })
+    // _formModel.value = formList?.length > 0 ? formList : [];
+    // setFormList(props.formList);
+    // console.log('formModelRef', formModelRef.value);
+    // nextTick(() => {
+    //   // formModelRef?.value?.clearValidate();
+    //   // formModelRef.value.validate(()=>{});
+    // })
   },
   {
     immediate: false,
