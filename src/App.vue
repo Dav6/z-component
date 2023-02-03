@@ -130,7 +130,7 @@ init();
     height:100%;
 
     .el-tabs__nav-scroll{
-      width:100px;
+      width:130px;
 
       overflow-y: auto;
       /*//滚动条的宽度*/

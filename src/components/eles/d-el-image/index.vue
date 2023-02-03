@@ -1,16 +1,8 @@
-<!--
-    @Author DAV
-    @CREATE_DATE 2019-11-09 10:40
-    @Title 图片
-    @Description :
-    @params
--->
-
 
 <!--
   author: 戴伟
-  date: 027 2022/06/27 10:35:27
-  file: src\components\eles\a-el-image.vue
+  date: 017 2023/01/17 09:52:11
+  file: src\components\eles\d-el-image\index.vue
   des:
     do.....
 -->

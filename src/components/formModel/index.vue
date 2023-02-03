@@ -189,62 +189,29 @@ const formModelClassCOM = computed(() => {
 })
 
 
-const _formModel = ref([
-    {name: "设备名称", key: "deviceName", value: "", placeholder: "请输入设备名称", disabled: true, formType: "input", span: 12},
-    {name: "设备类型", key: "deviceType", value: "", placeholder: "请输入设备类型", disabled: true, formType: "input", span: 12},
-    {name: "设备ID", key: "deviceId", value: "", placeholder: "请输入设备ID", disabled: true, formType: "input", span: 12},
-    {name: "品牌", key: "brand", value: "", placeholder: "请输入品牌", disabled: true, formType: "input", span: 12},
-    {name: "型号", key: "type", value: "", placeholder: "请输入型号", disabled: true, formType: "input", span: 12},
-    // [
-    //   {name: "规格", key: "attr", formType: "input", span: 12},
-    //
-    // ],
-    {name: "所属网关", key: "gateway", value: "", placeholder: "请输入所属网关", disabled: true, formType: "input", span: 12},
-    {
-      name: "通讯类型",
-      key: "communicationType",
-      value: "",
-      placeholder: "请输入通讯类型",
-      disabled: true,
-      formType: "input",
-      span: 12
-    },
-    {name: "当前值", key: "currentValue", value: "", placeholder: "请输入当前值", disabled: true, formType: "input", span: 12},
-    {name: "预警值", key: "earlyValue", value: "", placeholder: "请输入预警值", disabled: true, formType: "input", span: 12},
-    {
-      name: "预警等级", key: "earlyLevel", value: "", placeholder: "请输入预警等级", disabled: true, formType: "select", span: 12,
-      options: [],
-    },
-    {
-      name: "处理人", key: "handleBy", value: "", placeholder: "请选择处理人", disabled: false, formType: "select", span: 12,
-      options: [],
-      rules: [
-        {required: true, message: "请选择处理人", trigger: "blur"}
-      ]
-    },
-    {
-      name: "处理意见",
-      key: "handlingOpinions",
-      value: "",
-      placeholder: "请输入设备名称",
-      disabled: false,
-      formType: "textArea",
-      span: 24
-    },
-  ]
-)
+
+const linkageKeyValue = {}
+
+const setlLinkageKeyValue = ()=>{
+
+}
+
 
 const setFormList = (list) => {
   list?.map(item => {
     if (item.formType == "inputNumber") {
       // console.log(item);
-
       if (item.value) {
         item.value = Number(item.value)
       } else {
         item.value = undefined;
       }
     }
+
+
+
+
+
     if (item.children?.length > 0) {
       setFormList(item.children);
     }
@@ -255,8 +222,19 @@ const setFormList = (list) => {
 const _formList = computed(() => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
   setFormList(_list);
+
+  console.log('_com-list',_list)
+
+
+
+
+
+
   return _list
 })
+
+
+
 
 
 watch(

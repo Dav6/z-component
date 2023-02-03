@@ -1,0 +1,254 @@
+<!--
+  author: 戴伟
+  date: 017 2022/11/17 16:10:52
+  file: src\example\formModal\index.vue
+  des:
+    do.....
+-->
+
+<template>
+  <div class="form-model">
+    <d-form-model
+
+      ref="addEditFormRef"
+      :statusIcon="true"
+      labelWidth="8em"
+      :formList="formList"
+      :buttonList="buttonList"
+      :isButtonsRow="true"
+      labelPosition="top"
+      @onClick="(data)=>goTo('onClick', data)"
+      @onChange="(data) => { goTo('onChange', data) }"
+      @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
+
+    >
+      <template #imagePre="imagePre">
+        <div style="white-space: pre-wrap">
+          <code>
+            {{ imagePre.data.value }}
+
+          </code>
+
+        </div>
+
+      </template>
+
+      <template #test="test">
+        <!-- {{  images  }} -->
+        <div>
+          {{ test }}
+        </div>
+      </template>
+      <template #test1="test">
+        <!-- {{  images  }} -->
+        <div>
+          {{ test }}
+        </div>
+      </template>
+      <template #test112="data">
+        test112
+      </template>
+
+
+    </d-form-model>
+
+    <!--    <el-affix position="bottom" :offset="30">-->
+    <!--      <el-button @click="goTo('cancel')">清空</el-button>-->
+    <!--      <el-button type="primary" @click="goTo('confirm')">确定</el-button>-->
+
+    <!--    </el-affix>-->
+
+  </div>
+</template>
+
+<script setup>
+import dayjs from "dayjs";
+
+defineOptions({
+  name: "联动表单案例",
+  key: 'example-form-model',
+  isExposed: false
+});
+import {ref, reactive, computed, watch, inject} from "vue"
+
+
+const props = defineProps({
+  // 配合emits v-model
+  modelValue: {
+    type: [String, Boolean],
+  },
+});
+//const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits([]);
+
+const defaultCOM = computed(() => {
+  return '';
+});
+
+//watch(
+//  () => props, (newValue, oldValue) => {
+//    //console.log('newValue', newValue);
+//    //console.log('oldValue', oldValue);
+//    // defaultActive = newValue.path;
+//
+//  },
+//   {immediate: true}
+//);
+
+
+const buttonList = ref([
+  {name: "重置", key: "reset",},
+  {name: "查询", key: "search", type: 'primary'}
+
+])
+const formList = ref([
+
+
+  {
+    name: "设备名称", key: "deviceName", value: "", placeholder: "请输入设备名称", formType: "input", span: 12,
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
+  },
+  {
+    name: "设备类型", key: "deviceType", value: "", placeholder: "请输入设备类型", formType: "input", span: 12,
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
+  },
+  {
+    name: "设备ID", key: "deviceId", value: "", placeholder: "请输入设备ID", formType: "input", span: 12,
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
+  },
+  {
+    name: "品牌", key: "brand", value: "", placeholder: "请输入品牌", formType: "input", span: 12,
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
+  },
+  {
+    name: "型号", key: "type", value: "", placeholder: "请输入型号", formType: "input", span: 12,
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
+  },
+  // [
+  //   {name: "规格", key: "attr", formType: "input", span: 12},
+  //
+  // ],
+  {
+    name: "所属网关", key: "gateway", value: "", placeholder: "请输入所属网关", formType: "input", span: 24,
+    linkageKey: "type",
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
+
+    children: [
+      {
+        name: "通讯类型",
+        key: "communicationType",
+        value: "",
+        placeholder: "请输入通讯类型",
+
+        formType: "input",
+        span: 12,
+        rules: [{required: true, message: "请选择", trigger: "blur"}],
+      },
+      {
+        name: "当前值", key: "currentValue", value: "", placeholder: "请输入当前值", formType: "input", span: 12,
+        rules: [{required: true, message: "请选择", trigger: "blur"}],
+      },
+      {
+        name: "预警值", key: "earlyValue", value: "", placeholder: "请输入预警值", formType: "input", span: 12,
+        rules: [{required: true, message: "请选择", trigger: "blur"}],
+      },
+      {
+        name: "预警等级", key: "earlyLevel", value: "", placeholder: "请输入预警等级", formType: "select", span: 12,
+        rules: [{required: true, message: "请选择", trigger: "blur"}],
+        options: [],
+      },
+      {
+        name: "处理人",
+        key: "handleBy",
+        value: "",
+        placeholder: "请选择处理人",
+        disabled: false,
+        formType: "select",
+        span: 12,
+        options: [],
+        rules: [
+          {required: true, message: "请选择处理人", trigger: "blur"}
+        ]
+      },
+      {
+        name: "处理意见",
+        key: "handlingOpinions",
+        value: "",
+        placeholder: "请输入设备名称",
+        disabled: false,
+        formType: "textArea",
+        span: 24,
+        rules: [{required: true, message: "请选择", trigger: "blur"}],
+      },
+    ]
+  },
+
+
+])
+
+
+const addEditFormRef = ref(null);
+const goTo = (key, data) => {
+  console.log('example-formModel', key, data);
+  if (key == 'cancel') {
+    addEditFormRef.value.formModelRef.clearValidate();
+  }
+  if (key == 'confirm') {
+
+    console.log(addEditFormRef.value.getFormDataByNoHidden())
+    console.log(addEditFormRef.value.getFormData())
+    addEditFormRef.value.formModelRef.validate((valid) => {
+      console.log(valid)
+      if (valid) {
+
+      }
+    })
+
+
+  }
+  if (key == 'onClick') {
+
+    let _buttonKey = data?.key;
+    if(_buttonKey == 'reset'){
+      addEditFormRef.value.formModelRef.clearValidate();
+
+    }
+
+    if(_buttonKey == 'search'){
+      console.log(data);
+      console.log(addEditFormRef.value.getFormDataByNoHidden())
+      console.log(addEditFormRef.value.getFormData())
+      addEditFormRef.value.formModelRef.validate((valid) => {
+        console.log(valid)
+        if (valid) {
+
+        }
+      })
+    }
+
+
+  }
+
+}
+
+
+// 接口请求方法放这
+const init = () => {
+  //getList();
+
+}
+
+// 统一执行初始化方法
+init();
+
+
+</script>
+
+<style scoped lang="less">
+
+.form-model {
+  //height:300vh;
+  //background:red;
+  width: calc(100% - 24px);
+}
+</style>

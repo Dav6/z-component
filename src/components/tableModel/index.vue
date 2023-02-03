@@ -79,7 +79,8 @@ const props = defineProps({
     type: [Boolean]
   },
   settingsConfig: {
-    type: [Object]
+    type: [Object],
+    default:{},
   }
 });
 
@@ -116,6 +117,7 @@ let _tableSettingsDefault = {
   type: "settings",
   fixed: 'right',
   align: "center",
+  isShow:true,
   buttonList: [
     {
       name: "详情",
@@ -161,7 +163,7 @@ const keyListCOM = computed(() => {
   let _tableSelection = _tableSelectionDefault;
   let _tableIndex = _tableIndexDefault;
   let _tableSettings = {
-    ..._tableSettingsDefault,
+    ..._tableSettingsDefault, // 默认
     ..._settingsConfig,
     type: "settings",
 
@@ -179,7 +181,7 @@ const keyListCOM = computed(() => {
   if (!_isShowIndex) {
     _tableIndex = ''
   }
-  if (!_isShowSettings) {
+  if (!_tableSettings.isShow) {
     _tableSettings = ''
   }
 
