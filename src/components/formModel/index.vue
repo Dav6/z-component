@@ -263,12 +263,14 @@ const onSubmit = (data) => {
 
 const setLinkageForm = () => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
-  let _linkageListPath = `$..[?(@.linkageKey)][linkageKey,linkageValue]`
+  console.log('_list',_list);
+  let _linkageListPath = `$..[?(@ && @.linkageKey)][linkageKey,linkageValue]`
   // let _linkageList1 = JSONPath({json:_list,path: _linkageListPath});
-  // console.log('_linkageList',_linkageList1)
+
   // return false;
   let _linkageList = JSONPath({json: _list, path: _linkageListPath});
   console.log('_linkageList', _linkageList)
+
 
   _linkageList = _linkageList.map((item, index) => {
     if (index % 2 == 0) {
@@ -295,7 +297,7 @@ const setLinkageForm = () => {
       }
     });
     console.log('_formItem', _formItem);
-    let _linkagePath = `$..[?(@.linkageKey == '${_linkageKey}')]`
+    let _linkagePath = `$..[?(@ && @.linkageKey == '${_linkageKey}')]`
     let _linkageFormItem = JSONPath({json: _list, path: _linkagePath});
     console.log('_linkageFormItem', _linkageFormItem);
     let _linkageFormItemIsHidden = false;
