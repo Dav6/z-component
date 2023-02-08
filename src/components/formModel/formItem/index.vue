@@ -165,7 +165,7 @@ const slotListCOM = computed(() => {
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String, Boolean],
+    type: [String,Number, Boolean,Object,Array],
   },
   prop: {
     type: [String, Array]

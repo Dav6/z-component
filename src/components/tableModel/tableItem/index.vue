@@ -119,8 +119,10 @@ const props = defineProps({
   item: {
     type: [Object],
     default: {
+      label: "",
       format: 'YYYY-MM-DD HH:mm:ss',
       type: '',//expand / selection / index / settings / time
+      width: "",
     }
   },
   pageData: {
@@ -201,7 +203,7 @@ const imageCOM = computed(() => {
     let _scope = data?.scope;
     let _result = '';
 
-    if(!_scope?.row[_keyItem?.key]) return '';
+    if (!_scope?.row[_keyItem?.key]) return '';
 
     switch(key) {
 
@@ -217,11 +219,9 @@ const imageCOM = computed(() => {
         if (_data && !Array.isArray(_data)) {
           _result = [_data];
         }
-        if(key == 'list'){
-          _result = _result?.filter((item,index)=>index<_limit)
+        if (key == 'list') {
+          _result = _result?.filter((item, index) => index < _limit)
         }
-
-
 
 
         // console.log(key,_result);
@@ -328,6 +328,7 @@ init();
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
+
   .image-item {
     margin-right: 8px;
     max-width: 100%;

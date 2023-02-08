@@ -13,7 +13,7 @@
         <template v-for="(item,index) in list" :key="index">
           <el-tab-pane  class="example-tab-pane"  :label="item.name"  :name="index" >
 
-            <Component :is="item.component" />
+            <Component :is="item.component" v-if="tabCurrent == index" />
 
           </el-tab-pane>
 
@@ -47,7 +47,7 @@ getTabCurrent();
 
 const list = markRaw([])
 Object.keys(files)?.map((key,index)=>{
-  console.log(files[key])
+  // console.log(files[key])
   let _item  =files[key]?.default;
   if(_item?.key){
     let _data = {

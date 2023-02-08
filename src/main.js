@@ -10,7 +10,7 @@ import installElementPlus from "@/plugins/element";
 import zrComponent from "./index"
 
 
-
+console.log(installElementPlus.version())
 
 const zrComponentOptions = {
 

@@ -113,11 +113,14 @@ const formList = ref([
     rules: [{required: true, message: "请选择", trigger: "blur"}],
   },
   {
-    name: "设备ID", key: "deviceId", value: "", placeholder: "请输入设备ID", formType: "input", span: 12,
+    name: "设备ID", key: "deviceId", value: "", placeholder: "请输入设备ID", formType: "inputNumber", span: 12,
     rules: [{required: true, message: "请选择", trigger: "blur"}],
+
   },
   {
     name: "品牌", key: "brand", value: "", placeholder: "请输入品牌", formType: "input", span: 12,
+    linkageKey: "deviceId",
+    linkageValue: 0,
     rules: [{required: true, message: "请选择", trigger: "blur"}],
   },
   {
@@ -131,6 +134,7 @@ const formList = ref([
   {
     name: "所属网关", key: "gateway", value: "", placeholder: "请输入所属网关", formType: "input", span: 24,
     linkageKey: "type",
+    linkageValue: "",
     rules: [{required: true, message: "请选择", trigger: "blur"}],
 
     children: [
@@ -139,6 +143,7 @@ const formList = ref([
         key: "communicationType",
         value: "",
         placeholder: "请输入通讯类型",
+
 
         formType: "input",
         span: 12,
@@ -210,20 +215,24 @@ const goTo = (key, data) => {
 
     let _buttonKey = data?.key;
     if(_buttonKey == 'reset'){
-      addEditFormRef.value.formModelRef.clearValidate();
+      // addEditFormRef.value.formModelRef.clearValidate();
+      addEditFormRef.value.clearValidate();
 
     }
 
     if(_buttonKey == 'search'){
-      console.log(data);
-      console.log(addEditFormRef.value.getFormDataByNoHidden())
-      console.log(addEditFormRef.value.getFormData())
-      addEditFormRef.value.formModelRef.validate((valid) => {
-        console.log(valid)
-        if (valid) {
-
-        }
+      console.log('data',data);
+      console.log('getFormDataByNoHidden',addEditFormRef.value.getFormDataByNoHidden())
+      console.log('getFormData',addEditFormRef.value.getFormData())
+      addEditFormRef.value.validate((valid) => {
+        console.log(valid);
       })
+      // addEditFormRef.value.formModelRef.validate((valid) => {
+      //   console.log(valid)
+      //   if (valid) {
+      //
+      //   }
+      // })
     }
 
 

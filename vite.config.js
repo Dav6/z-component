@@ -7,6 +7,7 @@ import DefineOptions from "unplugin-vue-define-options/vite";
 import libCss from 'vite-plugin-libcss';
 // import viteCompression from 'vite-plugin-compression'
 import VitePluginStyleInject from 'vite-plugin-style-inject';
+// import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -21,6 +22,7 @@ const pathSrc = fileURLToPath(new URL('./src', import.meta.url))
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    // viteCommonjs(),
     vue(),
     DefineOptions(),
     // 打包的时候 不会引入css ， xxx.es.js自动引入css

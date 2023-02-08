@@ -62,6 +62,7 @@ defineOptions({
 });
 import {ref, reactive, computed, watch, nextTick, useSlots, useAttrs, onMounted, onBeforeUpdate, inject} from "vue"
 // import "dayjs/locale/zh-cn";
+import {JSONPath} from "jsonpath-plus";
 
 
 let slots = useSlots()
@@ -85,7 +86,7 @@ const slotListCOM = computed(() => {
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String, Boolean],
+    type: [String,Number, Boolean],
   },
   formList: {
     type: [Array],
@@ -93,8 +94,8 @@ const props = defineProps({
   buttonList: {
     type: [Array],
   },
-  isButtonsRow:{
-    type:Boolean,
+  isButtonsRow: {
+    type: Boolean,
   },
   statusIcon: {
     type: [Boolean]
@@ -120,60 +121,51 @@ const props = defineProps({
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange']);
 const formModelRef = ref()
-const getFormKeyData = (list, dataList) => {
-  // console.log(list)
-  let _data = {}
-  list?.map(item => {
-    if (item.key) {
-      // console.log(item)
-      _data[item.key] = item.value;
-    }
-    let _childrenData = {};
-    if (item.children?.length > 0) {
-      _childrenData = getFormKeyData(item.children)
-      // console.log('_childrenDataList',_childrenDataList)
-      _data = {..._data, ..._childrenData}
-    }
-  })
-  return _data
-}
 
 const getFormData = () => {
   // console.log('getFormData', _formList.value);
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
-  let _data = getFormKeyData(_list);
+  let _path = `$..[?(@.key)][key,value]`
+  let _dataList = JSONPath({json: _list, path: _path});
+  let _data = {}
+  _dataList.map((item, index) => {
+    if (index % 2 == 0) {
+      _data[item] = _dataList[index + 1];
+    }
+  })
+  // let _data = getFormKeyData(_list);
   return _data;
 }
 
-const getFormKeyDataByNoHidden = (list, dataList) => {
-  // console.log(list)
-  let _data = {}
-  list?.map(item => {
-    if (item.key) {
-      // console.log(item)
-      if(!item.isHidden){
-        _data[item.key] = item.value;
-      }
-    }
-    let _childrenData = {};
-    if (item.children?.length > 0) {
-      _childrenData = getFormKeyDataByNoHidden(item.children)
-      // console.log('_childrenDataList',_childrenDataList)
-      _data = {..._data, ..._childrenData}
-    }
-  })
-  return _data
-}
 const getFormDataByNoHidden = () => {
   // console.log('getFormData', _formList.value);
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
-  let _data = getFormKeyDataByNoHidden(_list);
+
+  let _path = `$..[?(@.key && !@.isHidden)][key,value]`
+  let _dataList = JSONPath({json: _list, path: _path});
+  // console.log(_dataList)
+  let _data = {}
+  _dataList.map((item, index) => {
+    if (index % 2 == 0) {
+      _data[item] = _dataList[index + 1];
+    }
+  })
   return _data;
 }
+
+const clearValidate = () => {
+  return formModelRef.value.clearValidate()
+}
+const validate = (callback) => {
+  return formModelRef.value.validate((valid, invalidFields) => callback(valid, invalidFields))
+}
+
 defineExpose({
   formModelRef,
+  clearValidate,
+  validate,
   getFormData,
   getFormDataByNoHidden
 })
@@ -190,51 +182,30 @@ const formModelClassCOM = computed(() => {
 
 
 
-const linkageKeyValue = {}
-
-const setlLinkageKeyValue = ()=>{
-
-}
-
-
-const setFormList = (list) => {
-  list?.map(item => {
-    if (item.formType == "inputNumber") {
-      // console.log(item);
-      if (item.value) {
-        item.value = Number(item.value)
-      } else {
-        item.value = undefined;
-      }
-    }
 
 
 
 
 
-    if (item.children?.length > 0) {
-      setFormList(item.children);
-    }
-  })
-}
 
-
+// section computed formList
 const _formList = computed(() => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
-  setFormList(_list);
+  console.log('_list',_list)
 
-  console.log('_com-list',_list)
+  try {
+
+  }catch(e) {
+    console.log(e)
+  }
 
 
-
-
+  // setFormList(_list);
+  console.log('_com-list', _list)
 
 
   return _list
 })
-
-
-
 
 
 watch(
@@ -272,9 +243,9 @@ const goTo = (key, data) => {
     console.log('_prop', _prop);
     setTimeout(() => {
       formModelRef.value?.validateField(_prop, () => null)
-
     }, 300)
 
+    setLinkageForm();
 
     emits('onChange', {...data})
   }
@@ -289,9 +260,72 @@ const onSubmit = (data) => {
   emits('onClick', {key: data.key, data,})
 }
 
+
+const setLinkageForm = () => {
+  let _list = props?.formList?.length > 0 ? props.formList : [];
+  let _linkageListPath = `$..[?(@.linkageKey)][linkageKey,linkageValue]`
+  // let _linkageList1 = JSONPath({json:_list,path: _linkageListPath});
+  // console.log('_linkageList',_linkageList1)
+  // return false;
+  let _linkageList = JSONPath({json: _list, path: _linkageListPath});
+  console.log('_linkageList', _linkageList)
+
+  _linkageList = _linkageList.map((item, index) => {
+    if (index % 2 == 0) {
+
+      return {
+        key: item,
+        value: _linkageList[index + 1]
+      }
+      // linkageList.value.push({
+      //   key: item,
+      //   value: _linkageList[index + 1]
+      // })
+    }
+  }).filter(item => item )
+  console.log('_linkageList', _linkageList)
+
+  _linkageList?.map(item => {
+    let _linkageKey = item?.key;
+    let _linkageValue = item?.value
+    let _path = `$..[?(@ && @.key == '${_linkageKey}')]`
+    let _formItem = JSONPath({
+      json: _list, path: _path, otherTypeCallback(ms){
+        console.log(ms)
+      }
+    });
+    console.log('_formItem', _formItem);
+    let _linkagePath = `$..[?(@.linkageKey == '${_linkageKey}')]`
+    let _linkageFormItem = JSONPath({json: _list, path: _linkagePath});
+    console.log('_linkageFormItem', _linkageFormItem);
+    let _linkageFormItemIsHidden = false;
+
+    if (_formItem[0]['value'] || _formItem[0]['value'] === 0) {
+      console.log('有值')
+      _linkageFormItemIsHidden = false;
+      if (_linkageValue || _linkageValue === 0) {
+        if (_linkageValue == _formItem[0]['value']) {
+
+        } else {
+          _linkageFormItemIsHidden = true;
+        }
+      }
+
+    } else {
+      console.log('无值')
+      _linkageFormItemIsHidden = true;
+    }
+    _linkageFormItem[0].isHidden = _linkageFormItemIsHidden
+  })
+
+}
+
+
+
 // 接口请求方法放这
 const init = () => {
-  //getList();
+  setLinkageForm();
+
 }
 
 // 统一执行初始化方法
