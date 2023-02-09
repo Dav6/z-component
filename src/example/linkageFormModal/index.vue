@@ -101,7 +101,7 @@ const buttonList = ref([
   {name: "查询", key: "search", type: 'primary'}
 
 ])
-const formList = ref([
+const formList1 = [
 
 
   {
@@ -207,8 +207,551 @@ const formList = ref([
   },
 
 
-])
+]
 
+const formList2 = [
+  {
+    name: "图片上传",
+    key: "image",
+    // limit: 1,
+    disabled: false,
+    formType: "imageVideoUpload",
+    span: 20,
+    value: [],
+    accept: "image/jpeg,image/jpg",
+    previewTeleported: true,
+    rules: [{ required: true, message: "请上传图片", trigger: "blur" }],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "名称",
+    key: "name",
+    value: "",
+    formType: "input",
+    placeholder: "请输入",
+    disabled: false,
+    span: 24,
+    rules: [{ required: true, message: "请输入", trigger: "blur" }],
+
+    clearable: true,
+
+    buttonList: [
+      { name: "", icon: "Plus", key: "add", isText: true },
+      { name: "", icon: "Minus", key: "delete", type: "danger", isText: false },
+    ],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "文本内容",
+    key: "textArea",
+    value: "",
+    placeholder: "请输入文本内容",
+    disabled: false,
+    formType: "input",
+    type: "textarea",
+    span: 24,
+    rules: [{ required: true, message: "请输入文本内容", trigger: "blur" }],
+    marginBottom: "",
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "数字",
+    key: "number",
+    value: "",
+    placeholder: "数字",
+    disabled: false,
+    formType: "inputNumber",
+    controls: false,
+    textAlign: "left",
+    min: 0,
+    span: 24,
+    rules: [{ required: true, message: "请输入数字", trigger: "blur" }],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "单选项",
+    key: "radio",
+    value: "",
+    placeholder: "请选择选项",
+    disabled: false,
+    formType: "radio",
+    span: 24,
+    rules: [{ required: true, message: "请选择选项", trigger: "blur" }],
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "单选项",
+    key: "radio",
+    value: "",
+    placeholder: "请选择选项",
+    disabled: false,
+    formType: "radio",
+    isRadioBorder: true,
+    span: 24,
+    rules: [{ required: true, message: "请选择选项", trigger: "blur" }],
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "单选项",
+    key: "radio",
+    value: "",
+    placeholder: "请选择选项",
+    disabled: false,
+    formType: "radio",
+    isRadioButton: true,
+    span: 24,
+    rules: [{ required: true, message: "请选择选项", trigger: "blur" }],
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "选项",
+    key: "options",
+    value: [],
+    placeholder: "请选择 ",
+    disabled: false,
+    formType: "select",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+
+    clearable: true,
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "选项",
+    key: "options",
+    value: [],
+    placeholder: "请选择",
+    disabled: false,
+    formType: "select",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    multiple: true,
+    collapseTags: false,
+    collapseTagsTooltip: false,
+    clearable: true,
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "选项",
+    key: "options",
+    value: [],
+    placeholder: "请选择",
+    disabled: false,
+    formType: "select",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    multiple: true,
+    collapseTags: true,
+    collapseTagsTooltip: true,
+    clearable: true,
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "选项Tree",
+    key: "options",
+    value: [],
+    placeholder: "请选择",
+    disabled: false,
+    formType: "treeSelect",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    multiple: true,
+    collapseTags: true,
+    collapseTagsTooltip: true,
+    clearable: true,
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+        children: [
+          {
+            label: "选项1",
+            value: 1.1,
+            children: [],
+          },
+          {
+            label: "选项2",
+            value: 1.2,
+          },
+          {
+            label: "选项3",
+            value: 1.3,
+          },
+          {
+            label: "选项4",
+            value: 1.4,
+          },
+        ],
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "选项Tree",
+    key: "options",
+    value: [],
+    placeholder: "请选择",
+    disabled: false,
+    formType: "treeSelect",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    multiple: true,
+    collapseTags: true,
+    collapseTagsTooltip: true,
+    showCheckbox: true,
+    clearable: true,
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+        children: [
+          {
+            label: "选项1",
+            value: 1.1,
+            children: [],
+          },
+          {
+            label: "选项2",
+            value: 1.2,
+          },
+          {
+            label: "选项3",
+            value: 1.3,
+          },
+          {
+            label: "选项4",
+            value: 1.4,
+          },
+        ],
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "选项",
+    key: "options",
+    value: [],
+    placeholder: "请选择",
+    disabled: false,
+    formType: "cascader",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    clearable: true,
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+        children: [
+          {
+            label: "选项1",
+            value: 1.1,
+            children: [],
+          },
+          {
+            label: "选项2",
+            value: 1.2,
+          },
+          {
+            label: "选项3",
+            value: 1.3,
+          },
+          {
+            label: "选项4",
+            value: 1.4,
+          },
+        ],
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ],
+  },
+  { formType: "divider", span: 24 },
+  {
+    name: "时间（time)",
+    key: "timePicker",
+    formType: "timePicker",
+    placeholder: "请选择",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+  },
+  { formType: "divider", span: 24 },
+
+  {
+    name: "时间(date)",
+    key: "date",
+    value: "",
+    placeholder: "请选择开始时间",
+    disabled: false,
+    formType: "datePicker",
+    type: "date",
+    span: 24,
+    rules: [{ required: true, message: "请选择开始时间", trigger: "blur" }],
+    disabledDate: (date) => {
+      let _nowTime = dayjs().subtract(24, "hour").valueOf();
+      // 选项里的的时间戳 和 今天的时间戳  比较
+      // 小于今天的禁止点击
+      return new Date(date).getTime() < _nowTime;
+    },
+  },
+  { formType: "divider", span: 24 },
+
+  {
+    name: "时间(date)",
+    key: "time",
+    value: "",
+    placeholder: "请选择开始时间",
+    disabled: false,
+    formType: "datePicker",
+    type: "datetime",
+    span: 24,
+    rules: [{ required: true, message: "请选择开始时间", trigger: "blur" }],
+    disabledDate: (date) => {
+      let _nowTime = dayjs().subtract(24, "hour").valueOf();
+      // 选项里的的时间戳 和 今天的时间戳  比较
+      // 小于今天的禁止点击
+      return new Date(date).getTime() < _nowTime;
+    },
+  },
+  {
+    name: "时间(date)",
+    key: "time",
+    value: [],
+    placeholder: "请选择时间",
+    disabled: false,
+    formType: "datePicker",
+    type: "datetimerange",
+    span: 24,
+    startPlaceholder: "开始时间",
+    endPlaceholder: "结束时间",
+    labelWidth: "5em",
+    isClearable: true,
+    rules: [{ required: true, message: "请选择开始时间", trigger: "blur" }],
+    disabledDate: (date, value) => {
+      // console.log(date);
+      // console.log(value);
+
+      let daysTime = 12 * 24 * 60 * 60 * 1000;
+      if (value?.length > 0 && value[0]) {
+        // console.log('选项',dayjs(dayjs(date).format('YYYY-MM-DD')).valueOf())
+        // console.log('当前',dayjs(dayjs(value[0]).format('YYYY-MM-DD')).valueOf())
+
+        let itemData = dayjs(dayjs(date).format("YYYY-MM-DD")).valueOf();
+        let currentData = dayjs(dayjs(value[0]).format("YYYY-MM-DD")).valueOf();
+
+        if (!value[1]) {
+          // 选项里的的时间戳 和 第一个选中的值 比较
+          // 只能选 12天以内的
+          return Math.abs(itemData - currentData) > daysTime;
+        }
+      }
+    },
+  },
+  {
+    labelWidth: "0",
+    formType: "divider",
+  },
+  {
+    formType: "tag",
+    value: `1.test   2.123123`,
+  },
+
+  {
+    formType: "tag",
+    isHtml: true,
+    value: `1.test
+            2.123123
+    `,
+  },
+
+  {
+    labelWidth: "0",
+    formType: "divider",
+    value: "",
+    marginBottom: 0,
+  },
+]
+
+const formList = ref(formList2)
 // console.log(JSON.stringify(formList.value))
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {

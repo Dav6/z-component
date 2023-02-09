@@ -188,17 +188,11 @@ const formModelClassCOM = computed(() => {
 // section computed formList
 const _formList = computed(() => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
-  console.log('_list', _list)
-
-  try {
-
-  } catch(e) {
-    console.log(e)
-  }
+  // console.log('_list', _list)
 
 
   // setFormList(_list);
-  console.log('_com-list', _list)
+  // console.log('_com-list', _list)
 
 
   return _list
@@ -257,36 +251,28 @@ const onSubmit = (data) => {
   emits('onClick', {key: data.key, data,})
 }
 
-
+// section set
 const setLinkageForm = () => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
   console.log('_list', _list);
-  let _linkageListPath = `$..[?(@ && @.linkageKey)][linkageKey,linkageValue]`
+  let _linkageListPath = `$..linkageKey^`
   // let _linkageList1 = JSONPath({json:_list,path: _linkageListPath});
 
-  // return false;
   let _linkageList = JSONPath({json: _list, path: _linkageListPath});
   console.log('_linkageList', _linkageList)
 
 
   _linkageList = _linkageList.map((item, index) => {
-    if (index % 2 == 0) {
-
-      return {
-        key: item,
-        value: _linkageList[index + 1]
-      }
-      // linkageList.value.push({
-      //   key: item,
-      //   value: _linkageList[index + 1]
-      // })
+    return {
+      key: item?.linkageKey || "",
+      value: item?.linkageValue
     }
   }).filter(item => item)
   console.log('_linkageList', _linkageList)
 
   _linkageList?.map(item => {
     let _linkageKey = item?.key;
-    let _linkageValue = item?.value
+    let _linkageValue = item?.value;
     let _path = `$..[?(@ && @.key == '${_linkageKey}')]`
     let _formItem = JSONPath({
       json: _list, path: _path, otherTypeCallback(ms){
