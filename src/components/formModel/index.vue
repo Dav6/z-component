@@ -177,9 +177,7 @@ defineExpose({
 })
 
 const formModelClassCOM = computed(() => {
-
   // console.log('props.isHiddenItemMarginBottom',props.isHiddenItemMarginBottom)
-
   return {
     'hiddenItemMarginBottom': props.isHiddenItemMarginBottom,
   }
