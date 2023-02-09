@@ -119,7 +119,7 @@ const formList = ref([
   {
     formType: "divider",
     span: 24,
-
+    value: "asdsad",
   },
 
   {

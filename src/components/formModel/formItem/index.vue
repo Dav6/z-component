@@ -490,7 +490,7 @@ init();
   }
 
 
-  .form-divider {
+  :deep(.form-divider){
     width: auto;
     flex: 1;
 
