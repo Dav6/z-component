@@ -187,21 +187,65 @@ const formList = ref([
       },
     ]
   },
+  {
+    name:"按钮",
+    key:"ts",
+    width: 220,
+    labelWidth: "0",
+    marginBottom:"18px",
+    formType: "input",
+    children: [
+      {
+        key:"sss",
+        buttonList: [
+          { name: "查 询", key: "search", type: "primary" },
+          { name: "重 置", key: "reset" },
+        ],
+      }
+    ]
+
+  },
 
 
 ])
 
-
+// console.log(JSON.stringify(formList.value))
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {
   console.log('example-formModel', key, data);
+
+  if(key == 'onFormItemButtonClick'){
+    let _bKey = data?.bItem.key
+    if(_bKey == 'search'){
+      // console.log(addEditFormRef.value?.getFormData());
+
+
+    }
+    if(_bKey == 'reset'){
+      addEditFormRef.value?.resetFields();
+
+    }
+
+    console.log('getFormDataByNoHidden',addEditFormRef.value.getFormDataByNoHidden())
+    console.log('getFormData',addEditFormRef.value.getFormData())
+
+
+  }
+
+
+
+
+
+
+
   if (key == 'cancel') {
     addEditFormRef.value.formModelRef.clearValidate();
   }
+
   if (key == 'confirm') {
 
-    console.log(addEditFormRef.value.getFormDataByNoHidden())
-    console.log(addEditFormRef.value.getFormData())
+    console.log('getFormDataByNoHidden',addEditFormRef.value.getFormDataByNoHidden())
+    console.log('getFormData',addEditFormRef.value.getFormData())
     addEditFormRef.value.formModelRef.validate((valid) => {
       console.log(valid)
       if (valid) {
@@ -217,7 +261,8 @@ const goTo = (key, data) => {
     if(_buttonKey == 'reset'){
       // addEditFormRef.value.formModelRef.clearValidate();
       addEditFormRef.value.clearValidate();
-
+      console.log('getFormDataByNoHidden',addEditFormRef.value.getFormDataByNoHidden())
+      console.log('getFormData',addEditFormRef.value.getFormData())
     }
 
     if(_buttonKey == 'search'){

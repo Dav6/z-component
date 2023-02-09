@@ -33,6 +33,8 @@
               :formModelRef="formModelRef"
               :formList="item?.children"
               @onChange="(data) => goTo('onChange', data)"
+              @submit="(data)=>goTo('submit', {...data})"
+              @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
             >
 
               <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">

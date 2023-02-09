@@ -320,7 +320,7 @@ watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig]
 
 //section goTo
 const goTo = (key, data) => {
-  // console.log(key, data);
+  // console.log('formItem',key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {key, ...data})

@@ -86,7 +86,7 @@ const slotListCOM = computed(() => {
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String,Number, Boolean],
+    type: [String, Number, Boolean],
   },
   formList: {
     type: [Array],
@@ -126,13 +126,14 @@ const getFormData = () => {
   // console.log('getFormData', _formList.value);
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
-  let _path = `$..[?(@.key)][key,value]`
+  let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key )]`
   let _dataList = JSONPath({json: _list, path: _path});
+  // console.log('_dataList',_dataList)
+
+
   let _data = {}
   _dataList.map((item, index) => {
-    if (index % 2 == 0) {
-      _data[item] = _dataList[index + 1];
-    }
+    _data[item?.key] = item?.value;
   })
   // let _data = getFormKeyData(_list);
   return _data;
@@ -143,14 +144,15 @@ const getFormDataByNoHidden = () => {
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
 
-  let _path = `$..[?(@.key && !@.isHidden)][key,value]`
+  let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.isHidden)]`
   let _dataList = JSONPath({json: _list, path: _path});
   // console.log(_dataList)
+
+
   let _data = {}
   _dataList.map((item, index) => {
-    if (index % 2 == 0) {
-      _data[item] = _dataList[index + 1];
-    }
+    _data[item?.key] = item?.value;
+
   })
   return _data;
 }
@@ -161,9 +163,13 @@ const clearValidate = () => {
 const validate = (callback) => {
   return formModelRef.value.validate((valid, invalidFields) => callback(valid, invalidFields))
 }
+const resetFields = () => {
+  return formModelRef.value.resetFields()
+}
 
 defineExpose({
   formModelRef,
+  resetFields,
   clearValidate,
   validate,
   getFormData,
@@ -181,21 +187,14 @@ const formModelClassCOM = computed(() => {
 })
 
 
-
-
-
-
-
-
-
 // section computed formList
 const _formList = computed(() => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
-  console.log('_list',_list)
+  console.log('_list', _list)
 
   try {
 
-  }catch(e) {
+  } catch(e) {
     console.log(e)
   }
 
@@ -232,7 +231,7 @@ watch(
 
 // section goTo
 const goTo = (key, data) => {
-  // console.log('formModel', key, data);
+  console.log('formModel', key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {...data})
@@ -263,7 +262,7 @@ const onSubmit = (data) => {
 
 const setLinkageForm = () => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
-  console.log('_list',_list);
+  console.log('_list', _list);
   let _linkageListPath = `$..[?(@ && @.linkageKey)][linkageKey,linkageValue]`
   // let _linkageList1 = JSONPath({json:_list,path: _linkageListPath});
 
@@ -284,7 +283,7 @@ const setLinkageForm = () => {
       //   value: _linkageList[index + 1]
       // })
     }
-  }).filter(item => item )
+  }).filter(item => item)
   console.log('_linkageList', _linkageList)
 
   _linkageList?.map(item => {
@@ -321,7 +320,6 @@ const setLinkageForm = () => {
   })
 
 }
-
 
 
 // 接口请求方法放这
