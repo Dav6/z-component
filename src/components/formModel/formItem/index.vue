@@ -497,6 +497,9 @@ init();
     &.el-divider--horizontal {
       margin: 12px 0;
     }
+    .el-divider__text{
+      line-height:1;
+    }
   }
 
   .form-line {

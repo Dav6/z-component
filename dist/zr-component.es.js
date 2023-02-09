@@ -1,4 +1,4 @@
-import './assets/index.8bf0967e.css';
+import './assets/index.5f58cd80.css';
 import { defineComponent as H, inject as Le, ref as ae, resolveComponent as T, openBlock as b, createBlock as B, mergeProps as Ee, unref as O, withCtx as P, renderSlot as te, useSlots as ge, computed as x, resolveDynamicComponent as pe, normalizeProps as Ne, guardReactiveProps as Ie, createSlots as de, renderList as q, createVNode as re, createElementBlock as N, Fragment as R, createTextVNode as Q, toDisplayString as G, normalizeStyle as ze, createElementVNode as Fe, normalizeClass as ce, useCssVars as Ve, watch as xe, createCommentVNode as oe, withModifiers as Ge, getCurrentInstance as qe } from "vue";
 const J = (e) => {
   let t = e, r = t == null ? void 0 : t.name;
@@ -1134,8 +1134,8 @@ const hn = {
   setup(e, { emit: t }) {
     const r = e;
     Ve((o) => ({
-      "8e3eb948": e.item.marginBottom,
-      "2bb1b456": e.item.labelWidth
+      f0f0a570: e.item.marginBottom,
+      "749fbac1": e.item.labelWidth
     }));
     let l = ge();
     x(() => () => {
@@ -1262,7 +1262,7 @@ const hn = {
       }, 8, ["class", "label", "label-width", "rules", "prop"]);
     };
   }
-}), bn = /* @__PURE__ */ be(yn, [["__scopeId", "data-v-32a044b6"]]), _n = J(bn), vn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), bn = /* @__PURE__ */ be(yn, [["__scopeId", "data-v-31769a0a"]]), _n = J(bn), vn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: _n
 }, Symbol.toStringTag, { value: "Module" }));
