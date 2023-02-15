@@ -14,7 +14,7 @@
       :pageData="pageData"
       :settingsButtonList="settingsButtonList"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-
+      :selectable="selectable"
     >
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
         <slot :name="item.name" :data="data.data"></slot>
@@ -62,7 +62,9 @@ const props = defineProps({
   settingsButtonList: {
     type: [Array]
   },
-
+  selectable:{
+    type: [Function]
+  }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onSettingsButtonClick']);

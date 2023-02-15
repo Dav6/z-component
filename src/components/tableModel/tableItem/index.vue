@@ -14,7 +14,7 @@
     :align="item.align"
     :fixed="item.fixed"
     :show-overflow-tooltip="item.showOverflowTooltip"
-
+    :selectable="(row, index) => selectable(row,index)"
   >
 
 
@@ -127,6 +127,9 @@ const props = defineProps({
   },
   pageData: {
     type: [Object]
+  },
+  selectable:{
+    type: [Function]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
@@ -166,6 +169,10 @@ const timeFormatCOM = computed(() => {
   }
 
 })
+
+
+
+
 
 
 const getIndex = (data) => {
@@ -251,6 +258,25 @@ const imageCOM = computed(() => {
     return _result;
   }
 })
+
+
+const selectable = (row,index) =>{
+  // console.log(props.item)
+  // console.log(row,index)
+
+
+
+  if(props.selectable){
+    // console.log(props.selectable(row,index))
+    return !props.selectable(row,index)
+  }
+
+  if(row.selectable){
+    return false;
+  }
+
+  return true
+}
 
 
 //section goTo

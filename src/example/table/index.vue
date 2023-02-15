@@ -17,8 +17,10 @@
     :isShowIndex="isShowIndex"
     :isShowSettings="isShowSettings"
     :settingsConfig="settingsConfig"
+    :selectable="selectable"
     height="100%"
     @select="(selection, row)=>goTo('select',{selection, row})"
+    @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
     @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
     v-bind="$props"
 
@@ -493,6 +495,19 @@ const list = ref([
     "companyName": "泽瑞集团",
     "createTime": "2022-11-14 16:35:59"
   }])
+
+
+list.value?.map((item,index) =>{
+  if(index%3 == 0){
+    item.selectable = true;
+  }
+})
+
+const selectable = (row,index)=>{
+  // console.log('selectable',row,index)
+  return true
+
+}
 
 
 const goTo = (key, data) => {

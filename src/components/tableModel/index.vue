@@ -14,6 +14,7 @@
 
     <d-table-list
       :keyList="keyListCOM"
+      :selectable="selectable"
       :pageData="pageData"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
     >
@@ -81,6 +82,9 @@ const props = defineProps({
   settingsConfig: {
     type: [Object],
     default:{},
+  },
+  selectable:{
+    type:[Function]
   }
 });
 
