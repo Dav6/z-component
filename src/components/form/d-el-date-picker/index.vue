@@ -8,16 +8,18 @@
 
 <template>
   <el-date-picker
-    class="form-date-picker" :clearable="item.clearable"
-    v-model="item.value" :type="item.type"
-    :disabled="item.disabled"
-    :range-separator="item.rangeSeparator ? item.rangeSeparator : '-'"
-    :format="item.format ? item.format : 'YYYY-MM-DD HH:mm:ss'"
-    :value-format="item.valueFormat ? item.valueFormat : 'YYYY-MM-DD HH:mm:ss'"
-    :shortcuts="item.shortcuts ? item.shortcuts : getShortcut(item.dateType)"
-    :placeholder="placeholderCOM(item)"
-    :start-placeholder="item.startPlaceholder" :end-placeholder="item.endPlaceholder"
-    :disabled-date="(date) => dateChangeDisabled.disabledDate(date, item)"
+    class="form-date-picker"
+    v-model="modelValue"
+    :clearable="data?.clearable"
+    :type="data?.type"
+    :disabled="data?.disabled"
+    :range-separator="data?.rangeSeparator ? data?.rangeSeparator : '-'"
+    :format="data?.format ? data?.format : 'YYYY-MM-DD HH:mm:ss'"
+    :value-format="data?.valueFormat ? data?.valueFormat : 'YYYY-MM-DD HH:mm:ss'"
+    :shortcuts="data?.shortcuts ? data?.shortcuts : getShortcut(data?.dateType)"
+    :placeholder="placeholderCOM(data)"
+    :start-placeholder="data?.startPlaceholder" :end-placeholder="data?.endPlaceholder"
+    :disabled-date="(date) => dateChangeDisabled.disabledDate(date, data)"
     :teleported="teleportedCOM"
     @calendar-change="(date) => dateChangeDisabled.calendarChange(date)"
   />
@@ -36,33 +38,38 @@ import {ref, reactive, computed, watch} from "vue"
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String, Boolean, Number, Object, Array],
+    type: [Date,String, Number, Array],
   },
-  item: {
+  data: {
     type: [Object],
+    default:{}
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
-
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue,
+  set: (value) => emits("update:modelValue", value),
+})
 const placeholderCOM = computed(() => {
   return (data) => {
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
     _placeholderPrefix = '请选择';
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    let _name = data?.name || '';
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })
 const teleportedCOM = computed(()=>{
-  let _item = props.item;
+  let _data = props.data;
   // console.log('teleportedCOM',_item);
-  console.log(_item.teleported == false)
+  console.log(_data?.teleported == false)
 
   let _teleported = true;
 
-  if(_item.teleported === false){
+  if(_data?.teleported === false){
     _teleported = false;
   }
 
@@ -76,11 +83,11 @@ const teleportedCOM = computed(()=>{
 const dateChangeDisabled = computed(() => {
   let currentValue = [];
   return {
-    disabledDate(data, item){
+    disabledDate(date, data){
       // console.log(data);
-      // item.disabledDate
-      if ((typeof item?.disabledDate) == 'function') {
-        return item?.disabledDate(data, currentValue);
+      // data?.disabledDate
+      if ((typeof data?.disabledDate) == 'function') {
+        return data?.disabledDate(date, currentValue);
       }
     },
     calendarChange(date){

@@ -9,13 +9,13 @@
 <template>
   <el-time-picker
     class="form-time-picker"
-    v-model="item.value"
-    :disabled="item.disabled"
-    :clearable="item.clearable"
-    :placeholder="placeholderCOM(item)"
-    :format="item.format ? item.format : 'HH:mm:ss'"
-    :teleported="item.teleported"
-    :value-format="item.valueFormat ? item.valueFormat : 'HH:mm:ss'"
+    v-model="modelValue"
+    :disabled="data?.disabled"
+    :clearable="data?.clearable"
+    :placeholder="placeholderCOM(data)"
+    :format="data?.format ? data?.format : 'HH:mm:ss'"
+    :teleported="data?.teleported"
+    :value-format="data?.valueFormat ? data?.valueFormat : 'HH:mm:ss'"
   />
 </template>
 
@@ -31,21 +31,25 @@ const props = defineProps({
   modelValue: {
     type: [String, Boolean, Number, Object, Array],
   },
-  item: {
+  data: {
     type: [Object],
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
-
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue ,
+  set: (value) =>  emits("update:modelValue", value),
+})
 const placeholderCOM = computed(() => {
   return (data) => {
     // console.log('placeholderCOM',data);
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
+    let _name = data?.name || '';
     _placeholderPrefix = '请选择';
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })

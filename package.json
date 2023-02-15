@@ -23,8 +23,10 @@
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.0.10",
+        "cronstrue": "^2.23.0",
         "dayjs": "^1.11.6",
         "element-plus": "^2.2.29",
+        "jeeplus-cron": "^1.1.6",
         "jsonpath": "^1.1.1",
         "jsonpath-plus": "^7.2.0",
         "less": "^4.1.3",

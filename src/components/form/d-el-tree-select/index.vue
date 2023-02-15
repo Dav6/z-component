@@ -9,20 +9,20 @@
 <template>
   <el-tree-select
     class="form-tree-select"
-    v-model="item.value"
-    :data="item?.options?.length>0?item.options:[]"
-    :props="item.props"
-    :multiple="item.multiple"
-    :collapse-tags="item.collapseTags"
-    :collapse-tags-tooltip="item.collapseTagsTooltip"
-    :treeNodeKey="item.treeNodeKey"
-    :check-on-click-node="item.checkOnClickNode"
-    :check-strictly="item.checkStrictly"
-    :render-after-expand="item.renderAfterExpand"
-    :show-checkbox="item.showCheckbox"
-    :disabled="item.disabled"
-    :filterable="item.filterable"
-    :placeholder="placeholderCOM(item)"
+    v-model="modelValue"
+    :data="data?.options?.length>0?data?.options:[]"
+    :props="data?.props"
+    :multiple="data?.multiple"
+    :collapse-tags="data?.collapseTags"
+    :collapse-tags-tooltip="data?.collapseTagsTooltip"
+    :treeNodeKey="data?.treeNodeKey"
+    :check-on-click-node="data?.checkOnClickNode"
+    :check-strictly="data?.checkStrictly"
+    :render-after-expand="data?.renderAfterExpand"
+    :show-checkbox="data?.showCheckbox"
+    :disabled="data?.disabled"
+    :filterable="data?.filterable"
+    :placeholder="placeholderCOM(data)"
 
   >
 
@@ -41,45 +41,31 @@ const props = defineProps({
   modelValue: {
     type: [String, Boolean, Number, Object, Array],
   },
-  item: {
+  data: {
     type: [Object],
     default:{},
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
-
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue ,
+  set: (value) =>  emits("update:modelValue", value),
+})
 const placeholderCOM = computed(() => {
   return (data) => {
     // console.log('placeholderCOM',data);
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
     _placeholderPrefix = '请选择';
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    let _name = data?.name || '';
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })
 
 
-const radioComponentCOM = computed(() => {
-  let _component = 'el-radio'
-  if (props.item.isRadioButton) {
-    _component = 'el-radio-button'
-  } else {
-
-  }
-
-  return _component;
-})
-
-
-// section formTypeKeyMap
-const radioKeyMap = ref({
-  input: 'd-el-input',
-  inputNumber: 'd-el-input-number',
-  radio: 'd-el-radio'
-})
 
 
 //watch(

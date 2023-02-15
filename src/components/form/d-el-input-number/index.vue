@@ -8,11 +8,11 @@
 
 <template>
   <el-input-number
-    class="form-input-number" :class="{ textAlignLeft: item.textAlign == 'left' }"
-    :disabled="item.disabled" v-model.number="item.value" :min="item.min" :max="item.max"
-    :step="item.step"
-    :precision="item.precision" :clearable="item.clearable" :placeholder="placeholderCOM(item)"
-    :controls="item.controls" :controls-position="item.controlsPosition"
+    class="form-input-number" :class="{ textAlignLeft: data?.textAlign == 'left' }"
+    :disabled="data?.disabled" v-model.number="modelValue" :min="data?.min" :max="data?.max"
+    :step="data?.step"
+    :precision="data?.precision" :clearable="data?.clearable" :placeholder="placeholderCOM(data)"
+    :controls="data?.controls" :controls-position="data?.controlsPosition"
   />
 </template>
 
@@ -26,10 +26,9 @@ import {ref, reactive, computed, watch} from "vue"
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [Number],
-
+    type: [Number,String],
   },
-  item: {
+  data: {
     type: [Object],
     default:()=>{
       return {
@@ -39,29 +38,34 @@ const props = defineProps({
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue ,
+  set: (value) =>  emits("update:modelValue", value),
+})
 
 const placeholderCOM = computed(() => {
   return (data) => {
     // console.log('placeholderCOM',data);
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
     _placeholderPrefix = '请输入';
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    let _name = data?.name || '';
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })
 
-const item = computed(()=>{
-  let _item = props.item;
-  if (_item.value) {
-    _item.value = Number(_item.value)
-  } else {
-    _item.value = undefined;
-  }
-  return _item;
-})
+// const item = computed(()=>{
+//   let _item = props.item;
+//   if (_data?.value) {
+//     _data?.value = Number(_data?.value)
+//   } else {
+//     _data?.value = undefined;
+//   }
+//   return _item;
+// })
 
 
 

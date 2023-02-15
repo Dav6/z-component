@@ -10,10 +10,10 @@
 
     <el-tag
       class="form-tag"
-      :size="item.size"
-      :type="item.type"
+      :size="data?.size"
+      :type="data?.type"
 
-    > {{item.value}}</el-tag>
+    > {{modelValue}}</el-tag>
 
 </template>
 
@@ -29,13 +29,16 @@ const props = defineProps({
   modelValue: {
     type: [String, Boolean, Number, Object, Array],
   },
-  item: {
+  data: {
     type: [Object],
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
-
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue ,
+  set: (value) =>  emits("update:modelValue", value),
+})
 
 
 //watch(

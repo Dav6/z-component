@@ -1,25 +1,34 @@
 <!--
-  author: 戴伟
-  date: 015 2022/12/15 11:14:19
-  file: src\components\form\d-el-input.vue
-  des:
-    do.....
+  @Author: 戴伟
+  @Date: 2023-02-13 09:11:49
+  @FilePath: src\components\form\d-el-checkbox\index.vue
+  @LastEditTime: ''
+  @LastEditors: ''
+  @Description:
+        do.....
 -->
 
 <template>
-  <d-image-video-upload
-    v-model="modelValue" :limit="data?.limit"
-    :size="data?.size"
-    :uploadIcon="data?.uploadIcon"
+  <el-checkbox-group
+    v-model="modelValue"
     :disabled="data?.disabled"
-    :previewTeleported="data?.previewTeleported"
-    :accept="data?.accept"
-  ></d-image-video-upload>
+
+  >
+    <Component
+      :is="radioComponentCOM"
+      v-for="(oItem, oIndex) in data?.options" :key="oIndex" :label="oItem.value"
+      :border="data?.isRadioBorder"
+    >
+      {{ oItem.label }}
+
+    </Component>
+
+  </el-checkbox-group>
 </template>
 
 <script setup>
 defineOptions({
-  name: 'd-el-image-video-upload',
+  name: 'd-el-checkbox',
 });
 import {ref, reactive, computed, watch} from "vue"
 
@@ -27,7 +36,7 @@ import {ref, reactive, computed, watch} from "vue"
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String, Boolean, Number, Object, Array],
+    type: [String, Boolean,Number,Array],
   },
   data: {
     type: [Object],
@@ -36,9 +45,10 @@ const props = defineProps({
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(["update:modelValue"]);
 const modelValue = computed({ // 重新定义
-  get: () => props.modelValue,
-  set: (value) => emits("update:modelValue", value),
+  get: () => props.modelValue ,
+  set: (value) =>  emits("update:modelValue", value),
 })
+
 
 const placeholderCOM = computed(() => {
   return (data) => {
@@ -51,6 +61,18 @@ const placeholderCOM = computed(() => {
     _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
+})
+
+
+const radioComponentCOM = computed(() => {
+  let _component = 'el-checkbox'
+  if(props.data?.isRadioButton){
+    _component = 'el-checkbox-button'
+  }else{
+
+  }
+
+  return _component;
 })
 
 

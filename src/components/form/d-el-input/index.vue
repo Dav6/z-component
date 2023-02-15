@@ -9,22 +9,22 @@
 <template>
   <el-input
     class="form-input"
-    :disabled="item.disabled"
-    v-model="item.value"
-    :clearable="item.clearable"
-    :max="item.max" :min="item.min"
-    :maxlength="item.maxlength"
-    :minlength="item.minlength"
-    :show-word-limit="item.showWordLimit"
-    :show-password="item.showPassword"
-    :prefix-icon="item.prefixIcon"
-    :suffix-icon="item.suffixIcon"
+    v-model="modelValue"
+    :disabled="data?.disabled"
+    :clearable="data?.clearable"
+    :max="data?.max" :min="data?.min"
+    :maxlength="data?.maxlength"
+    :minlength="data?.minlength"
+    :show-word-limit="data?.showWordLimit"
+    :show-password="data?.showPassword"
+    :prefix-icon="data?.prefixIcon"
+    :suffix-icon="data?.suffixIcon"
 
-    :rows="item.rows ? item.rows : 5"
+    :rows="data?.rows ? data?.rows : 5"
 
-    :type="item.type"
+    :type="data?.type"
 
-    :placeholder="placeholderCOM(item)"
+    :placeholder="placeholderCOM(data)"
   />
 </template>
 
@@ -38,24 +38,29 @@ import {ref, reactive, computed, watch} from "vue"
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String, Boolean],
+    type: [String,Number],
   },
-  item: {
+  data: {
     type: [Object],
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue,
+  set: (value) => emits("update:modelValue", value),
+})
+
 
 const placeholderCOM = computed(() => {
   return (data) => {
     // console.log('placeholderCOM',data);
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '' ;
     _placeholderPrefix = '请输入'
-
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    let _name = data?.name || '';
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })

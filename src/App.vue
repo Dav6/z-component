@@ -129,8 +129,14 @@ init();
   :deep(.example-tabs){
     height:100%;
 
+    .el-tabs--left{
+      .el-tabs__nav-scroll{
+        width:130px;
+
+      }
+    }
+
     .el-tabs__nav-scroll{
-      width:130px;
 
       overflow-y: auto;
       /*//滚动条的宽度*/

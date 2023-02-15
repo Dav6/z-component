@@ -10,9 +10,9 @@
 
   <el-divider
     class="form-divider"
-    :border-style="item.borderStyle"
-    :content-position="item.contentPosition"
-  >{{ item.value }}
+    :border-style="data?.borderStyle"
+    :content-position="data?.contentPosition"
+  >{{ modelValue}}
   </el-divider>
 
 </template>
@@ -29,13 +29,16 @@ const props = defineProps({
   modelValue: {
     type: [String, Boolean, Number, Object, Array],
   },
-  item: {
+  data: {
     type: [Object],
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
-
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue,
+  set: (value) => emits("update:modelValue", value),
+})
 
 
 

@@ -8,11 +8,11 @@
 
 <template>
   <el-cascader
-    class="form-cascader"   v-model="item.value"
-    :options="item.options" :clearable="item.clearable"
-    :placeholder="placeholderCOM(item)"
-    :disabled="item.disabled"
-    :props="item.props"/>
+    class="form-cascader"   v-model="modelValue"
+    :options="data?.options" :clearable="data?.clearable"
+    :placeholder="placeholderCOM(data)"
+    :disabled="data?.disabled"
+    :props="data?.props"/>
 </template>
 
 <script setup>
@@ -25,46 +25,35 @@ import {ref, reactive, computed, watch} from "vue"
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String, Boolean, Number, Object, Array],
+    type: [Array,String,Number],
   },
-  item: {
+  data: {
     type: [Object],
-  }
+    default:{},
+  },
+  
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue,
+  set: (value) => emits("update:modelValue", value),
+})
+
 
 const placeholderCOM = computed(() => {
   return (data) => {
     // console.log('placeholderCOM',data);
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
+    let _name = data?.name || '';
     _placeholderPrefix = '请选择';
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })
 
-
-const radioComponentCOM = computed(() => {
-  let _component = 'el-radio'
-  if (props.item.isRadioButton) {
-    _component = 'el-radio-button'
-  } else {
-
-  }
-
-  return _component;
-})
-
-
-// section formTypeKeyMap
-const radioKeyMap = ref({
-  input: 'd-el-input',
-  inputNumber: 'd-el-input-number',
-  radio: 'd-el-radio'
-})
 
 
 //watch(

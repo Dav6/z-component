@@ -9,17 +9,17 @@
 <template>
   <el-select
     class="form-select"
-    v-model="item.value"
-    :value-key="item.valueKey"
-    :disabled="item.disabled"
-    :multiple="item.multiple"
-    :collapse-tags="item.collapseTags"
-    :collapse-tags-tooltip="item.collapseTagsTooltip"
-    :placeholder="placeholderCOM(item)"
-    :clearable="item.clearable"
-    :filterable="item.filterable"
+    v-model="modelValue"
+    :value-key="data?.valueKey"
+    :disabled="data?.disabled"
+    :multiple="data?.multiple"
+    :collapse-tags="data?.collapseTags"
+    :collapse-tags-tooltip="data?.collapseTagsTooltip"
+    :placeholder="placeholderCOM(data)"
+    :clearable="data?.clearable"
+    :filterable="data?.filterable"
   >
-    <el-option v-for="(oItem, oIndex) in item.options" :key="oIndex" :label="oItem.label"
+    <el-option v-for="(oItem, oIndex) in data?.options" :key="oIndex" :label="oItem.label"
                :disabled="oItem.disabled" :value="oItem.value"/>
 
   </el-select>
@@ -37,44 +37,31 @@ const props = defineProps({
   modelValue: {
     type: [String, Boolean, Number, Object, Array],
   },
-  item: {
+  data: {
     type: [Object],
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
-
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue ,
+  set: (value) =>  emits("update:modelValue", value),
+})
 const placeholderCOM = computed(() => {
   return (data) => {
     // console.log('placeholderCOM',data);
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
     _placeholderPrefix = '请选择';
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    let _name = data?.name || '';
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })
 
 
-const radioComponentCOM = computed(() => {
-  let _component = 'el-radio'
-  if (props.item.isRadioButton) {
-    _component = 'el-radio-button'
-  } else {
 
-  }
-
-  return _component;
-})
-
-
-// section formTypeKeyMap
-const radioKeyMap = ref({
-  input: 'd-el-input',
-  inputNumber: 'd-el-input-number',
-  radio: 'd-el-radio'
-})
 
 
 //watch(

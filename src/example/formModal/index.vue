@@ -8,6 +8,8 @@
 
 <template>
   <div class="form-model">
+    <d-el-radio v-model="test" :item="{option:[{value:1,label:'lable'}]}" ></d-el-radio>
+
     <d-form-model
 
       ref="addEditFormRef"
@@ -63,7 +65,6 @@
 
 <script setup>
 import dayjs from "dayjs";
-
 defineOptions({
   name: "表单案例",
   key: 'example-form-model',
@@ -94,7 +95,7 @@ const defaultCOM = computed(() => {
 //  },
 //   {immediate: true}
 //);
-
+const test = ref();
 
 const buttonList = ref([
   {name: "重置", key: "reset",},
@@ -102,6 +103,12 @@ const buttonList = ref([
 
 ])
 const formList = ref([
+  {
+    name: "表达式", key: "cron", value: "", formType: "cron", placeholder: "请输入", disabled: false, span: 12,
+    rules: [{required: true, message: "请输入", trigger: "blur"}],
+    clearable: true,
+  },
+
   {
     name: "图片上传",
     key: "image",
@@ -160,11 +167,73 @@ const formList = ref([
     textAlign: "left",
     min: 0,
     span: 12,
-    rules: [{required: true, message: "请输入数字", trigger: "blur"}],
+    rules: [{required: true,type: "number",message: "请输入数字", trigger: "blur"}],
   },
   {
     formType: "divider",
     span: 24,
+  },
+  {
+    name: "多选项",
+    key: "checkbox",
+    value: '',
+    placeholder: "请选择选项",
+    disabled: false,
+    formType: "checkbox",
+    span: 12,
+    rules: [{required: true, message: "请选择选项", trigger: "blur"}],
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ]
+  },
+
+  {
+    formType: "divider",
+    span: 24,
+  },
+  {
+    name: "多选项",
+    key: "checkbox",
+    value: [2,3],
+    placeholder: "请选择选项",
+    disabled: false,
+    isRadioBorder:true,
+    formType: "checkbox",
+    span: 12,
+    rules: [{required: true, message: "请选择选项", trigger: "blur"}],
+    options: [
+      {
+        label: "选项1",
+        value: 1,
+      },
+      {
+        label: "选项2",
+        value: 2,
+      },
+      {
+        label: "选项3",
+        value: 3,
+      },
+      {
+        label: "选项4",
+        value: 4,
+      },
+    ]
   },
   {
     name: "单选项",
@@ -982,7 +1051,7 @@ const formList = ref([
 
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {
-  console.log('example-formModel', key, data);
+  console.log('example-formModel', key, data,formList.value);
   if (key == 'cancel') {
     addEditFormRef.value.formModelRef.clearValidate();
   }

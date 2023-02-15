@@ -1,23 +1,24 @@
 <!--
-  author: 戴伟
-  date: 015 2022/12/15 11:14:19
-  file: src\components\form\d-el-input.vue
-  des:
-    do.....
+  @Author: 戴伟
+  @Date: 2023-02-13 11:45:27
+  @FilePath: src\components\form\d-el-radio\index.vue  
+  @LastEditTime: ''
+  @LastEditors: ''
+  @Description: 
+        do.....
 -->
 
 <template>
   <el-radio-group
-    v-model="item.value"
-    :disabled="item.disabled"
-
+    v-model="modelValue"
+    :disabled="data?.disabled"
+    :min="data?.min"
+    :max="data?.max"
   >
-
-
     <Component
       :is="radioComponentCOM"
-      v-for="(oItem, oIndex) in item.options" :key="oIndex" :label="oItem.value"
-      :border="item.isRadioBorder"
+      v-for="(oItem, oIndex) in data?.options" :key="oIndex" :label="oItem.value"
+      :border="data?.isRadioBorder"
     >
       {{ oItem.label }}
 
@@ -38,21 +39,27 @@ const props = defineProps({
   modelValue: {
     type: [String, Boolean,Number,Object,Array],
   },
-  item: {
+  data: {
     type: [Object],
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits([]);
+const emits = defineEmits(["update:modelValue"]);
+const modelValue = computed({ // 重新定义
+  get: () => props.modelValue ,
+  set: (value) =>  emits("update:modelValue", value),
+})
+
 
 const placeholderCOM = computed(() => {
   return (data) => {
     // console.log('placeholderCOM',data);
-    if (data.placeholder) return data.placeholder;
+    if (data?.placeholder) return data?.placeholder;
     let _placeholder = '';
     let _placeholderPrefix = '';
     _placeholderPrefix = '请选择';
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    let _name = data?.name || '';
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })
@@ -60,7 +67,7 @@ const placeholderCOM = computed(() => {
 
 const radioComponentCOM = computed(() => {
   let _component = 'el-radio'
-  if(props.item.isRadioButton){
+  if(props.data?.isRadioButton){
     _component = 'el-radio-button'
   }else{
 
@@ -68,6 +75,7 @@ const radioComponentCOM = computed(() => {
 
   return _component;
 })
+
 
 
 

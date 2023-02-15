@@ -38,7 +38,8 @@
 
         <Component
           :is="formTypeKeyMap[item.formType]"
-          :item="item"
+          v-model="item.value"
+          :data="item"
           @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
         />
 
@@ -74,10 +75,12 @@
       <template v-if="item.formType == 'imageVideoUpload'">
         <Component
           :is="formTypeKeyMap[item.formType]"
+          v-model="item.value"
           :item="item"
+          :data="item"
           @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
         />
-        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />
+<!--        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />-->
 
       </template>
 
@@ -180,6 +183,7 @@ const props = defineProps({
       isHiddenRulers: false,
       marginBottom: "",
       customName:"",
+      value:undefined,
     },
   },
   index: {
@@ -208,6 +212,7 @@ const formTypeKeyMap = ref({
   input: 'd-el-input',
   inputNumber: 'd-el-input-number',
   radio: 'd-el-radio',
+  checkbox:'d-el-checkbox',
   select: 'd-el-select',
   treeSelect: 'd-el-tree-select',
   cascader: 'd-el-cascader',
@@ -216,6 +221,7 @@ const formTypeKeyMap = ref({
   imageVideoUpload:'d-el-image-video-upload',
   tag:'d-el-tag',
   divider:'d-el-divider',
+  cron:'d-cron',
 })
 
 
@@ -225,7 +231,7 @@ const placeholderCOM = computed(() => {
 
     if (data.placeholder) return data.placeholder;
     let _placeholder = '';
-    let _selects = ['treeSelect', 'select', 'cascader', 'timePicker', 'datePicker'];
+    let _selects = ['treeSelect', 'select', 'cascader', 'timePicker', 'datePicker','cron'];
     let _inputs = ['input', 'inputNumber', 'textArea'];
     let _placeholderPrefix = ''
     if (_selects.indexOf(data.formType) > -1) {
@@ -235,7 +241,8 @@ const placeholderCOM = computed(() => {
     if (_inputs.indexOf(data.formType) > -1) {
       _placeholderPrefix = '请输入'
     }
-    _placeholder = `${_placeholderPrefix}${data.name}`
+    let _name = data?.name || '';
+    _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
 })
@@ -289,6 +296,7 @@ const isShowEditor = ref(true)
 watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig], [preItem, preToolbarConfig]) => {
 
 
+
   if (item?.formType == 'editor') {
     //   toolbarConfig = toolbarConfig || {};
     //   item = JSON.parse(JSON.stringify(item))
@@ -320,7 +328,7 @@ watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig]
 
 //section goTo
 const goTo = (key, data) => {
-  // console.log('formItem',key, data);
+  console.log('formItem',key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {key, ...data})
@@ -349,10 +357,35 @@ const goTo = (key, data) => {
 }
 
 
+const setItemData = ()=>{
+
+  if(props.item?.formType == 'inputNumber'){
+    console.log()
+    console.log('props.item.value',props.item.value)
+
+    if(props.item.value === ""){
+      props.item.value = undefined;
+    }else{
+      props.item.value = Number(props.item.value);
+
+    }
+  }
+  if(props.item?.formType == 'checkbox'){
+    if(props.item.value === ""){
+      props.item.value = undefined;
+    }
+
+
+  }
+
+
+}
+
+
 // 接口请求方法放这
 const init = () => {
   //getList();
-
+  setItemData()
 }
 
 // 统一执行初始化方法
@@ -484,6 +517,44 @@ init();
       .el-upload--picture-card i {
         color: var(--el-color-danger);
       }
+    }
+    :deep(.cron){
+      border-color: var(--el-color-danger);
+
+      .el-input {
+        .el-input__wrapper {
+          box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
+
+        }
+        input::placeholder {
+          color: var(--el-text-color-placeholder);
+          opacity: 0.6;
+        }
+      }
+      .el-select {
+        .el-select__caret{
+          color:var(--el-select-input-color)
+        }
+      }
+
+
+      .active{
+        .el-select__caret{
+          color:var(--el-color-danger);
+        }
+        .el-input {
+          .el-input__wrapper {
+            box-shadow: 0 0 0 1px var(--el-color-danger) inset
+          }
+
+
+
+          input::placeholder {
+            color: var(--el-color-danger);
+          }
+        }
+      }
+
     }
 
 
