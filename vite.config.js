@@ -28,7 +28,7 @@ export default defineConfig({
     // 打包的时候 不会引入css ， xxx.es.js自动引入css
     // 使用build.cssCodeSplit: true ， 给xxx.umd.js 生成内链css
     libCss(),
-    // VitePluginStyleInject(),
+    VitePluginStyleInject(),
     // AutoImport({
     //   resolvers: [
     //     ElementPlusResolver(),
@@ -80,7 +80,7 @@ export default defineConfig({
       //   },
       // },
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ["vue" ],
+      external: ["vue", "element","element-plus" ],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {
