@@ -80,7 +80,7 @@ const settingsConfig = ref({
   type:'123123',
   align: "center",
   width:100,
-  isShow:false,
+  isShow:true,
   buttonList: [
     {
       name: "详情",

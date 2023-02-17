@@ -121,7 +121,7 @@ let _tableSettingsDefault = {
   type: "settings",
   fixed: 'right',
   align: "center",
-  isShow:true,
+  isShow:false,
   buttonList: [
     {
       name: "详情",
