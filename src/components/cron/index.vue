@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="never" class="cron" :_data="_value">
 
-    Tip：{{cronDesc}}
+    时间：{{cronDesc}}
 
     <el-form-item class="cron-el-form-item" :rules="[]">
 

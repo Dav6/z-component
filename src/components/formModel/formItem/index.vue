@@ -467,7 +467,11 @@ init();
   //
   //    }
   //}
-
+  &.el-form-item{
+    :deep(.cron){
+      --el-card-padding: 0px 0px 0px;
+    }
+  }
 
   &.el-form-item.is-error {
     :deep(.el-form-item__content) {
@@ -520,7 +524,6 @@ init();
     }
     :deep(.cron){
       border-color: var(--el-color-danger);
-
       .el-input {
         .el-input__wrapper {
           box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
