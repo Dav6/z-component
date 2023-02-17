@@ -38,7 +38,6 @@ import Day from './cron/day.vue'
 import Month from './cron/month.vue'
 import Week from './cron/week.vue'
 import Year from './cron/year.vue'
-import {ElMessage, ElMessageBox} from 'element-plus'
 import cronstrue from 'cronstrue';
 import 'cronstrue/locales/zh_CN'
 import {ref, reactive, markRaw, computed, watch} from "vue"
@@ -269,7 +268,7 @@ init();
     }
 
     .el-input-number{
-      min-width:100px;
+      width: 100px;
       flex-shrink: 0;
     }
     .el-select{

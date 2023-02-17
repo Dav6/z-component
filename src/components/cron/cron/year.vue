@@ -15,11 +15,11 @@
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'2',label:`周期`}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-<!--      <el-input-number @change="type = '2'" v-model="cycle.start" :min="2000" size="mini" style="width: 100px;"></el-input-number>-->
+<!--      <el-input-number @change="type = '2'" v-model="cycle.start" :min="2000" size="mini" ></el-input-number>-->
       <d-el-input-number @change="type = '2'" v-model="cycle.start" :data="{min:2000}"
                          style="width: 130px;"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
-<!--      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2000"  size="mini" style="width: 100px;"></el-input-number>-->
+<!--      <el-input-number @change="type = '2'" v-model="cycle.end" :min="2000"  size="mini" ></el-input-number>-->
       <d-el-input-number @change="type = '2'" v-model="cycle.end" :data="{min:2000}"
                          style="width: 130px;"></d-el-input-number>
       <span style="margin-left: 10px; margin-right: 5px;">{{ unit }}</span>

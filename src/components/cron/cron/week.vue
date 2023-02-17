@@ -10,20 +10,20 @@
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'2',label:'周期'}]}"></d-el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">从{{ unit }}</span>
       <d-el-input-number @change="type = '2'" v-model="cycle.start" :data="{min:1,max:7,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至{{ unit }}</span>
       <d-el-input-number @change="type = '2'" v-model="cycle.end" :data="{min:2,max:7,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
     </div>
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'3',label:'循环'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">从{{ unit }}</span>
       <d-el-input-number @change="type = '3'" v-model="loop.start" :data="{min:1,max:7,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">开始，每</span>
       <d-el-input-number @change="type = '3'" v-model="loop.end" :data="{min:1,max:7,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">天执行一次</span>
     </div>
     <div>
@@ -31,17 +31,17 @@
 
       <span style="margin-left: 10px; margin-right: 5px;">本月第</span>
       <d-el-input-number @change="type = '7'" v-model="week.end" :data="{min:1,max:4,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">个，{{ unit }}</span>
       <d-el-input-number @change="type = '7'" v-model="week.start" :data="{min:1,max:7,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
     </div>
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'6',label:'本月最后一个'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">{{ unit }}</span>
       <d-el-input-number @change="type = '6'" v-model="last" :data="{min:1,max:7,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
     </div>
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'4',label:'指定'}]}"></d-el-radio>
@@ -64,7 +64,6 @@ import {
   watch,
   getCurrentInstance
 } from "vue"
-import {ElMessage, ElMessageBox} from "element-plus";
 const instance = getCurrentInstance();
 
 const props = defineProps({

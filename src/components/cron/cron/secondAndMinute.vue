@@ -19,10 +19,10 @@
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
       <d-el-input-number :class="{active:type == '2'}"  @change="type = '2'" v-model="cycle.start" :data="{min:1,max:59,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
       <d-el-input-number :class="{active:type == '2'}"  @change="type = '2'" v-model="cycle.end" :data="{min:2,max:59,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}</span>
 
 
@@ -32,11 +32,11 @@
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
       <d-el-input-number :class="{active:type == '3'}"  @change="type = '3'" v-model="loop.start" :data="{min:0,max:59,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
 
       <span style="margin-left: 5px; margin-right: 5px;"> {{ unit }}开始，每</span>
       <d-el-input-number :class="{active:type == '3'}"  @change="type = '3'" v-model="loop.end" :data="{min:1,max:59,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
 
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}执行一次</span>
 

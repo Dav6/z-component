@@ -13,10 +13,10 @@
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
       <d-el-input-number  @change="goTo('setType','2')"  v-model="cycle.start" :data="{min:1,max:31,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
       <d-el-input-number   @change="goTo('setType','2')"   v-model="cycle.start" :data="{min:2,max:31,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}</span>
     </div>
     <div>
@@ -24,10 +24,10 @@
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
       <d-el-input-number @change="goTo('setType','3')"  v-model="loop.start" :data="{min:1,max:31,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}开始，每</span>
       <d-el-input-number @change="goTo('setType','3')" v-model="loop.end" :data="{min:1,max:31,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}执行一次</span>
 
     </div>
@@ -36,7 +36,7 @@
 
       <span style="margin-left: 10px; margin-right: 5px;">本月</span>
       <d-el-input-number @change="goTo('setType','8')" v-model="work" :data="{min:1,max:7,}"
-                         style="width: 100px;"></d-el-input-number>
+                         ></d-el-input-number>
 
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}，最近的工作日</span>
 
@@ -65,8 +65,6 @@ import {
   watch,
   getCurrentInstance
 } from "vue"
-// import {ElMessage, ElMessageBox} from 'element-plus'
-
 
 const instance = getCurrentInstance();
 const props = defineProps({
