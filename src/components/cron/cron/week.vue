@@ -57,8 +57,15 @@
 
 <script setup>
 
-import {ref, reactive, computed, watch} from "vue"
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  getCurrentInstance
+} from "vue"
 import {ElMessage, ElMessageBox} from "element-plus";
+const instance = getCurrentInstance();
 
 const props = defineProps({
   // 配合emits v-model
@@ -107,7 +114,7 @@ const showMessage = (message) => {
 
   return new Promise((resolve, reject) => {
 
-    ElMessageBox.confirm(
+    instance?.appContext?.app?.config?.globalProperties?.$confirm(
       message,
       '提示',
       {
