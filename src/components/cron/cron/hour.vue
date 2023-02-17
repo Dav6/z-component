@@ -45,6 +45,8 @@
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'4',label:'指定'}]}"></d-el-radio>
 
       <d-el-select class="hour-select" v-model="appoint"
+                   clearable
+                   :class="{active:type == '4' && !appoint?.length>0}"
                    :data="{options:appointOptions,multiple:true,collapseTags:true,collapseTagsTooltip:true}"
                    @change="type = '4'"></d-el-select>
     </div>
