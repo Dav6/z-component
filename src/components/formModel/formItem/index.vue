@@ -470,6 +470,7 @@ init();
   &.el-form-item{
     :deep(.cron){
       --el-card-padding: 0px 0px 0px;
+      border: none;
     }
   }
 
@@ -541,7 +542,7 @@ init();
       }
 
 
-      .active{
+      .isError{
         .el-select__caret{
           color:var(--el-color-danger);
         }

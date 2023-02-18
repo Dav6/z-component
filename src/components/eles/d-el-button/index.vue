@@ -24,7 +24,7 @@ defineOptions({
   name: 'd-el-button',
 });
 
-import {ref, reactive, computed, watch, useSlots} from "vue"
+import { computed, useSlots} from "vue"
 
 
 const componentName = 'el-button'

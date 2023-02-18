@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="never" class="cron" :_data="_value">
+  <el-card :shadow="shadow" class="cron" :_data="_value">
 
     时间：{{cronDesc}}
 
@@ -51,6 +51,12 @@ const props = defineProps({
       return '* * * * * ? *'
     }
   },
+  shadow:{
+    type: [String],
+    default:()=>{
+      return 'never'
+    }
+  }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(["update:modelValue", "change"]);
@@ -227,8 +233,8 @@ init();
 
 .cron {
   text-align: left;
-  border:none;
-  --el-card-padding:5px 20px 20px;
+  //border:none;
+  //--el-card-padding:5px 20px 20px;
   :deep(.cron-el-form-item.el-form-item) {
     .el-form-item__content {
       width: 100%;
@@ -240,6 +246,9 @@ init();
     }
   }
 
+  .cron-el-form-item{
+    margin-bottom: 0;
+  }
 
 
   :deep(.el-tabs){

@@ -12,9 +12,9 @@ import libCss from 'vite-plugin-libcss';
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
-import ElementPlus from 'unplugin-element-plus/vite'
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
+// import ElementPlus from 'unplugin-element-plus/vite'
+// import Icons from 'unplugin-icons/vite'
+// import IconsResolver from 'unplugin-icons/resolver'
 
 const pathSrc = fileURLToPath(new URL('./src', import.meta.url))
 
@@ -80,7 +80,7 @@ export default defineConfig({
       //   },
       // },
       // 确保外部化处理那些你不想打包进库的依赖
-      external: ["vue",  ],
+      external: ["vue" ],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {

@@ -50,7 +50,7 @@
 
       <d-el-select class="day-select" v-model="appoint"
                    clearable
-                   :class="{active:type == '4' && !appoint?.length>0}"
+                   :class="{active:type == '4' ,isError:type == '4' && !appoint?.length>0}"
                    :data="{options:appointOptions,multiple:true,collapseTags:true,collapseTagsTooltip:true}"
                    @change="type = '4'"></d-el-select>
     </div>

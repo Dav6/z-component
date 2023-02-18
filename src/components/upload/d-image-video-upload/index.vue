@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import {Plus,CloseBold} from "@element-plus/icons-vue"
+// import {Plus,CloseBold} from "@element-plus/icons-vue"
 defineOptions({
   name: 'd-image-video-upload',
   isExposed:false

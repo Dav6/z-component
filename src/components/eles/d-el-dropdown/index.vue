@@ -35,7 +35,7 @@
 defineOptions({
   name: 'd-el-dropdown',
 });
-import {ref,reactive,computed,watch} from  "vue"
+// import {ref,reactive,computed,watch} from  "vue"
 
 const props = defineProps({
   // 配合emits v-model

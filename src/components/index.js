@@ -5,12 +5,12 @@
  @file: src/components
  @description： do.....
  */
-import * as components from "@element-plus/icons-vue";
-import ElementPlus from "element-plus";
+// import * as components from "@element-plus/icons-vue";
+// import ElementPlus from "element-plus";
 // import "element-plus/dist/index.css";
-import zhCn from "element-plus/es/locale/lang/zh-cn";
+// import zhCn from "element-plus/es/locale/lang/zh-cn";
 // import "dayjs/locale/zh-cn";
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+// import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 // import locale from 'element-plus/lib/locale'
 // locale.use(zhCn)
