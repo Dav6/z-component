@@ -263,44 +263,53 @@ const setLinkageForm = () => {
 
 
   _linkageList = _linkageList.map((item, index) => {
-    return {
-      key: item?.linkageKey || "",
-      value: item?.linkageValue
-    }
+    return item?.linkageKey || "";
   }).filter(item => item)
+  _linkageList = [...new Set(_linkageList)]
   console.log('_linkageList', _linkageList)
 
   _linkageList?.map(item => {
-    let _linkageKey = item?.key;
-    let _linkageValue = item?.value;
+    let _linkageKey = item;
+
+    //  获取联动key对应的formItem
     let _path = `$..[?(@ && @.key == '${_linkageKey}')]`
-    let _formItem = JSONPath({
-      json: _list, path: _path, otherTypeCallback(ms){
-        console.log(ms)
-      }
-    });
+    let _formItem = JSONPath({json: _list, path: _path,  });
     console.log('_formItem', _formItem);
-    let _linkagePath = `$..[?(@ && @.linkageKey == '${_linkageKey}')]`
+    let _key = _formItem?.[0]?.key;
+    let _value = _formItem?.[0]?.value;
+    console.log(_key,_value)
+
+    // 获取设置当前 linkageKey 的formItem
+    let _linkagePath = `$..[?(@ && @.linkageKey == '${_key}')]`
     let _linkageFormItem = JSONPath({json: _list, path: _linkagePath});
     console.log('_linkageFormItem', _linkageFormItem);
-    let _linkageFormItemIsHidden = false;
-
-    if (_formItem[0]['value'] || _formItem[0]['value'] === 0) {
-      console.log('有值')
-      _linkageFormItemIsHidden = false;
-      if (_linkageValue || _linkageValue === 0) {
-        if (_linkageValue == _formItem[0]['value']) {
-
-        } else {
-          _linkageFormItemIsHidden = true;
+    // 遍历当前获取到的 当前 linkageKey 的formItem
+    _linkageFormItem?.map(item=>{
+      let _lItem = item;
+      let _linkageValue = _lItem.linkageValue;
+      let _linkageFormItemIsHidden = false;
+      //  判断当前联动key对应的formItem的值 是否为空
+      // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
+      if (_value || _value === 0) {
+        // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
+        //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
+        if (_linkageValue || _linkageValue === 0) {
+          if(_linkageValue != _value){
+            _linkageFormItemIsHidden = true
+          }
         }
+      }else{
+        _linkageFormItemIsHidden = true;
       }
 
-    } else {
-      console.log('无值')
-      _linkageFormItemIsHidden = true;
-    }
-    _linkageFormItem[0].isHidden = _linkageFormItemIsHidden
+      _lItem.isHidden = _linkageFormItemIsHidden;
+
+
+    })
+
+    return false;
+
+
   })
 
 }
