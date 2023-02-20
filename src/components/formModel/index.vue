@@ -10,7 +10,10 @@
 <template>
   <!--  <d-el-config-provider   >-->
   <el-form
-    :label-position="labelPosition" :model="_formList" ref="formModelRef" class="d-form-model"
+    :label-position="labelPosition"
+    :model="_formList"
+    ref="formModelRef"
+    class="d-form-model"
     :class="formModelClassCOM"
     :label-width="labelWidth"
     :status-icon="statusIcon"
@@ -27,8 +30,13 @@
       @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
     >
 
-      <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
-        <slot :name="item.name" :data="data.data"></slot>
+      <template
+        v-for="(item, index) in slotListCOM()"
+        :key="index"
+        #[item.name]="data">
+        <slot
+          :name="item.name"
+          :data="data.data"></slot>
       </template>
 
     </d-el-form-list>
@@ -60,9 +68,22 @@ defineOptions({
   name: 'd-form-model',
   isExposed: false
 });
-import {ref, reactive, computed, watch, nextTick, useSlots, useAttrs, onMounted, onBeforeUpdate, inject} from "vue"
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  nextTick,
+  useSlots,
+  useAttrs,
+  onMounted,
+  onBeforeUpdate,
+  inject
+} from "vue"
 // import "dayjs/locale/zh-cn";
-import {JSONPath} from "jsonpath-plus";
+import {
+  JSONPath
+} from "jsonpath-plus";
 
 
 let slots = useSlots()
@@ -127,7 +148,10 @@ const getFormData = () => {
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
   let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key )]`
-  let _dataList = JSONPath({json: _list, path: _path});
+  let _dataList = JSONPath({
+    json: _list,
+    path: _path
+  });
   // console.log('_dataList',_dataList)
 
 
@@ -145,7 +169,10 @@ const getFormDataByNoHidden = () => {
   _list = _list?.length > 0 ? _list : [];
 
   let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.isHidden)]`
-  let _dataList = JSONPath({json: _list, path: _path});
+  let _dataList = JSONPath({
+    json: _list,
+    path: _path
+  });
   // console.log(_dataList)
 
 
@@ -248,7 +275,10 @@ const goTo = (key, data) => {
 }
 
 const onSubmit = (data) => {
-  emits('onClick', {key: data.key, data,})
+  emits('onClick', {
+    key: data.key,
+    data,
+  })
 }
 
 // section set
@@ -258,14 +288,67 @@ const setLinkageForm = () => {
   let _linkageListPath = `$..linkageKey^`
   // let _linkageList1 = JSONPath({json:_list,path: _linkageListPath});
 
-  let _linkageList = JSONPath({json: _list, path: _linkageListPath});
+  let _linkageList = JSONPath({
+    json: _list,
+    path: _linkageListPath
+  });
   console.log('_linkageList', _linkageList)
 
 
-  _linkageList = _linkageList.map((item, index) => {
-    return item?.linkageKey || "";
-  }).filter(item => item)
-  _linkageList = [...new Set(_linkageList)]
+  _linkageList = _linkageList.map(item => item?.linkageKey || "").filter(item => item)
+  let _linkageListSet = new Set(_linkageList);
+
+  //  特殊的联动key 单独处理,  查找他的上一个 ，
+  //  如设置的item 在 位置 5 , 那就判断上一个 4的 item 的值
+  if(_linkageListSet.has('prev')){
+    let _prevLinkagePath = `$..[?(@ && @.linkageKey == 'prev')]`
+    let _prevLinkageFormList = JSONPath({
+      json: _list,
+      path: _prevLinkagePath,
+      resultType: 'all'
+    });
+    _prevLinkageFormList?.map(item => {
+      console.log('_prevLinkageFormItemAll', item)
+      let _item = item;
+      let _prevLinkageFormItem = _item.value;
+      let _prevLinkageValue = _prevLinkageFormItem.linkageValue;
+
+      let _path = _item.path;
+      let _pathArray = JSONPath.toPathArray(_path);
+      let _prevIndex = _pathArray?.[_pathArray?.length-1];
+      _pathArray[_pathArray.length-1] = String(_prevIndex - 1);
+      let _prevPath = _pathArray
+      let _prevFormItem = JSONPath({ json: _list,  path: _prevPath ,wrap:false });
+      console.log('_prevFormItem',_prevFormItem);
+      let _prevLinkageFormItemIsHidden = false;
+      if(_prevFormItem){
+        console.log('_prevLinkageFormItem',_prevLinkageFormItem);
+        let _prevFormValue = _prevFormItem?.value;
+        //  判断当前联动key对应的formItem的值 是否为空
+        // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
+        if(_prevFormValue || _prevFormValue == 0){
+          // console.log('有值')
+          // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
+          //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
+          if(_prevLinkageValue || _prevLinkageValue == 0){
+            if(_prevLinkageValue != _prevFormValue){
+              _prevLinkageFormItemIsHidden = true;
+            }
+          }
+        }else{
+          // console.log('无值')
+          _prevLinkageFormItemIsHidden = true;
+        }
+      }
+      _item.value.isHidden = _prevLinkageFormItemIsHidden
+
+
+    })
+
+  }
+
+  _linkageListSet.delete('prev')
+  _linkageList = [..._linkageListSet]
   console.log('_linkageList', _linkageList)
 
   _linkageList?.map(item => {
@@ -273,18 +356,24 @@ const setLinkageForm = () => {
 
     //  获取联动key对应的formItem
     let _path = `$..[?(@ && @.key == '${_linkageKey}')]`
-    let _formItem = JSONPath({json: _list, path: _path,  });
+    let _formItem = JSONPath({
+      json: _list,
+      path: _path,
+    });
     console.log('_formItem', _formItem);
     let _key = _formItem?.[0]?.key;
     let _value = _formItem?.[0]?.value;
-    console.log(_key,_value)
+    console.log(_key, _value)
 
     // 获取设置当前 linkageKey 的formItem
     let _linkagePath = `$..[?(@ && @.linkageKey == '${_key}')]`
-    let _linkageFormItem = JSONPath({json: _list, path: _linkagePath});
-    console.log('_linkageFormItem', _linkageFormItem);
+    let _linkageFormList = JSONPath({
+      json: _list,
+      path: _linkagePath
+    });
+    console.log('_linkageFormItem', _linkageFormList);
     // 遍历当前获取到的 当前 linkageKey 的formItem
-    _linkageFormItem?.map(item=>{
+    _linkageFormList?.map(item => {
       let _lItem = item;
       let _linkageValue = _lItem.linkageValue;
       let _linkageFormItemIsHidden = false;
@@ -294,16 +383,15 @@ const setLinkageForm = () => {
         // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
         //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
         if (_linkageValue || _linkageValue === 0) {
-          if(_linkageValue != _value){
+          if (_linkageValue != _value) {
             _linkageFormItemIsHidden = true
           }
         }
-      }else{
+      } else {
         _linkageFormItemIsHidden = true;
       }
 
       _lItem.isHidden = _linkageFormItemIsHidden;
-
 
     })
 
@@ -325,7 +413,8 @@ const init = () => {
 init();
 </script>
 
-<style scoped lang="less">
+<style scoped
+       lang="less">
 
 .el-form {
   &.hiddenItemMarginBottom {

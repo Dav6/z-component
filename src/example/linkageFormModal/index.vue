@@ -210,6 +210,57 @@ const formList1 = [
 ]
 const formList2 = [
   {
+    name: "测试1",
+    key: "test1",
+    placeholder: "请输入名称",
+    formType: "input",
+    isClearable: true,
+    labelWidth: "4em",
+    span: 24,
+    rules: [{ required: true, message: "请输入名称", trigger: "blur" }],
+  },
+  {
+    name: "测试1-2",
+    key: "test1-2",
+    linkageKey: "prev",
+    placeholder: "请输入名称",
+    formType: "input",
+    isClearable: true,
+    labelWidth: "4em",
+    span: 24,
+    rules: [{ required: true, message: "请输入名称", trigger: "blur" }],
+  },
+
+  {
+    children: [
+      {
+        name: "测试3",
+        key: "test3",
+        placeholder: "请输入名称",
+        formType: "input",
+        isClearable: true,
+        labelWidth: "4em",
+        span: 24,
+        rules: [{ required: true, message: "请输入名称", trigger: "blur" }],
+      },
+      {
+        name: "测试3-4",
+        key: "test3-4",
+        linkageKey: "prev",
+        linkageValue:"aaa",
+        placeholder: "请输入名称",
+        formType: "input",
+        isClearable: true,
+        labelWidth: "4em",
+        span: 24,
+        rules: [{ required: true, message: "请输入名称", trigger: "blur" }],
+      },
+    ]
+  },
+
+
+
+  {
     name: "名称",
     key: "templateName",
     placeholder: "请输入名称",
