@@ -37,6 +37,7 @@
       <template v-if="formTypeKeyMap[item.formType]">
 
         <Component
+          :class="item.class"
           :is="formTypeKeyMap[item.formType]"
           v-model="item.value"
           :data="item"
