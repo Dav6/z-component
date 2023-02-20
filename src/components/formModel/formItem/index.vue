@@ -75,6 +75,8 @@
     <template v-else>
       <template v-if="item.formType == 'imageVideoUpload'">
         <Component
+          :class="item.class"
+
           :is="formTypeKeyMap[item.formType]"
           v-model="item.value"
           :item="item"
@@ -122,7 +124,7 @@
     <template v-for="(bItem, bIndex) in item.buttonList" :key="index">
       <el-button
         class="form-item-button"
-        :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon }"
+        :class="formItemButtonItemClassCOM(bItem)"
         :type="bItem.type"
         :text="bItem.isText" :icon="bItem.icon" :color="bItem.color"
         @click="goTo('onFormItemButtonClick', { propPath: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
@@ -285,6 +287,52 @@ const formItemClassCOM = computed(() => {
   }
 
 });
+
+
+const formItemButtonItemClassCOM = computed(() => {
+  return  (bItem)=>{
+    let _data = props.item;
+    let _bItem = bItem;
+    console.log("_bItem",_bItem.class)
+    let _class= [
+      !bItem.name?'formItemButtonNoName':'',
+      (!bItem.name && bItem.icon)?'formItemButtonOnlyIcon':'',
+    ];
+
+    if(typeof(_bItem.class) == 'string'){
+      let _bClass = _bItem.class?.split(' ')
+      _class = [..._class,..._bClass]
+    }
+    if(_bItem?.class?.constructor == Object){
+      let _bClass = Object.keys(_bItem?.class)?.map(key=>{
+        console.log(key)
+        return _bItem?.class[key]?key:''
+      })
+      _class = [..._class,..._bClass]
+    }
+    if(_bItem?.class?.constructor == Array){
+      let _bClass = _bItem?.class || [];
+      _class = [..._class,..._bClass]
+    }
+
+    console.log('_class',_class)
+
+  // :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon,...bItem.class }"
+
+
+    return _class
+  }
+  // // //{br:item.formType=='br',noFormType:!item.formType,labelPositionLeft:item.labelPosition}
+  // // let _labelPosition = _data?.labelPosition ? _data.labelPosition : 'left';
+  // // let _labelPositionClass = `form-item-label-position-${_labelPosition}`;
+  // // let _formLine = _data?.formType == 'line' ? true : false;
+  // // let _marginBottom = Boolean(_data?.marginBottom || _data?.marginBottom === 0)
+  // return {
+  //
+  // }
+
+});
+
 
 
 // const test = (data,item)=>{

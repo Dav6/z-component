@@ -53,7 +53,7 @@
       <el-col :class="{ 'fixedWidth': !isButtonsRow }">
         <el-form-item class="form-item " label="" label-width="0">
           <template v-for="(item, index) in buttonList" :key="index">
-            <el-button @click="() => goTo('submit', item)" :type="item.type">{{ item.name }}</el-button>
+            <el-button @click="() => goTo('submit', item)" :class="item.class" :type="item.type">{{ item.name }}</el-button>
           </template>
         </el-form-item>
       </el-col>

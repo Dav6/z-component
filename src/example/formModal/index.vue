@@ -136,8 +136,9 @@ const formList = ref([
     clearable: true,
 
     buttonList: [
-      {name: "", icon: "Plus", key: "add", isText: true},
-      {name: "", icon: "Minus", key: "delete", type: "danger", isText: false},
+      {name: "参数", icon: "Plus", key: "add", isText: true,class:'123123 5i3984'},
+      {name: "", icon: "Plus", key: "add", isText: true,class:['ccc','sss']},
+      {name: "", icon: "Minus", key: "delete", type: "danger", isText: false,class:{is:true,test:false}},
     ],
   },
   {
