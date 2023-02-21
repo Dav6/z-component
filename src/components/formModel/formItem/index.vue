@@ -127,7 +127,7 @@
         :class="formItemButtonItemClassCOM(bItem)"
         :type="bItem.type"
         :text="bItem.isText" :icon="bItem.icon" :color="bItem.color"
-        @click="goTo('onFormItemButtonClick', { propPath: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
+        @click="goTo('onFormItemButtonClick', { prop: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
         {{ bItem.name }}
       </el-button>
     </template>
