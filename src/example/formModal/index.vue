@@ -106,12 +106,15 @@ const formList = ref([
   {
     name: "表达式", key: "cron", value: "", formType: "cron", placeholder: "请输入", disabled: false, span: 12,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
+    formClass:"form-cron-item",
+
     clearable: true,
   },
 
   {
     name: "图片上传",
     key: "image",
+    formClass:"form-image-item",
     // limit: 1,
     disabled: false,
     formType: "imageVideoUpload",
@@ -132,9 +135,8 @@ const formList = ref([
   {
     name: "名称", key: "name", value: "", formType: "input", placeholder: "请输入", disabled: false, span: 12,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
-
     clearable: true,
-
+    formClass:"form-input-item",
     buttonList: [
       {name: "参数", icon: "Plus", key: "add", isText: true,class:'123123 5i3984'},
       {name: "", icon: "Plus", key: "add", isText: true,class:['ccc','sss']},

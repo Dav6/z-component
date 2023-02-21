@@ -278,14 +278,50 @@ const formItemClassCOM = computed(() => {
   let _labelPositionClass = `form-item-label-position-${_labelPosition}`;
   let _formLine = _data?.formType == 'line' ? true : false;
   let _marginBottom = Boolean(_data?.marginBottom || _data?.marginBottom === 0)
-  return {
+
+  let _class = []
+  let _baseClassObject = {
     br: _data.formType == 'br',
     marginBottom: _marginBottom,
     noFormType: !_data.formType,
     [_labelPositionClass]: _data?.labelPosition ? true : false,
     'form-line': _formLine,
   }
+  let _baseClass = Object.keys(_baseClassObject)?.map(key=>{
+    return _baseClassObject[key]?key:''
+  })
+  _class = [..._baseClass]
 
+
+
+  let _formClass = _data?.formClass;
+  if(typeof(_formClass) == 'string'){
+    let _bClass = _formClass?.split(' ')
+    _class = [..._class,..._bClass]
+  }
+  if(_formClass?.constructor == Object){
+    let _bClass = Object.keys(_formClass)?.map(key=>{
+      console.log(key)
+      return _formClass[key]?key:''
+    })
+    _class = [..._class,..._bClass]
+  }
+  if(_formClass?.constructor == Array){
+    let _bClass = _formClass || [];
+    _class = [..._class,..._bClass]
+  }
+
+
+
+
+
+
+
+
+
+
+
+  return _class;
 });
 
 
