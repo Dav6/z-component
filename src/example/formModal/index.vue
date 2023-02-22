@@ -57,6 +57,7 @@
     <el-affix position="bottom" :offset="30">
       <el-button @click="goTo('cancel')">清空</el-button>
       <el-button type="primary" @click="goTo('confirm')">确定</el-button>
+      <el-button type="primary" @click="goTo('scroll')">确定</el-button>
 
     </el-affix>
 
@@ -72,7 +73,6 @@ defineOptions({
 });
 import {ref,h, reactive, computed, watch, inject} from "vue"
 
-console.log(h)
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
@@ -116,7 +116,7 @@ const formList = ref([
     }
   },
   {
-    name: "表达式", key: "cron", value: "", formType: "cron", placeholder: "请输入", disabled: false, span: 12,
+    name: "表达式", key: "cron", value: "", formType: "cron", placeholder: "请输入", disabled: false, span: 18,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
     formClass:"form-cron-item",
 
@@ -1085,6 +1085,11 @@ const goTo = (key, data) => {
   }
   if(key == 'onclick'){
     console.log(data);
+  }
+  if(key == 'scroll'){
+    console.log()
+    console.log(addEditFormRef.value.scrollToField([55,'value'].join('.')))
+
   }
 
 }

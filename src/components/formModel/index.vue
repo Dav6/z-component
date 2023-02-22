@@ -193,12 +193,16 @@ const validate = (callback) => {
 const resetFields = () => {
   return formModelRef.value.resetFields()
 }
+const scrollToField = (prop)=>{
+  return formModelRef.value.scrollToField(prop)
+}
 
 defineExpose({
   formModelRef,
   resetFields,
   clearValidate,
   validate,
+  scrollToField,
   getFormData,
   getFormDataByNoHidden
 })

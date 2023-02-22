@@ -8,6 +8,8 @@
 
 <template>
   <el-form-item
+
+    :data="_itemCOM"
     ref="formItemRef"
     class="form-item"
     :class="formItemClassCOM"
@@ -17,24 +19,30 @@
     :prop="[...prop,'value'].join('.')"
   >
 
-    <template v-if="!item.isText">
+    <template
+      v-if="!item.isText">
 
-      <template v-if="item.formType == 'custom' ">
+      <template
+        v-if="item.formType == 'custom' ">
         <!--        {{item.formType}}-->
         <!--        {{item.customName}}-->
-        <slot :name="item.customName" :data="item"></slot>
+        <slot
+          :name="item.customName"
+          :data="item"></slot>
 
       </template>
 
 
-
-      <template v-if="item.formType == 'line' ">
-        <div class="form-line"></div>
+      <template
+        v-if="item.formType == 'line' ">
+        <div
+          class="form-line"></div>
       </template>
 
 
       <!--         section  Component formTypeKeyMap[item.formType] -->
-      <template v-if="formTypeKeyMap[item.formType]">
+      <template
+        v-if="formTypeKeyMap[item.formType]">
 
         <Component
           :class="item.class"
@@ -48,10 +56,12 @@
       </template>
 
 
-      <template v-if="item.formType == 'editor'">
+      <template
+        v-if="item.formType == 'editor'">
 
 
-        <template v-if="isShowEditor">
+        <template
+          v-if="isShowEditor">
           <!--          <wang-editor-->
           <!--            v-model="item.value"-->
           <!--            :height="item.height"-->
@@ -69,11 +79,12 @@
       </template>
 
 
-
     </template>
 
-    <template v-else>
-      <template v-if="item.formType == 'imageVideoUpload'">
+    <template
+      v-else>
+      <template
+        v-if="item.formType == 'imageVideoUpload'">
         <Component
           :class="item.class"
 
@@ -83,35 +94,51 @@
           :data="item"
           @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
         />
-<!--        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />-->
+        <!--        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />-->
 
       </template>
 
 
-      <template v-else-if="item.formType == 'select'">
-        {{ selectTextValueCOM(item) }}
+      <template
+        v-else-if="item.formType == 'select'">
+        {{
+          selectTextValueCOM(item)
+        }}
       </template>
 
 
-      <template v-else-if="item.formType == 'datePicker'">
-        <template v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
-          {{ item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : '' }}
+      <template
+        v-else-if="item.formType == 'datePicker'">
+        <template
+          v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
+          {{
+            item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : ''
+          }}
         </template>
-        <template v-else>
-          {{ item.value }}
+        <template
+          v-else>
+          {{
+            item.value
+          }}
         </template>
       </template>
 
-      <template v-else-if="item.formType == 'custom' ">
+      <template
+        v-else-if="item.formType == 'custom' ">
         <!--        {{item.formType}}-->
         <!--        {{item.customName}}-->
-        <slot :name="item.customName" :data="item"></slot>
+        <slot
+          :name="item.customName"
+          :data="item"></slot>
 
       </template>
 
 
-      <template v-else>
-        {{ item.value }}
+      <template
+        v-else>
+        {{
+          item.value
+        }}
       </template>
     </template>
 
@@ -121,14 +148,20 @@
     <!--    </template>-->
 
 
-    <template v-for="(bItem, bIndex) in item.buttonList" :key="index">
+    <template
+      v-for="(bItem, bIndex) in item.buttonList"
+      :key="index">
       <el-button
         class="form-item-button"
         :class="formItemButtonItemClassCOM(bItem)"
         :type="bItem.type"
-        :text="bItem.isText" :icon="bItem.icon" :color="bItem.color"
+        :text="bItem.isText"
+        :icon="bItem.icon"
+        :color="bItem.color"
         @click="goTo('onFormItemButtonClick', { prop: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
-        {{ bItem.name }}
+        {{
+          bItem.name
+        }}
       </el-button>
     </template>
 
@@ -143,13 +176,24 @@ defineOptions({
   isExposed: false
 });
 
-import {ref, reactive, computed, watch, onBeforeUnmount, shallowRef, onMounted, nextTick, useSlots} from "vue"
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  onBeforeUnmount,
+  shallowRef,
+  onMounted,
+  nextTick,
+  useSlots
+} from "vue"
 
 
 // import WangEditor from "@/components/wangEditor/index"
 
 // import {isSameObj} from "@/utils/tools"
-import dayjs from "dayjs";
+import dayjs
+  from "dayjs";
 
 let slots = useSlots()
 const slotListCOM = computed(() => {
@@ -171,7 +215,7 @@ const slotListCOM = computed(() => {
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String,Number, Boolean,Object,Array],
+    type: [String, Number, Boolean, Object, Array],
   },
   prop: {
     type: [String, Array]
@@ -185,8 +229,8 @@ const props = defineProps({
       isText: false,
       isHiddenRulers: false,
       marginBottom: "",
-      customName:"",
-      value:undefined,
+      customName: "",
+      value: undefined,
     },
   },
   index: {
@@ -215,26 +259,34 @@ const formTypeKeyMap = ref({
   input: 'd-el-input',
   inputNumber: 'd-el-input-number',
   radio: 'd-el-radio',
-  checkbox:'d-el-checkbox',
+  checkbox: 'd-el-checkbox',
   select: 'd-el-select',
   treeSelect: 'd-el-tree-select',
   cascader: 'd-el-cascader',
   timePicker: 'd-el-time-picker',
   datePicker: 'd-el-date-picker',
-  imageVideoUpload:'d-el-image-video-upload',
-  tag:'d-el-tag',
-  divider:'d-el-divider',
-  cron:'d-cron',
+  imageVideoUpload: 'd-el-image-video-upload',
+  tag: 'd-el-tag',
+  divider: 'd-el-divider',
+  cron: 'd-cron',
 })
 
 
-const formItemRef = ref()
+const formItemRef = ref();
+
+// section _itemCOM
+const _itemCOM = computed(() => {
+  let _item = props.item;
+  _item.prop = [...props.prop,'value']
+  return _item;
+})
+//  section placeholderCOM
 const placeholderCOM = computed(() => {
   return (data) => {
 
     if (data.placeholder) return data.placeholder;
     let _placeholder = '';
-    let _selects = ['treeSelect', 'select', 'cascader', 'timePicker', 'datePicker','cron'];
+    let _selects = ['treeSelect', 'select', 'cascader', 'timePicker', 'datePicker', 'cron'];
     let _inputs = ['input', 'inputNumber', 'textArea'];
     let _placeholderPrefix = ''
     if (_selects.indexOf(data.formType) > -1) {
@@ -287,38 +339,28 @@ const formItemClassCOM = computed(() => {
     [_labelPositionClass]: _data?.labelPosition ? true : false,
     'form-line': _formLine,
   }
-  let _baseClass = Object.keys(_baseClassObject)?.map(key=>{
-    return _baseClassObject[key]?key:''
+  let _baseClass = Object.keys(_baseClassObject)?.map(key => {
+    return _baseClassObject[key] ? key : ''
   })
   _class = [..._baseClass]
 
 
-
   let _formClass = _data?.formClass;
-  if(typeof(_formClass) == 'string'){
+  if (typeof (_formClass) == 'string') {
     let _bClass = _formClass?.split(' ')
-    _class = [..._class,..._bClass]
+    _class = [..._class, ..._bClass]
   }
-  if(_formClass?.constructor == Object){
-    let _bClass = Object.keys(_formClass)?.map(key=>{
+  if (_formClass?.constructor == Object) {
+    let _bClass = Object.keys(_formClass)?.map(key => {
       console.log(key)
-      return _formClass[key]?key:''
+      return _formClass[key] ? key : ''
     })
-    _class = [..._class,..._bClass]
+    _class = [..._class, ..._bClass]
   }
-  if(_formClass?.constructor == Array){
+  if (_formClass?.constructor == Array) {
     let _bClass = _formClass || [];
-    _class = [..._class,..._bClass]
+    _class = [..._class, ..._bClass]
   }
-
-
-
-
-
-
-
-
-
 
 
   return _class;
@@ -326,34 +368,34 @@ const formItemClassCOM = computed(() => {
 
 
 const formItemButtonItemClassCOM = computed(() => {
-  return  (bItem)=>{
+  return (bItem) => {
     let _data = props.item;
     let _bItem = bItem;
-    console.log("_bItem",_bItem.class)
-    let _class= [
-      !bItem.name?'formItemButtonNoName':'',
-      (!bItem.name && bItem.icon)?'formItemButtonOnlyIcon':'',
+    console.log("_bItem", _bItem.class)
+    let _class = [
+      !bItem.name ? 'formItemButtonNoName' : '',
+      (!bItem.name && bItem.icon) ? 'formItemButtonOnlyIcon' : '',
     ];
 
-    if(typeof(_bItem.class) == 'string'){
+    if (typeof (_bItem.class) == 'string') {
       let _bClass = _bItem.class?.split(' ')
-      _class = [..._class,..._bClass]
+      _class = [..._class, ..._bClass]
     }
-    if(_bItem?.class?.constructor == Object){
-      let _bClass = Object.keys(_bItem?.class)?.map(key=>{
+    if (_bItem?.class?.constructor == Object) {
+      let _bClass = Object.keys(_bItem?.class)?.map(key => {
         console.log(key)
-        return _bItem?.class[key]?key:''
+        return _bItem?.class[key] ? key : ''
       })
-      _class = [..._class,..._bClass]
+      _class = [..._class, ..._bClass]
     }
-    if(_bItem?.class?.constructor == Array){
+    if (_bItem?.class?.constructor == Array) {
       let _bClass = _bItem?.class || [];
-      _class = [..._class,..._bClass]
+      _class = [..._class, ..._bClass]
     }
 
-    console.log('_class',_class)
+    console.log('_class', _class)
 
-  // :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon,...bItem.class }"
+    // :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon,...bItem.class }"
 
 
     return _class
@@ -370,7 +412,6 @@ const formItemButtonItemClassCOM = computed(() => {
 });
 
 
-
 // const test = (data,item)=>{
 //   console.log(data,item);
 // }
@@ -378,8 +419,8 @@ const formItemButtonItemClassCOM = computed(() => {
 
 const isShowEditor = ref(true)
 
-watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig], [preItem, preToolbarConfig]) => {
 
+watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig], [preItem, preToolbarConfig]) => {
 
 
   if (item?.formType == 'editor') {
@@ -408,12 +449,15 @@ watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig]
   }
 
 
-}, {deep: true, immediate: false})
+}, {
+  deep: true,
+  immediate: false
+})
 
 
 //section goTo
 const goTo = (key, data) => {
-  console.log('formItem',key, data);
+  console.log('formItem', key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {key, ...data})
@@ -442,21 +486,21 @@ const goTo = (key, data) => {
 }
 
 
-const setItemData = ()=>{
+const setItemData = () => {
 
-  if(props.item?.formType == 'inputNumber'){
+  if (props.item?.formType == 'inputNumber') {
     console.log()
-    console.log('props.item.value',props.item.value)
+    console.log('props.item.value', props.item.value)
 
-    if(props.item.value === ""){
+    if (props.item.value === "") {
       props.item.value = undefined;
-    }else{
+    } else {
       props.item.value = Number(props.item.value);
 
     }
   }
-  if(props.item?.formType == 'checkbox'){
-    if(props.item.value === ""){
+  if (props.item?.formType == 'checkbox') {
+    if (props.item.value === "") {
       props.item.value = undefined;
     }
 
@@ -479,7 +523,8 @@ init();
 
 </script>
 
-<style scoped lang="less">
+<style scoped
+       lang="less">
 .el-form-item .el-form-item {
   //margin-bottom: 18px;
 }
@@ -552,8 +597,8 @@ init();
   //
   //    }
   //}
-  &.el-form-item{
-    :deep(.cron){
+  &.el-form-item {
+    :deep(.cron) {
       --el-card-padding: 0px 0px 0px;
       border: none;
     }
@@ -608,34 +653,38 @@ init();
         color: var(--el-color-danger);
       }
     }
-    :deep(.cron){
+
+    :deep(.cron) {
       border-color: var(--el-color-danger);
+
       .el-input {
         .el-input__wrapper {
           box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
 
         }
+
         input::placeholder {
           color: var(--el-text-color-placeholder);
           opacity: 0.6;
         }
       }
+
       .el-select {
-        .el-select__caret{
-          color:var(--el-select-input-color)
+        .el-select__caret {
+          color: var(--el-select-input-color)
         }
       }
 
 
-      .isError{
-        .el-select__caret{
-          color:var(--el-color-danger);
+      .isError {
+        .el-select__caret {
+          color: var(--el-color-danger);
         }
+
         .el-input {
           .el-input__wrapper {
             box-shadow: 0 0 0 1px var(--el-color-danger) inset
           }
-
 
 
           input::placeholder {
@@ -650,15 +699,16 @@ init();
   }
 
 
-  :deep(.form-divider){
+  :deep(.form-divider) {
     width: auto;
     flex: 1;
 
     &.el-divider--horizontal {
       margin: 12px 0;
     }
-    .el-divider__text{
-      line-height:1;
+
+    .el-divider__text {
+      line-height: 1;
     }
   }
 
