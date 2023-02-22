@@ -104,6 +104,17 @@ const buttonList = ref([
 ])
 const formList = ref([
   {
+    name: "数字", key: "number", value: "", placeholder: "数字", disabled: false,
+    formType: "inputNumber",
+    controls: false,
+    textAlign: "left",
+    clearable:true,
+    unit:"%",
+    min: 0,
+    span: 12,
+    rules: [{required: true, message: "请输入数字", trigger: "blur"}],
+  },
+  {
     name: "名称", key: "name", value: "", formType: "input", placeholder: "请输入", disabled: false, span: 12,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
     clearable: true,

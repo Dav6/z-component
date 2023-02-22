@@ -8,11 +8,19 @@
 
 <template>
   <el-input-number
-    class="form-input-number" :class="{ textAlignLeft: data?.textAlign == 'left' }"
-    :disabled="data?.disabled" v-model.number="modelValue" :min="data?.min" :max="data?.max"
+    class="form-input-number "
+    :style="styleCOM"
+    :class="classCOM"
+    :disabled="data?.disabled"
+    v-model.number="modelValue"
+    :min="data?.min"
+    :max="data?.max"
     :step="data?.step"
-    :precision="data?.precision" :clearable="data?.clearable" :placeholder="placeholderCOM(data)"
-    :controls="data?.controls" :controls-position="data?.controlsPosition"
+    :precision="data?.precision"
+    :clearable="data?.clearable"
+    :placeholder="placeholderCOM(data)"
+    :controls="data?.controls"
+    :controls-position="data?.controlsPosition"
   />
 </template>
 
@@ -20,19 +28,24 @@
 defineOptions({
   name: 'd-el-input-number',
 });
-import {ref, reactive, computed, watch} from "vue"
+import {
+  ref,
+  reactive,
+  computed,
+  watch
+} from "vue"
 
 
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [Number,String],
+    type: [Number, String],
   },
   data: {
     type: [Object],
-    default:()=>{
+    default: () => {
       return {
-        value:undefined,
+        value: undefined,
       }
     }
   }
@@ -40,8 +53,8 @@ const props = defineProps({
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(["update:modelValue"]);
 const modelValue = computed({ // 重新定义
-  get: () => props.modelValue ,
-  set: (value) =>  emits("update:modelValue", value),
+  get: () => props.modelValue,
+  set: (value) => emits("update:modelValue", value),
 })
 
 const placeholderCOM = computed(() => {
@@ -57,16 +70,29 @@ const placeholderCOM = computed(() => {
   }
 })
 
-// const item = computed(()=>{
-//   let _item = props.item;
-//   if (_data?.value) {
-//     _data?.value = Number(_data?.value)
-//   } else {
-//     _data?.value = undefined;
-//   }
-//   return _item;
-// })
+console.log(props.data.unit)
 
+const classCOM = computed(() => {
+  // { textAlignLeft: data?.textAlign == 'left' }
+  let _data = props.data;
+  let _class = [];
+  if (_data?.textAlign == 'left') {
+    _class = [..._class, 'textAlignLeft']
+  }
+  if (_data?.unit) {
+    _class = [..._class, 'unit']
+
+  }
+  return _class;
+})
+const styleCOM = computed(() => {
+  let _data = props.data;
+  let _style = {
+    '--el-input-number-unit': `'${_data?.unit}'`
+  }
+  return _style
+
+})
 
 
 // 接口请求方法放这
@@ -81,6 +107,35 @@ init();
 
 </script>
 
-<style scoped lang="less">
+<style scoped
+       lang="less">
+.form-input-number {
+  &.unit {
 
+
+    :deep(.el-input) {
+      .el-input__wrapper {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &::after {
+
+        content: "" var(--el-input-number-unit);
+        //right: 0;
+        //position: absolute;
+        height: 100%;
+        color: var(--el-color-info);
+        background-color: var(--el-fill-color-light);
+        border-radius: var(--el-input-border-radius);
+        border-left: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        box-shadow: 0 1px 0 0 var(--el-input-border-color) inset,0 -1px 0 0 var(--el-input-border-color) inset, -1px 0 0 0 var(--el-input-border-color) inset;
+        padding: 0 20px;
+      }
+    }
+
+  }
+}
 </style>
