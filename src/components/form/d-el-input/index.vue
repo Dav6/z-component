@@ -25,7 +25,14 @@
     :type="data?.type"
 
     :placeholder="placeholderCOM(data)"
-  />
+  >
+    <template v-if="data?.prepend" #prepend>
+      <Component :is="data?.prepend" ></Component>
+    </template>
+    <template v-if="data?.append" #append>
+      <Component :is="data?.append" ></Component>
+    </template>
+  </el-input>
 </template>
 
 <script setup>

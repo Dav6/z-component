@@ -70,9 +70,9 @@ defineOptions({
   key: 'example-form-model',
   isExposed: false
 });
-import {ref, reactive, computed, watch, inject} from "vue"
+import {ref,h, reactive, computed, watch, inject} from "vue"
 
-
+console.log(h)
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
@@ -103,6 +103,18 @@ const buttonList = ref([
 
 ])
 const formList = ref([
+  {
+    name: "名称", key: "name", value: "", formType: "input", placeholder: "请输入", disabled: false, span: 12,
+    rules: [{required: true, message: "请输入", trigger: "blur"}],
+    clearable: true,
+    formClass:"form-input-item",
+    prepend(){
+      return h('span','222')
+    },
+    append(){
+      return h("div",'222');
+    }
+  },
   {
     name: "表达式", key: "cron", value: "", formType: "cron", placeholder: "请输入", disabled: false, span: 12,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
