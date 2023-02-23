@@ -13,8 +13,8 @@
     :class="classCOM"
     :disabled="data?.disabled"
     v-model.number="modelValue"
-    :min="data?.min"
-    :max="data?.max"
+    :min="minCOM"
+    :max="maxCOM"
     :step="data?.step"
     :precision="data?.precision"
     :clearable="data?.clearable"
@@ -70,7 +70,31 @@ const placeholderCOM = computed(() => {
   }
 })
 
-console.log(props.data.unit)
+const minCOM = computed(()=>{
+  let _data = props.data;
+
+  let _min = _data?.min;
+  if(_min === +_min){
+
+  }else{
+    _min = -Infinity
+  }
+  // console.log('_min',_min)
+
+  return _min
+})
+const maxCOM = computed(()=>{
+  let _data = props.data;
+  let _max = _data?.max;
+  // console.log('_max',_max)
+  if(_max === +_max){
+
+  }else{
+    _max = Infinity
+  }
+  return _max
+})
+
 
 const classCOM = computed(() => {
   // { textAlignLeft: data?.textAlign == 'left' }
@@ -133,6 +157,8 @@ init();
         border-bottom-left-radius: 0;
         box-shadow: 0 1px 0 0 var(--el-input-border-color) inset,0 -1px 0 0 var(--el-input-border-color) inset, -1px 0 0 0 var(--el-input-border-color) inset;
         padding: 0 20px;
+        max-width:3em;
+        white-space: nowrap;
       }
     }
 
