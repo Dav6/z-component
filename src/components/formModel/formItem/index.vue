@@ -257,6 +257,7 @@ const emits = defineEmits(['onFormItemButtonClick', 'onChange']);
 // section formTypeKeyMap
 const formTypeKeyMap = ref({
   input: 'd-el-input',
+  switch: 'd-el-switch',
   inputNumber: 'd-el-input-number',
   radio: 'd-el-radio',
   checkbox: 'd-el-checkbox',

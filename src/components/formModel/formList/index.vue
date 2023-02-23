@@ -10,7 +10,7 @@
   <el-row class="d-form-list-row" :gutter="20">
     <template v-for="(item, index) in formList" :key="index">
       <template v-if="!item.isHidden">
-        <el-col class="d-form-list-col" :span="item.span" :class="{ 'fixedWidth': item.width >= 0 }"
+        <el-col class="d-form-list-col" :span="item.span" :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
                 :style="{ width: item.width + 'px' }">
           <d-el-form-item :formModelRef="formModelRef" :item="item" :index="index" :prop="[...prop,index]"
                           :formList="formList"
@@ -173,6 +173,9 @@ init();
 
 .d-form-list-col{
   //display: flex;
+  &.isTransition{
+    transition: all .22s ease-in-out;
+  }
 }
 
 //.d-form-list-row .el-col{

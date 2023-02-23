@@ -104,6 +104,13 @@ const buttonList = ref([
 ])
 const formList = ref([
   {
+    name: "开关", key: "number", value: "123", placeholder: "数字", disabled: false,
+    formType: "switch",
+    validateEvent:true,
+    span: 12,
+    rules: [{required: true, message: "请输入数字", trigger: "blur"}],
+  },
+  {
     name: "数字", key: "number", value: "", placeholder: "数字", disabled: false,
     formType: "inputNumber",
     controls: false,
