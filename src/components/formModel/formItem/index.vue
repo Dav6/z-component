@@ -9,7 +9,6 @@
 <template>
   <el-form-item
 
-    :data="_itemCOM"
     ref="formItemRef"
     class="form-item"
     :class="formItemClassCOM"
@@ -275,12 +274,13 @@ const formTypeKeyMap = ref({
 
 const formItemRef = ref();
 
-// section _itemCOM
-const _itemCOM = computed(() => {
+
+if(props?.item){
   let _item = props.item;
   _item.prop = [...props.prop,'value']
-  return _item;
-})
+}
+
+
 //  section placeholderCOM
 const placeholderCOM = computed(() => {
   return (data) => {
