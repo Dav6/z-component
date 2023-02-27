@@ -216,6 +216,7 @@ const formList2 = [
     formType: "checkbox",
     isClearable: true,
     labelWidth: "0",
+    value: [],
     span: 24,
     rules: [{ required: true, message: "请选择", trigger: "blur" }],
     options:[
@@ -240,7 +241,6 @@ const formList2 = [
     placeholder: "请选择 ",
     formType: "input",
     linkageKey: "test4",
-    linkageValue: [1,3,4,5],
     isClearable: true,
     labelWidth: "0",
     span: 24,

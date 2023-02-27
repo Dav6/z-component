@@ -7,26 +7,40 @@
 -->
 
 <template>
-  <el-input-number
-    class="form-input-number "
+  <el-slider
+    class="form-slider "
     :style="styleCOM"
     :class="classCOM"
     :disabled="data?.disabled"
-    v-model.number="modelValue"
+    v-model="modelValue"
     :min="minCOM"
     :max="maxCOM"
     :step="data?.step"
-    :precision="data?.precision"
-    :clearable="data?.clearable"
-    :placeholder="placeholderCOM(data)"
-    :controls="data?.controls"
-    :controls-position="data?.controlsPosition"
+    :show-input="data?.showInput"
+    :show-input-controls="data?.showInputControls"
+    :size="data?.size"
+    :input-size="data?.inputSize"
+    :show-stops="data?.showStops"
+    :show-tooltip="data?.showTooltip"
+    :format-tooltip="data?.formatTooltip"
+    :range="data?.range"
+    :vertical="data?.vertical"
+    :height="data?.height"
+    :label="data?.label"
+    :range-start-label="data?.rangeStartLabel"
+    :range-end-label="data?.rangeEndLabel"
+    :format-value-text="data?.formatValueText"
+    :debounce="data?.debounce"
+    :tooltip-class="data?.tooltipClass"
+    :placement="data?.placement"
+    :marks="data?.marks"
+    :validate-event="data?.validateEvent"
   />
 </template>
 
 <script setup>
 defineOptions({
-  name: 'd-el-input-number',
+  name: 'd-el-slider',
 });
 import {
   ref,
@@ -39,7 +53,7 @@ import {
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [Number, String],
+    type: [Number, String,Array],
   },
   data: {
     type: [Object],
@@ -76,7 +90,7 @@ const minCOM = computed(()=>{
   if(_min === +_min){
 
   }else{
-    _min = -Infinity
+    _min = undefined
   }
   // console.log('_min',_min)
 
@@ -89,7 +103,7 @@ const maxCOM = computed(()=>{
   if(_max === +_max){
 
   }else{
-    _max = Infinity
+    _max = undefined
   }
   return _max
 })
@@ -99,12 +113,8 @@ const classCOM = computed(() => {
   // { textAlignLeft: data?.textAlign == 'left' }
   let _data = props.data;
   let _class = [];
-  if (_data?.textAlign == 'left') {
-    _class = [..._class, 'textAlignLeft']
-  }
   if (_data?.unit) {
     _class = [..._class, 'unit']
-
   }
   return _class;
 })
@@ -132,37 +142,29 @@ init();
 
 <style scoped
        lang="less">
-.form-input-number {
+.form-slider.el-slider {
   &.unit {
 
 
-    :deep(.el-input) {
-      .el-input__wrapper {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
+    &::after {
 
-      &::after {
-
-        content: "" var(--el-input-number-unit);
-        //right: 0;
-        //position: absolute;
-        height: 100%;
-        color: var(--el-color-info);
-        background-color: var(--el-fill-color-light);
-        border-radius: var(--el-input-border-radius);
-        border-left: 0;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        box-shadow: 0 1px 0 0 var(--el-input-border-color) inset,0 -1px 0 0 var(--el-input-border-color) inset, -1px 0 0 0 var(--el-input-border-color) inset;
-        padding: 0 20px;
-        max-width:5em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-      }
+      content: "" var(--el-input-number-unit);
+      //right: 0;
+      //position: absolute;
+      height: 100%;
+      color: var(--el-color-info);
+      //background-color: var(--el-fill-color-light);
+      //border-radius: var(--el-input-border-radius);
+      border-left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      box-shadow: 0 1px 0 0 var(--el-input-border-color) inset,0 -1px 0 0 var(--el-input-border-color) inset, -1px 0 0 0 var(--el-input-border-color) inset;
+      padding: 0 20px;
+      max-width:5em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
   }

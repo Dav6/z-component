@@ -104,6 +104,23 @@ const buttonList = ref([
 ])
 const formList = ref([
   {
+    name: "滑块", key: "slider", value: 6,min:1,max:10,  placeholder: "数字", disabled: false,
+    formType: "slider",
+    unit:"次/分",
+    showInput:false,
+    span: 12,
+    rules: [{required: true, message: "请输入数字", trigger: "blur"}],
+    range:true,
+  },
+  {
+    name: "滑块1", key: "slider1", value: "123", placeholder: "数字", disabled: false,
+    formType: "slider",
+    unit:"次/分",
+    showInput:false,
+    span: 12,
+    rules: [{required: true, message: "请输入数字", trigger: "blur"}],
+  },
+  {
     name: "开关", key: "number", value: "123", placeholder: "数字", disabled: false,
     formType: "switch",
     validateEvent:true,

@@ -258,6 +258,7 @@ const formTypeKeyMap = ref({
   input: 'd-el-input',
   switch: 'd-el-switch',
   inputNumber: 'd-el-input-number',
+  slider:'d-el-slider',
   radio: 'd-el-radio',
   checkbox: 'd-el-checkbox',
   select: 'd-el-select',
@@ -489,22 +490,49 @@ const goTo = (key, data) => {
 
 const setItemData = () => {
 
-  if (props.item?.formType == 'inputNumber') {
-    console.log()
+  if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
+    console.log(props.item?.formType,'props.item?.formType')
     let _number = props.item.value;
     if (_number == +_number) {
+      console.log('_number',_number)
       _number = Number(_number);
-
     } else {
       if(_number == '' || _number == ' ' || _number == undefined){
         _number = undefined
       }else{
         _number = isNaN(Number(_number))?undefined:Number(_number);
-
       }
-
-
     }
+
+    if(props.item?.formType == 'slider'){
+      if(Array.isArray(props.item.value)){
+        _number = props.item.value;
+      }else{
+        let _min = props.item?.min;
+        if(_min === +_min){
+
+        }else{
+          _min = 0
+        }
+        let _max = props.item?.max;
+        if(_max === +_max){
+
+        }else{
+          _max = 100
+        }
+        if(_number>=_max || _number<=_min){
+          _number = [_min,_max]
+        }
+        if(_number>=_min && _number<=_max){
+          _number = [_min,_number]
+        }
+
+
+        // _number= [_minNumber,_maxNumber]
+        console.log('_number-range',_number)
+      }
+    }
+
 
     props.item.value = _number ;
 
@@ -787,6 +815,10 @@ init();
       padding-left: 11px;
       padding-right: 11px;
     }
+  }
+
+  .form-slider{
+    padding:0 calc(var(--el-slider-button-size));
   }
 
   :deep(.form-date-picker) {
