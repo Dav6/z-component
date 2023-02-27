@@ -330,19 +330,61 @@ const setLinkageForm = () => {
         let _prevFormValue = _prevFormItem?.value;
         //  判断当前联动key对应的formItem的值 是否为空
         // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
+
         if(_prevFormValue || _prevFormValue == 0){
           // console.log('有值')
-          // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
-          //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
-          if(_prevLinkageValue || _prevLinkageValue == 0){
-            if(_prevLinkageValue != _prevFormValue){
+          // 判断当前的值是不是数组
+          if(Array.isArray(_prevFormValue)){
+            // 数组为空就隐藏，不为空就系那是
+            if(_prevFormValue?.length>0){
+              let _arr1 = _prevFormValue;
+              let _arr2 = _prevLinkageValue
+              // 判断当前 linkageKey 的formItem的 _linkageValue 是否为数组
+              // 判断是否和联动key对应的formItem的值有交集
+              // 有就显示, 无就隐藏
+              if(Array.isArray(_arr2)){
+                const filteredArray = _arr1.filter(value => _arr2.includes(value));
+                if(filteredArray?.length>0){
+
+                }else{
+                  _prevLinkageFormItemIsHidden = true;
+                }
+              }else{
+                //  不是就套层数组
+                //  判断是否和联动key对应的formItem的值有交集
+                //  有就显示, 无就隐藏
+                if(_arr2 || _arr2 == 0){
+                  _arr2 = [_arr2];
+                  const filteredArray = _arr1.filter(value => _arr2.includes(value));
+                  if(filteredArray?.length>0){
+
+                  }else{
+                    _prevLinkageFormItemIsHidden = true;
+                  }
+                }
+              }
+
+            }else{
               _prevLinkageFormItemIsHidden = true;
             }
+
+
+          }else{
+            // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
+            //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
+            if(_prevLinkageValue || _prevLinkageValue == 0){
+              if(_prevLinkageValue != _prevFormValue){
+                _prevLinkageFormItemIsHidden = true;
+              }
+            }
           }
+
         }else{
           // console.log('无值')
           _prevLinkageFormItemIsHidden = true;
         }
+
+
       }
       _item.value.isHidden = _prevLinkageFormItemIsHidden
 
@@ -360,21 +402,15 @@ const setLinkageForm = () => {
 
     //  获取联动key对应的formItem
     let _path = `$..[?(@ && @.key == '${_linkageKey}')]`
-    let _formItem = JSONPath({
-      json: _list,
-      path: _path,
-    });
+    let _formItem = JSONPath({  json: _list, path: _path});
     console.log('_formItem', _formItem);
-    let _key = _formItem?.[0]?.key;
-    let _value = _formItem?.[0]?.value;
-    console.log(_key, _value)
+    let _formKey = _formItem?.[0]?.key;
+    let _formValue = _formItem?.[0]?.value;
+    console.log(_formKey, _formValue)
 
     // 获取设置当前 linkageKey 的formItem
-    let _linkagePath = `$..[?(@ && @.linkageKey == '${_key}')]`
-    let _linkageFormList = JSONPath({
-      json: _list,
-      path: _linkagePath
-    });
+    let _linkagePath = `$..[?(@ && @.linkageKey == '${_formKey}')]`
+    let _linkageFormList = JSONPath({json: _list, path: _linkagePath });
     console.log('_linkageFormItem', _linkageFormList);
     // 遍历当前获取到的 当前 linkageKey 的formItem
     _linkageFormList?.map(item => {
@@ -383,14 +419,50 @@ const setLinkageForm = () => {
       let _linkageFormItemIsHidden = false;
       //  判断当前联动key对应的formItem的值 是否为空
       // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
-      if (_value || _value === 0) {
-        // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
-        //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
-        if (_linkageValue || _linkageValue === 0) {
-          if (_linkageValue != _value) {
+      if (_formValue || _formValue === 0) {
+        if(Array.isArray(_formValue)){
+          // 数组为空就隐藏，不为空就系那是
+          if(_formValue?.length>0){
+            let _arr1 = _formValue;
+            let _arr2 = _linkageValue
+            // 判断当前 linkageKey 的formItem的 _linkageValue 是否为数组
+            // 判断是否和联动key对应的formItem的值有交集
+            // 有就显示, 无就隐藏
+            if(Array.isArray(_arr2)){
+              const filteredArray = _arr1.filter(value => _arr2.includes(value));
+              if(filteredArray?.length>0){
+
+              }else{
+                _linkageFormItemIsHidden = true;
+              }
+            }else{
+              //  不是就套层数组
+              //  判断是否和联动key对应的formItem的值有交集
+              //  有就显示, 无就隐藏
+              if(_arr2 || _arr2 == 0){
+                _arr2 = [_arr2];
+                const filteredArray = _arr1.filter(value => _arr2.includes(value));
+                if(filteredArray?.length>0){
+
+                }else{
+                  _linkageFormItemIsHidden = true;
+                }
+              }
+            }
+
+          }else{
             _linkageFormItemIsHidden = true
           }
+        }else{
+          // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
+          //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
+          if (_linkageValue || _linkageValue === 0) {
+            if (_linkageValue != _formValue) {
+              _linkageFormItemIsHidden = true
+            }
+          }
         }
+
       } else {
         _linkageFormItemIsHidden = true;
       }
@@ -428,58 +500,12 @@ init();
   }
 }
 
-//.form-item {
-//  &.br {
-//    margin-bottom: 0;
-//  }
-//
-//
-//
-//  .form-select {
-//    width: auto;
-//    flex: 1;
-//  }
-//
-//  .form-time-select {
-//    width: auto;
-//    flex: 1;
-//  }
-//
-//  :deep(.form-time-picker) {
-//    width: auto;
-//    flex: 1;
-//  }
-//
-//  .form-input {
-//    width: auto;
-//    flex: 1;
-//  }
-//
-//  :deep(.form-date-picker) {
-//    width: auto;
-//    flex: 1;
-//  }
-//
-//  :deep(.el-date-editor .el-range-separator) {
-//    flex: unset;
-//  }
-//
-//  :deep(.el-range-editor .el-range-input) {
-//    flex: 1;
-//    padding: 0 5px;
-//  }
-//}
-
 
 .el-col.fixedWidth {
   max-width: unset;
   flex: unset;
 }
 
-/* .demo-form-inline {
-  padding: 16px 27px 10px 35px;
-
-} */
 </style>
 
 

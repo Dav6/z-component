@@ -491,14 +491,23 @@ const setItemData = () => {
 
   if (props.item?.formType == 'inputNumber') {
     console.log()
-    console.log('props.item.value', props.item.value)
+    let _number = props.item.value;
+    if (_number == +_number) {
+      _number = Number(_number);
 
-    if (props.item.value === "") {
-      props.item.value = undefined;
     } else {
-      props.item.value = Number(props.item.value);
+      if(_number == '' || _number == ' ' || _number == undefined){
+        _number = undefined
+      }else{
+        _number = isNaN(Number(_number))?undefined:Number(_number);
+
+      }
+
 
     }
+
+    props.item.value = _number ;
+
   }
   if (props.item?.formType == 'checkbox') {
     if (props.item.value === "") {

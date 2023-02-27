@@ -111,7 +111,7 @@ const formList = ref([
     rules: [{required: true, message: "请输入数字", trigger: "blur"}],
   },
   {
-    name: "数字", key: "number", value: "", placeholder: "数字", disabled: false,
+    name: "数字", key: "number", value:  "123123", placeholder: "数字", disabled: false,
     formType: "inputNumber",
     controls: false,
     textAlign: "left",

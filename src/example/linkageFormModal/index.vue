@@ -210,6 +210,101 @@ const formList1 = [
 ]
 const formList2 = [
   {
+    name: "测试4",
+    key: "test4",
+    placeholder: "请选择 ",
+    formType: "checkbox",
+    isClearable: true,
+    labelWidth: "0",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    options:[
+      //   //触发类型  0:设备触发  1:定时触发 2：手动触发
+      {
+        label:"设备触发",
+        value:0,
+      },
+      {
+        label:"定时触发",
+        value:1,
+      },
+      {
+        label:"定时触发",
+        value:2,
+      },
+    ]
+  },
+  {
+    name: "测试4-1",
+    key: "test4-1",
+    placeholder: "请选择 ",
+    formType: "input",
+    linkageKey: "test4",
+    linkageValue: [1,3,4,5],
+    isClearable: true,
+    labelWidth: "0",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    options:[
+      //   //触发类型  0:设备触发  1:定时触发 2：手动触发
+      {
+        label:"设备触发",
+        value:0,
+      },
+      {
+        label:"定时触发",
+        value:1,
+      },
+    ]
+  },
+  {
+    name: "测试2",
+    key: "test2",
+    placeholder: "请选择 ",
+    formType: "checkbox",
+    isClearable: true,
+    labelWidth: "0",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    options:[
+      //   //触发类型  0:设备触发  1:定时触发 2：手动触发
+      {
+        label:"设备触发",
+        value:0,
+      },
+      {
+        label:"定时触发",
+        value:1,
+      },
+    ]
+  },
+  {
+    name: "测试2-1",
+    key: "test2-1",
+    placeholder: "请选择 ",
+    formType: "input",
+    linkageKey: "prev",
+    linkageValue: 1,
+    isClearable: true,
+    labelWidth: "0",
+    span: 24,
+    rules: [{ required: true, message: "请选择", trigger: "blur" }],
+    options:[
+      //   //触发类型  0:设备触发  1:定时触发 2：手动触发
+      {
+        label:"设备触发",
+        value:0,
+      },
+      {
+        label:"定时触发",
+        value:1,
+      },
+    ]
+  },
+
+
+
+  {
     name: "测试1",
     key: "test1",
     placeholder: "请输入名称",

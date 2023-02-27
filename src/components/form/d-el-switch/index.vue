@@ -25,6 +25,7 @@
     :name="data?.name"
     :validate-event="data?.validateEvent"
     :before-change="data?.beforeChange"
+    @change="(data)=>goTo('onChange',data)"
   >
 
   </el-switch>
@@ -77,6 +78,11 @@ const placeholderCOM = computed(() => {
 //   {immediate: true}
 //);
 
+const goTo = (key,data)=>{
+  if(key =='onChange'){
+    console.log(key,data)
+  }
+}
 
 // 接口请求方法放这
 const init = () => {
