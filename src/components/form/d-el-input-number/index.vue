@@ -161,7 +161,7 @@ init();
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-
+        flex-shrink: 0;
       }
     }
 
