@@ -41,23 +41,6 @@
 
     </d-el-form-list>
 
-    <!--    <el-row :gutter="20">-->
-    <!--      <template v-for="(item, index) in _formModel" :key="index">-->
-    <!--        <template v-if="!item.isHidden" :key="Symbol()">-->
-    <!--          <el-col :span="item.span" :class="{ 'fixedWidth': item.width >= 0 }" :style="{ width: item.width + 'px' }">-->
-    <!--            <d-el-form-item :formModelRef="formModelRef" :item="item" :index="index" :prop="[index]" :buttonProp="[index]"-->
-    <!--                       :onChangeProp="[index]" @onChange="(data) => goTo('onChange', data)"-->
-    <!--                       @onFormItemButtonClick="(data) => { goTo(data.key, data) }">-->
-    <!--              <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">-->
-    <!--                <slot :name="item.name" :data="data.data"></slot>-->
-    <!--              </template>-->
-    <!--            </d-el-form-item>-->
-    <!--          </el-col>-->
-    <!--        </template>-->
-    <!--      </template>-->
-
-
-    <!--    </el-row>-->
   </el-form>
   <!--  </d-el-config-provider>-->
 </template>
@@ -184,28 +167,6 @@ const getFormDataByNoHidden = () => {
   return _data;
 }
 
-const clearValidate = () => {
-  return formModelRef.value.clearValidate()
-}
-const validate = (callback) => {
-  return formModelRef.value.validate((valid, invalidFields) => callback(valid, invalidFields))
-}
-const resetFields = () => {
-  return formModelRef.value.resetFields()
-}
-const scrollToField = (prop)=>{
-  return formModelRef.value.scrollToField(prop)
-}
-
-defineExpose({
-  formModelRef,
-  resetFields,
-  clearValidate,
-  validate,
-  scrollToField,
-  getFormData,
-  getFormDataByNoHidden
-})
 
 const formModelClassCOM = computed(() => {
   // console.log('props.isHiddenItemMarginBottom',props.isHiddenItemMarginBottom)
@@ -230,24 +191,28 @@ const _formList = computed(() => {
 })
 
 
-watch(
-  () => props.formList, (formList, preFormList) => {
-    // console.log('formList', formList);
-    //console.log('oldValue', oldValue);
-    // defaultActive = newValue.path;
-    // _formModel.value = formList?.length > 0 ? formList : [];
-    // setFormList(props.formList);
-    // console.log('formModelRef', formModelRef.value);
-    // nextTick(() => {
-    //   // formModelRef?.value?.clearValidate();
-    //   // formModelRef.value.validate(()=>{});
-    // })
-  },
-  {
-    immediate: false,
-    deep: true
-  }
-);
+// watch(
+//   () => props.formList, (formList, preFormList) => {
+//     // console.log('formList', formList);
+//     // setTimeout(() => {
+//     //   setLinkageForm();
+//     //
+//     // },0)
+//     //console.log('oldValue', oldValue);
+//     // defaultActive = newValue.path;
+//     // _formModel.value = formList?.length > 0 ? formList : [];
+//     // setFormList(props.formList);
+//     // console.log('formModelRef', formModelRef.value);
+//     // nextTick(() => {
+//     //   // formModelRef?.value?.clearValidate();
+//     //   // formModelRef.value.validate(()=>{});
+//     // })
+//   },
+//   {
+//     immediate: false,
+//     deep: true
+//   }
+// );
 
 
 // getFormData()
@@ -266,8 +231,10 @@ const goTo = (key, data) => {
     setTimeout(() => {
       formModelRef.value?.validateField(_prop, () => null)
     }, 300)
+    setTimeout(()=>{
+      setLinkageForm();
+    },0)
 
-    setLinkageForm();
 
     emits('onChange', {...data})
   }
@@ -478,8 +445,35 @@ const setLinkageForm = () => {
 
 }
 
+const clearValidate = () => {
+  return formModelRef.value.clearValidate()
+}
+const validate = (callback) => {
+  return formModelRef.value.validate((valid, invalidFields) => callback(valid, invalidFields))
+}
+const resetFields = () => {
+  return formModelRef.value.resetFields()
+}
+const scrollToField = (prop)=>{
+  return formModelRef.value.scrollToField(prop)
+}
 
-// 接口请求方法放这
+const setLinkage = ()=>{
+  return setLinkageForm()
+}
+
+defineExpose({
+  formModelRef,
+  resetFields,
+  clearValidate,
+  validate,
+  scrollToField,
+  getFormData,
+  getFormDataByNoHidden,
+  setLinkage
+})
+
+// section init 接口请求方法放这
 const init = () => {
   setLinkageForm();
 
