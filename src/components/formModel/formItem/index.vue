@@ -520,12 +520,15 @@ const setItemData = () => {
         }else{
           _max = 100
         }
-        if(_number>=_max || _number<=_min){
-          _number = [_min,_max]
+        if(props.item?.range){
+          if(_number>=_max || _number<=_min){
+            _number = [_min,_max]
+          }
+          if(_number>=_min && _number<=_max){
+            _number = [_min,_number]
+          }
         }
-        if(_number>=_min && _number<=_max){
-          _number = [_min,_number]
-        }
+
 
 
         // _number= [_minNumber,_maxNumber]

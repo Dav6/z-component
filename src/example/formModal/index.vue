@@ -104,7 +104,7 @@ const buttonList = ref([
 ])
 const formList = ref([
   {
-    name: "滑块", key: "slider", value: 6,min:1,max:10,  placeholder: "数字", disabled: false,
+    name: "滑块", key: "slider", value: "6",min:1,max:10,  placeholder: "数字", disabled: false,
     formType: "slider",
     unit:"次/分",
     showInput:false,
