@@ -118,18 +118,18 @@ const defaultCOM = computed(() => {
 });
 
 // section computed formList
-// const _formList = computed(throttle(() => {
-//   let _list = props?.formList?.length > 0 ? props.formList : [];
-//   console.log('formList-computed-_list', _list)
-//
-//
-//   // setFormList(_list);
-//   // console.log('_com-list', _list)
-//
-//
-//   return _list
-// },100))
-const _formList = ref(props?.formList)
+const _formList = computed(() => {
+  let _list = props?.formList?.length > 0 ? props.formList : [];
+  console.log('formList-computed-_list', _list)
+
+
+  // setFormList(_list);
+  // console.log('_com-list', _list)
+
+
+  return _list
+})
+// const _formList = ref(props?.formList)
 // const _formList = computed({ // 重新定义
 //   get: () => props?.formList || [],
 //   set: (value) => {

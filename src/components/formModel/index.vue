@@ -179,20 +179,20 @@ const formModelClassCOM = computed(() => {
 
 
 // section computed formList
-// const _formList = computed(() => {
-//   let _list = props?.formList?.length > 0 ? props.formList : [];
-//
-//   console.log('formModel-computed-_list', _list)
-//
-//
-//   // setFormList(_list);
-//   // //console.log('_com-list', _list)
-//
-//
-//   return _list
-// })
+const _formList = computed(() => {
+  let _list = props?.formList?.length > 0 ? props.formList : [];
+
+  // console.log('formModel-computed-_list', _list)
+
+
+  // setFormList(_list);
+  // //console.log('_com-list', _list)
+
+
+  return _list
+})
 // computed
-const _formList = ref(props?.formList?.length > 0 ? props.formList : [])
+// const _formList = ref(props?.formList?.length > 0 ? props.formList : [])
 // const _formList = computed({ // 重新定义
 //   get: () => props?.formList || [],
 //   set: (value) => {
