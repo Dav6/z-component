@@ -8,11 +8,27 @@
 
 <template>
   <el-cascader
-    class="form-cascader"   v-model="modelValue"
-    :options="data?.options" :clearable="data?.clearable"
+    class="form-cascader"
+    v-model="modelValue"
+    :options="data?.options"
+    :size="data?.size"
     :placeholder="placeholderCOM(data)"
     :disabled="data?.disabled"
-    :props="data?.props"/>
+    :show-all-levels="data?.showAllLevels"
+    :collapse-tags="data?.collapseTags"
+    :collapse-tags-tooltip="data?.collapseTagsTooltip"
+    :separator="data?.separator"
+    :filterable="data?.filterable"
+    :filter-method="data?.filterMethod"
+    :debounce="data?.debounce"
+    :before-filter="data?.beforeFilter"
+    :teleported="data?.teleported"
+    :popper-append-to-body="data?.popperAppendToBody"
+    :tag-type="data?.tagType"
+    :validate-event="data?.validateEvent"
+    :props="data?.props"
+
+  />
 </template>
 
 <script setup>

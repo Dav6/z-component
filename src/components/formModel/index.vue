@@ -67,16 +67,17 @@ import {
 import {
   JSONPath
 } from "jsonpath-plus";
+import {throttle} from "../../tools/tools"
 
 
 let slots = useSlots()
 const slotListCOM = computed(() => {
   return () => {
     // const slots1 = useSlots()
-    // console.log(slots )
+    // //console.log(slots )
     let _slots = [];
-    // console.log('slots1', slots1, Object.keys(slots1))
-    // console.log('useSlots', slots, Object.keys(slots))
+    // //console.log('slots1', slots1, Object.keys(slots1))
+    // //console.log('useSlots', slots, Object.keys(slots))
     _slots = Object.keys(slots) || [];
     _slots = _slots?.map(item => {
       return {
@@ -127,7 +128,7 @@ const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange']);
 const formModelRef = ref()
 
 const getFormData = () => {
-  // console.log('getFormData', _formList.value);
+  // //console.log('getFormData', _formList.value);
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
   let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key )]`
@@ -135,7 +136,7 @@ const getFormData = () => {
     json: _list,
     path: _path
   });
-  // console.log('_dataList',_dataList)
+  // //console.log('_dataList',_dataList)
 
 
   let _data = {}
@@ -147,7 +148,7 @@ const getFormData = () => {
 }
 
 const getFormDataByNoHidden = () => {
-  // console.log('getFormData', _formList.value);
+  // //console.log('getFormData', _formList.value);
   let _list = JSON.parse(JSON.stringify(_formList.value))
   _list = _list?.length > 0 ? _list : [];
 
@@ -156,7 +157,7 @@ const getFormDataByNoHidden = () => {
     json: _list,
     path: _path
   });
-  // console.log(_dataList)
+  // //console.log(_dataList)
 
 
   let _data = {}
@@ -169,7 +170,7 @@ const getFormDataByNoHidden = () => {
 
 
 const formModelClassCOM = computed(() => {
-  // console.log('props.isHiddenItemMarginBottom',props.isHiddenItemMarginBottom)
+  // //console.log('props.isHiddenItemMarginBottom',props.isHiddenItemMarginBottom)
   return {
     'hiddenItemMarginBottom': props.isHiddenItemMarginBottom,
   }
@@ -178,48 +179,56 @@ const formModelClassCOM = computed(() => {
 
 
 // section computed formList
-const _formList = computed(() => {
-  let _list = props?.formList?.length > 0 ? props.formList : [];
-  // console.log('_list', _list)
-
-
-  // setFormList(_list);
-  // console.log('_com-list', _list)
-
-
-  return _list
-})
-
-
-// watch(
-//   () => props.formList, (formList, preFormList) => {
-//     // console.log('formList', formList);
-//     // setTimeout(() => {
-//     //   setLinkageForm();
-//     //
-//     // },0)
-//     //console.log('oldValue', oldValue);
-//     // defaultActive = newValue.path;
-//     // _formModel.value = formList?.length > 0 ? formList : [];
-//     // setFormList(props.formList);
-//     // console.log('formModelRef', formModelRef.value);
-//     // nextTick(() => {
-//     //   // formModelRef?.value?.clearValidate();
-//     //   // formModelRef.value.validate(()=>{});
-//     // })
+// const _formList = computed(() => {
+//   let _list = props?.formList?.length > 0 ? props.formList : [];
+//
+//   console.log('formModel-computed-_list', _list)
+//
+//
+//   // setFormList(_list);
+//   // //console.log('_com-list', _list)
+//
+//
+//   return _list
+// })
+// computed
+const _formList = ref(props?.formList?.length > 0 ? props.formList : [])
+// const _formList = computed({ // 重新定义
+//   get: () => props?.formList || [],
+//   set: (value) => {
+//     console.log('_formList-computed-value',value)
+//     return props?.formList
 //   },
-//   {
-//     immediate: false,
-//     deep: true
-//   }
-// );
+// })
+watch(
+  () => props.formList, (formList, preFormList) => {
+    console.log('formModel-props-formList', formList);
+    // setTimeout(() => {
+    //   setLinkageForm();
+    //
+    // },0)
+    ////console.log('oldValue', oldValue);
+    // defaultActive = newValue.path;
+    // _formModel.value = formList?.length > 0 ? formList : [];
+    // setFormList(props.formList);
+    // //console.log('formModelRef', formModelRef.value);
+    // nextTick(() => {
+    //   // formModelRef?.value?.clearValidate();
+    //   // formModelRef.value.validate(()=>{});
+    // })
+  },
+  {
+    immediate: false,
+    deep: true
+  }
+);
 
 
 // getFormData()
 
 // section goTo
 const goTo = (key, data) => {
-  console.log('formModel', key, data);
+  //console.log('formModel', key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {...data})
@@ -227,19 +236,17 @@ const goTo = (key, data) => {
   if (key == 'onChange') {
 
     let _prop = [...data.prop, 'value'].join('.');
-    console.log('_prop', _prop);
+    //console.log('_prop', _prop);
     setTimeout(() => {
       formModelRef.value?.validateField(_prop, () => null)
     }, 300)
-    setTimeout(()=>{
-      setLinkageForm();
-    },0)
+    setTimeout(()=> setLinkageForm() ,50)
 
 
     emits('onChange', {...data})
   }
   if (key == 'submit') {
-    console.log(key, data);
+    //console.log(key, data);
     emits('onClick', {...data})
 
   }
@@ -255,7 +262,7 @@ const onSubmit = (data) => {
 // section set
 const setLinkageForm = () => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
-  console.log('_list', _list);
+  // //console.log('_list', _list);
   let _linkageListPath = `$..linkageKey^`
   // let _linkageList1 = JSONPath({json:_list,path: _linkageListPath});
 
@@ -263,7 +270,7 @@ const setLinkageForm = () => {
     json: _list,
     path: _linkageListPath
   });
-  console.log('_linkageList', _linkageList)
+  // //console.log('_linkageList', _linkageList)
 
 
   _linkageList = _linkageList.map(item => item?.linkageKey || "").filter(item => item)
@@ -279,7 +286,7 @@ const setLinkageForm = () => {
       resultType: 'all'
     });
     _prevLinkageFormList?.map(item => {
-      console.log('_prevLinkageFormItemAll', item)
+      // //console.log('_prevLinkageFormItemAll', item)
       let _item = item;
       let _prevLinkageFormItem = _item.value;
       let _prevLinkageValue = _prevLinkageFormItem.linkageValue;
@@ -290,16 +297,16 @@ const setLinkageForm = () => {
       _pathArray[_pathArray.length-1] = String(_prevIndex - 1);
       let _prevPath = _pathArray
       let _prevFormItem = JSONPath({ json: _list,  path: _prevPath ,wrap:false });
-      console.log('_prevFormItem',_prevFormItem);
+      // //console.log('_prevFormItem',_prevFormItem);
       let _prevLinkageFormItemIsHidden = false;
       if(_prevFormItem){
-        console.log('_prevLinkageFormItem',_prevLinkageFormItem);
+        // //console.log('_prevLinkageFormItem',_prevLinkageFormItem);
         let _prevFormValue = _prevFormItem?.value;
         //  判断当前联动key对应的formItem的值 是否为空
         // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
 
         if(_prevFormValue || _prevFormValue == 0){
-          // console.log('有值')
+          // //console.log('有值')
           // 判断当前的值是不是数组
           if(Array.isArray(_prevFormValue)){
             // 数组为空就隐藏，不为空就系那是
@@ -347,7 +354,7 @@ const setLinkageForm = () => {
           }
 
         }else{
-          // console.log('无值')
+          // //console.log('无值')
           _prevLinkageFormItemIsHidden = true;
         }
 
@@ -362,7 +369,7 @@ const setLinkageForm = () => {
 
   _linkageListSet.delete('prev')
   _linkageList = [..._linkageListSet]
-  console.log('_linkageList', _linkageList)
+  //console.log('_linkageList', _linkageList)
 
   _linkageList?.map(item => {
     let _linkageKey = item;
@@ -370,15 +377,15 @@ const setLinkageForm = () => {
     //  获取联动key对应的formItem
     let _path = `$..[?(@ && @.key == '${_linkageKey}')]`
     let _formItem = JSONPath({  json: _list, path: _path});
-    console.log('_formItem', _formItem);
+    // //console.log('_formItem', _formItem);
     let _formKey = _formItem?.[0]?.key;
     let _formValue = _formItem?.[0]?.value;
-    console.log(_formKey, _formValue)
+    //console.log(_formKey, _formValue)
 
     // 获取设置当前 linkageKey 的formItem
     let _linkagePath = `$..[?(@ && @.linkageKey == '${_formKey}')]`
     let _linkageFormList = JSONPath({json: _list, path: _linkagePath });
-    console.log('_linkageFormItem', _linkageFormList);
+    //console.log('_linkageFormItem', _linkageFormList);
     // 遍历当前获取到的 当前 linkageKey 的formItem
     _linkageFormList?.map(item => {
       let _lItem = item;
@@ -475,7 +482,7 @@ defineExpose({
 
 // section init 接口请求方法放这
 const init = () => {
-  setLinkageForm();
+  setTimeout(()=> setLinkageForm() ,50)
 
 }
 

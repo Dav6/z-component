@@ -8,12 +8,12 @@
 
 <template>
   <el-row class="d-form-list-row" :gutter="20">
-    <template v-for="(item, index) in formList" :key="index">
+    <template v-for="(item, index) in _formList" :key="index">
       <template v-if="!item.isHidden">
         <el-col class="d-form-list-col" :span="item.span" :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
                 :style="{ width: item.width + 'px' }">
           <d-el-form-item :formModelRef="formModelRef" :item="item" :index="index" :prop="[...prop,index]"
-                          :formList="formList"
+                          :formList="_formList"
                           :buttonProp="[...prop,index]"
                           :onChangeProp="[...prop,index]" @onChange="(data) => goTo('onChange', data)"
                           @onFormItemButtonClick="(data) => { goTo('onFormItemButtonClick', data) }">
@@ -70,6 +70,7 @@ defineOptions({
 });
 
 import {ref, reactive, computed, watch, useSlots} from "vue"
+import {throttle} from "../../../tools/tools"
 
 let slots = useSlots()
 const slotListCOM = computed(() => {
@@ -116,15 +117,35 @@ const defaultCOM = computed(() => {
   return '';
 });
 
-//watch(
-//  () => props, (newValue, oldValue) => {
-//    //console.log('newValue', newValue);
-//    //console.log('oldValue', oldValue);
+// section computed formList
+// const _formList = computed(throttle(() => {
+//   let _list = props?.formList?.length > 0 ? props.formList : [];
+//   console.log('formList-computed-_list', _list)
+//
+//
+//   // setFormList(_list);
+//   // console.log('_com-list', _list)
+//
+//
+//   return _list
+// },100))
+const _formList = ref(props?.formList)
+// const _formList = computed({ // 重新定义
+//   get: () => props?.formList || [],
+//   set: (value) => {
+//     console.log('_formList-computed-value',value)
+//     return props?.formList
+//   },
+// })
+// watch(
+//  () => props?.formList, (newValue, oldValue) => {
+//    console.log('watch-_formList-newValue', newValue);
+//    console.log('oldValue', oldValue);
 //    // defaultActive = newValue.path;
 //
 //  },
-//   {immediate: true}
-//);
+//   {deep:true}
+// );
 
 
 const goTo = (key, data) => {

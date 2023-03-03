@@ -9,7 +9,8 @@
 <template>
 
   <div>
-    <el-button @click="goTo('show')">123123</el-button>
+    <el-button @click="goTo('add')">添加</el-button>
+    <el-button @click="goTo('edit')">编辑</el-button>
   </div>
 
   <d-el-dialog
@@ -20,23 +21,19 @@
     <template #header>
       头部
     </template>
-    <d-el-switch v-model="switchData" ></d-el-switch>
-    <d-form-model
-      class="dialog-form"
-      ref="addEditFormRef"
-      :statusIcon="true"
-      labelWidth="8em"
-      :formList="formList"
-      :buttonList="buttonList"
-      :isButtonsRow="true"
-      labelPosition="top"
-      @onClick="(data)=>goTo('onclick', data)"
-      @onChange="(data) => { goTo('onChange', data) }"
-      @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
-
+    <div class="dialog-container"
+         v-loading="addEditDialogData.isLoading"
     >
+      <d-form-model
+        labelPosition="top"
 
-    </d-form-model>
+        :ref="el=>dialogStore.setAddEditDialogFormRef(el)"
+        :formList="addEditDialogData.formList"
+        @onChange="(data) => goTo('onFormChange', data)"
+        @onFormItemButtonClick=" data =>  goTo('onFormItemButtonClick', data) "
+      >
+      </d-form-model>
+    </div>
 
     <template #footer >
       <el-button
@@ -70,7 +67,9 @@ import {
 } from "vue"
 import formModel
   from "@/components/formModel";
-
+import {
+  useDialogStore
+} from "./store";
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
@@ -79,13 +78,28 @@ const props = defineProps({
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits([]);
+const dialogStore = useDialogStore()
+const addEditDialogData = computed(() => dialogStore.addEditDialogData);
+
+const isShow = computed({
+  // 重新定义
+  get: () => addEditDialogData.value.isShow,
+  set: (value) => (dialogStore.addEditDialogData.isShow = false),
+});
+
+
+
+
+
+
+
+
 
 const defaultCOM = computed(() => {
   return '';
 });
 const addEditFormRef = ref();
 const switchData = ref('');
-const isShow = ref(false)
 const dialogInfo = reactive({
   title: '标题'
 })
@@ -765,15 +779,42 @@ watch(()=>isShow.value,(isShow,preIsShow)=>{
 
 
 const goTo = (key,data)=>{
-  if (key == 'show'){
-    isShow.value = true;
+
+  if(key == 'onFormItemButtonClick'){
+    dialogStore.onAddEditDialogFormItemButtonClick(data);
+
+  }
+  if (key == "onFormChange") {
+    // console.log(key, data);
+    dialogStore.onAddEditDialogFormChange(data);
+  }
+  if (key === "confirm") {
+    // dialogStore.addEditData();
+    //
+    // console.log('formList',addEditDialogData.value.formList)
+    // console.log(addEditFormRef.value?.getFormData());
+    // // automationStore.addEditDialogData.isShow = false;
+    // addEditFormRef.value?.validate((valid) => {
+    //   console.log("valid", valid);
+    // });
+
+
+
+
+
+  }
+  if (key == 'add'){
+    dialogStore.openAddEditDialog('add')
+  }
+  if (key == 'edit'){
+    dialogStore.openAddEditDialog('edit')
   }
   if(key == 'cancel'){
-    addEditFormRef.value.formModelRef.clearValidate();
+    // addEditFormRef.value.formModelRef.clearValidate();
+    //
+    // isShow.value = false;
+    cancel();
 
-    isShow.value = false;
-  }
-  if (key == 'cancel') {
   }
   if (key == 'confirm') {
 
@@ -797,15 +838,18 @@ const goTo = (key,data)=>{
 
   }
 }
-
+const cancel = () => {
+  dialogStore.addEditDialogData.isShow = false;
+};
 // 接口请求方法放这
 const init = () => {
-  //getList();
-
-}
+  // getList();
+  dialogStore.init();
+};
 
 // 统一执行初始化方法
 init();
+
 
 
 </script>
@@ -815,5 +859,13 @@ init();
   max-height:60vh;
   overflow: hidden;
   overflow-y: scroll;
+}
+.dialog-container{
+  width: 100%;
+  padding: 24px;
+  max-height: 50vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-y: auto;
 }
 </style>

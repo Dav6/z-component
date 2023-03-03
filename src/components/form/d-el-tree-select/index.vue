@@ -11,7 +11,6 @@
     class="form-tree-select"
     v-model="modelValue"
     :data="data?.options?.length>0?data?.options:[]"
-    :props="data?.props"
     :multiple="data?.multiple"
     :collapse-tags="data?.collapseTags"
     :collapse-tags-tooltip="data?.collapseTagsTooltip"
@@ -23,6 +22,7 @@
     :disabled="data?.disabled"
     :filterable="data?.filterable"
     :placeholder="placeholderCOM(data)"
+    :props="data?.props"
 
   >
 
