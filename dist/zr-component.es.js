@@ -3435,12 +3435,12 @@ const Ll = xe, Xl = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
       return f = `${_}${v}`, f;
     });
     return (o, f) => {
-      var v, u, p, r, a, l, d, n, s, y, m, b, h, V;
+      var v, u, p, r, a, l, d, n, s, y, m, b, h, V, w;
       const _ = F("el-tree-select");
       return S(), U(_, {
         class: "form-tree-select",
         modelValue: $(i),
-        "onUpdate:modelValue": f[0] || (f[0] = (w) => ee(i) ? i.value = w : null),
+        "onUpdate:modelValue": f[0] || (f[0] = (O) => ee(i) ? i.value = O : null),
         data: ((u = (v = e.data) == null ? void 0 : v.options) == null ? void 0 : u.length) > 0 ? (p = e.data) == null ? void 0 : p.options : [],
         multiple: (r = e.data) == null ? void 0 : r.multiple,
         "collapse-tags": (a = e.data) == null ? void 0 : a.collapseTags,
@@ -3449,12 +3449,13 @@ const Ll = xe, Xl = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
         "check-on-click-node": (n = e.data) == null ? void 0 : n.checkOnClickNode,
         "check-strictly": (s = e.data) == null ? void 0 : s.checkStrictly,
         "render-after-expand": (y = e.data) == null ? void 0 : y.renderAfterExpand,
-        "show-checkbox": (m = e.data) == null ? void 0 : m.showCheckbox,
-        disabled: (b = e.data) == null ? void 0 : b.disabled,
-        filterable: (h = e.data) == null ? void 0 : h.filterable,
+        "default-expanded-keys": (m = e.data) == null ? void 0 : m.defaultExpandedKeys,
+        "show-checkbox": (b = e.data) == null ? void 0 : b.showCheckbox,
+        disabled: (h = e.data) == null ? void 0 : h.disabled,
+        filterable: (V = e.data) == null ? void 0 : V.filterable,
         placeholder: $(g)(e.data),
-        props: (V = e.data) == null ? void 0 : V.props
-      }, null, 8, ["modelValue", "data", "multiple", "collapse-tags", "collapse-tags-tooltip", "treeNodeKey", "check-on-click-node", "check-strictly", "render-after-expand", "show-checkbox", "disabled", "filterable", "placeholder", "props"]);
+        props: (w = e.data) == null ? void 0 : w.props
+      }, null, 8, ["modelValue", "data", "multiple", "collapse-tags", "collapse-tags-tooltip", "treeNodeKey", "check-on-click-node", "check-strictly", "render-after-expand", "default-expanded-keys", "show-checkbox", "disabled", "filterable", "placeholder", "props"]);
     };
   }
 }), Gl = ne(Zl), ql = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({

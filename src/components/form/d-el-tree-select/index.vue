@@ -18,6 +18,7 @@
     :check-on-click-node="data?.checkOnClickNode"
     :check-strictly="data?.checkStrictly"
     :render-after-expand="data?.renderAfterExpand"
+    :default-expanded-keys="data?.defaultExpandedKeys"
     :show-checkbox="data?.showCheckbox"
     :disabled="data?.disabled"
     :filterable="data?.filterable"
