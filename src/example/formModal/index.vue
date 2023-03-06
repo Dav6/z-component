@@ -816,17 +816,19 @@ const formList = ref([
       {
         labelWidth: '8em',
         // width: "600",
-        name: "层级1-2", key: "layer12", value: "", placeholder: "层级1-2", disabled: false, formType: "input", span: 12,
+        name: "层级1-2-66666", key: "layer12", value: "", placeholder: "层级1-2", disabled: false, formType: "input", span: 12,
         rules: [{required: true, message: "请输入", trigger: "blur"}],
         childrenSpan: 24,
         isChildrenBr: true,
+        formRowClass:"formRowClassTest",
+
         children: [
           {
             labelWidth: '8em',
             name: "层级1-2-1",
             key: "layer111",
             value: "",
-            placeholder: "层级1-1-1",
+            placeholder: "层级1-2-1",
             disabled: false,
             formType: "input",
             span: 8,
@@ -837,7 +839,7 @@ const formList = ref([
             name: "层级1-2-1",
             key: "layer111",
             value: "",
-            placeholder: "层级1-1-1",
+            placeholder: "层级1-2-1",
             disabled: false,
             formType: "input",
             span: 8,
@@ -1149,5 +1151,9 @@ init();
   //height:300vh;
   //background:red;
   width: calc(100% - 24px);
+
+  .formRowClassTest{
+    background: red;
+  }
 }
 </style>

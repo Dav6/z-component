@@ -7,16 +7,18 @@
 -->
 
 <template>
-  <el-row class="d-form-list-row" :gutter="20">
+  <el-row class="d-form-list-row"  :class="formListClassCOM"  :gutter="20">
     <template v-for="(item, index) in _formList" :key="index">
       <template v-if="!item.isHidden">
-        <el-col class="d-form-list-col" :span="item.span" :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
+        <el-col class="d-form-list-col" :span="item.span"
+                :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
                 :style="{ width: item.width + 'px' }">
-          <d-el-form-item :formModelRef="formModelRef" :item="item" :index="index" :prop="[...prop,index]"
-                          :formList="_formList"
-                          :buttonProp="[...prop,index]"
-                          :onChangeProp="[...prop,index]" @onChange="(data) => goTo('onChange', data)"
-                          @onFormItemButtonClick="(data) => { goTo('onFormItemButtonClick', data) }">
+          <d-el-form-item
+              :formModelRef="formModelRef" :item="item" :index="index" :prop="[...prop,index]"
+              :formList="_formList"
+              :buttonProp="[...prop,index]"
+              :onChangeProp="[...prop,index]" @onChange="(data) => goTo('onChange', data)"
+              @onFormItemButtonClick="(data) => { goTo('onFormItemButtonClick', data) }">
             <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
               <slot :name="item.name" :data="data.data"></slot>
             </template>
@@ -27,14 +29,16 @@
           <template v-if="item?.isChildrenBr">
             <el-col :span="24"></el-col>
           </template>
-          <el-col :span="item?.childrenSpan?item?.childrenSpan:24" :class="{ 'fixedWidth': item.width >= 0,'widthFill': item.width >= 0 }" >
+          <el-col :span="item?.childrenSpan?item?.childrenSpan:24"
+                  :class="{ 'fixedWidth': item.width >= 0,'widthFill': item.width >= 0 }">
             <d-el-form-list
-              :prop="[...prop,index,'children']"
-              :formModelRef="formModelRef"
-              :formList="item?.children"
-              @onChange="(data) => goTo('onChange', data)"
-              @submit="(data)=>goTo('submit', {...data})"
-              @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
+                :prop="[...prop,index,'children']"
+                :formModelRef="formModelRef"
+                :formList="item?.children"
+                :formRowClass="item?.formRowClass"
+                @onChange="(data) => goTo('onChange', data)"
+                @submit="(data)=>goTo('submit', {...data})"
+                @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
             >
 
               <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
@@ -53,7 +57,10 @@
       <el-col :class="{ 'fixedWidth': !isButtonsRow }">
         <el-form-item class="form-item " label="" label-width="0">
           <template v-for="(item, index) in buttonList" :key="index">
-            <el-button @click="() => goTo('submit', item)" :class="item.class" :type="item.type">{{ item.name }}</el-button>
+            <el-button @click="() => goTo('submit', item)" :class="item.class" :type="item.type">{{
+                item.name
+              }}
+            </el-button>
           </template>
         </el-form-item>
       </el-col>
@@ -102,12 +109,15 @@ const props = defineProps({
     default: [],
   },
   isButtonsRow: {
-    type:Boolean,
-    default:false,
+    type: Boolean,
+    default: false,
   },
   buttonList: {
     type: [Array],
   },
+  formRowClass:{
+    type: [Array,Object,String]
+  }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange', 'submit']);
@@ -146,6 +156,35 @@ const _formList = computed(() => {
 //  },
 //   {deep:true}
 // );
+
+const formListClassCOM = computed(() => {
+
+  let _data = props.item;
+
+  let _class = []
+  // console.log('propsClass',props.formRowClass)
+
+  let _formRowClass = props?.formRowClass;
+  if (typeof (_formRowClass) == 'string') {
+    let _bClass = _formRowClass?.split(' ')
+    _class = [..._class, ..._bClass]
+  }
+  if (_formRowClass?.constructor == Object) {
+    let _bClass = Object.keys(_formRowClass)?.map(key => {
+      console.log(key)
+      return _formRowClass[key] ? key : ''
+    })
+    _class = [..._class, ..._bClass]
+  }
+  if (_formRowClass?.constructor == Array) {
+    let _bClass = _formRowClass || [];
+    _class = [..._class, ..._bClass]
+  }
+
+  console.log('_formRowClass',_data?.formRowClass);
+
+  return _class;
+});
 
 
 const goTo = (key, data) => {
@@ -188,13 +227,14 @@ init();
   flex: unset;
 
 }
-.el-col.widthFill{
-  flex:1;
+
+.el-col.widthFill {
+  flex: 1;
 }
 
-.d-form-list-col{
+.d-form-list-col {
   //display: flex;
-  &.isTransition{
+  &.isTransition {
     transition: all .22s ease-in-out;
   }
 }
