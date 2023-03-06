@@ -1,4 +1,4 @@
-import './assets/index.3510a9ea.css';
+import './assets/index.68ac9644.css';
 import { defineComponent as q, inject as Ze, ref as P, resolveComponent as B, openBlock as k, createBlock as I, mergeProps as Le, unref as $, withCtx as z, renderSlot as se, computed as T, watch as ce, createElementBlock as Y, createElementVNode as j, createVNode as C, normalizeClass as te, toDisplayString as H, getCurrentInstance as Ne, isRef as Q, markRaw as ge, createTextVNode as ae, Fragment as G, renderList as oe, resolveDynamicComponent as fe, useSlots as xe, normalizeProps as Ge, guardReactiveProps as qe, createSlots as pe, normalizeStyle as je, useCssVars as Qe, createCommentVNode as de, withModifiers as ut } from "vue";
 const ee = (e) => {
   let d = e, t = d == null ? void 0 : d.name;
@@ -2367,7 +2367,7 @@ const ve = (e, d) => {
       if (!t.modelValue)
         return "";
       let m = t.modelValue.split(" ");
-      m == null || m.map((r, a) => b[a] = r);
+      m == null || m.map((r, a) => b.value[a].value = r);
     };
     return (() => {
       g();
@@ -2417,7 +2417,7 @@ const ve = (e, d) => {
       }, 8, ["shadow", "_data"]);
     };
   }
-}), On = /* @__PURE__ */ ve(Vn, [["__scopeId", "data-v-1fc86f47"]]), xn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), On = /* @__PURE__ */ ve(Vn, [["__scopeId", "data-v-a03f7476"]]), xn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: On
 }, Symbol.toStringTag, { value: "Module" })), Ie = /* @__PURE__ */ Object.assign({ "./index.vue": xn });

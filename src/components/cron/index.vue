@@ -156,8 +156,6 @@ const _value = computed(() => {
 
   }
 
-
-
   if (_cron !== props.modelValue) {
     // this.$emit('input', v)
     emits("update:modelValue", _cron);
@@ -197,8 +195,8 @@ const updateVal = () => {
     return '';
   }
   let arrays = props.modelValue.split(' ')
-  console.log('updateVal', arrays);
-  arrays?.map((item, index) => cronData[index] = item)
+  // console.log('updateVal', arrays);
+  arrays?.map((item, index) => cronData.value[index].value = item)
   // sVal.value = arrays[0]
   // mVal.value = arrays[1]
   // hVal.value = arrays[2]

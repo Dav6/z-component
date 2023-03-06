@@ -18,11 +18,12 @@
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'2',label:'周期'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-      <d-el-input-number :class="{active:type == '2'}"  @change="type = '2'" v-model="cycle.start" :data="{min:1,max:59,}"
-                         ></d-el-input-number>
+      <d-el-input-number :class="{active:type == '2'}" @change="type = '2'" v-model="cycle.start"
+                         :data="{min:1,max:59,}"
+      ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
-      <d-el-input-number :class="{active:type == '2'}"  @change="type = '2'" v-model="cycle.end" :data="{min:2,max:59,}"
-                         ></d-el-input-number>
+      <d-el-input-number :class="{active:type == '2'}" @change="type = '2'" v-model="cycle.end" :data="{min:2,max:59,}"
+      ></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}</span>
 
 
@@ -31,12 +32,12 @@
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'3',label:'循环'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-      <d-el-input-number :class="{active:type == '3'}"  @change="type = '3'" v-model="loop.start" :data="{min:0,max:59,}"
-                         ></d-el-input-number>
+      <d-el-input-number :class="{active:type == '3'}" @change="type = '3'" v-model="loop.start" :data="{min:0,max:59,}"
+      ></d-el-input-number>
 
       <span style="margin-left: 5px; margin-right: 5px;"> {{ unit }}开始，每</span>
-      <d-el-input-number :class="{active:type == '3'}"  @change="type = '3'" v-model="loop.end" :data="{min:1,max:59,}"
-                         ></d-el-input-number>
+      <d-el-input-number :class="{active:type == '3'}" @change="type = '3'" v-model="loop.end" :data="{min:1,max:59,}"
+      ></d-el-input-number>
 
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}执行一次</span>
 
@@ -105,7 +106,7 @@ appointOptions.value = new Array(60).fill('').map((item, index) => {
 
 const _value = computed(() => {
   let result = []
-  switch(type.value) {
+  switch (type.value) {
     case '1': // 每秒
       result.push('*')
       break
@@ -117,7 +118,7 @@ const _value = computed(() => {
       break
     case '4': // 指定
       // result.push(appoint.value.join(','))
-      result.push(appoint.value.sort((a,b)=>Number(a)-Number(b)).join(','))
+      result.push(appoint.value.sort((a, b) => Number(a) - Number(b)).join(','))
 
       break
     case '6': // 最后
@@ -136,13 +137,13 @@ const _value = computed(() => {
 });
 
 watch(() => props.modelValue, (newValue, preValue) => {
-    updateVal()
+      updateVal()
 
-  },
-  {deep: true}
+    },
+    {deep: true}
 );
 const updateVal = () => {
-  // console.log('props.modelValue', props.modelValue.split(','))
+  console.log('props.modelValue-----', props.modelValue )
   if (!props.modelValue) {
     return
   }

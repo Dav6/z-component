@@ -34,7 +34,7 @@ const defaultCOM = computed(() => {
 });
 
 const isShow = ref(false)
-const cronData = ref();
+const cronData = ref('1/2 1/6 * * * ? *');
 
 
 const goTo = (key,data)=>{
