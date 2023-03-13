@@ -152,7 +152,7 @@ const list = ref([
       "type": 1,
       "name": "人脸"
     },
-    image: [image, image, image, image],
+    image:image,
     "passStatusName": "通行失败,陌生人",
     "orgName": "泽瑞集团",
     "createTime": "2022-12-19 11:17:20"

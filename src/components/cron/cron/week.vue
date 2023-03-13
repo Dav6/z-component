@@ -1,4 +1,4 @@
-<template  >
+<template>
   <div class="cron-item month" :val="_value">
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'1',label:`每${unit}`}]}"></d-el-radio>
@@ -9,39 +9,32 @@
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'2',label:'周期'}]}"></d-el-radio>
       <span style="margin-left: 10px; margin-right: 5px;">从{{ unit }}</span>
-      <d-el-input-number @change="type = '2'" v-model="cycle.start" :data="{min:1,max:7,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '2'" v-model="cycle.start" :data="{min:1,max:7,}"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至{{ unit }}</span>
-      <d-el-input-number @change="type = '2'" v-model="cycle.end" :data="{min:2,max:7,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '2'" v-model="cycle.end" :data="{min:2,max:7,}"></d-el-input-number>
     </div>
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'3',label:'循环'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">从{{ unit }}</span>
-      <d-el-input-number @change="type = '3'" v-model="loop.start" :data="{min:1,max:7,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '3'" v-model="loop.start" :data="{min:1,max:7,}"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">开始，每</span>
-      <d-el-input-number @change="type = '3'" v-model="loop.end" :data="{min:1,max:7,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '3'" v-model="loop.end" :data="{min:1,max:7,}"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">天执行一次</span>
     </div>
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'7',label:'指定周'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">本月第</span>
-      <d-el-input-number @change="type = '7'" v-model="week.end" :data="{min:1,max:4,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '7'" v-model="week.end" :data="{min:1,max:4,}"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">个，{{ unit }}</span>
-      <d-el-input-number @change="type = '7'" v-model="week.start" :data="{min:1,max:7,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '7'" v-model="week.start" :data="{min:1,max:7,}"></d-el-input-number>
     </div>
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'6',label:'本月最后一个'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">{{ unit }}</span>
-      <d-el-input-number @change="type = '6'" v-model="last" :data="{min:1,max:7,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '6'" v-model="last" :data="{min:1,max:7,}"></d-el-input-number>
     </div>
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'4',label:'指定'}]}"></d-el-radio>
@@ -64,6 +57,7 @@ import {
   watch,
   getCurrentInstance
 } from "vue"
+
 const instance = getCurrentInstance();
 
 const props = defineProps({
@@ -73,8 +67,8 @@ const props = defineProps({
     default: '?'
 
   },
-  cronData:{
-    type:Object
+  cronData: {
+    type: Object
   },
   unit: {
     type: String
@@ -86,16 +80,16 @@ const type = computed({ // 重新定义
   get: () => _type.value,
   set: async (value) => {
 
-    setTimeout(async ()=>{
-      let _day =  props.cronData?.find(item=>item.key == 'd') || {};
+    setTimeout(async () => {
+      let _day = props.cronData?.find(item => item.key == 'd') || {};
       // console.log('_day',_day);
       // console.log('_type.value',value )
       let _message = `日与周必须有一个为 不指定<br>将日设置为 不指定`;
-      if(_day.value != '?' && value != '5'){
+      if (_day.value != '?' && value != '5') {
         await showMessage(_message);
 
       }
-      if(_day.value == '?' && value == '5'){
+      if (_day.value == '?' && value == '5') {
         _message = `日与周不可以同时为“不指定”</br>将日设置为每日`;
         await showMessage(_message);
 
@@ -104,7 +98,7 @@ const type = computed({ // 重新定义
       //
 
       _type.value = value;
-    },10)
+    }, 10)
 
 
   },
@@ -114,23 +108,23 @@ const showMessage = (message) => {
   return new Promise((resolve, reject) => {
 
     instance?.appContext?.app?.config?.globalProperties?.$confirm(
-      message,
-      '提示',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        draggable: true,
-        dangerouslyUseHTMLString: true,
+        message,
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          draggable: true,
+          dangerouslyUseHTMLString: true,
 
-      }
+        }
     ).then(() => {
       console.log('确定')
-      props.cronData?.map(item=>{
-        if(item.key == 'd'){
-          if(item.value == '?'){
+      props.cronData?.map(item => {
+        if (item.key == 'd') {
+          if (item.value == '?') {
             item.value = '*'
-          }else{
+          } else {
             item.value = '?'
           }
 
@@ -161,7 +155,7 @@ const last = ref(0)
 const appoint = ref([])
 const appointOptions = ref([]);
 appointOptions.value = new Array(7).fill('').map((item, index) => {
-  let _index = index +1;
+  let _index = index + 1;
   let _label = _index < 10 ? `0${_index}` : _index;
 
   return {
@@ -173,7 +167,7 @@ appointOptions.value = new Array(7).fill('').map((item, index) => {
 
 const _value = computed(() => {
   let result = []
-  switch(type.value) {
+  switch (type.value) {
     case '1': // 每秒
       result.push('*')
       break
@@ -195,7 +189,8 @@ const _value = computed(() => {
     default: // 不指定
       result.push('?')
       break
-  }  ;
+  }
+  ;
   // this.$emit('input', result.join(''))
   emits("update:modelValue", result.join(''));
 
@@ -204,13 +199,13 @@ const _value = computed(() => {
 });
 
 watch(() => props.modelValue, (newValue, preValue) => {
-    updateVal()
+      updateVal()
 
-  },
-  {deep: true}
+    },
+    {deep: true}
 );
 const updateVal = () => {
-  console.log('week',props.modelValue)
+  console.log('week', props.modelValue)
   if (!props.modelValue) {
     return
   }

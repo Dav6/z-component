@@ -21,11 +21,9 @@
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'2',label:'周期'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-      <d-el-input-number @change="type = '2'" v-model="cycle.start" :data="{min:1,max:12,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '2'" v-model="cycle.start" :data="{min:1,max:12,}"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
-      <d-el-input-number @change="type = '2'" v-model="cycle.end" :data="{min:2,max:12,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '2'" v-model="cycle.end" :data="{min:2,max:12,}"></d-el-input-number>
 
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}</span>
 
@@ -34,12 +32,10 @@
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'3',label:'循环'}]}"></d-el-radio>
 
       <span style="margin-left: 10px; margin-right: 5px;">从</span>
-      <d-el-input-number @change="type = '3'" v-model="loop.start" :data="{min:1,max:12,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '3'" v-model="loop.start" :data="{min:1,max:12,}"></d-el-input-number>
 
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}开始，每</span>
-      <d-el-input-number @change="type = '3'" v-model="loop.end" :data="{min:1,max:12,}"
-                         ></d-el-input-number>
+      <d-el-input-number @change="type = '3'" v-model="loop.end" :data="{min:1,max:12,}"></d-el-input-number>
 
 
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}执行一次</span>
@@ -92,8 +88,8 @@ const work = ref(0)
 const last = ref(0)
 const appoint = ref([])
 const appointOptions = ref([]);
-appointOptions.value = new Array(12).fill('').map((item,index)=>{
-  let _index = index +1;
+appointOptions.value = new Array(12).fill('').map((item, index) => {
+  let _index = index + 1;
   let _label = _index < 10 ? `0${_index}` : _index;
 
   return {
@@ -105,7 +101,7 @@ appointOptions.value = new Array(12).fill('').map((item,index)=>{
 
 const _value = computed(() => {
   let result = []
-  switch(type.value) {
+  switch (type.value) {
     case '1': // 每秒
       result.push('*')
       break
@@ -133,13 +129,13 @@ const _value = computed(() => {
   return result.join('')
 });
 
-watch( () => props.modelValue, (newValue, preValue) => {
-    updateVal()
+watch(() => props.modelValue, (newValue, preValue) => {
+      updateVal()
 
-  },
-  {deep: true}
+    },
+    {deep: true}
 );
-const updateVal = ()=> {
+const updateVal = () => {
   // console.log('props.modelValue',props.modelValue.split(','))
   if (!props.modelValue) {
     return
@@ -148,7 +144,7 @@ const updateVal = ()=> {
     type.value = '5'
   } else if (props.modelValue.indexOf('-') !== -1) { // 2周期
     if (props.modelValue.split('-').length === 2) {
-      console.log("props.modelValue.split('-')",props.modelValue.split('-'))
+      console.log("props.modelValue.split('-')", props.modelValue.split('-'))
       type.value = '2'
       let _start = props.modelValue.split('-')[0]
       let _end = props.modelValue.split('-')[1]
@@ -186,9 +182,6 @@ const updateVal = ()=> {
     appoint.value = props.modelValue.split(',')
   }
 }
-
-
-
 
 
 // 接口请求方法放这

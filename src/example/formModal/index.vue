@@ -231,8 +231,9 @@ const formList = ref([
     placeholder: "请选择选项",
     disabled: false,
     formType: "checkbox",
-    span: 12,
+    span: 6,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
+    optionLabelWidth:"3em",
     options: [
       {
         label: "选项1",
@@ -243,11 +244,11 @@ const formList = ref([
         value: 2,
       },
       {
-        label: "选项3",
+        label: "选项33",
         value: 3,
       },
       {
-        label: "选项4",
+        label: "选项44",
         value: 4,
       },
     ]
@@ -265,6 +266,7 @@ const formList = ref([
     disabled: false,
     isRadioBorder:true,
     formType: "checkbox",
+    optionLabelWidth:"3em",
     span: 12,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
     options: [
@@ -277,11 +279,11 @@ const formList = ref([
         value: 2,
       },
       {
-        label: "选项3",
+        label: "选项3333",
         value: 3,
       },
       {
-        label: "选项4",
+        label: "选项4444",
         value: 4,
       },
     ]
@@ -293,6 +295,7 @@ const formList = ref([
     placeholder: "请选择选项",
     disabled: false,
     formType: "radio",
+    optionLabelWidth:"3em",
     span: 12,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
     options: [
@@ -305,11 +308,11 @@ const formList = ref([
         value: 2,
       },
       {
-        label: "选项3",
+        label: "选项3333",
         value: 3,
       },
       {
-        label: "选项4",
+        label: "选项4444",
         value: 4,
       },
     ]
@@ -462,15 +465,16 @@ const formList = ref([
     placeholder: "请选择",
     disabled: false,
     formType: "select",
-    span: 12,
+    span: 5,
     rules: [{required: true, message: "请选择", trigger: "blur"}],
     multiple: true,
     collapseTags: true,
     collapseTagsTooltip: true,
     clearable: true,
+    filterable: true,
     options: [
       {
-        label: "选项1",
+        label: "选项11111111111111111111111",
         value: 1,
       },
       {
@@ -775,7 +779,9 @@ const formList = ref([
     rules: [{required: true, message: "", trigger: "blur"}],
     span: 24,
     ownSpan: 24,
-    width: "110",
+    width: "110px",
+    childrenWidth:" calc(100% - 110px)",
+    isChildWidthFill:false,
     childrenSpan: 24,
     children: [
       {
@@ -1112,8 +1118,8 @@ const goTo = (key, data) => {
 
     console.log(addEditFormRef.value.getFormDataByNoHidden())
     console.log(addEditFormRef.value.getFormData())
-    addEditFormRef.value.formModelRef.validate((valid) => {
-      console.log(valid)
+    addEditFormRef.value.formModelRef.validate((valid,invalidFields) => {
+      console.log('invalidFields',valid,invalidFields)
       if (valid) {
 
       }

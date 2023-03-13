@@ -7,12 +7,11 @@
 -->
 
 <template>
-  <el-row class="d-form-list-row"  :class="formListClassCOM"  :gutter="20">
+  <el-row class="d-form-list-row"  :class="formListRowClassCOM"  :gutter="20">
     <template v-for="(item, index) in _formList" :key="index">
       <template v-if="!item.isHidden">
         <el-col class="d-form-list-col" :span="item.span"
-                :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
-                :style="{ width: item.width + 'px' }">
+                :class="formListColClassCOM(item,index)">
           <d-el-form-item
               :formModelRef="formModelRef" :item="item" :index="index" :prop="[...prop,index]"
               :formList="_formList"
@@ -29,8 +28,12 @@
           <template v-if="item?.isChildrenBr">
             <el-col :span="24"></el-col>
           </template>
-          <el-col :span="item?.childrenSpan?item?.childrenSpan:24"
-                  :class="{ 'fixedWidth': item.width >= 0,'widthFill': item.width >= 0 }">
+          <el-col
+              class="d-form-list-children-col"
+              :span="item?.childrenSpan?item?.childrenSpan:24"
+              :class="formListChildrenColClassCOM(item,index)"
+
+          >
             <d-el-form-list
                 :prop="[...prop,index,'children']"
                 :formModelRef="formModelRef"
@@ -157,7 +160,7 @@ const _formList = computed(() => {
 //   {deep:true}
 // );
 
-const formListClassCOM = computed(() => {
+const formListRowClassCOM = computed(() => {
 
   let _data = props.item;
 
@@ -185,6 +188,84 @@ const formListClassCOM = computed(() => {
 
   return _class;
 });
+
+const fixedWidth = ref('auto');
+const formListColClassCOM = computed(()=>{
+  return  (item,index)=>{
+    // console.log(item);
+    let _class= [];
+    let _data = item;
+    let _width = _data?.width;
+    let _widthNum = '';
+    let _widthUnit = 'px';
+
+// :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
+    if(_width?.toString()?.trim()?.indexOf('calc') == 0){
+      fixedChildrenWidth.value = _width;
+      _class.push('fixedWidth');
+    }
+
+    _widthNum = parseFloat(_width);
+    if((_width || _width==0) && _widthNum >=0){
+      // console.log('formListColClassCOM-_width',_width)
+      // console.log('formListColClassCOM-parseFloat',parseFloat(_data?.width))
+      let _widthArr = _width.toString().split(_widthNum.toString())
+      // console.log('formListColClassCOM-_widthArr',_widthArr)
+      _widthUnit = _widthArr?.[1] || 'px';
+      fixedWidth.value = _widthNum + _widthUnit
+
+      _class.push('fixedWidth');
+    }
+
+
+    // console.log('formListColClassCOM-_class',_class)
+
+
+    return _class
+  }
+
+})
+const fixedChildrenWidth = ref('auto');
+const formListChildrenColClassCOM = computed(()=>{
+  return  (item,index)=>{
+    console.log(item);
+    let _class= [];
+    let _data = item;
+    let _isWidthFill = _data?.isChildWidthFill;
+    let _width = _data?.childrenWidth;
+    let _widthNum = '';
+    let _widthUnit = 'px';
+
+  // :class="{ 'fixedWidth': item.width >= 0,'widthFill': item.width >= 0 }"
+  //   console.log('formListChildrenColClassCOM-_width',)
+    if(_width?.toString()?.trim()?.indexOf('calc') == 0){
+      fixedChildrenWidth.value = _width;
+      _class.push('fixedWidth');
+    }
+
+    _widthNum = parseFloat(_width);
+    if((_width || _width==0) && _widthNum >=0){
+      // console.log('formListChildrenColClassCOM',formListColRef.value?.[index])
+      // console.log('formListChildrenColClassCOM-_width',_width)
+      // console.log('formListChildrenColClassCOM-parseFloat',parseFloat(_data?.width))
+      let _widthArr = _width.toString().split(_widthNum.toString())
+      // console.log('formListChildrenColClassCOM-_widthArr',_widthArr)
+      _widthUnit = _widthArr?.[1] || 'px';
+      fixedChildrenWidth.value = _widthNum + _widthUnit;
+      _class.push('fixedWidth');
+    }
+    if(_isWidthFill){
+      fixedChildrenWidth.value = 'auto';
+      _class.push('widthFill');
+    }
+
+
+
+
+    return _class
+  }
+})
+
 
 
 const goTo = (key, data) => {
@@ -234,8 +315,27 @@ init();
 
 .d-form-list-col {
   //display: flex;
+
+  &.fixedWidth {
+    max-width: unset;
+    flex: unset;
+    width:v-bind('fixedWidth')
+  }
   &.isTransition {
     transition: all .22s ease-in-out;
+  }
+
+
+}
+.d-form-list-children-col{
+  &.fixedWidth {
+    max-width: unset;
+    flex: unset;
+    width:v-bind('fixedChildrenWidth')
+  }
+  &.widthFill {
+    max-width: unset;
+    flex: 1;
   }
 }
 
