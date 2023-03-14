@@ -18,7 +18,7 @@
       :formList="formList"
       :buttonList="buttonList"
       :isButtonsRow="true"
-      labelPosition="top"
+      labelPosition="left"
       @onclick="(data)=>goTo('onclick', data)"
       @onChange="(data) => { goTo('onChange', data) }"
       @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
@@ -103,6 +103,16 @@ const buttonList = ref([
 
 ])
 const formList = ref([
+  // {
+  //   name: "设备名称",
+  //   key: "deviceName",
+  //   placeholder: "请输入设备名称",
+  //   formType: "input",
+  //   isClearable: true,
+  //   labelWidth: "5em",
+  //   width: 300,
+  //   value: "",
+  // },
   {
     name: "滑块", key: "slider", value: "6",min:1,max:10,  placeholder: "数字", disabled: false,
     formType: "slider",
@@ -801,6 +811,7 @@ const formList = ref([
             disabled: false,
             formType: "input",
             span: 12,
+            width:300,
             rules: [{required: true, message: "请输入", trigger: "blur"}],
           },
           {
@@ -815,6 +826,8 @@ const formList = ref([
             disabled: false,
             formType: "input",
             span: 12,
+            width:200,
+
             rules: [{required: true, message: "请输入", trigger: "blur"}],
           },
         ]
