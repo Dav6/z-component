@@ -150,7 +150,7 @@ init();
 <style scoped lang="less">
 
 .d-radio-group-default {
-  width: 100%;
+  //width: 100%;
 
   :deep(.el-radio__label) {
     width: v-bind('labelWidthCOM');

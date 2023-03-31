@@ -1,4 +1,4 @@
-import './assets/index.31356ba2.css';
+import './assets/index.7be00140.css';
 import { defineComponent as G, inject as Ge, ref as P, resolveComponent as B, openBlock as T, createBlock as X, mergeProps as Fe, unref as $, withCtx as R, renderSlot as re, computed as S, watch as fe, createElementBlock as W, createElementVNode as E, createVNode as C, normalizeClass as te, toDisplayString as H, getCurrentInstance as Ue, isRef as Q, markRaw as be, createTextVNode as ae, Fragment as q, renderList as le, resolveDynamicComponent as me, useSlots as ye, normalizeProps as qe, guardReactiveProps as Qe, createSlots as ve, normalizeStyle as Te, onMounted as ut, useCssVars as je, createCommentVNode as ce, withModifiers as st } from "vue";
 const ee = (e) => {
   let m = e, t = m == null ? void 0 : m.name;
@@ -2417,7 +2417,7 @@ const de = (e, m) => {
       }, 8, ["shadow", "_data"]);
     };
   }
-}), xn = /* @__PURE__ */ de(Vn, [["__scopeId", "data-v-a03f7476"]]), wn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), xn = /* @__PURE__ */ de(Vn, [["__scopeId", "data-v-d34d2187"]]), wn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: xn
 }, Symbol.toStringTag, { value: "Module" })), Re = /* @__PURE__ */ Object.assign({ "./index.vue": wn });
@@ -2603,7 +2603,7 @@ const Un = { class: "mine-el-image-error D-abso D-abso-XY-center D-white-space-n
       }, 8, ["fit", "src", "lazy", "style", "preview-src-list", "initial-index", "close-on-press-escape", "z-index", "preview-teleported"]);
     };
   }
-}), Rn = /* @__PURE__ */ de(In, [["__scopeId", "data-v-9a8f97d4"]]), zn = ee(Rn), Wn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Rn = /* @__PURE__ */ de(In, [["__scopeId", "data-v-55cc4808"]]), zn = ee(Rn), Wn = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: zn
 }, Symbol.toStringTag, { value: "Module" }));
@@ -2737,7 +2737,7 @@ const tl = G({
   setup(e, { emit: m }) {
     const t = e;
     je((f) => ({
-      "19757a7a": $(y)
+      "13e5d174": $(y)
     }));
     const u = S({
       get: () => t.modelValue,
@@ -2807,7 +2807,7 @@ const tl = G({
       }, 8, ["modelValue", "disabled", "class"]);
     };
   }
-}), ll = /* @__PURE__ */ de(nl, [["__scopeId", "data-v-03f1396a"]]), ol = ee(ll), al = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), ll = /* @__PURE__ */ de(nl, [["__scopeId", "data-v-2bd22fc6"]]), ol = ee(ll), al = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ol
 }, Symbol.toStringTag, { value: "Module" })), rl = G({
@@ -3166,7 +3166,7 @@ const Cl = G({
   setup(e, { emit: m }) {
     const t = e;
     je((_) => ({
-      "2bab556c": $(y)
+      "9b1764a8": $(y)
     }));
     const u = S({
       get: () => t.modelValue,
@@ -3238,7 +3238,7 @@ const Cl = G({
       }, 8, ["modelValue", "disabled", "min", "max"]);
     };
   }
-}), jl = /* @__PURE__ */ de(Ml, [["__scopeId", "data-v-bf112946"]]), Dl = ee(jl), El = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), jl = /* @__PURE__ */ de(Ml, [["__scopeId", "data-v-a117172c"]]), Dl = ee(jl), El = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Dl
 }, Symbol.toStringTag, { value: "Module" })), Fl = G({
@@ -4549,6 +4549,9 @@ const Do = G({
     modelValue: {
       type: [String, Number, Boolean]
     },
+    rules: {
+      type: [Object]
+    },
     formList: {
       type: [Array]
     },
@@ -4721,7 +4724,8 @@ const Do = G({
         "label-width": e.labelWidth,
         "status-icon": e.statusIcon,
         onSubmit: g[3] || (g[3] = st((V) => a("submit", V), ["prevent"])),
-        "scroll-to-error": e.scrollToError
+        "scroll-to-error": e.scrollToError,
+        rules: e.rules
       }, {
         default: R(() => [
           C(O, {
@@ -4744,10 +4748,10 @@ const Do = G({
           ]), 1032, ["formModelRef", "formList", "buttonList", "isButtonsRow"])
         ]),
         _: 3
-      }, 8, ["label-position", "model", "class", "label-width", "status-icon", "scroll-to-error"]);
+      }, 8, ["label-position", "model", "class", "label-width", "status-icon", "scroll-to-error", "rules"]);
     };
   }
-}), Fo = /* @__PURE__ */ de(Eo, [["__scopeId", "data-v-ae4fc813"]]), Bo = ee(Fo), Po = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Fo = /* @__PURE__ */ de(Eo, [["__scopeId", "data-v-10d1778d"]]), Bo = ee(Fo), Po = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Bo
 }, Symbol.toStringTag, { value: "Module" })), Lo = G({

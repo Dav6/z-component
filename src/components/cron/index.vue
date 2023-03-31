@@ -41,7 +41,6 @@ import Year from './cron/year.vue'
 import cronstrue from 'cronstrue';
 import 'cronstrue/locales/zh_CN'
 import {ref, reactive, markRaw, computed, watch} from "vue"
-import {debounce} from "../../tools/tools"
 
 const props = defineProps({
   // 配合emits v-model
@@ -259,7 +258,7 @@ init();
   }
 
   .cron-tab{
-    width:100%;
+    //width:100%;
   }
 
   :deep(.cron-item) {

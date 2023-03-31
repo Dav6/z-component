@@ -10,33 +10,34 @@
 <template>
   <!--  <d-el-config-provider   >-->
   <el-form
-    :label-position="labelPosition"
-    :model="_formList"
-    ref="formModelRef"
-    class="d-form-model"
-    :class="formModelClassCOM"
-    :label-width="labelWidth"
-    :status-icon="statusIcon"
-    @submit.prevent="(data)=>goTo('submit',data)"
-    :scroll-to-error="scrollToError"
+      :label-position="labelPosition"
+      :model="_formList"
+      ref="formModelRef"
+      class="d-form-model"
+      :class="formModelClassCOM"
+      :label-width="labelWidth"
+      :status-icon="statusIcon"
+      @submit.prevent="(data)=>goTo('submit',data)"
+      :scroll-to-error="scrollToError"
+      :rules="rules"
   >
     <d-el-form-list
-      :formModelRef="formModelRef"
-      :formList="_formList"
-      :buttonList="buttonList"
-      :isButtonsRow="isButtonsRow"
-      @onChange="(data) => goTo('onChange', data)"
-      @submit="(data)=>goTo('submit', {...data})"
-      @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
+        :formModelRef="formModelRef"
+        :formList="_formList"
+        :buttonList="buttonList"
+        :isButtonsRow="isButtonsRow"
+        @onChange="(data) => goTo('onChange', data)"
+        @submit="(data)=>goTo('submit', {...data})"
+        @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
     >
 
       <template
-        v-for="(item, index) in slotListCOM()"
-        :key="index"
-        #[item.name]="data">
+          v-for="(item, index) in slotListCOM()"
+          :key="index"
+          #[item.name]="data">
         <slot
-          :name="item.name"
-          :data="data.data"></slot>
+            :name="item.name"
+            :data="data.data"></slot>
       </template>
 
     </d-el-form-list>
@@ -92,6 +93,9 @@ const props = defineProps({
   // 配合emits v-model
   modelValue: {
     type: [String, Number, Boolean],
+  },
+  rules: {
+    type: [Object]
   },
   formList: {
     type: [Array],
@@ -201,26 +205,26 @@ const _formList = computed(() => {
 //   },
 // })
 watch(
-  () => props.formList, (formList, preFormList) => {
-    console.log('formModel-props-formList', formList);
-    // setTimeout(() => {
-    //   setLinkageForm();
-    //
-    // },0)
-    ////console.log('oldValue', oldValue);
-    // defaultActive = newValue.path;
-    // _formModel.value = formList?.length > 0 ? formList : [];
-    // setFormList(props.formList);
-    // //console.log('formModelRef', formModelRef.value);
-    // nextTick(() => {
-    //   // formModelRef?.value?.clearValidate();
-    //   // formModelRef.value.validate(()=>{});
-    // })
-  },
-  {
-    immediate: false,
-    deep: true
-  }
+    () => props.formList, (formList, preFormList) => {
+      console.log('formModel-props-formList', formList);
+      // setTimeout(() => {
+      //   setLinkageForm();
+      //
+      // },0)
+      ////console.log('oldValue', oldValue);
+      // defaultActive = newValue.path;
+      // _formModel.value = formList?.length > 0 ? formList : [];
+      // setFormList(props.formList);
+      // //console.log('formModelRef', formModelRef.value);
+      // nextTick(() => {
+      //   // formModelRef?.value?.clearValidate();
+      //   // formModelRef.value.validate(()=>{});
+      // })
+    },
+    {
+      immediate: false,
+      deep: true
+    }
 );
 
 
@@ -240,7 +244,7 @@ const goTo = (key, data) => {
     setTimeout(() => {
       formModelRef.value?.validateField(_prop, () => null)
     }, 300)
-    setTimeout(()=> setLinkageForm() ,50)
+    setTimeout(() => setLinkageForm(), 50)
 
 
     emits('onChange', {...data})
@@ -278,7 +282,7 @@ const setLinkageForm = () => {
 
   //  特殊的联动key 单独处理,  查找他的上一个 ，
   //  如设置的item 在 位置 5 , 那就判断上一个 4的 item 的值
-  if(_linkageListSet.has('prev')){
+  if (_linkageListSet.has('prev')) {
     let _prevLinkagePath = `$..[?(@ && @.linkageKey == 'prev')]`
     let _prevLinkageFormList = JSONPath({
       json: _list,
@@ -293,67 +297,67 @@ const setLinkageForm = () => {
 
       let _path = _item.path;
       let _pathArray = JSONPath.toPathArray(_path);
-      let _prevIndex = _pathArray?.[_pathArray?.length-1];
-      _pathArray[_pathArray.length-1] = String(_prevIndex - 1);
+      let _prevIndex = _pathArray?.[_pathArray?.length - 1];
+      _pathArray[_pathArray.length - 1] = String(_prevIndex - 1);
       let _prevPath = _pathArray
-      let _prevFormItem = JSONPath({ json: _list,  path: _prevPath ,wrap:false });
+      let _prevFormItem = JSONPath({json: _list, path: _prevPath, wrap: false});
       // //console.log('_prevFormItem',_prevFormItem);
       let _prevLinkageFormItemIsHidden = false;
-      if(_prevFormItem){
+      if (_prevFormItem) {
         // //console.log('_prevLinkageFormItem',_prevLinkageFormItem);
         let _prevFormValue = _prevFormItem?.value;
         //  判断当前联动key对应的formItem的值 是否为空
         // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
 
-        if(_prevFormValue || _prevFormValue == 0){
+        if (_prevFormValue || _prevFormValue == 0) {
           // //console.log('有值')
           // 判断当前的值是不是数组
-          if(Array.isArray(_prevFormValue)){
+          if (Array.isArray(_prevFormValue)) {
             // 数组为空就隐藏，不为空就系那是
-            if(_prevFormValue?.length>0){
+            if (_prevFormValue?.length > 0) {
               let _arr1 = _prevFormValue;
               let _arr2 = _prevLinkageValue
               // 判断当前 linkageKey 的formItem的 _linkageValue 是否为数组
               // 判断是否和联动key对应的formItem的值有交集
               // 有就显示, 无就隐藏
-              if(Array.isArray(_arr2)){
+              if (Array.isArray(_arr2)) {
                 const filteredArray = _arr1.filter(value => _arr2.includes(value));
-                if(filteredArray?.length>0){
+                if (filteredArray?.length > 0) {
 
-                }else{
+                } else {
                   _prevLinkageFormItemIsHidden = true;
                 }
-              }else{
+              } else {
                 //  不是就套层数组
                 //  判断是否和联动key对应的formItem的值有交集
                 //  有就显示, 无就隐藏
-                if(_arr2 || _arr2 == 0){
+                if (_arr2 || _arr2 == 0) {
                   _arr2 = [_arr2];
                   const filteredArray = _arr1.filter(value => _arr2.includes(value));
-                  if(filteredArray?.length>0){
+                  if (filteredArray?.length > 0) {
 
-                  }else{
+                  } else {
                     _prevLinkageFormItemIsHidden = true;
                   }
                 }
               }
 
-            }else{
+            } else {
               _prevLinkageFormItemIsHidden = true;
             }
 
 
-          }else{
+          } else {
             // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
             //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
-            if(_prevLinkageValue || _prevLinkageValue == 0){
-              if(_prevLinkageValue != _prevFormValue){
+            if (_prevLinkageValue || _prevLinkageValue == 0) {
+              if (_prevLinkageValue != _prevFormValue) {
                 _prevLinkageFormItemIsHidden = true;
               }
             }
           }
 
-        }else{
+        } else {
           // //console.log('无值')
           _prevLinkageFormItemIsHidden = true;
         }
@@ -376,7 +380,7 @@ const setLinkageForm = () => {
 
     //  获取联动key对应的formItem
     let _path = `$..[?(@ && @.key == '${_linkageKey}')]`
-    let _formItem = JSONPath({  json: _list, path: _path});
+    let _formItem = JSONPath({json: _list, path: _path});
     // //console.log('_formItem', _formItem);
     let _formKey = _formItem?.[0]?.key;
     let _formValue = _formItem?.[0]?.value;
@@ -384,7 +388,7 @@ const setLinkageForm = () => {
 
     // 获取设置当前 linkageKey 的formItem
     let _linkagePath = `$..[?(@ && @.linkageKey == '${_formKey}')]`
-    let _linkageFormList = JSONPath({json: _list, path: _linkagePath });
+    let _linkageFormList = JSONPath({json: _list, path: _linkagePath});
     //console.log('_linkageFormItem', _linkageFormList);
     // 遍历当前获取到的 当前 linkageKey 的formItem
     _linkageFormList?.map(item => {
@@ -394,40 +398,40 @@ const setLinkageForm = () => {
       //  判断当前联动key对应的formItem的值 是否为空
       // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
       if (_formValue || _formValue === 0) {
-        if(Array.isArray(_formValue)){
+        if (Array.isArray(_formValue)) {
           // 数组为空就隐藏，不为空就系那是
-          if(_formValue?.length>0){
+          if (_formValue?.length > 0) {
             let _arr1 = _formValue;
             let _arr2 = _linkageValue
             // 判断当前 linkageKey 的formItem的 _linkageValue 是否为数组
             // 判断是否和联动key对应的formItem的值有交集
             // 有就显示, 无就隐藏
-            if(Array.isArray(_arr2)){
+            if (Array.isArray(_arr2)) {
               const filteredArray = _arr1.filter(value => _arr2.includes(value));
-              if(filteredArray?.length>0){
+              if (filteredArray?.length > 0) {
 
-              }else{
+              } else {
                 _linkageFormItemIsHidden = true;
               }
-            }else{
+            } else {
               //  不是就套层数组
               //  判断是否和联动key对应的formItem的值有交集
               //  有就显示, 无就隐藏
-              if(_arr2 || _arr2 == 0){
+              if (_arr2 || _arr2 == 0) {
                 _arr2 = [_arr2];
                 const filteredArray = _arr1.filter(value => _arr2.includes(value));
-                if(filteredArray?.length>0){
+                if (filteredArray?.length > 0) {
 
-                }else{
+                } else {
                   _linkageFormItemIsHidden = true;
                 }
               }
             }
 
-          }else{
+          } else {
             _linkageFormItemIsHidden = true
           }
-        }else{
+        } else {
           // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
           //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
           if (_linkageValue || _linkageValue === 0) {
@@ -461,11 +465,11 @@ const validate = (callback) => {
 const resetFields = () => {
   return formModelRef.value.resetFields()
 }
-const scrollToField = (prop)=>{
+const scrollToField = (prop) => {
   return formModelRef.value.scrollToField(prop)
 }
 
-const setLinkage = ()=>{
+const setLinkage = () => {
   return setLinkageForm()
 }
 
@@ -482,7 +486,7 @@ defineExpose({
 
 // section init 接口请求方法放这
 const init = () => {
-  setTimeout(()=> setLinkageForm() ,50)
+  setTimeout(() => setLinkageForm(), 50)
 
 }
 

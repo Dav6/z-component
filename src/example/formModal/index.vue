@@ -8,20 +8,21 @@
 
 <template>
   <div class="form-model">
-    <d-el-radio v-model="test" :item="{option:[{value:1,label:'lable'}]}" ></d-el-radio>
+    <d-el-radio v-model="test" :item="{option:[{value:1,label:'lable'}]}"></d-el-radio>
 
     <d-form-model
 
-      ref="addEditFormRef"
-      :statusIcon="true"
-      labelWidth="8em"
-      :formList="formList"
-      :buttonList="buttonList"
-      :isButtonsRow="true"
-      labelPosition="left"
-      @onclick="(data)=>goTo('onclick', data)"
-      @onChange="(data) => { goTo('onChange', data) }"
-      @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
+        ref="addEditFormRef"
+        :statusIcon="true"
+        labelWidth="8em"
+        :formList="formList"
+        :buttonList="buttonList"
+        :rules="rules"
+        :isButtonsRow="true"
+        labelPosition="left"
+        @onclick="(data)=>goTo('onclick', data)"
+        @onChange="(data) => { goTo('onChange', data) }"
+        @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
 
     >
       <template #imagePre="imagePre">
@@ -66,12 +67,13 @@
 
 <script setup>
 import dayjs from "dayjs";
+
 defineOptions({
   name: "表单案例",
   key: 'example-form-model',
   isExposed: false
 });
-import {ref,h, reactive, computed, watch, inject} from "vue"
+import {ref, h, reactive, computed, watch, inject} from "vue"
 
 const props = defineProps({
   // 配合emits v-model
@@ -102,6 +104,21 @@ const buttonList = ref([
   {name: "查询", key: "search", type: 'primary'}
 
 ])
+const rules = ref({
+  '1.value': [
+    {
+      validator: (rule, value, callback) => {
+        console.log('1.value', value)
+        if(value<50){
+          return callback(new Error('值要大于50'))
+        }
+
+        callback();
+      }, trigger: 'blur'
+    }
+  ]
+})
+
 const formList = ref([
   // {
   //   name: "设备名称",
@@ -114,38 +131,38 @@ const formList = ref([
   //   value: "",
   // },
   {
-    name: "滑块", key: "slider", value: "6",min:1,max:10,  placeholder: "数字", disabled: false,
+    name: "滑块", key: "slider", value: "6", min: 1, max: 10, placeholder: "数字", disabled: false,
     formType: "slider",
-    unit:"次/分",
-    showInput:false,
+    unit: "次/分",
+    showInput: false,
     span: 12,
     rules: [{required: true, message: "请输入数字", trigger: "blur"}],
-    range:true,
+    range: true,
   },
   {
-    name: "滑块1", key: "slider1", value: "123", placeholder: "数字", disabled: false,
+    name: "滑块1", key: "slider1", value: "0", placeholder: "数字", disabled: false,
     formType: "slider",
-    unit:"次/分",
-    showInput:false,
+    unit: "次/分",
+    showInput: false,
     span: 12,
     rules: [{required: true, message: "请输入数字", trigger: "blur"}],
   },
   {
     name: "开关", key: "number", value: "123", placeholder: "数字", disabled: false,
     formType: "switch",
-    validateEvent:true,
+    validateEvent: true,
     span: 12,
     rules: [{required: true, message: "请输入数字", trigger: "blur"}],
   },
   {
-    name: "数字", key: "number", value:  "123123", placeholder: "数字", disabled: false,
+    name: "数字", key: "number", value: "123123", placeholder: "数字", disabled: false,
     formType: "inputNumber",
     controls: false,
     textAlign: "left",
-    clearable:true,
-    unit:"次/分",
+    clearable: true,
+    unit: "次/分",
     min: 0,
-    max:"",
+    max: "",
     span: 12,
     rules: [{required: true, message: "请输入数字", trigger: "blur"}],
   },
@@ -153,18 +170,18 @@ const formList = ref([
     name: "名称", key: "name", value: "", formType: "input", placeholder: "请输入", disabled: false, span: 12,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
     clearable: true,
-    formClass:"form-input-item",
-    prepend(){
-      return h('span','222')
+    formClass: "form-input-item",
+    prepend() {
+      return h('span', '222')
     },
-    append(){
-      return h("div",'222');
+    append() {
+      return h("div", '222');
     }
   },
   {
     name: "表达式", key: "cron", value: "", formType: "cron", placeholder: "请输入", disabled: false, span: 18,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
-    formClass:"form-cron-item",
+    formClass: "form-cron-item",
 
     clearable: true,
   },
@@ -172,7 +189,7 @@ const formList = ref([
   {
     name: "图片上传",
     key: "image",
-    formClass:"form-image-item",
+    formClass: "form-image-item",
     // limit: 1,
     disabled: false,
     formType: "imageVideoUpload",
@@ -194,11 +211,11 @@ const formList = ref([
     name: "名称", key: "name", value: "", formType: "input", placeholder: "请输入", disabled: false, span: 12,
     rules: [{required: true, message: "请输入", trigger: "blur"}],
     clearable: true,
-    formClass:"form-input-item",
+    formClass: "form-input-item",
     buttonList: [
-      {name: "参数", icon: "Plus", key: "add", isText: true,class:'123123 5i3984'},
-      {name: "", icon: "Plus", key: "add", isText: true,class:['ccc','sss']},
-      {name: "", icon: "Minus", key: "delete", type: "danger", isText: false,class:{is:true,test:false}},
+      {name: "参数", icon: "Plus", key: "add", isText: true, class: '123123 5i3984'},
+      {name: "", icon: "Plus", key: "add", isText: true, class: ['ccc', 'sss']},
+      {name: "", icon: "Minus", key: "delete", type: "danger", isText: false, class: {is: true, test: false}},
     ],
   },
   {
@@ -228,7 +245,7 @@ const formList = ref([
     textAlign: "left",
     min: 0,
     span: 12,
-    rules: [{required: true,type: "number",message: "请输入数字", trigger: "blur"}],
+    rules: [{required: true, type: "number", message: "请输入数字", trigger: "blur"}],
   },
   {
     formType: "divider",
@@ -243,7 +260,7 @@ const formList = ref([
     formType: "checkbox",
     span: 6,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
-    optionLabelWidth:"3em",
+    optionLabelWidth: "3em",
     options: [
       {
         label: "选项1",
@@ -271,12 +288,12 @@ const formList = ref([
   {
     name: "多选项",
     key: "checkbox",
-    value: [2,3],
+    value: [2, 3],
     placeholder: "请选择选项",
     disabled: false,
-    isRadioBorder:true,
+    isRadioBorder: true,
     formType: "checkbox",
-    optionLabelWidth:"3em",
+    optionLabelWidth: "3em",
     span: 12,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
     options: [
@@ -305,7 +322,7 @@ const formList = ref([
     placeholder: "请选择选项",
     disabled: false,
     formType: "radio",
-    optionLabelWidth:"3em",
+    optionLabelWidth: "3em",
     span: 12,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
     options: [
@@ -790,8 +807,8 @@ const formList = ref([
     span: 24,
     ownSpan: 24,
     width: "110px",
-    childrenWidth:" calc(100% - 110px)",
-    isChildWidthFill:false,
+    childrenWidth: " calc(100% - 110px)",
+    isChildWidthFill: false,
     childrenSpan: 24,
     children: [
       {
@@ -811,7 +828,7 @@ const formList = ref([
             disabled: false,
             formType: "input",
             span: 12,
-            width:300,
+            width: 300,
             rules: [{required: true, message: "请输入", trigger: "blur"}],
           },
           {
@@ -826,7 +843,7 @@ const formList = ref([
             disabled: false,
             formType: "input",
             span: 12,
-            width:200,
+            width: 200,
 
             rules: [{required: true, message: "请输入", trigger: "blur"}],
           },
@@ -835,11 +852,17 @@ const formList = ref([
       {
         labelWidth: '8em',
         // width: "600",
-        name: "层级1-2-66666", key: "layer12", value: "", placeholder: "层级1-2", disabled: false, formType: "input", span: 12,
+        name: "层级1-2-66666",
+        key: "layer12",
+        value: "",
+        placeholder: "层级1-2",
+        disabled: false,
+        formType: "input",
+        span: 12,
         rules: [{required: true, message: "请输入", trigger: "blur"}],
         childrenSpan: 24,
         isChildrenBr: true,
-        formRowClass:"formRowClassTest",
+        formRowClass: "formRowClassTest",
 
         children: [
           {
@@ -974,7 +997,13 @@ const formList = ref([
       },
       {
         labelWidth: '8em',
-        name: "层级1-2", key: "layer12", value: "", placeholder: "层级1-2", disabled: false, formType: "input", span: 24,
+        name: "层级1-2",
+        key: "layer12",
+        value: "",
+        placeholder: "层级1-2",
+        disabled: false,
+        formType: "input",
+        span: 24,
         rules: [{required: true, message: "请输入", trigger: "blur"}],
       },
     ]
@@ -1123,7 +1152,7 @@ const formList = ref([
 
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {
-  console.log('example-formModel', key, data,formList.value);
+  console.log('example-formModel', key, data, formList.value);
   if (key == 'cancel') {
     addEditFormRef.value.formModelRef.clearValidate();
   }
@@ -1131,8 +1160,8 @@ const goTo = (key, data) => {
 
     console.log(addEditFormRef.value.getFormDataByNoHidden())
     console.log(addEditFormRef.value.getFormData())
-    addEditFormRef.value.formModelRef.validate((valid,invalidFields) => {
-      console.log('invalidFields',valid,invalidFields)
+    addEditFormRef.value.formModelRef.validate((valid, invalidFields) => {
+      console.log('invalidFields', valid, invalidFields)
       if (valid) {
 
       }
@@ -1140,12 +1169,12 @@ const goTo = (key, data) => {
 
 
   }
-  if(key == 'onclick'){
+  if (key == 'onclick') {
     console.log(data);
   }
-  if(key == 'scroll'){
+  if (key == 'scroll') {
     console.log()
-    console.log(addEditFormRef.value.scrollToField([55,'value'].join('.')))
+    console.log(addEditFormRef.value.scrollToField([55, 'value'].join('.')))
 
   }
 
@@ -1171,7 +1200,7 @@ init();
   //background:red;
   width: calc(100% - 24px);
 
-  .formRowClassTest{
+  .formRowClassTest {
     background: red;
   }
 }

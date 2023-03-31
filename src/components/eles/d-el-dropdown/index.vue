@@ -55,13 +55,6 @@ const props = defineProps({
 
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits([]);
-//
-// const listCOM = computed(() => {
-//   let _list = props.list;
-//   console.log(_list)
-//   return _list;
-// });
-
 
 
 

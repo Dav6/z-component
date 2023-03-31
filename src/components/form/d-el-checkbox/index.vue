@@ -162,7 +162,7 @@ init();
 
 <style scoped lang="less">
 .d-checkbox-group-default {
-  width: 100%;
+  //width: 100%;
 
   :deep(.el-checkbox__label) {
     width: v-bind('labelWidthCOM');

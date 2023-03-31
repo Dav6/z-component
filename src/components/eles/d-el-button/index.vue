@@ -62,18 +62,6 @@ const emits = defineEmits([]);
 
 
 
-
-//watch(
-//  () => props, (newValue, oldValue) => {
-//    //console.log('newValue', newValue);
-//    //console.log('oldValue', oldValue);
-//    // defaultActive = newValue.path;
-//
-//  },
-//   {immediate: true}
-//);
-
-
 // 接口请求方法放这
 const init = () => {
   //getList();
