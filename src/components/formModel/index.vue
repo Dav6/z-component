@@ -29,6 +29,7 @@
         @onChange="(data) => goTo('onChange', data)"
         @submit="(data)=>goTo('submit', {...data})"
         @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
+        @onInputSearch="data=>goTo('onInputSearch',data)"
     >
 
       <template
@@ -128,7 +129,7 @@ const props = defineProps({
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange']);
+const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange','onInputSearch']);
 const formModelRef = ref()
 
 const getFormData = () => {
@@ -206,7 +207,7 @@ const _formList = computed(() => {
 // })
 watch(
     () => props.formList, (formList, preFormList) => {
-      console.log('formModel-props-formList', formList);
+      // console.log('formModel-props-formList', formList);
       // setTimeout(() => {
       //   setLinkageForm();
       //
@@ -232,10 +233,14 @@ watch(
 
 // section goTo
 const goTo = (key, data) => {
-  //console.log('formModel', key, data);
+  console.log('formModel', key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {...data})
+  }
+  if (key == 'onInputSearch') {
+    // console.log(key, data);
+    emits('onInputSearch', {key: 'onInputSearch',...data})
   }
   if (key == 'onChange') {
 

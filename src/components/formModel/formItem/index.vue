@@ -9,58 +9,54 @@
 <template>
   <el-form-item
 
-    ref="formItemRef"
-    class="form-item"
-    :class="formItemClassCOM"
-    :label="item.name"
-    :label-width="item.labelWidth"
-    :rules="!item.isHiddenRulers ? item.rules : []"
-    :prop="[...prop,'value'].join('.')"
+      ref="formItemRef"
+      class="form-item"
+      :class="formItemClassCOM"
+      :label="item.name"
+      :label-width="item.labelWidth"
+      :rules="!item.isHiddenRulers ? item.rules : []"
+      :prop="[...prop,'value'].join('.')"
   >
 
-    <template
-      v-if="!item.isText">
+    <template v-if="!item.isText">
 
-      <template
-        v-if="item.formType == 'custom' ">
+      <template v-if="item.formType == 'custom' ">
         <!--        {{item.formType}}-->
         <!--        {{item.customName}}-->
-        <slot
-          :name="item.customName"
-          :data="item"></slot>
+        <slot :name="item.customName" :data="item"></slot>
 
       </template>
 
 
-      <template
-        v-if="item.formType == 'line' ">
-        <div
-          class="form-line"></div>
+      <template v-if="item.formType == 'line' ">
+        <div class="form-line"></div>
       </template>
 
 
       <!--         section  Component formTypeKeyMap[item.formType] -->
-      <template
-        v-if="formTypeKeyMap[item.formType]">
+      <template v-if="formTypeKeyMap[item.formType]">
 
         <Component
-          :class="item.class"
-          :is="formTypeKeyMap[item.formType]"
-          v-model="item.value"
-          :data="item"
-          @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
-        />
+            :class="componentClassCOM"
+            :is="formTypeKeyMap[item.formType]"
+            v-model="item.value"
+            :data="item"
+            @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
+        >
+          <template v-if="item.formType == 'input' && item.isSearch" #append>
+            <el-button class="input-search-button" icon="Search" @click="goTo('onInputSearch', { prop: onChangeProp, item, index, })" ></el-button>
+          </template>
+
+        </Component>
 
 
       </template>
 
 
-      <template
-        v-if="item.formType == 'editor'">
+      <template v-if="item.formType == 'editor'">
 
 
-        <template
-          v-if="isShowEditor">
+        <template v-if="isShowEditor">
           <!--          <wang-editor-->
           <!--            v-model="item.value"-->
           <!--            :height="item.height"-->
@@ -81,17 +77,17 @@
     </template>
 
     <template
-      v-else>
+        v-else>
       <template
-        v-if="item.formType == 'imageVideoUpload'">
+          v-if="item.formType == 'imageVideoUpload'">
         <Component
-          :class="item.class"
+            :class="item.class"
 
-          :is="formTypeKeyMap[item.formType]"
-          v-model="item.value"
-          :item="item"
-          :data="item"
-          @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
+            :is="formTypeKeyMap[item.formType]"
+            v-model="item.value"
+            :item="item"
+            :data="item"
+            @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
         />
         <!--        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />-->
 
@@ -99,7 +95,7 @@
 
 
       <template
-        v-else-if="item.formType == 'select'">
+          v-else-if="item.formType == 'select'">
         {{
           selectTextValueCOM(item)
         }}
@@ -107,15 +103,15 @@
 
 
       <template
-        v-else-if="item.formType == 'datePicker'">
+          v-else-if="item.formType == 'datePicker'">
         <template
-          v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
+            v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
           {{
             item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : ''
           }}
         </template>
         <template
-          v-else>
+            v-else>
           {{
             item.value
           }}
@@ -123,18 +119,18 @@
       </template>
 
       <template
-        v-else-if="item.formType == 'custom' ">
+          v-else-if="item.formType == 'custom' ">
         <!--        {{item.formType}}-->
         <!--        {{item.customName}}-->
         <slot
-          :name="item.customName"
-          :data="item"></slot>
+            :name="item.customName"
+            :data="item"></slot>
 
       </template>
 
 
       <template
-        v-else>
+          v-else>
         {{
           item.value
         }}
@@ -148,19 +144,17 @@
 
 
     <template
-      v-for="(bItem, bIndex) in item.buttonList"
-      :key="index">
+        v-for="(bItem, bIndex) in item.buttonList"
+        :key="index">
       <el-button
-        class="form-item-button"
-        :class="formItemButtonItemClassCOM(bItem)"
-        :type="bItem.type"
-        :text="bItem.isText"
-        :icon="bItem.icon"
-        :color="bItem.color"
-        @click="goTo('onFormItemButtonClick', { prop: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
-        {{
-          bItem.name
-        }}
+          class="form-item-button"
+          :class="formItemButtonItemClassCOM(bItem)"
+          :type="bItem.type"
+          :text="bItem.isText"
+          :icon="bItem.icon"
+          :color="bItem.color"
+          @click="goTo('onFormItemButtonClick', { prop: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
+        {{ bItem.name }}
       </el-button>
     </template>
 
@@ -195,6 +189,8 @@ import dayjs
   from "dayjs";
 
 let slots = useSlots()
+
+// console.log('form-Item-slots', slots)
 const slotListCOM = computed(() => {
   return () => {
     // const slots1 = useSlots()
@@ -252,13 +248,13 @@ const props = defineProps({
 
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onFormItemButtonClick', 'onChange']);
+const emits = defineEmits(['onFormItemButtonClick', 'onChange','onInputSearch']);
 // section formTypeKeyMap
 const formTypeKeyMap = ref({
   input: 'd-el-input',
   switch: 'd-el-switch',
   inputNumber: 'd-el-input-number',
-  slider:'d-el-slider',
+  slider: 'd-el-slider',
   radio: 'd-el-radio',
   checkbox: 'd-el-checkbox',
   select: 'd-el-select',
@@ -276,9 +272,9 @@ const formTypeKeyMap = ref({
 const formItemRef = ref();
 
 
-if(props?.item){
+if (props?.item) {
   let _item = props.item;
-  _item.prop = [...props.prop,'value']
+  _item.prop = [...props.prop, 'value']
 }
 
 
@@ -324,6 +320,37 @@ const selectTextValueCOM = computed(() => {
 })
 
 
+const componentClassCOM = computed(()=>{
+//  item.formType == 'input' && item.isSearch
+  let _data = props.item;
+  let _class = []
+
+  let _componentClass = _data?.class;
+  if (typeof (_componentClass) == 'string') {
+    let _bClass = _componentClass?.split(' ')
+    _class = [..._class, ..._bClass]
+  }
+  if (_componentClass?.constructor == Object) {
+    let _bClass = Object.keys(_componentClass)?.map(key => {
+      // console.log(key)
+      return _componentClass[key] ? key : ''
+    })
+    _class = [..._class, ..._bClass]
+  }
+  if (_componentClass?.constructor == Array) {
+    let _bClass = _componentClass || [];
+    _class = [..._class, ..._bClass]
+  }
+
+  if(_data.formType == 'input' && _data.isSearch){
+    _class = [..._class, 'input-search']
+  }
+
+
+  return _class;
+})
+
+
 const formItemClassCOM = computed(() => {
 
   let _data = props.item;
@@ -354,7 +381,7 @@ const formItemClassCOM = computed(() => {
   }
   if (_formClass?.constructor == Object) {
     let _bClass = Object.keys(_formClass)?.map(key => {
-      console.log(key)
+      // console.log(key)
       return _formClass[key] ? key : ''
     })
     _class = [..._class, ..._bClass]
@@ -373,7 +400,7 @@ const formItemButtonItemClassCOM = computed(() => {
   return (bItem) => {
     let _data = props.item;
     let _bItem = bItem;
-    console.log("_bItem", _bItem.class)
+    // console.log("_bItem", _bItem.class)
     let _class = [
       !bItem.name ? 'formItemButtonNoName' : '',
       (!bItem.name && bItem.icon) ? 'formItemButtonOnlyIcon' : '',
@@ -385,7 +412,7 @@ const formItemButtonItemClassCOM = computed(() => {
     }
     if (_bItem?.class?.constructor == Object) {
       let _bClass = Object.keys(_bItem?.class)?.map(key => {
-        console.log(key)
+        // console.log(key)
         return _bItem?.class[key] ? key : ''
       })
       _class = [..._class, ..._bClass]
@@ -395,7 +422,7 @@ const formItemButtonItemClassCOM = computed(() => {
       _class = [..._class, ..._bClass]
     }
 
-    console.log('_class', _class)
+    // console.log('_class', _class)
 
     // :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon,...bItem.class }"
 
@@ -459,15 +486,17 @@ watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig]
 
 //section goTo
 const goTo = (key, data) => {
-  console.log('formItem', key, data);
+  // console.log('formItem', key, data);
   data = JSON.parse(JSON.stringify(data));
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {key, ...data})
   }
   if (key == 'onChange') {
-
-
     emits('onChange', {...data})
+  }
+  if(key == 'onInputSearch'){
+    emits('onInputSearch', {key, ...data})
+
   }
 
   if (key == 'onBlur') {
@@ -491,53 +520,52 @@ const goTo = (key, data) => {
 const setItemData = () => {
 
   if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
-    console.log(props.item?.formType,'props.item?.formType')
+    // console.log(props.item?.formType, 'props.item?.formType')
     let _number = props.item.value;
     if (_number == +_number) {
-      console.log('_number',_number)
+      // console.log('_number', _number)
       _number = Number(_number);
     } else {
-      if(_number == '' || _number == ' ' || _number == undefined){
+      if (_number == '' || _number == ' ' || _number == undefined) {
         _number = undefined
-      }else{
-        _number = isNaN(Number(_number))?undefined:Number(_number);
+      } else {
+        _number = isNaN(Number(_number)) ? undefined : Number(_number);
       }
     }
 
-    if(props.item?.formType == 'slider'){
-      if(Array.isArray(props.item.value)){
+    if (props.item?.formType == 'slider') {
+      if (Array.isArray(props.item.value)) {
         _number = props.item.value;
-      }else{
+      } else {
         let _min = props.item?.min;
-        if(_min === +_min){
+        if (_min === +_min) {
 
-        }else{
+        } else {
           _min = 0
         }
         let _max = props.item?.max;
-        if(_max === +_max){
+        if (_max === +_max) {
 
-        }else{
+        } else {
           _max = 100
         }
-        if(props.item?.range){
-          if(_number>=_max || _number<=_min){
-            _number = [_min,_max]
+        if (props.item?.range) {
+          if (_number >= _max || _number <= _min) {
+            _number = [_min, _max]
           }
-          if(_number>=_min && _number<=_max){
-            _number = [_min,_number]
+          if (_number >= _min && _number <= _max) {
+            _number = [_min, _number]
           }
         }
-
 
 
         // _number= [_minNumber,_maxNumber]
-        console.log('_number-range',_number)
+        // console.log('_number-range', _number)
       }
     }
 
 
-    props.item.value = _number ;
+    props.item.value = _number;
 
   }
   if (props.item?.formType == 'checkbox') {
@@ -820,8 +848,8 @@ init();
     }
   }
 
-  .form-slider{
-    padding:0 calc(var(--el-slider-button-size));
+  .form-slider {
+    padding: 0 calc(var(--el-slider-button-size));
   }
 
   :deep(.form-date-picker) {

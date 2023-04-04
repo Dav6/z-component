@@ -26,7 +26,7 @@ defineOptions({
 
 import {ref, reactive, computed, watch, useSlots} from "vue"
 let slots = useSlots()
-console.log('d-el-dialog-slots',slots)
+// console.log('d-el-dialog-slots',slots)
 
 const slotListCOM = computed(() => {
   return () => {

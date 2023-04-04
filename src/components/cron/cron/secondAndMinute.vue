@@ -142,7 +142,7 @@ watch(() => props.modelValue, (newValue, preValue) => {
     {deep: true}
 );
 const updateVal = () => {
-  console.log('props.modelValue-----', props.modelValue)
+  // console.log('props.modelValue-----', props.modelValue)
   if (!props.modelValue) {
     return
   }

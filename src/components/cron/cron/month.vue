@@ -144,7 +144,7 @@ const updateVal = () => {
     type.value = '5'
   } else if (props.modelValue.indexOf('-') !== -1) { // 2周期
     if (props.modelValue.split('-').length === 2) {
-      console.log("props.modelValue.split('-')", props.modelValue.split('-'))
+      // console.log("props.modelValue.split('-')", props.modelValue.split('-'))
       type.value = '2'
       let _start = props.modelValue.split('-')[0]
       let _end = props.modelValue.split('-')[1]

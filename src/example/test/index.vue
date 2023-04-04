@@ -50,7 +50,7 @@ const borderWidth = ref(2);
 const cutBgWidth = computed(()=>{
   return Math.round(Math.sqrt(Math.pow(cutWidth.value, 2) * 2) /2 - 1)
 })
-console.log('cutBg', cutBgWidth)
+// console.log('cutBg', cutBgWidth)
 // setTimeout(()=>cutWidth.value = 20,1000)
 
 const goTo = (key, data) => {

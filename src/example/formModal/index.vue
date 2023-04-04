@@ -23,7 +23,7 @@
         @onclick="(data)=>goTo('onclick', data)"
         @onChange="(data) => { goTo('onChange', data) }"
         @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
-
+        @onInputSearch="data=>goTo('onInputSearch',data)"
     >
       <template #imagePre="imagePre">
         <div style="white-space: pre-wrap">
@@ -120,16 +120,17 @@ const rules = ref({
 })
 
 const formList = ref([
-  // {
-  //   name: "设备名称",
-  //   key: "deviceName",
-  //   placeholder: "请输入设备名称",
-  //   formType: "input",
-  //   isClearable: true,
-  //   labelWidth: "5em",
-  //   width: 300,
-  //   value: "",
-  // },
+  {
+    name: "带搜索",
+    key: "deviceName",
+    placeholder: "请输入设备名称",
+    formType: "input",
+    isClearable: true,
+    labelWidth: "5em",
+    width: 300,
+    value: "",
+    isSearch:true,
+  },
   {
     name: "滑块", key: "slider", value: "6", min: 1, max: 10, placeholder: "数字", disabled: false,
     formType: "slider",
@@ -1153,6 +1154,10 @@ const formList = ref([
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {
   console.log('example-formModel', key, data, formList.value);
+  if(key == 'onInputSearch'){
+    console.log('onInputSearch',data);
+  }
+
   if (key == 'cancel') {
     addEditFormRef.value.formModelRef.clearValidate();
   }

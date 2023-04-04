@@ -19,7 +19,9 @@
               :formList="_formList"
               :buttonProp="[...prop,index]"
               :onChangeProp="[...prop,index]" @onChange="(data) => goTo('onChange', data)"
-              @onFormItemButtonClick="(data) => { goTo('onFormItemButtonClick', data) }">
+              @onFormItemButtonClick="(data) => { goTo('onFormItemButtonClick', data) }"
+              @onInputSearch="data=>goTo('onInputSearch',data)"
+          >
             <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
               <slot :name="item.name" :data="data.data"></slot>
             </template>
@@ -44,6 +46,7 @@
                 :formRowClass="item?.formRowClass"
                 @onChange="(data) => goTo('onChange', data)"
                 @submit="(data)=>goTo('submit', {...data})"
+                @onInputSearch="data=>goTo('onInputSearch',data)"
                 @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
             >
 
@@ -63,9 +66,8 @@
       <el-col :class="{ 'fixedWidth': !isButtonsRow }">
         <el-form-item class="form-item " label="" label-width="0">
           <template v-for="(item, index) in buttonList" :key="index">
-            <el-button @click="() => goTo('submit', item)" :class="item.class" :type="item.type">{{
-                item.name
-              }}
+            <el-button @click="() => goTo('submit', item)" :class="item.class" :type="item.type">
+              {{ item.name }}
             </el-button>
           </template>
         </el-form-item>
@@ -126,7 +128,7 @@ const props = defineProps({
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange', 'submit']);
+const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange', 'submit','onInputSearch']);
 
 
 const defaultCOM = computed(() => {
@@ -136,7 +138,7 @@ const defaultCOM = computed(() => {
 // section computed formList
 const _formList = computed(() => {
   let _list = props?.formList?.length > 0 ? props.formList : [];
-  console.log('formList-computed-_list', _list)
+  // console.log('formList-computed-_list', _list)
 
 
   // setFormList(_list);
@@ -177,7 +179,7 @@ const formListRowClassCOM = computed(() => {
   }
   if (_formRowClass?.constructor == Object) {
     let _bClass = Object.keys(_formRowClass)?.map(key => {
-      console.log(key)
+      // console.log(key)
       return _formRowClass[key] ? key : ''
     })
     _class = [..._class, ..._bClass]
@@ -187,7 +189,7 @@ const formListRowClassCOM = computed(() => {
     _class = [..._class, ..._bClass]
   }
 
-  console.log('_formRowClass',_data?.formRowClass);
+  // console.log('_formRowClass',_data?.formRowClass);
 
   return _class;
 });
@@ -244,7 +246,7 @@ const formListColStyleCOM = computed(()=>{
 
 const formListChildrenColClassCOM = computed(()=>{
   return  (item,index)=>{
-    console.log(item);
+    // console.log(item);
     let _class= [];
     let _data = item;
     let _isWidthFill = _data?.isChildWidthFill;
@@ -275,7 +277,7 @@ const formListChildrenColClassCOM = computed(()=>{
 
 const formListChildrenColStyleCOM = computed(()=>{
   return  (item,index)=>{
-    console.log(item);
+    // console.log(item);
     let _style = {};
     let _data = item;
     let _isWidthFill = _data?.isChildWidthFill;
@@ -317,14 +319,20 @@ const goTo = (key, data) => {
   if (key == 'onFormItemButtonClick') {
     emits('onFormItemButtonClick', {...data})
   }
+  if (key == 'onInputSearch') {
+    // console.log(key, data);
+    emits('onInputSearch', {key: 'onInputSearch',...data})
+  }
   if (key == 'onChange') {
     emits('onChange', {...data})
   }
   if (key == 'submit') {
-    console.log(key, data);
+    // console.log(key, data);
     emits('submit', {key: data.key, data,})
-
   }
+
+
+
 }
 
 

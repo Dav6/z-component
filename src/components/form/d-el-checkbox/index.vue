@@ -96,10 +96,10 @@ const labelWidthCOM = computed(() => {
 
   _widthNum = parseFloat(_optionLabelWidth);
   if ((_width || _width == 0) && _widthNum >= 0) {
-    console.log('labelWidthCOM-_width', _width)
-    console.log('labelWidthCOM-parseFloat', parseFloat(_optionLabelWidth))
+    // console.log('labelWidthCOM-_width', _width)
+    // console.log('labelWidthCOM-parseFloat', parseFloat(_optionLabelWidth))
     let _widthArr = _optionLabelWidth.toString().split(_widthNum.toString())
-    console.log('labelWidthCOM-_widthArr', _widthArr)
+    // console.log('labelWidthCOM-_widthArr', _widthArr)
     _widthUnit = _widthArr?.[1] || 'px';
     _width = _widthNum + _widthUnit;
   }

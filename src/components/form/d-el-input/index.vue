@@ -19,19 +19,21 @@
     :show-password="data?.showPassword"
     :prefix-icon="data?.prefixIcon"
     :suffix-icon="data?.suffixIcon"
-
     :rows="data?.rows ? data?.rows : 5"
-
     :type="data?.type"
-
     :placeholder="placeholderCOM(data)"
   >
+    <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
+      <slot :name="item.name" :data="data.data"></slot>
+    </template>
     <template v-if="data?.prepend" #prepend>
       <Component :is="data?.prepend" ></Component>
     </template>
     <template v-if="data?.append" #append>
       <Component :is="data?.append" ></Component>
     </template>
+
+
   </el-input>
 </template>
 
@@ -39,7 +41,25 @@
 defineOptions({
   name: 'd-el-input',
 });
-import {ref, reactive, computed, watch} from "vue"
+import {ref, reactive, computed, watch, useSlots} from "vue"
+
+
+let slots = useSlots()
+// console.log('d-el-dialog-slots',slots)
+
+const slotListCOM = computed(() => {
+  return () => {
+    let _slots = [];
+    _slots = Object.keys(slots) || [];
+    _slots = _slots?.map(item => {
+      return {
+        name: item,
+      }
+    })
+    return _slots
+  }
+})
+
 
 
 const props = defineProps({

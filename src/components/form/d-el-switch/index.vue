@@ -80,7 +80,7 @@ const placeholderCOM = computed(() => {
 
 const goTo = (key,data)=>{
   if(key =='onChange'){
-    console.log(key,data)
+    // console.log(key,data)
   }
 }
 

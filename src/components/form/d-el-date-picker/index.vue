@@ -65,7 +65,7 @@ const placeholderCOM = computed(() => {
 const teleportedCOM = computed(()=>{
   let _data = props.data;
   // console.log('teleportedCOM',_item);
-  console.log(_data?.teleported == false)
+  // console.log(_data?.teleported == false)
 
   let _teleported = true;
 

@@ -84,10 +84,10 @@ import {
   UPLOAD_FILE_INJECT_KEY
 } from "@/injection/keys"
 const uploadFileAPI = inject(UPLOAD_FILE_INJECT_KEY)
-console.log('UPLOAD_FILE_INJECT_KEY',uploadFileAPI)
-console.log('injectKeys',UPLOAD_FILE_INJECT_KEY)
-
-console.log('getCurrentInstance',getCurrentInstance())
+// console.log('UPLOAD_FILE_INJECT_KEY',uploadFileAPI)
+// console.log('injectKeys',UPLOAD_FILE_INJECT_KEY)
+//
+// console.log('getCurrentInstance',getCurrentInstance())
 const {appContext} = getCurrentInstance();
 // setTimeout(()=>{
 //   appContext?.config?.globalProperties?.$message && appContext?.config?.globalProperties?.$message({
@@ -249,7 +249,7 @@ const beforeUpload = async (file)=>{
   let _isPass = false;
   let _msg = ''
   _accepts?.map(item=>{
-    console.log(item);
+    // console.log(item);
     // accept: ".jpeg,.jpg",
     // accept: "image/jpeg,image/jpg",
     // 两种格式的验证

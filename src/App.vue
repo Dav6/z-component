@@ -31,7 +31,7 @@ import {getWindowLocation} from "@/tools/tools"
 
 const files = import.meta.glob('./example/**/index.vue',{eager:true} )
 
-console.log('app-files',files)
+// console.log('app-files',files)
 const tabPosition = ref('left')
 const tabCurrent = ref(0);
 
@@ -39,7 +39,7 @@ const getTabCurrent = ()=>{
   let _location = getWindowLocation();
   console.log(_location,)
   let _hash  = _location.hash.split('#')[1]
-  console.log(Number(_hash))
+  // console.log(Number(_hash))
 
   tabCurrent.value = Number(_hash);
 }
@@ -59,7 +59,7 @@ Object.keys(files)?.map((key,index)=>{
   }
 
 })
-console.log(list)
+// console.log(list)
 
 
 // window.location.href = "#anchor1"

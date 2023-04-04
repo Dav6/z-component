@@ -121,7 +121,7 @@ const _type = ref('1');
 const type = computed({ // 重新定义
   get: () => _type.value,
   set: async (value) => {
-    console.log('day-type-set', props.cronData)
+    // console.log('day-type-set', props.cronData)
     setTimeout(async () => {
       let _week = props.cronData?.find(item => item.key == 'week') || {};
 
@@ -198,7 +198,7 @@ const _value = computed(() => {
       result.push(`${loop.value.start}/${loop.value.end}`)
       break
     case '4': // 指定
-      console.log('appoint.value', appoint.value)
+      // console.log('appoint.value', appoint.value)
       result.push(appoint.value.sort((a, b) => Number(a) - Number(b)).join(','))
       break
     case '6': // 最后
@@ -248,7 +248,7 @@ watch(() => props.modelValue, (newValue, preValue) => {
 
 
 const updateVal = () => {
-  console.log('day', props.modelValue)
+  // console.log('day', props.modelValue)
 
   if (!props.modelValue) {
     return
