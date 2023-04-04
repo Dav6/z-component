@@ -626,7 +626,6 @@ init();
 }
 
 
-
 .form-item {
 
   //flex:1;
@@ -667,8 +666,12 @@ init();
   //
   //    }
   //}
-
-
+  &.el-form-item {
+    :deep(.cron) {
+      --el-card-padding: 0px 0px 0px;
+      border: none;
+    }
+  }
 
   &.el-form-item.is-error {
     :deep(.el-form-item__content) {
@@ -765,8 +768,101 @@ init();
   }
 
 
+  :deep(.form-divider) {
+    width: auto;
+    flex: 1;
+
+    &.el-divider--horizontal {
+      margin: 12px 0;
+    }
+
+    .el-divider__text {
+      line-height: 1;
+    }
+  }
+
+  .form-line {
+    width: auto;
+    flex: 1;
+    height: 1px;
+    //border: 1px solid #E4E9F1;
+    background-color: #E4E9F1;
+  }
 
 
+  .form-tag {
+    white-space: pre-line;
+    word-break: break-all;
+
+    padding: 4px 8px;
+    height: auto;
+    line-height: 1.3;
+    //flex: 1;
+    max-width: 100%;
+  }
+
+  .form-select {
+    width: auto;
+    flex: 1;
+
+  }
+
+  .form-tree-select {
+    width: auto;
+    flex: 1;
+  }
+
+  :deep(.form-cascader) {
+    width: auto;
+    flex: 1;
+  }
+
+  .form-time-select {
+    width: auto;
+    flex: 1;
+  }
+
+  :deep(.form-time-picker) {
+    width: auto;
+    flex: 1;
+  }
+
+  .form-input {
+    width: auto;
+    flex: 1;
+  }
+
+  .form-input-number {
+    width: auto;
+    flex: 1;
+
+    &.textAlignLeft {
+      :deep(.el-input__inner) {
+        text-align: left;
+      }
+    }
+
+    :deep(.el-input__wrapper) {
+      padding-left: 11px;
+      padding-right: 11px;
+    }
+  }
+
+  .form-slider {
+    padding: 0 calc(var(--el-slider-button-size));
+  }
+
+  :deep(.form-date-picker) {
+    width: auto;
+    flex: 1;
+    display: inline-flex;
+
+    &.el-date-editor.el-input__wrapper:hover {
+      //box-shadow-color:var(--el-border-color);
+      //--el-input-border-color: ;
+      //box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset
+    }
+  }
 
 
 }
