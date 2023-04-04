@@ -126,8 +126,10 @@ const formList = ref([
     placeholder: "请输入设备名称",
     formType: "input",
     isClearable: true,
-    labelWidth: "5em",
-    width: 300,
+    // labelWidth: "5em",
+    // width: 300,
+    span: 12,
+
     value: "",
     isSearch:true,
   },
