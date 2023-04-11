@@ -68,7 +68,8 @@ const props = defineProps({
     type: [Function]
   },
   beforeSwitchChange:{
-    type:[Function]
+    type:[Function,Boolean],
+    default:true,
   }
 });
 //const emits = defineEmits(["update:modelValue"]);

@@ -89,7 +89,8 @@ const props = defineProps({
     type:[Function]
   },
   beforeSwitchChange:{
-    type:[Function]
+    type:[Function,Boolean],
+    default:true,
   }
 });
 

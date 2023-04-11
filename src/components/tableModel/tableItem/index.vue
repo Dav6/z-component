@@ -73,7 +73,7 @@
             :active-value="item?.activeValue"
             :inactive-value="item?.inactiveValue"
             :name="item?.name"
-            :before-change="(data) => beforeSwitchChange({ data:scope ,value:data })"
+            :before-change="(data) => beforeSwitchChangeCOM({ data:scope ,value:data })"
             @change="(data) => { goTo('onSwitchChange', { data:scope ,value:data }) }"
         ></Component>
       </template>
@@ -153,11 +153,28 @@ const props = defineProps({
     type: [Function]
   },
   beforeSwitchChange:{
-    type:[Function]
+    type:[Function,Boolean],
+    default:true,
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onSettingsButtonClick', 'onChange','onSwitchChange']);
+
+
+
+
+const beforeSwitchChangeCOM = computed(()=>{
+  return (data)=>{
+    let _beforeSwitchChange = props.beforeSwitchChange;
+    // console.log(typeof(_beforeSwitchChange))
+    if(typeof(_beforeSwitchChange) == 'function'){
+      return _beforeSwitchChange(data)
+    }else{
+      return _beforeSwitchChange
+    }
+
+  }
+})
 
 
 const formatItem = (item = {}) => {

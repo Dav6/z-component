@@ -70,7 +70,6 @@ const keyList = ref([
   {label: "公司", key: "orgName", showOverflowTooltip: true},
   {
     label: "状态", type: "switch", key: "status",
-
     showOverflowTooltip: false
   },
 
