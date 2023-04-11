@@ -35,6 +35,8 @@
     :placement="data?.placement"
     :marks="data?.marks"
     :validate-event="data?.validateEvent"
+    v-bind="$attrs"
+
   />
 </template>
 

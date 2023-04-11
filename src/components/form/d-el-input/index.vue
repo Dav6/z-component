@@ -22,6 +22,8 @@
     :rows="data?.rows ? data?.rows : 5"
     :type="data?.type"
     :placeholder="placeholderCOM(data)"
+    v-bind="$attrs"
+
   >
     <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
       <slot :name="item.name" :data="data.data"></slot>

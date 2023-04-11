@@ -16,6 +16,8 @@
     :format="data?.format ? data?.format : 'HH:mm:ss'"
     :teleported="data?.teleported"
     :value-format="data?.valueFormat ? data?.valueFormat : 'HH:mm:ss'"
+    v-bind="$attrs"
+
   />
 </template>
 

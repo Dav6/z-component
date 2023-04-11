@@ -168,7 +168,6 @@ const _formList = computed(() => {
 const formListRowClassCOM = computed(() => {
 
   let _data = props.item;
-
   let _class = []
   // console.log('propsClass',props.formRowClass)
 

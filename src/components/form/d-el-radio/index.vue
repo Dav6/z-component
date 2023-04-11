@@ -15,6 +15,8 @@
     :disabled="data?.disabled"
     :min="data?.min"
     :max="data?.max"
+      v-bind="$attrs"
+
   >
     <Component
       :is="radioComponentCOM"

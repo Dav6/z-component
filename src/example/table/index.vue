@@ -18,6 +18,7 @@
     :isShowSettings="isShowSettings"
     :settingsConfig="settingsConfig"
     :selectable="selectable"
+    :beforeSwitchChange="beforeSwitchChange"
     height="100%"
     @select="(selection, row)=>goTo('select',{selection, row})"
     @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
@@ -67,6 +68,12 @@ const keyList = ref([
   {label: "id", key: "recordId", showOverflowTooltip: true},
   {label: "设备名称", key: "deviceName", showOverflowTooltip: true},
   {label: "公司", key: "orgName", showOverflowTooltip: true},
+  {
+    label: "状态", type: "switch", key: "status",
+
+    showOverflowTooltip: false
+  },
+
   {label: "图片", type: "image", key: "image", size: "24 24", width: 100, limit: 2, showOverflowTooltip: false},
   {label: "自定义", type: "custom", customName: "test", key: "personnelRoleName", showOverflowTooltip: true},
   {label: "时间", type: "time", format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true},
@@ -79,15 +86,22 @@ const settingsConfig = ref({
   fixed: 'right',
   type:'123123',
   align: "center",
-  width:100,
+  width:200,
   isShow:true,
+  divided:true,
   buttonList: [
+    {
+      name: "编辑",
+      key: "edit",
+      type: 'button',
+    },
     {
       name: "详情",
       key: "detail",
       type: 'button',
     },
     {
+      name: "更多",
       type: "dropdown",
       trigger: "click", // hover/click/contextmenu
       placement: "bottom-start",
@@ -499,14 +513,27 @@ const list = ref([
 
 list.value?.map((item,index) =>{
   if(index%3 == 0){
+    item.status = true
     item.selectable = true;
+  }else{
+    item.status = false
+    item.selectable = false;
+
   }
 })
 
 const selectable = (row,index)=>{
   // console.log('selectable',row,index)
-  return true
+  return row.selectable
 
+}
+
+const beforeSwitchChange = (data)=>{
+  console.log('beforeSwitchChange',data)
+  return new Promise((resolve, reject) => {
+    resolve(true)
+    // reject(false)
+  })
 }
 
 

@@ -18,6 +18,8 @@
     :placeholder="placeholderCOM(data)"
     :clearable="data?.clearable"
     :filterable="data?.filterable"
+    v-bind="$attrs"
+
   >
     <el-option v-for="(oItem, oIndex) in data?.options" :key="oIndex" :label="oItem.label"
                :disabled="oItem.disabled" :value="oItem.value"/>

@@ -12,6 +12,8 @@
     class="form-divider"
     :border-style="data?.borderStyle"
     :content-position="data?.contentPosition"
+    v-bind="$attrs"
+
   >{{ modelValue}}
   </el-divider>
 

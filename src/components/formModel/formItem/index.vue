@@ -42,9 +42,11 @@
             v-model="item.value"
             :data="item"
             @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
+
         >
           <template v-if="item.formType == 'input' && item.isSearch" #append>
-            <el-button class="input-search-button" icon="Search" @click="goTo('onInputSearch', { prop: onChangeProp, item, index, })" ></el-button>
+            <el-button class="input-search-button" icon="Search"
+                       @click="goTo('onInputSearch', { prop: onChangeProp, item, index, })"></el-button>
           </template>
 
         </Component>
@@ -76,10 +78,8 @@
 
     </template>
 
-    <template
-        v-else>
-      <template
-          v-if="item.formType == 'imageVideoUpload'">
+    <template v-else>
+      <template v-if="item.formType == 'imageVideoUpload'">
         <Component
             :class="item.class"
 
@@ -94,46 +94,30 @@
       </template>
 
 
-      <template
-          v-else-if="item.formType == 'select'">
-        {{
-          selectTextValueCOM(item)
-        }}
+      <template v-else-if="item.formType == 'select'">
+        {{ selectTextValueCOM(item) }}
       </template>
 
 
-      <template
-          v-else-if="item.formType == 'datePicker'">
-        <template
-            v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
-          {{
-            item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : ''
-          }}
+      <template v-else-if="item.formType == 'datePicker'">
+        <template v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
+          {{ item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : '' }}
         </template>
-        <template
-            v-else>
-          {{
-            item.value
-          }}
+        <template v-else>
+          {{ item.value }}
         </template>
       </template>
 
-      <template
-          v-else-if="item.formType == 'custom' ">
+      <template v-else-if="item.formType == 'custom' ">
         <!--        {{item.formType}}-->
         <!--        {{item.customName}}-->
-        <slot
-            :name="item.customName"
-            :data="item"></slot>
+        <slot :name="item.customName" :data="item"></slot>
 
       </template>
 
 
-      <template
-          v-else>
-        {{
-          item.value
-        }}
+      <template v-else>
+        {{ item.value }}
       </template>
     </template>
 
@@ -248,7 +232,7 @@ const props = defineProps({
 
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onFormItemButtonClick', 'onChange','onInputSearch']);
+const emits = defineEmits(['onFormItemButtonClick', 'onChange', 'onInputSearch']);
 // section formTypeKeyMap
 const formTypeKeyMap = ref({
   input: 'd-el-input',
@@ -320,7 +304,7 @@ const selectTextValueCOM = computed(() => {
 })
 
 
-const componentClassCOM = computed(()=>{
+const componentClassCOM = computed(() => {
 //  item.formType == 'input' && item.isSearch
   let _data = props.item;
   let _class = []
@@ -342,7 +326,7 @@ const componentClassCOM = computed(()=>{
     _class = [..._class, ..._bClass]
   }
 
-  if(_data.formType == 'input' && _data.isSearch){
+  if (_data.formType == 'input' && _data.isSearch) {
     _class = [..._class, 'input-search']
   }
 
@@ -494,7 +478,7 @@ const goTo = (key, data) => {
   if (key == 'onChange') {
     emits('onChange', {...data})
   }
-  if(key == 'onInputSearch'){
+  if (key == 'onInputSearch') {
     emits('onInputSearch', {key, ...data})
 
   }

@@ -12,6 +12,7 @@
       class="form-tag"
       :size="data?.size"
       :type="data?.type"
+      v-bind="$attrs"
 
     > {{modelValue}}</el-tag>
 

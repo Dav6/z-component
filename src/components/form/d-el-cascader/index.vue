@@ -27,6 +27,7 @@
     :tag-type="data?.tagType"
     :validate-event="data?.validateEvent"
     :props="data?.props"
+    v-bind="$attrs"
 
   />
 </template>

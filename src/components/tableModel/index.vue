@@ -15,8 +15,10 @@
     <d-table-list
       :keyList="keyListCOM"
       :selectable="selectable"
+      :beforeSwitchChange="beforeSwitchChange"
       :pageData="pageData"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+      @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
     >
 
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
@@ -84,6 +86,9 @@ const props = defineProps({
     default:{},
   },
   selectable:{
+    type:[Function]
+  },
+  beforeSwitchChange:{
     type:[Function]
   }
 });
@@ -211,7 +216,7 @@ const keyListCOM = computed(() => {
 
 
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick']);
+const emits = defineEmits(['onSettingsButtonClick','onSwitchChange']);
 
 const defaultCOM = computed(() => {
   return '';
@@ -230,6 +235,9 @@ const defaultCOM = computed(() => {
 
 const goTo = (key, data) => {
   // console.log(key, data);
+  if(key == 'onSwitchChange'){
+    emits('onSwitchChange',data)
+  }
   if(key == 'onSettingsButtonClick'){
     emits('onSettingsButtonClick',data)
 

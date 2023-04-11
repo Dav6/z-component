@@ -19,6 +19,8 @@
 
 #### 3. 组件使用之前 先安装[element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html)
 #####  vue版本3.2.0以上  element-plus版本 2.2.0 以上 ，其他版本未测试
+
+
 ```
 import zrComponent from "zr-component"
 

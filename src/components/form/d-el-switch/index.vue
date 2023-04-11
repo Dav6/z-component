@@ -26,6 +26,7 @@
     :validate-event="data?.validateEvent"
     :before-change="data?.beforeChange"
     @change="(data)=>goTo('onChange',data)"
+    v-bind="$attrs"
   >
 
   </el-switch>

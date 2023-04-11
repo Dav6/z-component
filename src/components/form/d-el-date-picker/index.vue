@@ -22,6 +22,8 @@
     :disabled-date="(date) => dateChangeDisabled.disabledDate(date, data)"
     :teleported="teleportedCOM"
     @calendar-change="(date) => dateChangeDisabled.calendarChange(date)"
+    v-bind="$attrs"
+
   />
 
 </template>

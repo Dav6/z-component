@@ -21,6 +21,8 @@
     :placeholder="placeholderCOM(data)"
     :controls="data?.controls"
     :controls-position="data?.controlsPosition"
+    v-bind="$attrs"
+
   />
 </template>
 

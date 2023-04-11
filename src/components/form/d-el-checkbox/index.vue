@@ -14,6 +14,7 @@
       v-model="modelValue"
       :disabled="data?.disabled"
       :class="classCOM"
+      v-bind="$attrs"
 
   >
     <Component

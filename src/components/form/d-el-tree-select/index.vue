@@ -24,6 +24,7 @@
     :filterable="data?.filterable"
     :placeholder="placeholderCOM(data)"
     :props="data?.props"
+    v-bind="$attrs"
 
   >
 

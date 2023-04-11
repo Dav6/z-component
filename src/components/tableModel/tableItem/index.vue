@@ -8,13 +8,13 @@
 
 <template>
   <el-table-column
-    :label="item.label"
-    :type="item.type"
-    :width="item.width"
-    :align="item.align"
-    :fixed="item.fixed"
-    :show-overflow-tooltip="item.showOverflowTooltip"
-    :selectable="(row, index) => selectable(row,index)"
+      :label="item.label"
+      :type="item.type"
+      :width="item.width"
+      :align="item.align"
+      :fixed="item.fixed"
+      :show-overflow-tooltip="item.showOverflowTooltip"
+      :selectable="(row, index) => selectable(row,index)"
   >
 
 
@@ -31,15 +31,14 @@
         <el-button-group class="settings-group">
           <template v-for="(bItem,bIndex) in item.buttonList" :key="bIndex">
 
-
             <Component
-              :is="settingsButtonItemCOM(bItem)"
-              :text="bItem.type=='button'"
-              :list="bItem.list"
-              :trigger="bItem.trigger"
-              :placement="bItem.placement"
-              @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"
-              @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"
+                :is="settingsButtonItemCOM(bItem)"
+                :text="bItem.type=='button'"
+                :list="bItem.list"
+                :trigger="bItem.trigger"
+                :placement="bItem.placement"
+                @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"
+                @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"
             >
               <template v-if="bItem.type=='button'">
                 {{ bItem.name }}
@@ -47,14 +46,37 @@
               <template v-else-if="bItem.type == 'dropdown'">
                 <d-el-button text class="settings-dropdown-button">{{ bItem.name ? bItem.name : '···' }}</d-el-button>
               </template>
-            </Component>
 
+            </Component>
+            <template v-if="item.divided  && (item.buttonList?.length - 1 != bIndex)">
+              <div class="settings-group-divided"></div>
+            </template>
 
           </template>
 
         </el-button-group>
       </template>
 
+      <template v-else-if="item.type == 'switch'">
+        <Component
+            :is="'d-el-switch'"
+            v-model="scope.row[item.key]"
+            :disabled="item?.disabled"
+            :loading="item?.loading"
+            :size="item?.size"
+            :width="item?.width"
+            :inline-prompt="item?.inlinePrompt"
+            :active-icon="item?.activeIcon"
+            :inactive-icon="item?.inactiveIcon"
+            :active-text="item?.activeText"
+            :inactive-text="item?.inactiveText"
+            :active-value="item?.activeValue"
+            :inactive-value="item?.inactiveValue"
+            :name="item?.name"
+            :before-change="(data) => beforeSwitchChange({ data:scope ,value:data })"
+            @change="(data) => { goTo('onSwitchChange', { data:scope ,value:data }) }"
+        ></Component>
+      </template>
       <template v-else-if="item.type == 'time'">
         {{ timeFormatCOM(scope.row[item.key]) }}
       </template>
@@ -66,11 +88,11 @@
           <template v-for="(cItem,cIndex) in imageCOM('list',{scope,keyItem:item})" :key="cItem">
 
             <d-el-image
-              class="image-item"
-              :src="cItem"
-              :size="imageCOM('size',{scope,keyItem:item,data:cItem})"
-              :previewList="imageCOM('previewList',{scope,keyItem:item,data:cItem})"
-              :previewTeleported="imageCOM('previewTeleported',{scope,keyItem:item,data:cItem})">
+                class="image-item"
+                :src="cItem"
+                :size="imageCOM('size',{scope,keyItem:item,data:cItem})"
+                :previewList="imageCOM('previewList',{scope,keyItem:item,data:cItem})"
+                :previewTeleported="imageCOM('previewTeleported',{scope,keyItem:item,data:cItem})">
 
             </d-el-image>
           </template>
@@ -103,8 +125,7 @@ defineOptions({
   isExposed: false
 });
 
-import {ref, reactive, computed, watch, onBeforeUnmount, shallowRef, onMounted, nextTick, useSlots} from "vue"
-
+import {ref, reactive, computed, watch, onBeforeUnmount, shallowRef, onMounted, nextTick, useAttrs, useSlots} from "vue"
 
 // import WangEditor from "@/components/wangEditor/index"
 
@@ -128,12 +149,15 @@ const props = defineProps({
   pageData: {
     type: [Object]
   },
-  selectable:{
+  selectable: {
     type: [Function]
+  },
+  beforeSwitchChange:{
+    type:[Function]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick', 'onChange']);
+const emits = defineEmits(['onSettingsButtonClick', 'onChange','onSwitchChange']);
 
 
 const formatItem = (item = {}) => {
@@ -169,10 +193,6 @@ const timeFormatCOM = computed(() => {
   }
 
 })
-
-
-
-
 
 
 const getIndex = (data) => {
@@ -212,7 +232,7 @@ const imageCOM = computed(() => {
 
     if (!_scope?.row[_keyItem?.key]) return '';
 
-    switch(key) {
+    switch (key) {
 
       case 'previewList':
       case 'list':
@@ -260,18 +280,17 @@ const imageCOM = computed(() => {
 })
 
 
-const selectable = (row,index) =>{
+const selectable = (row, index) => {
   // console.log(props.item)
   // console.log(row,index)
 
 
-
-  if(props.selectable){
+  if (props.selectable) {
     // console.log(props.selectable(row,index))
-    return !props.selectable(row,index)
+    return !props.selectable(row, index)
   }
 
-  if(row.selectable){
+  if (row.selectable) {
     return false;
   }
 
@@ -290,6 +309,14 @@ const goTo = (key, data) => {
   //   }
   //   return value;
   // }));
+
+  if(key == 'onSwitchChange' ){
+    emits('onSwitchChange',{...data})
+
+  }
+
+
+
   if (key == 'settingsButtonClick' || key == 'settingsDropdownClick') {
 
     // data:scope.row,dataIndex:scope.$index,
@@ -337,6 +364,7 @@ init();
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 
   > .el-button {
@@ -346,6 +374,15 @@ init();
   .settings-dropdown-button {
     padding: 8px;
   }
+
+  .settings-group-divided {
+    height: 14px;
+    width: 1px;
+    background: #E9E9E9;
+    //border-left:1px solid #E9E9E9;
+  }
+
+
 }
 
 .image-list {

@@ -14,7 +14,9 @@
       :pageData="pageData"
       :settingsButtonList="settingsButtonList"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+      @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
       :selectable="selectable"
+      :beforeSwitchChange="beforeSwitchChange"
     >
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
         <slot :name="item.name" :data="data.data"></slot>
@@ -64,10 +66,13 @@ const props = defineProps({
   },
   selectable:{
     type: [Function]
+  },
+  beforeSwitchChange:{
+    type:[Function]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick']);
+const emits = defineEmits(['onSettingsButtonClick','onSwitchChange']);
 
 
 
@@ -75,6 +80,9 @@ const emits = defineEmits(['onSettingsButtonClick']);
 const goTo = (key, data) => {
   // console.log('formList',key,data);
   // data = JSON.parse(JSON.stringify(data));
+  if(key == 'onSwitchChange'){
+    emits('onSwitchChange',data)
+  }
   if(key == 'onSettingsButtonClick'){
     emits('onSettingsButtonClick',data)
 
