@@ -58,7 +58,9 @@
       </template>
 
       <template v-else-if="item.type == 'switch'">
-        <d-el-switch
+        <Component
+            :is="'d-el-switch'"
+            v-model="scope.row[item.key]"
             :disabled="item?.disabled"
             :loading="item?.loading"
             :size="item?.size"
@@ -71,10 +73,9 @@
             :active-value="item?.activeValue"
             :inactive-value="item?.inactiveValue"
             :name="item?.name"
-            :before-change="beforeSwitchChangeFN({ data:scope  })"
+            :before-change="(data) => beforeSwitchChangeCOM({ data:scope ,value:data })"
             @change="(data) => { goTo('onSwitchChange', { data:scope ,value:data }) }"
-            v-model="scope.row[item.key]"
-        ></d-el-switch>
+        ></Component>
       </template>
       <template v-else-if="item.type == 'time'">
         {{ timeFormatCOM(scope.row[item.key]) }}
@@ -162,15 +163,18 @@ const emits = defineEmits(['onSettingsButtonClick', 'onChange','onSwitchChange']
 
 
 
-const beforeSwitchChangeFN = (data)=>{
-  let _beforeSwitchChange = props.beforeSwitchChange;
-  // console.log(typeof(_beforeSwitchChange))
-  if(typeof(_beforeSwitchChange) == 'function'){
-    return _beforeSwitchChange(data)
-  }else{
-    return undefined
+const beforeSwitchChangeCOM = computed(()=>{
+  return (data)=>{
+    let _beforeSwitchChange = props.beforeSwitchChange;
+    // console.log(typeof(_beforeSwitchChange))
+    if(typeof(_beforeSwitchChange) == 'function'){
+      return _beforeSwitchChange(data)
+    }else{
+      return _beforeSwitchChange
+    }
+
   }
-}
+})
 
 
 const formatItem = (item = {}) => {

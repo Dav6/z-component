@@ -90,7 +90,7 @@ const props = defineProps({
   },
   beforeSwitchChange:{
     type:[Function,Boolean],
-    default:true,
+    default:true
   }
 });
 
