@@ -18,12 +18,11 @@
     :isShowSettings="isShowSettings"
     :settingsConfig="settingsConfig"
     :selectable="selectable"
-    :beforeSwitchChange="beforeSwitchChange"
     height="100%"
     @select="(selection, row)=>goTo('select',{selection, row})"
     @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
     @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-    v-bind="$props"
+    v-bind="$attrs"
 
   >
     <template #expand="{data}">
