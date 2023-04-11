@@ -75,6 +75,7 @@ const props = defineProps({
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onSettingsButtonClick','onSwitchChange']);
 
+console.log('keyList',props.keyList)
 
 
 

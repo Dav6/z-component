@@ -58,9 +58,7 @@
       </template>
 
       <template v-else-if="item.type == 'switch'">
-        <Component
-            :is="'d-el-switch'"
-            v-model="scope.row[item.key]"
+        <d-el-switch
             :disabled="item?.disabled"
             :loading="item?.loading"
             :size="item?.size"
@@ -73,9 +71,10 @@
             :active-value="item?.activeValue"
             :inactive-value="item?.inactiveValue"
             :name="item?.name"
-            :before-change="(data) => beforeSwitchChangeFN({ data:scope ,value:data })"
+            :before-change="beforeSwitchChangeFN({ data:scope  })"
             @change="(data) => { goTo('onSwitchChange', { data:scope ,value:data }) }"
-        ></Component>
+            v-model="scope.row[item.key]"
+        ></d-el-switch>
       </template>
       <template v-else-if="item.type == 'time'">
         {{ timeFormatCOM(scope.row[item.key]) }}
@@ -169,7 +168,7 @@ const beforeSwitchChangeFN = (data)=>{
   if(typeof(_beforeSwitchChange) == 'function'){
     return _beforeSwitchChange(data)
   }else{
-    return _beforeSwitchChange
+    return undefined
   }
 }
 
