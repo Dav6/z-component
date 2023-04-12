@@ -529,6 +529,7 @@ const selectable = (row,index)=>{
 
 const beforeSwitchChange = (data)=>{
   console.log('beforeSwitchChange',data)
+  return  false;
   return new Promise((resolve, reject) => {
     // resolve(true)
     // reject(false)
