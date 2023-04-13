@@ -7,16 +7,19 @@
 -->
 
 <template>
-  <template v-for="(item,index) in keyList" :key="item.$key" >
+  <template v-for="(item,index) in keyList" :key="item.$key">
 
     <d-table-item
-      :item="item"
-      :pageData="pageData"
-      :settingsButtonList="settingsButtonList"
-      @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-      @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
-      :selectable="selectable"
-      :beforeSwitchChange="beforeSwitchChange"
+        :tableModelRef="tableModelRef"
+        :item="item"
+        :pageData="pageData"
+        :settingsButtonList="settingsButtonList"
+        @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+        @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
+        :selectable="selectable"
+        :sectionData="sectionData"
+        @sectionDelete="data=>goTo('sectionDelete',data)"
+        :beforeSwitchChange="beforeSwitchChange"
     >
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
         <slot :name="item.name" :data="data.data"></slot>
@@ -54,39 +57,55 @@ const slotListCOM = computed(() => {
   }
 })
 const props = defineProps({
+  tableModelRef:{
+    type:[Object,Array],
+  },
   // 配合emits v-model
   keyList: {
     type: [Array],
   },
-  pageData:{
-    type:[Object]
+  pageData: {
+    type: [Object]
   },
   settingsButtonList: {
     type: [Array]
   },
-  selectable:{
+  selectable: {
     type: [Function]
   },
-  beforeSwitchChange:{
-    type:[Function,Boolean],
-    default:true,
+  sectionData:{
+    type:[Object]
+  },
+  beforeSwitchChange: {
+    type: [Function, Boolean],
+    default: true,
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick','onSwitchChange']);
+const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange','sectionDelete']);
 
 // console.log('keyList',props.keyList)
+
+
+
+
+
+
 
 
 
 const goTo = (key, data) => {
   // console.log('formList',key,data);
   // data = JSON.parse(JSON.stringify(data));
-  if(key == 'onSwitchChange'){
-    emits('onSwitchChange',data)
+  if(key == 'sectionDelete'){
+    emits('sectionDelete',data)
   }
-  if(key == 'onSettingsButtonClick'){
-    emits('onSettingsButtonClick',data)
+
+  if (key == 'onSwitchChange') {
+    emits('onSwitchChange', data)
+  }
+  if (key == 'onSettingsButtonClick') {
+    emits('onSettingsButtonClick', data)
 
   }
 }
@@ -105,5 +124,7 @@ init();
 </script>
 
 <style scoped lang="less">
-
+:deep(.isSelect){
+  background:red;
+}
 </style>

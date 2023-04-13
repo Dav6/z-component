@@ -23,9 +23,7 @@ import {
   deviceOptions,
   detail
 } from "./config";
-import {
-  JSONPath
-} from "jsonpath-plus";
+import {  JSONPath } from "jsonpath-plus";
 // defineStore 调用后返回一个函数，调用该函数获得 Store 实体
 export const useDialogStore = defineStore({
   // id: 必须的，在所有 Store 中唯一

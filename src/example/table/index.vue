@@ -8,22 +8,28 @@
 
 <template>
   <Component
-    is="d-table-model"
-    :list="list"
-    :keyList="keyList"
-    :pageData="pageData"
-    :isShowExpand="isShowExpand"
-    :isShowSelection="isShowSelection"
-    :isShowIndex="isShowIndex"
-    :isShowSettings="isShowSettings"
-    :settingsConfig="settingsConfig"
-    :selectable="selectable"
-    :beforeSwitchChange="beforeSwitchChange"
-    height="100%"
-    @select="(selection, row)=>goTo('select',{selection, row})"
-    @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
-    @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-    v-bind="$attrs"
+      ref="formModelRef"
+      is="d-table-model"
+      :list="list"
+      :keyList="keyList"
+      :pageData="pageData"
+      :isShowExpand="isShowExpand"
+      :isShowSelection="isShowSelection"
+      :isShowIndex="isShowIndex"
+      :isShowSettings="isShowSettings"
+      :settingsConfig="settingsConfig"
+      :selectable="selectable"
+      :beforeSwitchChange="beforeSwitchChange"
+      :header-cell-class-name="headerRowClassNameFN"
+
+      row-key="recordId"
+      height="100%"
+      @selection-change="data=>goTo('selectionChange',data)"
+      @select="(selection, row)=>goTo('select',{selection, row})"
+      @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
+      @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+      @sectionDelete="data=>goTo('sectionDelete',data)"
+      v-bind="$attrs"
 
   >
     <template #expand="{data}">
@@ -83,11 +89,11 @@ const keyList = ref([
 const settingsConfig = ref({
   label: "设置",
   fixed: 'right',
-  type:'123123',
+  type: '123123',
   align: "center",
-  width:200,
-  isShow:true,
-  divided:true,
+  width: 200,
+  isShow: true,
+  divided: true,
   buttonList: [
     {
       name: "编辑",
@@ -126,7 +132,7 @@ const settingsConfig = ref({
 })
 
 
-const isShowExpand = ref(true);
+const isShowExpand = ref(false);
 const isShowSelection = ref(true)
 const isShowIndex = ref(true)
 const isShowSettings = ref(true)
@@ -147,6 +153,11 @@ const isShowSettings = ref(true)
 //   isShowSettings.value = true
 // },8000)
 
+
+
+
+
+
 const pageData = ref({
   page: 1,
   pageSize: 20,
@@ -165,12 +176,33 @@ const list = ref([
       "type": 1,
       "name": "人脸"
     },
-    image:image,
+    image: image,
     "passStatusName": "通行失败,陌生人",
     "orgName": "泽瑞集团",
-    "createTime": "2022-12-19 11:17:20"
+    "createTime": "2022-12-19 11:17:20",
+    "children":[
+      {
+        "recordId": "15920738537366978257",
+        "personnelRole": 1,
+        "personnelRoleName": "企业员工",
+        "employeeId": "1588335490878144513",
+        "personnelName": "小美",
+        "deviceId": 1581915886924595201,
+        "deviceName": "华屹",
+        "passStatus": 1,
+        "passType": {
+          "type": 1,
+          "name": "人脸"
+        },
+        "passStatusName": "通行成功",
+        "orgName": "泽瑞集团",
+        "companyId": 1564911314820681729,
+        "companyName": "泽瑞集团",
+        "createTime": "2022-11-14 16:35:59"
+      }
+    ]
   }, {
-    "recordId": "1604677221563240449",
+    "recordId": "16046772215632420449",
     "personnelRole": 5,
     "personnelRoleName": "未授权人员",
     "personnelName": "",
@@ -312,184 +344,8 @@ const list = ref([
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-16 15:08:45"
-  }, {
-    "recordId": "1592772502867263490",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385445433346",
-    "personnelName": "人员2",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-16 14:52:10"
-  }, {
-    "recordId": "1592765501286236161",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1588335490878144513",
-    "personnelName": "小美",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-16 14:24:20"
-  }, {
-    "recordId": "1592395262841176065",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385487376385",
-    "personnelName": "吴",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-15 13:53:10"
-  }, {
-    "recordId": "1592395233296498689",
-    "personnelRole": 5,
-    "personnelRoleName": "未授权人员",
-    "personnelName": "",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 16,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行失败,陌生人",
-    "orgName": "泽瑞集团",
-    "createTime": "2022-11-15 13:53:03"
-  }, {
-    "recordId": "1592360906424696833",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385487376385",
-    "personnelName": "吴",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-15 11:36:37"
-  }, {
-    "recordId": "1592358873340690433",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385445433346",
-    "personnelName": "人员2",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-15 11:28:32"
-  }, {
-    "recordId": "1592358841573031937",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1588335490878144513",
-    "personnelName": "小美",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-15 11:28:25"
-  }, {
-    "recordId": "1592328511310905346",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385445433346",
-    "personnelName": "人员2",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-15 09:27:54"
-  }, {
-    "recordId": "1592326643352453122",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1588335490878144513",
-    "personnelName": "小美",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-15 09:20:28"
-  }, {
-    "recordId": "1592081346663661570",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385445433346",
-    "personnelName": "人员2",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-14 17:05:45"
-  }, {
+  },
+  {
     "recordId": "1592073853736697857",
     "personnelRole": 1,
     "personnelRoleName": "企业员工",
@@ -506,30 +362,59 @@ const list = ref([
     "orgName": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
-    "createTime": "2022-11-14 16:35:59"
-  }])
+    "createTime": "2022-11-14 16:35:59",
+    children:[
+      {
+        "recordId": "159207385375336697857",
+        "personnelRole": 1,
+        "personnelRoleName": "企业员工",
+        "employeeId": "1588335490878144513",
+        "personnelName": "小美",
+        "deviceId": 1581915886924595201,
+        "deviceName": "华屹",
+        "passStatus": 1,
+        "passType": {
+          "type": 1,
+          "name": "人脸"
+        },
+        "passStatusName": "通行成功",
+        "orgName": "泽瑞集团",
+        "companyId": 1564911314820681729,
+        "companyName": "泽瑞集团",
+        "createTime": "2022-11-14 16:35:59"
+      }
+    ]
+  },
+])
 
 
-list.value?.map((item,index) =>{
-  if(index%3 == 0){
+list.value?.map((item, index) => {
+  if (index % 3 == 0) {
     item.status = true
     item.selectable = true;
-  }else{
+  } else {
     item.status = false
     item.selectable = false;
 
   }
 })
 
-const selectable = (row,index)=>{
+const selectable = (row, index) => {
   // console.log('selectable',row,index)
-  return row.selectable
+  return false;//|| row.selectable
 
 }
 
-const beforeSwitchChange = (data)=>{
-  console.log('beforeSwitchChange',data)
-  return  false;
+const headerRowClassNameFN = (data)=>{
+  // console.log('headerRowClassNameFN-外')
+
+  return ''
+}
+
+
+const beforeSwitchChange = (data) => {
+  console.log('beforeSwitchChange', data)
+  return false;
   return new Promise((resolve, reject) => {
     // resolve(true)
     // reject(false)
@@ -539,11 +424,22 @@ const beforeSwitchChange = (data)=>{
 
 const goTo = (key, data) => {
   console.log(key, data);
+  if(key == 'sectionDelete'){
+
+  }
   if (key == 'onSettingsButtonClick') {
     console.log(data?.data.deviceName)
     data.data.deviceName = 3000
   }
 }
+
+const formModelRef = ref()
+
+// setTimeout(() => {
+//   console.log('formModelRef', formModelRef.value.getRef());
+//   console.log('list', list);
+//   console.log('formModelRef', formModelRef.value.getRef()?.toggleRowSelection(list.value[0], undefined));
+// }, 1000)
 
 
 // 接口请求方法放这

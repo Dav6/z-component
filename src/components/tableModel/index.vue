@@ -8,17 +8,27 @@
 
 <template>
   <el-table
-    :data="list"
-    v-bind="$props"
+      class="tableModel"
+      ref="tableModelRef"
+      :data="tableListCOM"
+      :row-key="rowKey"
+      :tree-props="treeProps"
+      :header-cell-class-name="headerRowClassNameFN"
+      :header-cell-style="headerCellStyleFN"
+      @selection-change="data=>goTo('selectionChange',data)"
+      v-bind="$attrs"
   >
 
     <d-table-list
-      :keyList="keyListCOM"
-      :selectable="selectable"
-      :beforeSwitchChange="beforeSwitchChange"
-      :pageData="pageData"
-      @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-      @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
+        :tableModelRef="tableModelRef"
+        :keyList="keyListCOM"
+        :selectable="selectable"
+        :sectionData="sectionData"
+        :beforeSwitchChange="beforeSwitchChange"
+        :pageData="pageData"
+        @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+        @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
+        @sectionDelete="data=>goTo('sectionDelete',data)"
     >
 
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
@@ -32,10 +42,12 @@
 </template>
 
 <script setup>
+import {JSONPath} from "jsonpath-plus";
+import {computed, ref, useSlots} from "vue"
+
 defineOptions({
   name: 'd-table-model',
 });
-import {ref, reactive, computed, watch, useSlots} from "vue"
 
 
 let slots = useSlots()
@@ -56,6 +68,8 @@ const slotListCOM = computed(() => {
     return _slots
   }
 })
+
+const tableModelRef = ref();
 
 const props = defineProps({
   // 配合emits v-model
@@ -83,16 +97,60 @@ const props = defineProps({
   },
   settingsConfig: {
     type: [Object],
-    default:{},
+    default: {},
   },
-  selectable:{
-    type:[Function]
+  rowKey:{
+    type:[String,Function]
   },
-  beforeSwitchChange:{
-    type:[Function,Boolean],
-    default:true
+  treeProps:{
+    type:[Object],
+    default:{ hasChildren: 'hasChildren', children: 'children' }
+  },
+
+
+  headerCellClassName:{
+    type:[String,Function]
+  },
+  selectable: {
+    type: [Function]
+  },
+  beforeSwitchChange: {
+    type: [Function, Boolean],
+    default: true
   }
 });
+
+//  section sectionData
+const sectionData = ref({
+  list:[],
+  selection:[]
+})
+
+const setListConfig = async ()=>{
+  let _list = JSON.parse(JSON.stringify(props.list));
+
+  // console.log(JSON.stringify(_list))
+
+  let _treeProps = props?.treeProps
+  let _childrenName = _treeProps?.children || 'children'
+  _list = {
+    [_childrenName]:_list
+  }
+
+  let _path = `$..${_childrenName}[:]`;
+  _list = JSONPath({json: _list, path: _path, });
+  // console.log('__list',JSON.stringify(__list))
+  // console.log('_list',_list.length)
+  sectionData.value.list = _list;
+}
+
+
+const tableListCOM = computed(()=>{
+  const _list = props.list;
+  setListConfig()
+  return _list
+})
+
 
 
 // <!--selection / index / expand / settings -->
@@ -127,7 +185,7 @@ let _tableSettingsDefault = {
   type: "settings",
   fixed: 'right',
   align: "center",
-  isShow:false,
+  isShow: false,
   buttonList: [
     {
       name: "详情",
@@ -159,7 +217,7 @@ let _tableSettingsDefault = {
   ]
 }
 
-
+const _temKeyList = ref([])
 const keyListCOM = computed(() => {
 
   console.log('keyListCOM', props)
@@ -180,9 +238,7 @@ const keyListCOM = computed(() => {
   };
 
 
-
-
-  if (!_isShowExpand) {
+  if (!_isShowExpand ) {
     _tableExpand = ''
   }
   if (!_isShowSelection) {
@@ -206,41 +262,106 @@ const keyListCOM = computed(() => {
 
 
   // 每一列加上 不重复key ， 用于视图刷新正常
-  _keyList = _keyList?.map(item=> {
+  _keyList = _keyList?.map(item => {
     item.$key = Symbol()
     return item;
   })
-
+  _temKeyList.value = JSON.parse(JSON.stringify(_keyList))
   console.log(_keyList);
   return _keyList
 })
 
 
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick','onSwitchChange']);
+const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange', 'selectionChange','sectionDelete']);
 
-const defaultCOM = computed(() => {
-  return '';
-});
 
-//watch(
-//  () => props, (newValue, oldValue) => {
-//    //console.log('newValue', newValue);
-//    //console.log('oldValue', oldValue);
-//    // defaultActive = newValue.path;
-//
-//  },
-//   {immediate: true}
-//);
+
+
+const headerRowClassNameFN = (data)=>{
+  // console.log('headerRowClassNameFN',data,_temKeyList)
+
+  let _strClass = ''
+  let _headerCellClassName = props.headerCellClassName;
+
+
+
+  if( typeof(_headerCellClassName)== 'string'){
+    _strClass = `${_strClass} ${_headerCellClassName}`
+  }
+  if( typeof(_headerCellClassName)== 'function'){
+    _strClass = `${_strClass} ${_headerCellClassName(data)}`
+  }
+
+  return _strClass
+}
+
+const headerCellStyleFN = (data)=>{
+  const { row, column, rowIndex, columnIndex } = data;
+  // console.log('row,',row, )
+
+  let _style = {}
+
+  // 用于 选中状态的界面修改
+  const _sectionData = sectionData.value
+  const _isShowSelection = props.isShowSelection;
+  if(_isShowSelection){
+    if(_sectionData?.selection?.length>0){
+      // 第一列为选项框 和 标题这一行
+      if (row[0]?.type == 'selection' && rowIndex == 0 ) {
+        // console.log('row,',row, )
+        // console.log(' column', column, )
+        // console.log('rowIndex',rowIndex)
+        // console.log(' columnIndex', columnIndex)
+        //expand / selection / index / settings / time
+        // 选项框这一列 和 后面这一列不隐藏
+        // 后面这一列合并到最后
+        if(!(column.type == 'selection'  || columnIndex == 1)){
+          _style = {
+            ..._style,
+            display:'none',
+          }
+        }
+        row[1].colSpan = row.length - 1
+      }
+    }else{
+      _style = {
+        ..._style,
+      }
+      row[1].colSpan = 1
+    }
+  }
+
+
+
+
+
+
+  return  _style;
+
+}
+
+
+
 
 
 const goTo = (key, data) => {
   // console.log(key, data);
-  if(key == 'onSwitchChange'){
-    emits('onSwitchChange',data)
+  if (key == 'selectionChange') {
+    // console.log(key, data);
+    getSelection && getSelection()
+    emits('selectionChange', data);
   }
-  if(key == 'onSettingsButtonClick'){
-    emits('onSettingsButtonClick',data)
+  if(key == 'sectionDelete'){
+    emits('sectionDelete',data)
+  }
+
+
+  if (key == 'onSwitchChange') {
+    emits('onSwitchChange', data)
+  }
+  if (key == 'onSettingsButtonClick') {
+    emits('onSettingsButtonClick', data)
 
   }
 }
@@ -252,12 +373,43 @@ const init = () => {
 
 }
 
+
+
+
 // 统一执行初始化方法
 init();
+
+const getSelection = ()=>{
+  const _selection =   tableModelRef.value?.getSelectionRows()
+  // console.log('_selection',_selection)
+  sectionData.value.selection = _selection
+  return _selection;
+}
+
+const getRef = () => {
+  // console.log('_componentInfo?.value?.ref',)
+  return tableModelRef?.value;
+};
+
+
+
+
+
+defineExpose({
+  getRef,
+  getSelection
+})
+
+
 
 
 </script>
 
 <style scoped lang="less">
+
+.tableModel{
+
+}
+
 
 </style>

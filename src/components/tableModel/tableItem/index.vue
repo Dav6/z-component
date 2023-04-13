@@ -15,7 +15,22 @@
       :fixed="item.fixed"
       :show-overflow-tooltip="item.showOverflowTooltip"
       :selectable="(row, index) => selectable(row,index)"
+      v-bind="$attrs"
   >
+
+    <template v-if="isShowSelectionHeader" #header>
+
+      <div class="el-table-section-header">
+        <div class="el-table-section-header-left">
+          <div class="el-table-section-header-section">已选中 <span>{{sectionNum}}</span> 项</div>
+          <d-el-button  class="el-table-section-header-btn-default" text icon="Delete" @click="goTo('sectionDelete')">删除</d-el-button>
+        </div>
+        <div class="el-table-section-header-right">
+          <d-el-button  class="el-table-section-header-btn-default" text @click="goTo('sectionClear')" >取消选择</d-el-button>
+
+        </div>
+      </div>
+    </template>
 
 
     <template v-if="item.isShow" #default="scope">
@@ -115,6 +130,7 @@
 
   </el-table-column>
 
+
 </template>
 
 <script setup>
@@ -136,7 +152,9 @@ import dayjs from "dayjs";
 // console.log(tools.debounce)
 
 const props = defineProps({
-  // 配合emits v-model
+  tableModelRef:{
+    type:[Object,Array],
+  },
   item: {
     type: [Object],
     default: {
@@ -152,13 +170,39 @@ const props = defineProps({
   selectable: {
     type: [Function]
   },
+  sectionData:{
+    type:[Object]
+  },
   beforeSwitchChange:{
     type:[Function,Boolean],
     default:true,
-  }
+  },
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick', 'onChange','onSwitchChange']);
+const emits = defineEmits(['onSettingsButtonClick', 'onChange','onSwitchChange','sectionDelete']);
+
+
+// console.log('sectionData',props.sectionData)
+const isShowSelectionHeader = ref(false)
+const sectionNum = ref(0)
+// section watch sectionData
+watch(()=>props.sectionData,(sectionData,preSectionData)=>{
+  // console.log('sectionData',sectionData)
+  const _sectionData = sectionData;
+
+  if(_sectionData.selection?.length>0){
+    isShowSelectionHeader.value = true;
+    sectionNum.value = _sectionData.selection?.length
+  }else{
+    isShowSelectionHeader.value = false;
+    sectionNum.value = 0
+
+  }
+
+},{
+  deep:true
+})
+
 
 
 
@@ -315,6 +359,20 @@ const selectable = (row, index) => {
 //section goTo
 const goTo = (key, data) => {
   console.log(key, data);
+
+  if(key == 'sectionDelete' || key == 'sectionClear'){
+
+    console.log(props.sectionData)
+    let _selection = props.sectionData?.selection  || []
+    emits('sectionDelete',{selection:_selection})
+
+
+    if(key == 'sectionClear'){
+      const _tableModelRef = props.tableModelRef
+      _tableModelRef?.clearSelection()
+    }
+  }
+
   // let _data = JSON.parse(JSON.stringify(data,(key,value)=>{
   //   console.log(key,value)
   //   if (typeof value === 'object' && value !== null) {
@@ -373,6 +431,36 @@ init();
 </script>
 
 <style scoped lang="less">
+
+.el-table-section-header{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  .el-table-section-header-left{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    .el-table-section-header-section{
+      padding-right: 50px;
+      span{
+        color: #4886FF;
+      }
+    }
+
+  }
+  .el-table-section-header-right{
+    padding-right:40px;
+  }
+  .el-table-section-header-btn-default{
+    height:100%;
+    padding:0;
+    display:flex;
+    align-items:center;
+  }
+}
+
 
 .settings-group {
   width: 100%;
