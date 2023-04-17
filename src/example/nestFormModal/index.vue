@@ -9,7 +9,7 @@
 <template>
   <div class="form-model">
     <d-form-model
-
+        :gutter="10"
         ref="addEditFormRef"
         :statusIcon="true"
         labelWidth="8em"
@@ -126,9 +126,9 @@ const formList = ref([
   {
     name: "层级1", key: "layer1", value: "", placeholder: "层级1", disabled: false, formType: "",
     rules: [{required: true, message: "", trigger: "blur"}],
-    span: 24,
-    width: "110px",
-    childrenWidth: " calc(100% - 110px)",
+    span: 12,
+    // width: "110px",
+    // childrenWidth: " calc(100% - 110px)",
     isChildWidthFill: false,
     childrenSpan: 24,
     children: [
@@ -164,7 +164,7 @@ const formList = ref([
             disabled: false,
             formType: "input",
             span: 12,
-            width: 200,
+            // width: 200,
 
             rules: [{required: true, message: "请输入", trigger: "blur"}],
           },
@@ -173,22 +173,21 @@ const formList = ref([
       {
         labelWidth: '8em',
         // width: "600",
-        name: "层级1-2-66666",
+        name: "层级1-2-2",
         key: "layer12",
         value: "",
         placeholder: "层级1-2",
         disabled: false,
         formType: "input",
-        span: 12,
+        span: 24,
         rules: [{required: true, message: "请输入", trigger: "blur"}],
         childrenSpan: 24,
-        isChildrenBr: true,
+        // isChildrenBr: true,
         formRowClass: "formRowClassTest",
-
         children: [
           {
             labelWidth: '8em',
-            name: "层级1-2-1",
+            name: "层级1-2-2-1",
             key: "layer111",
             value: "",
             placeholder: "层级1-2-1",
@@ -199,7 +198,7 @@ const formList = ref([
           },
           {
             labelWidth: '8em',
-            name: "层级1-2-1",
+            name: "层级1-2-2-2",
             key: "layer111",
             value: "",
             placeholder: "层级1-2-1",

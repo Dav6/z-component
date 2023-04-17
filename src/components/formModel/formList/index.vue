@@ -7,7 +7,7 @@
 -->
 
 <template>
-  <el-row class="d-form-list-row"  :class="formListRowClassCOM"  :gutter="20">
+  <el-row class="d-form-list-row"  :class="formListRowClassCOM"  :gutter="gutter">
     <template v-for="(item, index) in _formList" :key="index">
       <template v-if="!item.isHidden">
         <el-col class="d-form-list-col" :span="item.span"
@@ -42,6 +42,7 @@
                   :formModelRef="formModelRef"
                   :formList="item?.children"
                   :formRowClass="item?.formRowClass"
+                  :gutter="gutter"
                   @onChange="(data) => goTo('onChange', data)"
                   @submit="(data)=>goTo('submit', {...data})"
                   @onInputSearch="data=>goTo('onInputSearch',data)"
@@ -123,6 +124,10 @@ const props = defineProps({
   },
   buttonList: {
     type: [Array],
+  },
+  gutter:{
+    type:[Number],
+    default:20,
   },
   formRowClass:{
     type: [Array,Object,String]

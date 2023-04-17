@@ -26,6 +26,7 @@
         :formList="_formList"
         :buttonList="buttonList"
         :isButtonsRow="isButtonsRow"
+        :gutter="gutter"
         @onChange="(data) => goTo('onChange', data)"
         @submit="(data)=>goTo('submit', {...data})"
         @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
@@ -126,7 +127,11 @@ const props = defineProps({
   },
   isHiddenItemMarginBottom: {
     type: [Boolean]
-  }
+  },
+  gutter:{
+    type:[Number],
+    default:20,
+  },
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange','onInputSearch']);

@@ -1,4 +1,4 @@
-import './assets/index.8bf91265.css';
+import './assets/index.cf0730d5.css';
 import { defineComponent as G, inject as Ze, ref as L, resolveComponent as A, openBlock as T, createBlock as R, mergeProps as re, unref as $, withCtx as X, renderSlot as ie, computed as C, watch as fe, createElementBlock as W, createElementVNode as N, createVNode as D, normalizeClass as oe, toDisplayString as H, getCurrentInstance as Ae, isRef as Q, markRaw as _e, createTextVNode as ne, Fragment as q, renderList as ae, resolveDynamicComponent as pe, useSlots as ye, normalizeProps as Ge, guardReactiveProps as qe, createSlots as he, normalizeStyle as Be, onMounted as rt, useCssVars as De, createCommentVNode as me, withModifiers as it } from "vue";
 const te = (e) => {
   let m = e, n = m == null ? void 0 : m.name;
@@ -3892,6 +3892,10 @@ const fo = G({
     buttonList: {
       type: [Array]
     },
+    gutter: {
+      type: [Number],
+      default: 20
+    },
     formRowClass: {
       type: [Array, Object, String]
     }
@@ -3900,8 +3904,8 @@ const fo = G({
   setup(e, { emit: m }) {
     const n = e;
     De((a) => ({
-      "0d832862": a.fixedWidth,
-      "7b0565a3": a.fixedChildrenWidth
+      "3b148865": a.fixedWidth,
+      "23f7dab4": a.fixedChildrenWidth
     }));
     let r = ye();
     const b = C(() => () => {
@@ -3962,7 +3966,7 @@ const fo = G({
       const l = A("d-el-form-item"), t = A("el-col"), d = A("d-el-form-list"), O = A("el-button"), p = A("el-form-item"), i = A("el-row");
       return T(), R(i, {
         class: oe(["d-form-list-row", $(h)]),
-        gutter: 20
+        gutter: e.gutter
       }, {
         default: X(() => {
           var g;
@@ -4016,6 +4020,7 @@ const fo = G({
                             formModelRef: e.formModelRef,
                             formList: _ == null ? void 0 : _.children,
                             formRowClass: _ == null ? void 0 : _.formRowClass,
+                            gutter: e.gutter,
                             onOnChange: o[3] || (o[3] = (S) => c("onChange", S)),
                             onSubmit: o[4] || (o[4] = (S) => c("submit", { ...S })),
                             onOnInputSearch: o[5] || (o[5] = (S) => c("onInputSearch", S)),
@@ -4029,7 +4034,7 @@ const fo = G({
                                 }, void 0, !0)
                               ])
                             }))
-                          ]), 1032, ["prop", "formModelRef", "formList", "formRowClass"])
+                          ]), 1032, ["prop", "formModelRef", "formList", "formRowClass", "gutter"])
                         ]),
                         _: 2
                       }, 1032, ["span", "class", "style"])
@@ -4070,10 +4075,10 @@ const fo = G({
           ];
         }),
         _: 3
-      }, 8, ["class"]);
+      }, 8, ["class", "gutter"]);
     };
   }
-}), ho = /* @__PURE__ */ de(po, [["__scopeId", "data-v-ebd8879c"]]), vo = te(ho), yo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), ho = /* @__PURE__ */ de(po, [["__scopeId", "data-v-8271a9c4"]]), vo = te(ho), yo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: vo
 }, Symbol.toStringTag, { value: "Module" }));
@@ -4624,6 +4629,10 @@ const Do = G({
     },
     isHiddenItemMarginBottom: {
       type: [Boolean]
+    },
+    gutter: {
+      type: [Number],
+      default: 20
     }
   },
   emits: ["onClick", "onFormItemButtonClick", "onChange", "onInputSearch"],
@@ -4779,6 +4788,7 @@ const Do = G({
             formList: $(y),
             buttonList: e.buttonList,
             isButtonsRow: e.isButtonsRow,
+            gutter: e.gutter,
             onOnChange: g[0] || (g[0] = (w) => c("onChange", w)),
             onSubmit: g[1] || (g[1] = (w) => c("submit", { ...w })),
             onOnFormItemButtonClick: g[2] || (g[2] = (w) => c("onFormItemButtonClick", w)),
@@ -4792,13 +4802,13 @@ const Do = G({
                 }, void 0, !0)
               ])
             }))
-          ]), 1032, ["formModelRef", "formList", "buttonList", "isButtonsRow"])
+          ]), 1032, ["formModelRef", "formList", "buttonList", "isButtonsRow", "gutter"])
         ]),
         _: 3
       }, 8, ["label-position", "model", "class", "label-width", "status-icon", "scroll-to-error", "rules"]);
     };
   }
-}), Eo = /* @__PURE__ */ de(jo, [["__scopeId", "data-v-d92be7a6"]]), Fo = te(Eo), Bo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Eo = /* @__PURE__ */ de(jo, [["__scopeId", "data-v-92d130bb"]]), Fo = te(Eo), Bo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Fo
 }, Symbol.toStringTag, { value: "Module" }));
