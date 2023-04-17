@@ -26,37 +26,37 @@
               <slot :name="item.name" :data="data.data"></slot>
             </template>
           </d-el-form-item>
+          <template v-if="item?.children?.length > 0">
+            <template v-if="item?.isChildrenBr">
+              <el-col :span="24"></el-col>
+            </template>
+            <el-col
+                class="d-form-list-children-col"
+                :span="item?.childrenSpan?item?.childrenSpan:24"
+                :class="formListChildrenColClassCOM(item,index)"
+                :style="formListChildrenColStyleCOM(item,index)"
+
+            >
+              <d-el-form-list
+                  :prop="[...prop,index,'children']"
+                  :formModelRef="formModelRef"
+                  :formList="item?.children"
+                  :formRowClass="item?.formRowClass"
+                  @onChange="(data) => goTo('onChange', data)"
+                  @submit="(data)=>goTo('submit', {...data})"
+                  @onInputSearch="data=>goTo('onInputSearch',data)"
+                  @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
+              >
+
+                <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
+                  <slot :name="item.name" :data="data.data"></slot>
+                </template>
+              </d-el-form-list>
+
+            </el-col>
+          </template>
 
         </el-col>
-        <template v-if="item?.children?.length > 0">
-          <template v-if="item?.isChildrenBr">
-            <el-col :span="24"></el-col>
-          </template>
-          <el-col
-              class="d-form-list-children-col"
-              :span="item?.childrenSpan?item?.childrenSpan:24"
-              :class="formListChildrenColClassCOM(item,index)"
-              :style="formListChildrenColStyleCOM(item,index)"
-
-          >
-            <d-el-form-list
-                :prop="[...prop,index,'children']"
-                :formModelRef="formModelRef"
-                :formList="item?.children"
-                :formRowClass="item?.formRowClass"
-                @onChange="(data) => goTo('onChange', data)"
-                @submit="(data)=>goTo('submit', {...data})"
-                @onInputSearch="data=>goTo('onInputSearch',data)"
-                @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
-            >
-
-              <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
-                <slot :name="item.name" :data="data.data"></slot>
-              </template>
-            </d-el-form-list>
-
-          </el-col>
-        </template>
 
 
       </template>
