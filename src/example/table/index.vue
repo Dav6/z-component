@@ -132,7 +132,7 @@ const settingsConfig = ref({
 })
 
 
-const isShowExpand = ref(false);
+const isShowExpand = ref(true);
 const isShowSelection = ref(true)
 const isShowIndex = ref(true)
 const isShowSettings = ref(true)

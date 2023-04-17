@@ -253,8 +253,8 @@ const keyListCOM = computed(() => {
 
 
   _keyList = [
-    _tableExpand,
     _tableSelection,
+    _tableExpand,
     _tableIndex,
     ..._keyList,
     _tableSettings
@@ -298,7 +298,7 @@ const headerRowClassNameFN = (data)=>{
 
 const headerCellStyleFN = (data)=>{
   const { row, column, rowIndex, columnIndex } = data;
-  // console.log('row,',row, )
+  console.log('row,',row, )
 
   let _style = {}
 
@@ -307,6 +307,8 @@ const headerCellStyleFN = (data)=>{
   const _isShowSelection = props.isShowSelection;
   if(_isShowSelection){
     if(_sectionData?.selection?.length>0){
+
+      const _sectionIndex =  row?.findIndex(item=>item.type == "selection")
       // 第一列为选项框 和 标题这一行
       if (row[0]?.type == 'selection' && rowIndex == 0 ) {
         // console.log('row,',row, )
@@ -322,6 +324,15 @@ const headerCellStyleFN = (data)=>{
             display:'none',
           }
         }
+        if(columnIndex == 1){
+          _style = {
+            ..._style,
+            position:'sticky',
+            left:'60px',
+          }
+        }
+
+
         row[1].colSpan = row.length - 1
       }
     }else{

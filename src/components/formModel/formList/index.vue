@@ -26,8 +26,8 @@
               <slot :name="item.name" :data="data.data"></slot>
             </template>
           </d-el-form-item>
-        </el-col>
 
+        </el-col>
         <template v-if="item?.children?.length > 0">
           <template v-if="item?.isChildrenBr">
             <el-col :span="24"></el-col>
@@ -57,6 +57,7 @@
 
           </el-col>
         </template>
+
 
       </template>
     </template>

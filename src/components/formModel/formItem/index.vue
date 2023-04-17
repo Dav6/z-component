@@ -202,7 +202,6 @@ const props = defineProps({
   item: {
     type: [Object],
     default: {
-      ownSpan: 12,
       childrenSpan: 12,
       clearable: false,
       isText: false,

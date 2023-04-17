@@ -8,7 +8,7 @@
 
 <template>
   <div class="form-model">
-    <d-el-radio v-model="test" :item="{option:[{value:1,label:'lable'}]}"></d-el-radio>
+    <d-el-radio v-model="test" :data="{option:[{value:1,label:'lable'}]}"></d-el-radio>
 
     <d-form-model
 
@@ -808,7 +808,6 @@ const formList = ref([
     name: "层级1", key: "layer1", value: "", placeholder: "层级1", disabled: false, formType: "",
     rules: [{required: true, message: "", trigger: "blur"}],
     span: 24,
-    ownSpan: 24,
     width: "110px",
     childrenWidth: " calc(100% - 110px)",
     isChildWidthFill: false,
@@ -818,7 +817,7 @@ const formList = ref([
         labelWidth: '0em',
         name: "", key: "layer11", value: "", placeholder: "层级1-1", disabled: false, formType: "", span: 24,
         // rules: [{required: true, message: "请输入", trigger: "blur"}],
-        ownSpan: 0,
+        // ownSpan: 0,
         childrenSpan: 24,
         children: [
 
