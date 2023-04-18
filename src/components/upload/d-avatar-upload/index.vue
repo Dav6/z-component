@@ -232,9 +232,9 @@ const _file = ref({
   url: defaultImage,
   key: "",
 })
-
+// section v-model value处理
 watch(() => props.modelValue, (value, preValue) => {
-      console.log('watch-props.modelValue', value, preValue);
+      // console.log('watch-props.modelValue', value, preValue);
       let _value = value || {}
       fileList.value = [];
       if (_value?.url) {
@@ -257,9 +257,12 @@ watch(() => props.modelValue, (value, preValue) => {
         _file.value.url = fileList.value[0]?.url
         _file.value.key = fileList.value[0]?.key
       }
-      console.log('_file',_file.value)
 
-
+      // 只需要一张 ，防止上传第二张 ，清空列表
+      fileList.value = []
+      // console.log('_file',_file.value)
+      // console.log('avatarUploadRef.value',avatarUploadRef.value)
+      // avatarUploadRef.value?.clearFiles([])
       //console.log('oldValue', oldValue);
       // defaultActive = newValue.path;
 
@@ -271,7 +274,7 @@ const beforeUpload = async (file) => {
   console.log(file);
 
 
-  console.log(props.accept);
+  // console.log(props.accept);
 
   //
   // let dat = props.accept.match(/^(.*)(\.)(.{1,8})$/)[3]
@@ -422,7 +425,11 @@ const handlePictureCardPreview = (file) => {
 const handleOnChange = (fileList) => {
   emits('update:modelValue', fileList)
   emits('change', fileList);
+
+
 }
+
+
 
 
 const onExceed = (file) => {
@@ -445,7 +452,7 @@ const selectFile = () => {
   // handleStart
 
 
-  console.log(avatarUploadRef?.value?.handleStart)
+  // console.log(avatarUploadRef?.value?.handleStart)
 }
 
 
