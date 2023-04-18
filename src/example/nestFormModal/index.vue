@@ -27,7 +27,6 @@
         <div style="white-space: pre-wrap">
           <code>
             {{ imagePre.data.value }}
-
           </code>
 
         </div>

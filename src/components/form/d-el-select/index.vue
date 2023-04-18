@@ -21,7 +21,7 @@
     v-bind="$attrs"
 
   >
-    <el-option v-for="(oItem, oIndex) in data?.options" :key="oIndex" :label="oItem.label"
+    <el-option v-for="(oItem, oIndex) in optionsCOM" :key="oIndex" :label="oItem.label"
                :disabled="oItem.disabled" :value="oItem.value"/>
 
   </el-select>
@@ -41,6 +41,9 @@ const props = defineProps({
   },
   data: {
     type: [Object],
+  },
+  options:{
+    type:[Array]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
@@ -62,7 +65,17 @@ const placeholderCOM = computed(() => {
   }
 })
 
-
+const optionsCOM = computed(() => {
+  let _options =  [];
+  if(props.options?.length > 0){
+    _options = props.options
+  }
+  //  最终取 data 里的options
+  if(props.data?.options?.length > 0){
+    _options = props.data?.options
+  }
+  return _options
+})
 
 
 

@@ -40,6 +40,13 @@
             :class="componentClassCOM"
             :is="formTypeKeyMap[item.formType]"
             v-model="item.value"
+            :uploadFileAPI="item?.uploadFileAPI || uploadFileAPI"
+            :size="item?.size"
+            :borderRadius="item?.borderRadius"
+            :buttonName="item?.buttonName"
+            :accept="item?.accept"
+            :disabled="item?.disabled"
+            :options="optionsCOM"
             :data="item"
             @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
 
@@ -82,7 +89,6 @@
       <template v-if="item.formType == 'imageVideoUpload'">
         <Component
             :class="item.class"
-
             :is="formTypeKeyMap[item.formType]"
             v-model="item.value"
             :item="item"
@@ -227,6 +233,13 @@ const props = defineProps({
   },
   formList: {
     type: [Array]
+  },
+
+  uploadFileAPI:{
+    type:[Function]
+  },
+  options:{
+    type:[Object,Array]
   }
 
 });
@@ -246,6 +259,7 @@ const formTypeKeyMap = ref({
   timePicker: 'd-el-time-picker',
   datePicker: 'd-el-date-picker',
   imageVideoUpload: 'd-el-image-video-upload',
+  avatarUpload:"d-avatar-upload",
   tag: 'd-el-tag',
   divider: 'd-el-divider',
   cron: 'd-cron',
@@ -259,6 +273,23 @@ if (props?.item) {
   let _item = props.item;
   _item.prop = [...props.prop, 'value']
 }
+
+const optionsCOM = computed(()=>{
+  let _optionsData = props.options
+  let _options = undefined;
+  let _data = props.item;
+  let _key = _data?.key;
+  if(Array.isArray(_optionsData) && _optionsData?.length>=0){
+    _options = _optionsData
+  }
+  if(_optionsData?.[_key] && _optionsData?.[_key]?.length>=0){
+    _options = _optionsData?.[_key]
+  }
+  // console.log('_options',_options)
+
+  return _options;
+})
+
 
 
 //  section placeholderCOM

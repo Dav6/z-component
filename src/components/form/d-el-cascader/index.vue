@@ -10,7 +10,7 @@
   <el-cascader
     class="form-cascader"
     v-model="modelValue"
-    :options="data?.options"
+    :options="optionsCOM"
     :size="data?.size"
     :placeholder="placeholderCOM(data)"
     :disabled="data?.disabled"
@@ -48,6 +48,9 @@ const props = defineProps({
     type: [Object],
     default:{},
   },
+  options:{
+    type:[Array]
+  }
   
 });
 //const emits = defineEmits(["update:modelValue"]);
@@ -69,6 +72,19 @@ const placeholderCOM = computed(() => {
     _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
+})
+
+const optionsCOM = computed(() => {
+  let _options =  [];
+  if(props.options?.length > 0){
+    _options = props.options
+  }
+  if(props.data?.options?.length > 0){
+    _options = props.data?.options
+  }
+
+
+  return _options
 })
 
 

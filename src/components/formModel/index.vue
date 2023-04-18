@@ -27,6 +27,8 @@
         :buttonList="buttonList"
         :isButtonsRow="isButtonsRow"
         :gutter="gutter"
+        :options="options"
+        :uploadFileAPI="uploadFileAPI"
         @onChange="(data) => goTo('onChange', data)"
         @submit="(data)=>goTo('submit', {...data})"
         @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
@@ -37,9 +39,7 @@
           v-for="(item, index) in slotListCOM()"
           :key="index"
           #[item.name]="data">
-        <slot
-            :name="item.name"
-            :data="data.data"></slot>
+        <slot  :name="item.name" :data="data.data"></slot>
       </template>
 
     </d-el-form-list>
@@ -132,6 +132,12 @@ const props = defineProps({
     type:[Number],
     default:20,
   },
+  uploadFileAPI:{
+    type:[Function]
+  },
+  options:{
+    type:[Object,Array]
+  }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange','onInputSearch']);

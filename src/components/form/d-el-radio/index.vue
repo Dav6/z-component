@@ -11,19 +11,22 @@
 <template>
   <el-radio-group
       class="d-radio-group-default"
-    v-model="modelValue"
-    :disabled="data?.disabled"
-    :min="data?.min"
-    :max="data?.max"
+      v-model="modelValue"
+      :disabled="data?.disabled"
+      :min="data?.min"
+      :max="data?.max"
       v-bind="$attrs"
 
   >
     <Component
-      :is="radioComponentCOM"
-      v-for="(oItem, oIndex) in data?.options" :key="oIndex" :label="oItem.value"
-      :border="data?.isRadioBorder"
+        :is="radioComponentCOM"
+        v-for="(oItem, oIndex) in optionsCOM" :key="oIndex" :label="oItem.value"
+        :border="data?.isRadioBorder"
     >
-      <d-el-tooltip :content="oItem.label" placement="top" :isShowByContent="isShowByContentCOM"> {{ oItem.label }}</d-el-tooltip>
+      <d-el-tooltip :content="oItem.label" placement="top" :isShowByContent="isShowByContentCOM"> {{
+          oItem.label
+        }}
+      </d-el-tooltip>
 
     </Component>
 
@@ -40,17 +43,35 @@ import {ref, reactive, computed, watch} from "vue"
 const props = defineProps({
   // 配合emits v-model
   modelValue: {
-    type: [String, Boolean,Number,Object,Array],
+    type: [String, Boolean, Number, Object, Array],
   },
   data: {
     type: [Object],
+  },
+  options: {
+    type: [Array]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(["update:modelValue"]);
 const modelValue = computed({ // 重新定义
-  get: () => props.modelValue ,
-  set: (value) =>  emits("update:modelValue", value),
+  get: () => props.modelValue,
+  set: (value) => emits("update:modelValue", value),
+})
+
+
+const optionsCOM = computed(() => {
+  let _options = [];
+  if (props.options?.length > 0) {
+    _options = props.options
+  }
+  //  最终取 data 里的options
+  if (props.data?.options?.length > 0) {
+    _options = props.data?.options
+  }
+
+
+  return _options
 })
 
 
@@ -70,16 +91,16 @@ const placeholderCOM = computed(() => {
 
 const radioComponentCOM = computed(() => {
   let _component = 'el-radio'
-  if(props.data?.isRadioButton){
+  if (props.data?.isRadioButton) {
     _component = 'el-radio-button'
-  }else{
+  } else {
 
   }
 
   return _component;
 })
 
-const isShowByContentCOM = computed(()=>{
+const isShowByContentCOM = computed(() => {
   let _isOptionLabelTooltip = true;
   let _data = props.data;
   let _optionLabelWidth = _data?.optionLabelWidth;
@@ -123,7 +144,6 @@ const labelWidthCOM = computed(() => {
 
 
 })
-
 
 
 //watch(

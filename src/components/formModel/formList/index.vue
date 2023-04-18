@@ -18,6 +18,8 @@
               :formModelRef="formModelRef" :item="item" :index="index" :prop="[...prop,index]"
               :formList="_formList"
               :buttonProp="[...prop,index]"
+              :uploadFileAPI="uploadFileAPI"
+              :options="options"
               :onChangeProp="[...prop,index]" @onChange="(data) => goTo('onChange', data)"
               @onFormItemButtonClick="(data) => { goTo('onFormItemButtonClick', data) }"
               @onInputSearch="data=>goTo('onInputSearch',data)"
@@ -43,6 +45,8 @@
                   :formList="item?.children"
                   :formRowClass="item?.formRowClass"
                   :gutter="gutter"
+                  :uploadFileAPI="uploadFileAPI"
+                  :options="options"
                   @onChange="(data) => goTo('onChange', data)"
                   @submit="(data)=>goTo('submit', {...data})"
                   @onInputSearch="data=>goTo('onInputSearch',data)"
@@ -131,6 +135,12 @@ const props = defineProps({
   },
   formRowClass:{
     type: [Array,Object,String]
+  },
+  uploadFileAPI:{
+    type:[Function]
+  },
+  options:{
+    type:[Object,Array]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);

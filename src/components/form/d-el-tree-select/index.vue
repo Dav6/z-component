@@ -10,7 +10,7 @@
   <el-tree-select
     class="form-tree-select"
     v-model="modelValue"
-    :data="data?.options?.length>0?data?.options:[]"
+    :data="optionsCOM"
     :multiple="data?.multiple"
     :collapse-tags="data?.collapseTags"
     :collapse-tags-tooltip="data?.collapseTagsTooltip"
@@ -46,6 +46,9 @@ const props = defineProps({
   data: {
     type: [Object],
     default:{},
+  },
+  options: {
+    type: [Array]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
@@ -65,6 +68,19 @@ const placeholderCOM = computed(() => {
     _placeholder = `${_placeholderPrefix}${_name}`
     return _placeholder;
   }
+})
+const optionsCOM = computed(() => {
+  let _options = [];
+  if (props.options?.length > 0) {
+    _options = props.options
+  }
+  //  最终取 data 里的options
+  if (props.data?.options?.length > 0) {
+    _options = props.data?.options
+  }
+
+
+  return _options
 })
 
 

@@ -18,6 +18,7 @@
         :formList="formList"
         :buttonList="buttonList"
         :rules="rules"
+        :options="mapOptions"
         :isButtonsRow="true"
         labelPosition="left"
         @onclick="(data)=>goTo('onclick', data)"
@@ -109,7 +110,7 @@ const rules = ref({
     {
       validator: (rule, value, callback) => {
         console.log('1.value', value)
-        if(value<50){
+        if (value < 50) {
           return callback(new Error('值要大于50'))
         }
 
@@ -119,7 +120,166 @@ const rules = ref({
   ]
 })
 
+
+const options = ref({})
+
+const uploadFileAPI = (file) => {
+  return new Promise((resolve, reject) => {
+    console.log(file)
+  })
+}
+
+
+let mapOptions = {
+  radioOptions:[
+    {
+      label: "选项1",
+      value: 1,
+    },
+    {
+      label: "选项2",
+      value: 2,
+    },
+  ],
+  test11111:[
+    {
+      label: "选项1",
+      value: 1,
+    },
+    {
+      label: "选项2",
+      value: 2,
+    },
+  ],
+  checkboxText:[
+    {
+      label: "选项1",
+      value: 1,
+    },
+    {
+      label: "选项2",
+      value: 2,
+    },
+  ],
+  cascaderOptions:[
+    {
+      label: "选项cascader1",
+      value: 1,
+      children: [
+        {
+          label: "选项1",
+          value: 1.1,
+          children: []
+        },
+        {
+          label: "选项2",
+          value: 1.2,
+        },
+        {
+          label: "选项3",
+          value: 1.3,
+        },
+        {
+          label: "选项4",
+          value: 1.4,
+        },
+      ]
+
+    },
+    {
+      label: "选项cascader2",
+      value: 2,
+    },
+  ]
+}
+
+ mapOptions = [
+  {
+    label: "选项1全局数组",
+    value: 1,
+  },
+  {
+    label: "选项2全局数组",
+    value: 2,
+  },
+]
+
 const formList = ref([
+  {
+    name: "图片上传2",
+    key: "imageAvatar",
+    formClass: "form-image-item",
+    // limit: 1,
+    disabled: false,
+    formType: "avatarUpload",
+    size:"104 80",
+    borderRadius:"8",
+    buttonName:"上传车辆照片",
+    span: 20,
+    value: [],
+    accept: "image/jpeg,image/jpg",
+    previewTeleported: true,
+    rules: [{required: true, message: "请上传图片", trigger: "blur"}],
+    // uploadFileAPI:(file)=>{
+    //   return new Promise((resolve, reject) => {
+    //     console.log(file)
+    //   })
+    // }
+  },
+  {
+    name: "图片上传1",
+    key: "imageAvatar",
+    formClass: "form-image-item",
+    // limit: 1,
+    buttonName:"上传人员照片",
+    disabled: false,
+    formType: "avatarUpload",
+    class: "testClassddd",
+    span: 20,
+    value: [],
+    accept: ['image/jpeg','image/jpg'].join(','),
+    previewTeleported: true,
+    rules: [{required: true, message: "请上传图片", trigger: "blur"}],
+    // uploadFileAPI:(file)=>{
+    //   return new Promise((resolve, reject) => {
+    //     console.log(file)
+    //   })
+    // }
+  },
+  {
+    name: "选项值测试",
+    key: "test11111",
+    value: [],
+    placeholder: "请选择",
+    disabled: false,
+    formType: "select",
+    span: 12,
+    rules: [{required: true, message: "请选择", trigger: "blur"}],
+    multiple: true,
+    collapseTags: true,
+    collapseTagsTooltip: true,
+
+    options: [
+      // {
+      //   label: "选项1",
+      //   value: 1,
+      // },
+      // {
+      //   label: "选项2",
+      //   value: 2,
+      // },
+      // {
+      //   label: "选项3",
+      //   value: 3,
+      // },
+      // {
+      //   label: "选项4",
+      //   value: 4,
+      // },
+    ]
+
+  },
+
   {
     name: "带搜索",
     key: "deviceName",
@@ -131,7 +291,7 @@ const formList = ref([
     span: 12,
 
     value: "",
-    isSearch:true,
+    isSearch: true,
   },
   {
     name: "滑块", key: "slider", value: "6", min: 1, max: 10, placeholder: "数字", disabled: false,
@@ -254,6 +414,7 @@ const formList = ref([
     formType: "divider",
     span: 24,
   },
+
   {
     name: "多选项",
     key: "checkbox",
@@ -283,7 +444,18 @@ const formList = ref([
       },
     ]
   },
-
+  {
+    name: "多选项",
+    key: "checkboxText",
+    value: '',
+    placeholder: "请选择选项",
+    disabled: false,
+    formType: "checkbox",
+    span: 6,
+    rules: [{required: true, message: "请选择选项", trigger: "blur"}],
+    optionLabelWidth: "3em",
+    options: [ ]
+  },
   {
     formType: "divider",
     span: 24,
@@ -385,8 +557,8 @@ const formList = ref([
     span: 24,
   },
   {
-    name: "单选项",
-    key: "radio",
+    name: "单选项Map",
+    key: "radioOptions",
     value: '',
     placeholder: "请选择选项",
     disabled: false,
@@ -394,24 +566,7 @@ const formList = ref([
     isRadioButton: true,
     span: 12,
     rules: [{required: true, message: "请选择选项", trigger: "blur"}],
-    options: [
-      {
-        label: "选项1",
-        value: 1,
-      },
-      {
-        label: "选项2",
-        value: 2,
-      },
-      {
-        label: "选项3",
-        value: 3,
-      },
-      {
-        label: "选项4",
-        value: 4,
-      },
-    ]
+    options: [ ]
   },
   {
     formType: "divider",
@@ -495,7 +650,7 @@ const formList = ref([
     placeholder: "请选择",
     disabled: false,
     formType: "select",
-    span: 5,
+    span: 12,
     rules: [{required: true, message: "请选择", trigger: "blur"}],
     multiple: true,
     collapseTags: true,
@@ -582,8 +737,8 @@ const formList = ref([
     span: 24,
   },
   {
-    name: "选项Tree",
-    key: "options",
+    name: "选项Tree全局",
+    key: "treeSelectMap",
     value: [],
     placeholder: "请选择",
     disabled: false,
@@ -595,51 +750,14 @@ const formList = ref([
     collapseTagsTooltip: true,
     showCheckbox: true,
     clearable: true,
-    options: [
-      {
-        label: "选项1",
-        value: 1,
-        children: [
-          {
-            label: "选项1",
-            value: 1.1,
-            children: []
-          },
-          {
-            label: "选项2",
-            value: 1.2,
-          },
-          {
-            label: "选项3",
-            value: 1.3,
-          },
-          {
-            label: "选项4",
-            value: 1.4,
-          },
-        ]
-      },
-      {
-        label: "选项2",
-        value: 2,
-      },
-      {
-        label: "选项3",
-        value: 3,
-      },
-      {
-        label: "选项4",
-        value: 4,
-      },
-    ]
   },
   {
     formType: "divider",
     span: 24,
   },
   {
-    name: "选项",
-    key: "options",
+    name: "选项cascader",
+    key: "cascaderOptions",
     value: [],
     placeholder: "请选择",
     disabled: false,
@@ -647,43 +765,6 @@ const formList = ref([
     span: 12,
     rules: [{required: true, message: "请选择", trigger: "blur"}],
     clearable: true,
-    options: [
-      {
-        label: "选项1",
-        value: 1,
-        children: [
-          {
-            label: "选项1",
-            value: 1.1,
-            children: []
-          },
-          {
-            label: "选项2",
-            value: 1.2,
-          },
-          {
-            label: "选项3",
-            value: 1.3,
-          },
-          {
-            label: "选项4",
-            value: 1.4,
-          },
-        ]
-      },
-      {
-        label: "选项2",
-        value: 2,
-      },
-      {
-        label: "选项3",
-        value: 3,
-      },
-      {
-        label: "选项4",
-        value: 4,
-      },
-    ]
 
   },
   {formType: "divider", span: 24},
@@ -799,217 +880,6 @@ const formList = ref([
   },
 
 
-  {
-    labelWidth: '0',
-    formType: "divider",
-    value: "复杂嵌套1"
-  },
-  {
-    name: "层级1", key: "layer1", value: "", placeholder: "层级1", disabled: false, formType: "",
-    rules: [{required: true, message: "", trigger: "blur"}],
-    span: 24,
-    width: "110px",
-    childrenWidth: " calc(100% - 110px)",
-    isChildWidthFill: false,
-    childrenSpan: 24,
-    children: [
-      {
-        labelWidth: '0em',
-        name: "", key: "layer11", value: "", placeholder: "层级1-1", disabled: false, formType: "", span: 24,
-        // rules: [{required: true, message: "请输入", trigger: "blur"}],
-        // ownSpan: 0,
-        childrenSpan: 24,
-        children: [
-
-          {
-            labelWidth: '8em',
-            name: "层级1-1-1",
-            key: "layer111",
-            value: "",
-            placeholder: "层级1-1-1",
-            disabled: false,
-            formType: "input",
-            span: 12,
-            width: 300,
-            rules: [{required: true, message: "请输入", trigger: "blur"}],
-          },
-          {
-            marginBottom: 0,
-          },
-          {
-            labelWidth: '8em',
-            name: "层级1-1-2",
-            key: "layer112",
-            value: "",
-            placeholder: "层级1-1-2",
-            disabled: false,
-            formType: "input",
-            span: 12,
-            width: 200,
-
-            rules: [{required: true, message: "请输入", trigger: "blur"}],
-          },
-        ]
-      },
-      {
-        labelWidth: '8em',
-        // width: "600",
-        name: "层级1-2-66666",
-        key: "layer12",
-        value: "",
-        placeholder: "层级1-2",
-        disabled: false,
-        formType: "input",
-        span: 12,
-        rules: [{required: true, message: "请输入", trigger: "blur"}],
-        childrenSpan: 24,
-        isChildrenBr: true,
-        formRowClass: "formRowClassTest",
-
-        children: [
-          {
-            labelWidth: '8em',
-            name: "层级1-2-1",
-            key: "layer111",
-            value: "",
-            placeholder: "层级1-2-1",
-            disabled: false,
-            formType: "input",
-            span: 8,
-            rules: [{required: true, message: "请输入", trigger: "blur"}],
-          },
-          {
-            labelWidth: '8em',
-            name: "层级1-2-1",
-            key: "layer111",
-            value: "",
-            placeholder: "层级1-2-1",
-            disabled: false,
-            formType: "input",
-            span: 8,
-            rules: [{required: true, message: "请输入", trigger: "blur"}],
-          },
-          {
-            marginBottom: 0,
-          },
-          {
-            labelWidth: '8em',
-            name: "层级1-2-2",
-            key: "layer112",
-            value: "",
-            placeholder: "层级1-1-2",
-            disabled: false,
-            formType: "input",
-            span: 6,
-            rules: [{required: true, message: "请输入", trigger: "blur"}],
-          },
-        ]
-
-      },
-    ]
-  },
-
-  {
-    labelWidth: '0',
-    formType: "divider",
-    value: "复杂嵌套2"
-  },
-  {
-    name: "层级1", key: "layer1", value: "", placeholder: "层级1", disabled: false, formType: "input", span: 12,
-    rules: [{required: true, message: "请输入", trigger: "blur"}],
-    children: [
-
-      {
-        labelWidth: '8em',
-        value: "1123",
-        name: "层级1-1", key: "layer11", placeholder: "层级1-1", disabled: false, formType: "input",
-        span: 12,
-        ownSpan: 12,
-        childrenSpan: 18,
-        isChildrenBr: true,
-        // width:800,
-        rules: [{required: true, message: "请输入", trigger: "blur"}],
-        children: [
-
-          {
-            labelWidth: '8em',
-            name: "层级1-1-1",
-            key: "layer111",
-            value: "",
-            placeholder: "层级1-1-1",
-            disabled: false,
-            formType: "input",
-            span: 8,
-
-            rules: [{required: true, message: "请输入", trigger: "blur"}],
-          },
-          {
-            labelWidth: '8em',
-            name: "层级1-1-2",
-            key: "layer111",
-            value: "",
-            placeholder: "层级1-1-2",
-            disabled: false,
-            formType: "input",
-            span: 8,
-
-            rules: [{required: true, message: "请输入", trigger: "blur"}],
-          },
-          {
-            // marginBottom:0,
-          },
-          {
-            name: "层级1-1-3",
-            labelWidth: "8em",
-            key: "options",
-            value: [],
-            placeholder: "请选择层级1-1-3",
-            disabled: false,
-            formType: "select",
-            span: 24,
-            width: 200,
-
-            rules: [{required: true, message: "请选择层级1-1-3", trigger: "blur"}],
-            multiple: true,
-            collapseTags: true,
-            collapseTagsTooltip: true,
-            clearable: true,
-            options: [
-              {
-                label: "选项1",
-                value: 1,
-              },
-              {
-                label: "选项2",
-                value: 2,
-              },
-              {
-                label: "选项3",
-                value: 3,
-              },
-              {
-                label: "选项4",
-                value: 4,
-              },
-            ]
-
-          },
-
-        ]
-      },
-      {
-        labelWidth: '8em',
-        name: "层级1-2",
-        key: "layer12",
-        value: "",
-        placeholder: "层级1-2",
-        disabled: false,
-        formType: "input",
-        span: 24,
-        rules: [{required: true, message: "请输入", trigger: "blur"}],
-      },
-    ]
-  },
   {
     labelWidth: '0',
     formType: "divider",
@@ -1155,8 +1025,8 @@ const formList = ref([
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {
   console.log('example-formModel', key, data, formList.value);
-  if(key == 'onInputSearch'){
-    console.log('onInputSearch',data);
+  if (key == 'onInputSearch') {
+    console.log('onInputSearch', data);
   }
 
   if (key == 'cancel') {

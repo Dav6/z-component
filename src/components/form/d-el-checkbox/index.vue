@@ -19,7 +19,7 @@
   >
     <Component
         :is="checkboxComponentCOM"
-        v-for="(oItem, oIndex) in data?.options" :key="oIndex" :label="oItem.value"
+        v-for="(oItem, oIndex) in  optionsCOM" :key="oIndex" :label="oItem.value"
         :border="data?.isRadioBorder"
     >
       <d-el-tooltip :content="oItem.label" placement="top" :isShowByContent="isShowByContentCOM"> {{ oItem.label }}</d-el-tooltip>
@@ -43,6 +43,9 @@ const props = defineProps({
   data: {
     type: [Object],
   },
+  options:{
+    type:[Array]
+  }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(["update:modelValue"]);
@@ -61,6 +64,22 @@ const classCOM = computed(() => {
 
   return _class;
 })
+
+const optionsCOM = computed(() => {
+  let _options =  [];
+  if(props.options?.length > 0){
+    _options = props.options
+  }
+  //  最终取 data 里的options
+  if(props.data?.options?.length > 0){
+    _options = props.data?.options
+  }
+
+
+  return _options
+})
+
+
 
 // data?.isOptionLabelTooltip
 const isShowByContentCOM = computed(()=>{
