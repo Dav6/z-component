@@ -1,4 +1,4 @@
-import './assets/index.710dcd41.css';
+import './assets/index.b21b9f7e.css';
 import { defineComponent as K, inject as Ie, ref as N, resolveComponent as L, openBlock as D, createBlock as U, mergeProps as re, unref as k, withCtx as X, renderSlot as ie, computed as T, watch as fe, createElementBlock as Y, createElementVNode as F, createVNode as $, normalizeClass as le, toDisplayString as W, getCurrentInstance as Pe, isRef as ee, markRaw as we, createTextVNode as ne, Fragment as Q, renderList as ae, resolveDynamicComponent as pe, useSlots as ge, normalizeProps as Qe, guardReactiveProps as et, createSlots as ve, normalizeStyle as $e, onMounted as ut, useCssVars as Me, createCommentVNode as me, withModifiers as st } from "vue";
 const te = (e) => {
   let g = e, n = g == null ? void 0 : g.name;
@@ -5556,7 +5556,7 @@ const aa = K({
       };
       if (y) {
         const d = await y(o.file);
-        (d == null ? void 0 : d.success) == !0 && (f.url = d == null ? void 0 : d.url, f.key = d == null ? void 0 : d.key);
+        f.url = (d == null ? void 0 : d.url) || "", f.key = (d == null ? void 0 : d.key) || "";
       } else {
         const d = await r(o.file);
         f.url = d;
@@ -5620,7 +5620,7 @@ const aa = K({
       }, 8, ["disabled", "class", "accept", "file-list", "limit"]);
     };
   }
-}), ia = /* @__PURE__ */ ue(ra, [["__scopeId", "data-v-50d2a73c"]]), ua = te(ia), sa = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), ia = /* @__PURE__ */ ue(ra, [["__scopeId", "data-v-7150b3e2"]]), ua = te(ia), sa = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ua
 }, Symbol.toStringTag, { value: "Module" }));
