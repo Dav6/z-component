@@ -1,9 +1,11 @@
 <!--
-  author: 戴伟
-  date: 011 2022/07/11 10:28:18
-  file: src\components\upload\fileUpload.vue
-  des:
-    do.....
+  @Author: 戴伟
+  @Date: 2023-04-20 14:18:58
+  @FilePath: src\components\upload\d-avatar-upload\index.vue  
+  @LastEditTime: ''
+  @LastEditors: ''
+  @Description: 
+        do.....
 -->
 
 <template>
@@ -373,8 +375,8 @@ const uploadFile = async (params) => {
     const _res = await uploadFileAPI(params.file);
     // console.log(res);
     if(_res?.success == true){
-      _fileData.url = _res?.data?.url;
-      _fileData.key = _res?.data?.key;
+      _fileData.url = _res?.url;
+      _fileData.key = _res?.key;
     }
 
 
