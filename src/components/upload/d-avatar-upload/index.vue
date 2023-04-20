@@ -372,6 +372,12 @@ const uploadFile = async (params) => {
   if (uploadFileAPI) {
     const _res = await uploadFileAPI(params.file);
     // console.log(res);
+    if(_res?.success == true){
+      _fileData.url = _res?.data?.url;
+      _fileData.key = _res?.data?.key;
+    }
+
+
   } else {
     const _res = await blobToBase64(params.file);
     // console.log('-----res', _res)
