@@ -1,4 +1,4 @@
-import './assets/index.b21b9f7e.css';
+import './assets/index.20f9c71f.css';
 import { defineComponent as K, inject as Xe, ref as N, resolveComponent as L, openBlock as D, createBlock as U, mergeProps as re, unref as k, withCtx as X, renderSlot as ie, computed as T, watch as fe, createElementBlock as Y, createElementVNode as F, createVNode as $, normalizeClass as le, toDisplayString as W, getCurrentInstance as Pe, isRef as ee, markRaw as we, createTextVNode as ne, Fragment as Q, renderList as ae, resolveDynamicComponent as pe, useSlots as ge, normalizeProps as Ke, guardReactiveProps as Qe, createSlots as ve, normalizeStyle as $e, onMounted as rt, useCssVars as Me, createCommentVNode as me, withModifiers as it } from "vue";
 const te = (e) => {
   let g = e, n = g == null ? void 0 : g.name;
@@ -3671,8 +3671,8 @@ const ro = {
   setup(e, { emit: g }) {
     const n = e;
     Me((t) => ({
-      "0e51a566": e.item.marginBottom,
-      f1b5bb42: e.item.labelWidth
+      "4b057b46": e.item.marginBottom,
+      "6094f03f": e.item.labelWidth
     }));
     let i = ge();
     T(() => () => {
@@ -3898,20 +3898,21 @@ const ro = {
               text: C.isText,
               icon: C.icon,
               color: C.color,
+              disabled: C.disabled,
               onClick: (J) => r("onFormItemButtonClick", { prop: [...e.buttonProp, "buttonList", M], bItem: C, bIndex: M, item: e.item, index: e.index })
             }, {
               default: X(() => [
                 ne(W(C.name), 1)
               ]),
               _: 2
-            }, 1032, ["class", "type", "text", "icon", "color", "onClick"]))), 128))
+            }, 1032, ["class", "type", "text", "icon", "color", "disabled", "onClick"]))), 128))
           ];
         }),
         _: 3
       }, 8, ["class", "label", "label-width", "rules", "prop"]);
     };
   }
-}), so = /* @__PURE__ */ ue(uo, [["__scopeId", "data-v-65e63946"]]), co = te(so), fo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), so = /* @__PURE__ */ ue(uo, [["__scopeId", "data-v-a2a85d23"]]), co = te(so), fo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: co
 }, Symbol.toStringTag, { value: "Module" }));
@@ -3955,8 +3956,8 @@ const mo = K({
   setup(e, { emit: g }) {
     const n = e;
     Me((r) => ({
-      ef62c556: r.fixedWidth,
-      "8bdb90d4": r.fixedChildrenWidth
+      "1a546854": r.fixedWidth,
+      "9ff155d2": r.fixedChildrenWidth
     }));
     let i = ge();
     const w = T(() => () => {
@@ -4112,15 +4113,19 @@ const mo = K({
                   default: X(() => [
                     (D(!0), Y(Q, null, ae(e.buttonList, (O, S) => (D(), U(f, {
                       key: S,
-                      onClick: () => c("submit", O),
                       class: le(O.class),
-                      type: O.type
+                      type: O.type,
+                      text: O.isText,
+                      icon: O.icon,
+                      color: O.color,
+                      disabled: O.disabled,
+                      onClick: () => c("submit", O)
                     }, {
                       default: X(() => [
                         ne(W(O.name), 1)
                       ]),
                       _: 2
-                    }, 1032, ["onClick", "class", "type"]))), 128))
+                    }, 1032, ["class", "type", "text", "icon", "color", "disabled", "onClick"]))), 128))
                   ]),
                   _: 1
                 })
@@ -4133,7 +4138,7 @@ const mo = K({
       }, 8, ["class", "gutter"]);
     };
   }
-}), vo = /* @__PURE__ */ ue(po, [["__scopeId", "data-v-e0c4269f"]]), ho = te(vo), go = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), vo = /* @__PURE__ */ ue(po, [["__scopeId", "data-v-35f35433"]]), ho = te(vo), go = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ho
 }, Symbol.toStringTag, { value: "Module" }));

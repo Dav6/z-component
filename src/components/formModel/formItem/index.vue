@@ -143,6 +143,7 @@
           :text="bItem.isText"
           :icon="bItem.icon"
           :color="bItem.color"
+          :disabled="bItem.disabled"
           @click="goTo('onFormItemButtonClick', { prop: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
         {{ bItem.name }}
       </el-button>

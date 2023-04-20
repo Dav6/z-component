@@ -7,7 +7,7 @@
 -->
 
 <template>
-  <el-row class="d-form-list-row"  :class="formListRowClassCOM"  :gutter="gutter">
+  <el-row class="d-form-list-row" :class="formListRowClassCOM" :gutter="gutter">
     <template v-for="(item, index) in _formList" :key="index">
       <template v-if="!item.isHidden">
         <el-col class="d-form-list-col" :span="item.span"
@@ -72,7 +72,16 @@
       <el-col :class="{ 'fixedWidth': !isButtonsRow }">
         <el-form-item class="form-item " label="" label-width="0">
           <template v-for="(item, index) in buttonList" :key="index">
-            <el-button @click="() => goTo('submit', item)" :class="item.class" :type="item.type">
+            <el-button
+                :class="item.class"
+                :type="item.type"
+                :text="item.isText"
+                :icon="item.icon"
+                :color="item.color"
+                :disabled="item.disabled"
+                @click="() => goTo('submit', item)"
+
+            >
               {{ item.name }}
             </el-button>
           </template>
@@ -129,22 +138,22 @@ const props = defineProps({
   buttonList: {
     type: [Array],
   },
-  gutter:{
-    type:[Number],
-    default:20,
+  gutter: {
+    type: [Number],
+    default: 20,
   },
-  formRowClass:{
-    type: [Array,Object,String]
+  formRowClass: {
+    type: [Array, Object, String]
   },
-  uploadFileAPI:{
-    type:[Function]
+  uploadFileAPI: {
+    type: [Function]
   },
-  options:{
-    type:[Object,Array]
+  options: {
+    type: [Object, Array]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange', 'submit','onInputSearch']);
+const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange', 'submit', 'onInputSearch']);
 
 
 const defaultCOM = computed(() => {
@@ -209,21 +218,21 @@ const formListRowClassCOM = computed(() => {
   return _class;
 });
 
-const formListColClassCOM = computed(()=>{
-  return  (item,index)=>{
+const formListColClassCOM = computed(() => {
+  return (item, index) => {
     // console.log(item);
-    let _class= [];
+    let _class = [];
     let _data = item;
     let _width = _data?.width;
     let _widthNum = '';
 // :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
-    if(_width?.toString()?.trim()?.indexOf('calc') == 0){
+    if (_width?.toString()?.trim()?.indexOf('calc') == 0) {
       // fixedWidth.value = _width;
       _class.push('fixedWidth');
     }
 
     _widthNum = parseFloat(_width);
-    if((_width || _width==0) && _widthNum >=0){
+    if ((_width || _width == 0) && _widthNum >= 0) {
       _class.push('fixedWidth');
     }
     return _class
@@ -231,22 +240,22 @@ const formListColClassCOM = computed(()=>{
 
 })
 
-const formListColStyleCOM = computed(()=>{
-  return  (item,index)=>{
+const formListColStyleCOM = computed(() => {
+  return (item, index) => {
     // console.log(item);
     let _style = {};
     let _data = item;
     let _width = _data?.width;
     let _widthNum = '';
     let _widthUnit = 'px';
-     _style.width = 'auto'
+    _style.width = 'auto'
 
 // :class="{ 'fixedWidth': item.width >= 0,'isTransition':item.isSpanTransition }"
-    if(_width?.toString()?.trim()?.indexOf('calc') == 0){
+    if (_width?.toString()?.trim()?.indexOf('calc') == 0) {
       _style.width = _width;
     }
     _widthNum = parseFloat(_width);
-    if((_width || _width==0) && _widthNum >=0){
+    if ((_width || _width == 0) && _widthNum >= 0) {
       let _widthArr = _width.toString().split(_widthNum.toString())
       _widthUnit = _widthArr?.[1] || 'px';
       _style.width = _widthNum + _widthUnit
@@ -259,39 +268,37 @@ const formListColStyleCOM = computed(()=>{
 })
 
 
-const formListChildrenColClassCOM = computed(()=>{
-  return  (item,index)=>{
+const formListChildrenColClassCOM = computed(() => {
+  return (item, index) => {
     // console.log(item);
-    let _class= [];
+    let _class = [];
     let _data = item;
     let _isWidthFill = _data?.isChildWidthFill;
     let _width = _data?.childrenWidth;
     let _widthNum = '';
     let _widthUnit = 'px';
 
-  // :class="{ 'fixedWidth': item.width >= 0,'widthFill': item.width >= 0 }"
-  //   console.log('formListChildrenColClassCOM-_width',)
-    if(_width?.toString()?.trim()?.indexOf('calc') == 0){
+    // :class="{ 'fixedWidth': item.width >= 0,'widthFill': item.width >= 0 }"
+    //   console.log('formListChildrenColClassCOM-_width',)
+    if (_width?.toString()?.trim()?.indexOf('calc') == 0) {
       _class.push('fixedWidth');
     }
 
     _widthNum = parseFloat(_width);
-    if((_width || _width==0) && _widthNum >=0){
+    if ((_width || _width == 0) && _widthNum >= 0) {
       _class.push('fixedWidth');
     }
-    if(_isWidthFill){
+    if (_isWidthFill) {
       _class.push('widthFill');
     }
-
-
 
 
     return _class
   }
 })
 
-const formListChildrenColStyleCOM = computed(()=>{
-  return  (item,index)=>{
+const formListChildrenColStyleCOM = computed(() => {
+  return (item, index) => {
     // console.log(item);
     let _style = {};
     let _data = item;
@@ -302,12 +309,12 @@ const formListChildrenColStyleCOM = computed(()=>{
     _style.width = 'auto'
     // :class="{ 'fixedWidth': item.width >= 0,'widthFill': item.width >= 0 }"
     //   console.log('formListChildrenColClassCOM-_width',)
-    if(_width?.toString()?.trim()?.indexOf('calc') == 0){
+    if (_width?.toString()?.trim()?.indexOf('calc') == 0) {
       _style.width = _width;
     }
 
     _widthNum = parseFloat(_width);
-    if((_width || _width==0) && _widthNum >=0){
+    if ((_width || _width == 0) && _widthNum >= 0) {
       // console.log('formListChildrenColClassCOM',formListColRef.value?.[index])
       // console.log('formListChildrenColClassCOM-_width',_width)
       // console.log('formListChildrenColClassCOM-parseFloat',parseFloat(_data?.width))
@@ -316,11 +323,9 @@ const formListChildrenColStyleCOM = computed(()=>{
       _widthUnit = _widthArr?.[1] || 'px';
       _style.width = _widthNum + _widthUnit;
     }
-    if(_isWidthFill){
+    if (_isWidthFill) {
       _style.width = 'auto';
     }
-
-
 
 
     return _style
@@ -336,7 +341,7 @@ const goTo = (key, data) => {
   }
   if (key == 'onInputSearch') {
     // console.log(key, data);
-    emits('onInputSearch', {key: 'onInputSearch',...data})
+    emits('onInputSearch', {key: 'onInputSearch', ...data})
   }
   if (key == 'onChange') {
     emits('onChange', {...data})
@@ -345,7 +350,6 @@ const goTo = (key, data) => {
     // console.log(key, data);
     emits('submit', {key: data.key, data,})
   }
-
 
 
 }
@@ -387,18 +391,21 @@ init();
     flex: unset;
     //width:v-bind('fixedWidth')
   }
+
   &.isTransition {
     transition: all .22s ease-in-out;
   }
 
 
 }
-.d-form-list-children-col{
+
+.d-form-list-children-col {
   &.fixedWidth {
     max-width: unset;
     flex: unset;
-    width:v-bind('fixedChildrenWidth')
+    width: v-bind('fixedChildrenWidth')
   }
+
   &.widthFill {
     max-width: unset;
     flex: 1;
