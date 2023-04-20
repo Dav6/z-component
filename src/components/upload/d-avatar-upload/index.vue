@@ -374,10 +374,8 @@ const uploadFile = async (params) => {
   if (uploadFileAPI) {
     const _res = await uploadFileAPI(params.file);
     // console.log(res);
-    if(_res?.success == true){
-      _fileData.url = _res?.url;
-      _fileData.key = _res?.key;
-    }
+    _fileData.url = _res?.url || "";
+    _fileData.key = _res?.key || "";
 
 
   } else {
