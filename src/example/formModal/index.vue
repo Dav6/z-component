@@ -21,6 +21,7 @@
         :options="mapOptions"
         :isButtonsRow="true"
         labelPosition="left"
+        :uploadFileAPI="uploadFileAPI"
         @onclick="(data)=>goTo('onclick', data)"
         @onChange="(data) => { goTo('onChange', data) }"
         @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
@@ -126,6 +127,11 @@ const options = ref({})
 const uploadFileAPI = (file) => {
   return new Promise((resolve, reject) => {
     console.log(file)
+    const _obj = {
+      url:"http://192.168.12.243:9000/base-data/personnel/admin_1681972899946_3.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=dev%2F20230420%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230420T064140Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=afe7e5661a13cca094df7cf8b2f54145886f4f65eb283bd5c23060420499640f"
+    }
+
+    resolve(_obj)
   })
 }
 
@@ -207,7 +213,7 @@ let mapOptions = {
 const formList = ref([
   {
     name: "图片上传2",
-    key: "imageAvatar",
+    key: "imageAvatar2",
     formClass: "form-image-item",
     // limit: 1,
     disabled: false,
@@ -228,7 +234,7 @@ const formList = ref([
   },
   {
     name: "图片上传1",
-    key: "imageAvatar",
+    key: "imageAvatar1",
     formClass: "form-image-item",
     // limit: 1,
     buttonName:"上传人员照片",
