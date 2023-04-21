@@ -222,7 +222,7 @@ const formList = ref([
     borderRadius:"8",
     buttonName:"上传车辆照片",
     span: 20,
-    value: [],
+    value: "",
     accept: "image/jpeg,image/jpg",
     previewTeleported: true,
     rules: [{required: true, message: "请上传图片", trigger: "blur"}],

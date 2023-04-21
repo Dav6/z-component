@@ -236,32 +236,27 @@ const _file = ref({
 })
 // section v-model value处理
 watch(() => props.modelValue, (value, preValue) => {
-      // console.log('watch-props.modelValue', value, preValue);
-      let _value = value || {}
-      fileList.value = [];
+      console.log('watch-props.modelValue', value, preValue);
+      let _value = value
+      console.log('_value',_value)
+      _file.value.url =  defaultImage
+      _file.value.key = ""
       if (_value?.url) {
-        fileList.value = [
-          {
-            url: _value?.url,
-            key: _value?.key,
-          }
-        ]
-        _file.value.url = fileList.value[0]?.url
-        _file.value.key = fileList.value[0]?.key
+        _file.value.url = _value?.url;
+        _file.value.key = _value?.url;
       }
-      if (typeof value == 'string') {
-        fileList.value = [
-          {
-            url: _value?.url,
-            key: _value?.url,
-          }
-        ]
-        _file.value.url = fileList.value[0]?.url
-        _file.value.key = fileList.value[0]?.key
+      if (_value && (typeof _value == 'string')) {
+
+        _file.value.url = _value?.url;
+        _file.value.key = _value?.url;
       }
 
       // 只需要一张 ，防止上传第二张 ，清空列表
-      fileList.value = []
+      fileList.value = [];
+
+
+      console.log('_file',_file )
+
       // console.log('_file',_file.value)
       // console.log('avatarUploadRef.value',avatarUploadRef.value)
       // avatarUploadRef.value?.clearFiles([])

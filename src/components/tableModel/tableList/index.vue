@@ -20,6 +20,9 @@
         :sectionData="sectionData"
         @sectionDelete="data=>goTo('sectionDelete',data)"
         :beforeSwitchChange="beforeSwitchChange"
+        :filters="filters?.[item?.key]"
+        :filterMethod="filterMethod?.[item?.key]"
+
     >
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
         <slot :name="item.name" :data="data.data"></slot>
@@ -79,7 +82,15 @@ const props = defineProps({
   beforeSwitchChange: {
     type: [Function, Boolean],
     default: true,
-  }
+  },
+
+  filters:{
+    type: [Object]
+  },
+  filterMethod:{
+    type: [Object]
+  },
+
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange','sectionDelete']);

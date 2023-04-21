@@ -15,7 +15,22 @@
       :fixed="item.fixed"
       :show-overflow-tooltip="item.showOverflowTooltip"
       :selectable="(row, index) => selectable(row,index)"
-      v-bind="$attrs"
+      :prop="item.key"
+
+      :column-key="item.key"
+      :filters="filtersCOM"
+      :filter-method="item?.filterMethod || filterMethod || undefined"
+      :filtered-value="filteredValueCOM"
+      :filter-multiple="filterMultipleCOM"
+      :filter-placement="filterPlacementCOM"
+
+      :sortable="sortableCOM"
+      :sort-method="item?.sortMethod || undefined"
+      :sort-orders="sortOrdersCOM"
+      :sort-by="item?.sortBy"
+
+
+
   >
 
     <template v-if="isShowSelectionHeader" #header>
@@ -177,9 +192,120 @@ const props = defineProps({
     type:[Function,Boolean],
     default:true,
   },
+
+  filters:{
+    type:[Array]
+  },
+  filterMethod:{
+    type: [Function]
+  }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onSettingsButtonClick', 'onChange','onSwitchChange','sectionDelete']);
+
+
+// console.log(props.item)
+
+
+
+//  section sortable 排序开启
+const sortableCOM = computed(()=>{
+  let _sortable = false;
+  let _item = props?.item;
+  let _itemSortable = _item?.sortable;
+  if(_itemSortable){
+    _sortable = _itemSortable
+  }
+
+  return _sortable;
+})
+// 指定数据按照哪个属性进行排序，仅当sortable设置为true的时候有效。
+// 应该如同 Array.sort 那样返回一个 Number  a-b b-a
+// const sortMethod= (a, b)=>{
+//   let _sortMethod = undefined;
+//   let _item = props?.item;
+//   let _itemSortMethod = _item?.sortMethod;
+//
+//
+//   // console.log('typeof(_itemSortMethod)',typeof(_itemSortMethod))
+//   if( typeof(_itemSortMethod) == 'function'){
+//     return  _itemSortMethod(a,b)
+//   }
+//
+//   return _sortMethod
+// }
+
+// 指定数据按照哪个属性进行排序，仅当 sortable 设置为 true 且没有设置 sort-method 的时候有效。
+// 如果 sort-by 为数组，则先按照第 1 个属性排序，如果第 1 个相等，再按照第 2 个排序，以此类推
+const sortBy = (row, index) =>{
+  console.log(row,index)
+  return row.recordId
+}
+
+const sortOrdersCOM = computed(()=>{
+  let _sortOrders = ['ascending', 'descending', null];
+  let _item = props?.item;
+  let _itemSortable = _item?.sortOrders;
+
+  if(Array.isArray(_itemSortable) && _itemSortable?.length>=0){
+    _sortOrders = _itemSortable
+  }
+
+  return _sortOrders
+
+})
+
+
+
+
+
+
+
+// section filterMethod
+// 数据过滤使用的方法， 如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。
+// const filterMethod = (value, row, column)=>{
+//   console.log('filterMethod',value,row,column)
+//   return undefined;
+// }
+
+//  过滤条件
+const filtersCOM = computed(()=>{
+  let _filters = undefined;
+  let _propFilters = props?.filters;
+  let _item = props?.item;
+  let _itemFilters = _item?.filters;
+  if(Array.isArray(_propFilters) && _propFilters?.length>=0){
+    _filters = _propFilters
+  }
+  if(Array.isArray(_itemFilters) && _itemFilters?.length>=0){
+    _filters = _itemFilters
+  }
+  return _filters;
+})
+
+// section 数据过滤的选项是否多选
+const filterMultipleCOM = computed(()=>{
+  let _filterMultiple = true;
+
+  return _filterMultiple;
+})
+
+
+// 过滤条件 默认勾选值 根据 value
+const filteredValueCOM = computed(()=>{
+  let _filteredValue = []
+
+  return _filteredValue;
+})
+
+// section 过滤弹出框的定位
+const filterPlacementCOM = computed(()=>{
+  let _filterPlacement = 'bottom-end'
+  return _filterPlacement
+})
+
+
+
 
 
 // console.log('sectionData',props.sectionData)
@@ -256,10 +382,9 @@ const timeFormatCOM = computed(() => {
 const getIndex = (data) => {
   // console.log(data,props.pageData);
   let _index = data?.$index || 0;
-
   // console.log(ind,props.pageData);
   _index = _index + 1;
-  if (props.pageData) {
+  if (props.pageData && props.pageData?.page) {
     let _pageData = props.pageData;
     return _index + (_pageData?.page - 1) * _pageData?.pageSize
   } else {

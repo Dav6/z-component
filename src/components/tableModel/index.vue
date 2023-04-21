@@ -15,7 +15,11 @@
       :tree-props="treeProps"
       :header-cell-class-name="headerRowClassNameFN"
       :header-cell-style="headerCellStyleFN"
+      :default-sort="defaultSort"
       @selection-change="data=>goTo('selectionChange',data)"
+      @sort-change="data=>goTo('sortChange',data)"
+      @filter-change="(data)=>goTo('filterChange',data)"
+
       v-bind="$attrs"
   >
 
@@ -26,6 +30,11 @@
         :sectionData="sectionData"
         :beforeSwitchChange="beforeSwitchChange"
         :pageData="pageData"
+
+        :filters="filters"
+        :filterMethod="filterMethod"
+
+
         @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
         @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
         @sectionDelete="data=>goTo('sectionDelete',data)"
@@ -92,24 +101,21 @@ const props = defineProps({
   isShowSelection: {
     type: [Boolean]
   },
-  isShowSettings: {
-    type: [Boolean]
-  },
   settingsConfig: {
     type: [Object],
     default: {},
   },
-  rowKey:{
-    type:[String,Function]
+  rowKey: {
+    type: [String, Function]
   },
-  treeProps:{
-    type:[Object],
-    default:{ hasChildren: 'hasChildren', children: 'children' }
+  treeProps: {
+    type: [Object],
+    default: {hasChildren: 'hasChildren', children: 'children'}
   },
 
 
-  headerCellClassName:{
-    type:[String,Function]
+  headerCellClassName: {
+    type: [String, Function]
   },
   selectable: {
     type: [Function]
@@ -117,16 +123,28 @@ const props = defineProps({
   beforeSwitchChange: {
     type: [Function, Boolean],
     default: true
+  },
+  filters:{
+    type: [Object]
+  },
+  filterMethod:{
+    type: [Object]
+  },
+  defaultSort:{
+    type:[Object]
+  //   如果只指定了 prop, 没有指定 order, 则默认顺序是 ascending
+  //   { prop: 'id', order: 'descending' }
   }
+
 });
 
 //  section sectionData
 const sectionData = ref({
-  list:[],
-  selection:[]
+  list: [],
+  selection: []
 })
 
-const setListConfig = async ()=>{
+const setListConfig = async () => {
   let _list = JSON.parse(JSON.stringify(props.list));
 
   // console.log(JSON.stringify(_list))
@@ -134,23 +152,22 @@ const setListConfig = async ()=>{
   let _treeProps = props?.treeProps
   let _childrenName = _treeProps?.children || 'children'
   _list = {
-    [_childrenName]:_list
+    [_childrenName]: _list
   }
 
   let _path = `$..${_childrenName}[:]`;
-  _list = JSONPath({json: _list, path: _path, });
+  _list = JSONPath({json: _list, path: _path,});
   // console.log('__list',JSON.stringify(__list))
   // console.log('_list',_list.length)
   sectionData.value.list = _list;
 }
 
 
-const tableListCOM = computed(()=>{
+const tableListCOM = computed(() => {
   const _list = props.list;
   setListConfig()
   return _list
 })
-
 
 
 // <!--selection / index / expand / settings -->
@@ -217,16 +234,17 @@ let _tableSettingsDefault = {
   ]
 }
 
-const _temKeyList = ref([])
+// const _temKeyList = ref([])
 const keyListCOM = computed(() => {
 
   console.log('keyListCOM', props)
-  let _keyList = JSON.parse(JSON.stringify(props.keyList));
+  console.log('props.keyList', props.keyList)
+  let _keyList = props.keyList ||  JSON.parse(JSON.stringify(props.keyList));
+  console.log('_keyList', _keyList)
   let _settingsConfig = JSON.parse(JSON.stringify(props.settingsConfig))
   let _isShowExpand = props.isShowExpand;
   let _isShowSelection = props.isShowSelection;
   let _isShowIndex = props.isShowIndex;
-  let _isShowSettings = props.isShowSettings;
   let _tableExpand = _tableExpandDefault;
   let _tableSelection = _tableSelectionDefault;
   let _tableIndex = _tableIndexDefault;
@@ -238,7 +256,7 @@ const keyListCOM = computed(() => {
   };
 
 
-  if (!_isShowExpand ) {
+  if (!_isShowExpand) {
     _tableExpand = ''
   }
   if (!_isShowSelection) {
@@ -266,51 +284,52 @@ const keyListCOM = computed(() => {
     item.$key = Symbol()
     return item;
   })
-  _temKeyList.value = JSON.parse(JSON.stringify(_keyList))
+  // _temKeyList.value = JSON.parse(JSON.stringify(_keyList))
   console.log(_keyList);
   return _keyList
 })
 
 
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange', 'selectionChange','sectionDelete']);
+const emits = defineEmits([
+  'onSettingsButtonClick', 'onSwitchChange',
+  'selectionChange', 'sectionDelete',
+    'sortChange','filterChange'
+]);
 
 
-
-
-const headerRowClassNameFN = (data)=>{
+const headerRowClassNameFN = (data) => {
   // console.log('headerRowClassNameFN',data,_temKeyList)
 
   let _strClass = ''
   let _headerCellClassName = props.headerCellClassName;
 
 
-
-  if( typeof(_headerCellClassName)== 'string'){
+  if (typeof (_headerCellClassName) == 'string') {
     _strClass = `${_strClass} ${_headerCellClassName}`
   }
-  if( typeof(_headerCellClassName)== 'function'){
+  if (typeof (_headerCellClassName) == 'function') {
     _strClass = `${_strClass} ${_headerCellClassName(data)}`
   }
 
   return _strClass
 }
 
-const headerCellStyleFN = (data)=>{
-  const { row, column, rowIndex, columnIndex } = data;
-  console.log('row,',row, )
+const headerCellStyleFN = (data) => {
+  const {row, column, rowIndex, columnIndex} = data;
+  // console.log('row,',row, )
 
   let _style = {}
 
   // 用于 选中状态的界面修改
   const _sectionData = sectionData.value
   const _isShowSelection = props.isShowSelection;
-  if(_isShowSelection){
-    if(_sectionData?.selection?.length>0){
+  if (_isShowSelection) {
+    if (_sectionData?.selection?.length > 0) {
 
-      const _sectionIndex =  row?.findIndex(item=>item.type == "selection")
+      const _sectionIndex = row?.findIndex(item => item.type == "selection")
       // 第一列为选项框 和 标题这一行
-      if (row[0]?.type == 'selection' && rowIndex == 0 ) {
+      if (row[0]?.type == 'selection' && rowIndex == 0) {
         // console.log('row,',row, )
         // console.log(' column', column, )
         // console.log('rowIndex',rowIndex)
@@ -318,24 +337,24 @@ const headerCellStyleFN = (data)=>{
         //expand / selection / index / settings / time
         // 选项框这一列 和 后面这一列不隐藏
         // 后面这一列合并到最后
-        if(!(column.type == 'selection'  || columnIndex == 1)){
+        if (!(column.type == 'selection' || columnIndex == 1)) {
           _style = {
             ..._style,
-            display:'none',
+            display: 'none',
           }
         }
-        if(columnIndex == 1){
+        if (columnIndex == 1) {
           _style = {
             ..._style,
-            position:'sticky',
-            left:'60px',
+            position: 'sticky',
+            left: '60px',
           }
         }
 
 
         row[1].colSpan = row.length - 1
       }
-    }else{
+    } else {
       _style = {
         ..._style,
       }
@@ -344,27 +363,32 @@ const headerCellStyleFN = (data)=>{
   }
 
 
-
-
-
-
-  return  _style;
+  return _style;
 
 }
 
 
-
-
-
 const goTo = (key, data) => {
   // console.log(key, data);
+
+  if (key == 'sortChange') {
+    // console.log(key, data);
+    emits('sortChange',data)
+  }
+  if (key == 'filterChange') {
+    // console.log(key, data);
+    emits('filterChange',data)
+
+  }
+
+
   if (key == 'selectionChange') {
     // console.log(key, data);
     getSelection && getSelection()
     emits('selectionChange', data);
   }
-  if(key == 'sectionDelete'){
-    emits('sectionDelete',data)
+  if (key == 'sectionDelete') {
+    emits('sectionDelete', data)
   }
 
 
@@ -385,13 +409,11 @@ const init = () => {
 }
 
 
-
-
 // 统一执行初始化方法
 init();
 
-const getSelection = ()=>{
-  const _selection =   tableModelRef.value?.getSelectionRows()
+const getSelection = () => {
+  const _selection = tableModelRef.value?.getSelectionRows()
   // console.log('_selection',_selection)
   sectionData.value.selection = _selection
   return _selection;
@@ -403,22 +425,17 @@ const getRef = () => {
 };
 
 
-
-
-
 defineExpose({
   getRef,
   getSelection
 })
 
 
-
-
 </script>
 
 <style scoped lang="less">
 
-.tableModel{
+.tableModel {
 
 }
 

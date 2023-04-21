@@ -21,6 +21,8 @@
       :selectable="selectable"
       :beforeSwitchChange="beforeSwitchChange"
       :header-cell-class-name="headerRowClassNameFN"
+      :filters="globalFilters"
+      :filterMethod="globalFilterMethod"
 
       row-key="recordId"
       height="100%"
@@ -29,6 +31,10 @@
       @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
       @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
       @sectionDelete="data=>goTo('sectionDelete',data)"
+      @sortChange="data=>goTo('sortChange',data)"
+      @filterChange="(data)=>goTo('filterChange',data)"
+
+
       v-bind="$attrs"
 
   >
@@ -50,6 +56,8 @@
 </template>
 
 <script setup>
+import dayjs from "dayjs";
+
 defineOptions({
   name: "表格table",
   key: 'example-table',
@@ -70,18 +78,49 @@ const defaultCOM = computed(() => {
   return '';
 });
 
+const globalFilters = {
+  company:[
+    {text: '111', value: '111'},
+    {text: '555', value: '555'},
+  ]
+}
+
+const globalFilterMethod = {
+  company:(value, row, column) =>{
+
+  }
+}
+
+
+
 const keyList = ref([
-  {label: "id", key: "recordId", showOverflowTooltip: true},
+  {label: "id", width:200, key: "recordId", showOverflowTooltip: true},
   {label: "设备名称", key: "deviceName", showOverflowTooltip: true},
-  {label: "公司", key: "orgName", showOverflowTooltip: true},
+  {label: "公司", key: "company", showOverflowTooltip: true},
+  {
+    label: "时间",   type: "time",  format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
+    width:200,
+    sortable:true,
+    // sortMethod:(a,b)=>{
+    //   // return a.createTime - b.createTime;
+    // }
+    sortBy:'recordId'
+  },
   {
     label: "状态", type: "switch", key: "status",
-    showOverflowTooltip: false
+    showOverflowTooltip: false,
+    filters: [
+      {text: 'Home', value: 'Home'},
+      {text: 'Office', value: 'Office'},
+    ],
+    filterMethod: (value, row, column) => {
+      console.log('keyList-filterMethod', value, row, column)
+      return true;
+    },
   },
-
   {label: "图片", type: "image", key: "image", size: "24 24", width: 100, limit: 2, showOverflowTooltip: false},
   {label: "自定义", type: "custom", customName: "test", key: "personnelRoleName", showOverflowTooltip: true},
-  {label: "时间", type: "time", format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true},
+
 ])
 //item.format : 'YYYY-MM-DD HH:mm:ss'"
 
@@ -154,10 +193,6 @@ const isShowSettings = ref(true)
 // },8000)
 
 
-
-
-
-
 const pageData = ref({
   page: 1,
   pageSize: 20,
@@ -178,9 +213,9 @@ const list = ref([
     },
     image: image,
     "passStatusName": "通行失败,陌生人",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "createTime": "2022-12-19 11:17:20",
-    "children":[
+    "children": [
       {
         "recordId": "15920738537366978257",
         "personnelRole": 1,
@@ -195,14 +230,14 @@ const list = ref([
           "name": "人脸"
         },
         "passStatusName": "通行成功",
-        "orgName": "泽瑞集团",
+        "company": "泽瑞集团",
         "companyId": 1564911314820681729,
         "companyName": "泽瑞集团",
         "createTime": "2022-11-14 16:35:59"
       }
     ]
   }, {
-    "recordId": "16046772215632420449",
+    "recordId": "1604677221563242044",
     "personnelRole": 5,
     "personnelRoleName": "未授权人员",
     "personnelName": "",
@@ -214,7 +249,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行失败,陌生人",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "createTime": "2022-12-19 11:17:15",
     image: [image],
 
@@ -232,7 +267,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-18 09:26:32"
@@ -250,7 +285,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-17 15:37:47"
@@ -268,7 +303,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-17 09:03:59"
@@ -286,7 +321,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-17 09:03:53"
@@ -304,7 +339,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-17 09:03:02"
@@ -322,7 +357,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-16 16:46:05"
@@ -340,7 +375,7 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-16 15:08:45"
@@ -359,11 +394,11 @@ const list = ref([
       "name": "人脸"
     },
     "passStatusName": "通行成功",
-    "orgName": "泽瑞集团",
+    "company": "泽瑞集团",
     "companyId": 1564911314820681729,
     "companyName": "泽瑞集团",
     "createTime": "2022-11-14 16:35:59",
-    children:[
+    children: [
       {
         "recordId": "159207385375336697857",
         "personnelRole": 1,
@@ -378,7 +413,7 @@ const list = ref([
           "name": "人脸"
         },
         "passStatusName": "通行成功",
-        "orgName": "泽瑞集团",
+        "company": "泽瑞集团",
         "companyId": 1564911314820681729,
         "companyName": "泽瑞集团",
         "createTime": "2022-11-14 16:35:59"
@@ -405,7 +440,7 @@ const selectable = (row, index) => {
 
 }
 
-const headerRowClassNameFN = (data)=>{
+const headerRowClassNameFN = (data) => {
   // console.log('headerRowClassNameFN-外')
 
   return ''
@@ -424,7 +459,7 @@ const beforeSwitchChange = (data) => {
 
 const goTo = (key, data) => {
   console.log(key, data);
-  if(key == 'sectionDelete'){
+  if (key == 'sectionDelete') {
 
   }
   if (key == 'onSettingsButtonClick') {
