@@ -90,9 +90,9 @@ const setShowByContent = (event) => {
   // console.log('isShowByContent',props.isShowByContent)
   if (props.isShowByContent) {
     // 元素在界面显示宽度
-    let _outClientWidth = tooltipDefaultRef.value.clientWidth;
+    let _outClientWidth = tooltipDefaultRef.value?.clientWidth;
     // 元素的整体宽度，包括由于溢出而无法展示在网页的不可见部分
-    let _innerOffsetWidth = tooltipDefaultRef.value.scrollWidth;
+    let _innerOffsetWidth = tooltipDefaultRef.value?.scrollWidth;
     // console.log('setShowByContent-_outClientWidth', _outClientWidth)
     // console.log('setShowByContent-_innerOffsetWidth', _innerOffsetWidth)
     // 里面内容宽度超过外面宽度

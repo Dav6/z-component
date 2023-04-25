@@ -101,10 +101,6 @@ const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange','sectionDel
 
 
 
-
-
-
-
 const goTo = (key, data) => {
   // console.log('formList',key,data);
   // data = JSON.parse(JSON.stringify(data));

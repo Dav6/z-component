@@ -52,7 +52,7 @@
 
 <script setup>
 import {JSONPath} from "jsonpath-plus";
-import {computed, ref, useSlots} from "vue"
+import {computed, ref, useSlots, watch} from "vue"
 
 defineOptions({
   name: 'd-table-model',
@@ -137,6 +137,9 @@ const props = defineProps({
   }
 
 });
+
+
+
 
 //  section sectionData
 const sectionData = ref({

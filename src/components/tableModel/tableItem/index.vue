@@ -70,13 +70,13 @@
                 @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"
                 @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"
             >
-              <template v-if="bItem.type=='button'">
-                {{ bItem.name }}
-              </template>
-              <template v-else-if="bItem.type == 'dropdown'">
+
+              <template v-if="bItem.type == 'dropdown'">
                 <d-el-button text class="settings-dropdown-button">{{ bItem.name ? bItem.name : '···' }}</d-el-button>
               </template>
-
+              <template v-if="bItem.type =='button' ">
+                {{ bItem.name }}
+              </template>
             </Component>
             <template v-if="item.divided  && (item.buttonList?.length - 1 != bIndex)">
               <div class="settings-group-divided"></div>
@@ -280,12 +280,14 @@ const filtersCOM = computed(()=>{
   if(Array.isArray(_itemFilters) && _itemFilters?.length>=0){
     _filters = _itemFilters
   }
+
+  console.log('_filters',_filters)
   return _filters;
 })
 
 // section 数据过滤的选项是否多选
 const filterMultipleCOM = computed(()=>{
-  let _filterMultiple = true;
+  let _filterMultiple = false;
 
   return _filterMultiple;
 })

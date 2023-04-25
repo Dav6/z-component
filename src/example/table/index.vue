@@ -78,25 +78,38 @@ const defaultCOM = computed(() => {
   return '';
 });
 
-const globalFilters = {
-  company:[
+const globalFilters = ref({
+  company:[ ]
+})
+
+setTimeout(()=>{
+  console.log('set')
+  globalFilters.value.company = [
     {text: '111', value: '111'},
     {text: '555', value: '555'},
   ]
-}
+},2000)
 
-const globalFilterMethod = {
+const globalFilterMethod = ref({
   company:(value, row, column) =>{
-
+    console.log(value,row,column)
   }
-}
-
+})
+// setTimeout(()=>{
+//   console.log('set')
+//   globalFilterMethod.value.company = (value, row, column) =>{
+//     console.log(value,row,column)
+//   }
+// },2000)
 
 
 const keyList = ref([
   {label: "id", width:200, key: "recordId", showOverflowTooltip: true},
-  {label: "设备名称", key: "deviceName", showOverflowTooltip: true},
-  {label: "公司", key: "company", showOverflowTooltip: true},
+  {label: "设备名称", key: "deviceName", showOverflowTooltip: true,
+    sortable:'custom',
+  },
+  {label: "公司", key: "company", showOverflowTooltip: true,
+  },
   {
     label: "时间",   type: "time",  format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
     width:200,
@@ -104,7 +117,7 @@ const keyList = ref([
     // sortMethod:(a,b)=>{
     //   // return a.createTime - b.createTime;
     // }
-    sortBy:'recordId'
+    // sortBy:'recordId'
   },
   {
     label: "状态", type: "switch", key: "status",
