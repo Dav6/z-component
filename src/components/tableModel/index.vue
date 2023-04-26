@@ -333,7 +333,7 @@ const headerCellStyleFN = (data) => {
       const _sectionIndex = row?.findIndex(item => item.type == "selection")
       // 第一列为选项框 和 标题这一行
       if (row[0]?.type == 'selection' && rowIndex == 0) {
-        // console.log('row,',row, )
+        console.log('row,',row, )
         // console.log(' column', column, )
         // console.log('rowIndex',rowIndex)
         // console.log(' columnIndex', columnIndex)
@@ -346,11 +346,13 @@ const headerCellStyleFN = (data) => {
             display: 'none',
           }
         }
+
         if (columnIndex == 1) {
           _style = {
             ..._style,
-            position: 'sticky',
+            position: 'absolute',
             left: '60px',
+            width:`calc(100% - ${row?.[0]?.width}px )`
           }
         }
 

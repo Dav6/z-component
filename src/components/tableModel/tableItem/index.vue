@@ -281,13 +281,20 @@ const filtersCOM = computed(()=>{
     _filters = _itemFilters
   }
 
-  console.log('_filters',_filters)
+  // console.log('_filters',_filters)
   return _filters;
 })
 
 // section 数据过滤的选项是否多选
 const filterMultipleCOM = computed(()=>{
   let _filterMultiple = false;
+  let _propFilters = props?.filters;
+  let _item = props?.item;
+  let _itemFilterMultiple = _item?.filterMultiple;
+  if(_itemFilterMultiple === true){
+    _filterMultiple = true
+  }
+
 
   return _filterMultiple;
 })
@@ -302,7 +309,7 @@ const filteredValueCOM = computed(()=>{
 
 // section 过滤弹出框的定位
 const filterPlacementCOM = computed(()=>{
-  let _filterPlacement = 'bottom-end'
+  let _filterPlacement = 'bottom'
   return _filterPlacement
 })
 
