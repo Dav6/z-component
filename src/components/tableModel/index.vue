@@ -34,6 +34,7 @@
         :filters="filters"
         :filterMethod="filterMethod"
 
+        :option="option"
 
         @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
         @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
@@ -134,7 +135,11 @@ const props = defineProps({
     type:[Object]
   //   如果只指定了 prop, 没有指定 order, 则默认顺序是 ascending
   //   { prop: 'id', order: 'descending' }
-  }
+  },
+  option:{
+    type: [Object]
+  },
+
 
 });
 

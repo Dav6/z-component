@@ -133,8 +133,8 @@ export const randomNum = function (minNum,maxNum){
 
   let _len = arguments.length
 
-  console.log('minNum,maxNum',minNum,maxNum)
-  console.log('maxNum',typeof( maxNum * 1))
+  // console.log('minNum,maxNum',minNum,maxNum)
+  // console.log('maxNum',typeof( maxNum * 1))
 
   switch(_len){
     case 1:

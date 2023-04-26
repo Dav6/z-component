@@ -12,6 +12,7 @@
       is="d-table-model"
       :list="list"
       :keyList="keyList"
+      :option="optionsMap"
       :pageData="pageData"
       :isShowExpand="isShowExpand"
       :isShowSelection="isShowSelection"
@@ -23,6 +24,7 @@
       :header-cell-class-name="headerRowClassNameFN"
       :filters="globalFilters"
       :filterMethod="globalFilterMethod"
+
       row-key="recordId"
       height="100%"
       @selection-change="data=>goTo('selectionChange',data)"
@@ -63,6 +65,7 @@ defineOptions({
   isExposed: false
 });
 import {ref, reactive, computed, watch} from "vue"
+import {randomNum} from "@/tools/tools"
 
 const props = defineProps({
   // 配合emits v-model
@@ -78,20 +81,20 @@ const defaultCOM = computed(() => {
 });
 
 const globalFilters = ref({
-  company:[ ]
+  company: []
 })
 
-setTimeout(()=>{
+setTimeout(() => {
   console.log('set')
   globalFilters.value.company = [
     {text: '111', value: '111'},
     {text: '555', value: '555'},
   ]
-},2000)
+}, 2000)
 
 const globalFilterMethod = ref({
-  company:(value, row, column) =>{
-    console.log(value,row,column)
+  company: (value, row, column) => {
+    console.log(value, row, column)
   }
 })
 // setTimeout(()=>{
@@ -102,17 +105,58 @@ const globalFilterMethod = ref({
 // },2000)
 
 
+const optionsMap = ref({
+  option1: []
+})
+
+setTimeout(() => {
+  optionsMap.value.option1 = [
+    {label: "选项1", value: 1},
+    {label: "选项2", value: 2},
+    {label: "选项3", value: 3},
+  ]
+  optionsMap.value.option1 = {
+    1:"选项1",
+    2:"选项2",
+    3:"选项3",
+  }
+}, 2000)
+
+
 const keyList = ref([
-  {label: "id", width:200, key: "recordId", showOverflowTooltip: true},
-  {label: "设备名称", key: "deviceName", showOverflowTooltip: true,
-    sortable:'custom',
-  },
-  {label: "公司", key: "company", showOverflowTooltip: true,
+  {label: "id", width: 50, key: "id", showOverflowTooltip: true},
+  {
+    label: "设备名称", key: "deviceName", showOverflowTooltip: true,
+    width: 120,
+    sortable: 'custom',
   },
   {
-    label: "时间",   type: "time",  format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
-    width:200,
-    sortable:true,
+    label: "公司", key: "company", showOverflowTooltip: true,
+  },
+  {
+    label: "选项1", key: "option1", type: "option", showOverflowTooltip: true,
+
+
+  },
+
+  {
+    label: "选项2", key: "option2", type: "option", showOverflowTooltip: true,
+    // option:[],
+    // option:[
+    //   {label: "选项111", value: 1},
+    //   {label: "选项2222", value: 2},
+    //   {label: "选项33333", value: 3},
+    // ],
+    option:{
+      1:"选项12",
+      2:"选项23",
+      3:"选项34",
+    }
+  },
+  {
+    label: "时间", type: "time", format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
+    width: 200,
+    sortable: true,
     // sortMethod:(a,b)=>{
     //   // return a.createTime - b.createTime;
     // }
@@ -125,12 +169,13 @@ const keyList = ref([
       {text: 'Home', value: 'Home'},
       {text: 'Office', value: 'Office'},
     ],
+    filterMultiple: true,
     filterMethod: (value, row, column) => {
       console.log('keyList-filterMethod', value, row, column)
       return true;
     },
   },
-  {label: "图片", type: "image", key: "image", size: "24 24", width: 100, limit: 2, showOverflowTooltip: false},
+  {label: "图片", type: "image", key: "image", size: "24 24", width: 100, limit: 5, showOverflowTooltip: false},
   {label: "自定义", type: "custom", customName: "test", key: "personnelRoleName", showOverflowTooltip: true},
 
 ])
@@ -210,229 +255,66 @@ const pageData = ref({
   pageSize: 20,
 })
 const image = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-93dd36bf20dad23a01a51698733ed306_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674282885&t=f05370c806711f9117370dd745bb0d19'
-const list = ref([
-  {
-    "recordId": "1604677243008716802",
-    "personnelRole": 5,
-    "personnelRoleName": "未授权人员",
-    "personnelName": "",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 16,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    image: image,
-    "passStatusName": "通行失败,陌生人",
-    "company": "泽瑞集团",
-    "createTime": "2022-12-19 11:17:20",
-    "children": [
-      {
-        "recordId": "15920738537366978257",
-        "personnelRole": 1,
-        "personnelRoleName": "企业员工",
-        "employeeId": "1588335490878144513",
-        "personnelName": "小美",
-        "deviceId": 1581915886924595201,
-        "deviceName": "华屹",
-        "passStatus": 1,
-        "passType": {
-          "type": 1,
-          "name": "人脸"
-        },
-        "passStatusName": "通行成功",
-        "company": "泽瑞集团",
-        "companyId": 1564911314820681729,
-        "companyName": "泽瑞集团",
-        "createTime": "2022-11-14 16:35:59"
-      }
-    ]
-  }, {
-    "recordId": "1604677221563242044",
-    "personnelRole": 5,
-    "personnelRoleName": "未授权人员",
-    "personnelName": "",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 16,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行失败,陌生人",
-    "company": "泽瑞集团",
-    "createTime": "2022-12-19 11:17:15",
-    image: [image],
 
-  }, {
-    "recordId": "1604677207931752449",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1588335490878144513",
-    "personnelName": "小美",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-18 09:26:32"
-  }, {
-    "recordId": "1593146368542228482",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1588335490878144513",
-    "personnelName": "小美",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-17 15:37:47"
-  }, {
-    "recordId": "1593047262029266945",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385445433346",
-    "personnelName": "人员2",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-17 09:03:59"
-  }, {
-    "recordId": "1593047236758585345",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385487376385",
-    "personnelName": "吴",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-17 09:03:53"
-  }, {
-    "recordId": "1593047207104856065",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385445433346",
-    "personnelName": "人员2",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-17 09:03:02"
-  }, {
-    "recordId": "1592801173556543489",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1588335490878144513",
-    "personnelName": "小美",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-16 16:46:05"
-  }, {
-    "recordId": "1592776673519583233",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1587357385487376385",
-    "personnelName": "吴",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-16 15:08:45"
-  },
-  {
-    "recordId": "1592073853736697857",
-    "personnelRole": 1,
-    "personnelRoleName": "企业员工",
-    "employeeId": "1588335490878144513",
-    "personnelName": "小美",
-    "deviceId": 1581915886924595201,
-    "deviceName": "华屹",
-    "passStatus": 1,
-    "passType": {
-      "type": 1,
-      "name": "人脸"
-    },
-    "passStatusName": "通行成功",
-    "company": "泽瑞集团",
-    "companyId": 1564911314820681729,
-    "companyName": "泽瑞集团",
-    "createTime": "2022-11-14 16:35:59",
-    children: [
-      {
-        "recordId": "159207385375336697857",
-        "personnelRole": 1,
-        "personnelRoleName": "企业员工",
-        "employeeId": "1588335490878144513",
-        "personnelName": "小美",
-        "deviceId": 1581915886924595201,
-        "deviceName": "华屹",
-        "passStatus": 1,
-        "passType": {
-          "type": 1,
-          "name": "人脸"
-        },
-        "passStatusName": "通行成功",
-        "company": "泽瑞集团",
-        "companyId": 1564911314820681729,
-        "companyName": "泽瑞集团",
-        "createTime": "2022-11-14 16:35:59"
+const list = ref([])
+list.value = Array(20).fill({})?.map((item, index) => {
+  const _item = {}
+  keyList.value?.map(cItem => {
+    // console.log(cItem);
+    let _value = `测试${randomNum(10, 200)}`
+    if (cItem.key == 'id') {
+      _value = index + 1
+    }
+
+    if (cItem.key == 'deviceName') {
+      _value = `设备名称${randomNum(100, 2000)}`
+    }
+    if (cItem.key == 'company') {
+      _value = `公司名称${randomNum(100, 2000)}`
+    }
+
+    if (cItem.key == 'option1') {
+      _value = randomNum(1, 3)
+    }
+    if (cItem.key == 'option2') {
+      _value = randomNum(1, 3)
+    }
+
+    if (cItem.key == 'createTime') {
+      _value = dayjs().valueOf() + randomNum(1000, 100000)
+    }
+
+
+    if (cItem.key == 'status') {
+      if (index % 3 == 0) {
+        _value = true
+        _item.selectable = true;
+      } else {
+        _value = false
+        _item.selectable = false;
       }
-    ]
-  },
-])
+    }
+
+
+    if (cItem.key == 'image') {
+      if (randomNum(0, 100) % 3 == 0) {
+        // _value = image
+        _value = Array(randomNum(1, 4)).fill({})?.map(item => {
+          return image
+        })
+
+      } else {
+        _value = ""
+      }
+
+    }
+
+    _item[cItem.key] = _value
+
+  })
+
+  return _item;
+})
 
 
 list.value?.map((item, index) => {
@@ -442,7 +324,6 @@ list.value?.map((item, index) => {
   } else {
     item.status = false
     item.selectable = false;
-
   }
 })
 
@@ -501,11 +382,11 @@ init();
 
 </script>
 <style lang="less">
-.el-table thead{
-  --el-table-header-bg-color:#F5F6FA;
+.el-table thead {
+  --el-table-header-bg-color: #F5F6FA;
 
   .el-table__cell {
-    height:54px;
+    height: 54px;
     overflow: hidden;
   }
 

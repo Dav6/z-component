@@ -22,7 +22,7 @@
         :beforeSwitchChange="beforeSwitchChange"
         :filters="filters?.[item?.key]"
         :filterMethod="filterMethod?.[item?.key]"
-
+        :option="option?.[item?.key]"
     >
       <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
         <slot :name="item.name" :data="data.data"></slot>
@@ -90,14 +90,15 @@ const props = defineProps({
   filterMethod:{
     type: [Object]
   },
+  option:{
+    type: [Object]
+  },
 
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange','sectionDelete']);
 
 // console.log('keyList',props.keyList)
-
-
 
 
 

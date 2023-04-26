@@ -30,18 +30,20 @@
       :sort-by="item?.sortBy"
 
 
-
   >
 
     <template v-if="isShowSelectionHeader" #header="{ column, $index }">
       <template v-if="$index == 1">
         <div class="el-table-section-header">
           <div class="el-table-section-header-left">
-            <div class="el-table-section-header-section">已选中 <span>{{sectionNum}}</span> 项  </div>
-            <d-el-button  class="el-table-section-header-btn-default" text icon="Delete" @click="goTo('sectionDelete')">删除</d-el-button>
+            <div class="el-table-section-header-section">已选中 <span>{{ sectionNum }}</span> 项</div>
+            <d-el-button class="el-table-section-header-btn-default" text icon="Delete" @click="goTo('sectionDelete')">
+              删除
+            </d-el-button>
           </div>
           <div class="el-table-section-header-right">
-            <d-el-button  class="el-table-section-header-btn-default" text @click="goTo('sectionClear')" >取消选择</d-el-button>
+            <d-el-button class="el-table-section-header-btn-default" text @click="goTo('sectionClear')">取消选择
+            </d-el-button>
 
           </div>
         </div>
@@ -140,6 +142,10 @@
         <slot :name="item.customName" :data="scope"></slot>
       </template>
 
+      <template v-else-if="item.type == 'option'">
+        {{ optionValueCOM(scope.row) }}
+      </template>
+
       <template v-else>
         {{ scope.row[item.key] }}
       </template>
@@ -170,8 +176,8 @@ import dayjs from "dayjs";
 // console.log(tools.debounce)
 
 const props = defineProps({
-  tableModelRef:{
-    type:[Object,Array],
+  tableModelRef: {
+    type: [Object, Array],
   },
   item: {
     type: [Object],
@@ -188,35 +194,73 @@ const props = defineProps({
   selectable: {
     type: [Function]
   },
-  sectionData:{
-    type:[Object]
+  sectionData: {
+    type: [Object]
   },
-  beforeSwitchChange:{
-    type:[Function,Boolean],
-    default:true,
+  beforeSwitchChange: {
+    type: [Function, Boolean],
+    default: true,
   },
 
-  filters:{
-    type:[Array]
+  filters: {
+    type: [Array]
   },
-  filterMethod:{
+  filterMethod: {
     type: [Function]
+  },
+  option: {
+    type: [Array,Object]
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick', 'onChange','onSwitchChange','sectionDelete']);
+const emits = defineEmits(['onSettingsButtonClick', 'onChange', 'onSwitchChange', 'sectionDelete']);
 
 
 // console.log(props.item)
 
 
+// section optionValueCOM
+const optionValueCOM = computed(() => {
+  return  (data)=>{
+
+    let _value = '';
+    let _option = props?.option
+    let _item = props?.item;
+    let _key = _item?.key;
+    let _itemOption = _item?.option;
+    let _data = data;
+    let _dataValue = _data?.[_key]
+    console.log('_key',_key)
+    if(Array.isArray(_itemOption) || Object.prototype.toString.call(_itemOption) === '[object Object]'){
+      console.log('item里有option',_itemOption)
+      _option = _itemOption;
+    }
+
+    if(Array.isArray(_option)){
+      console.log('数组')
+     const _findData = _option?.find(item=>item?.value == _dataValue ) || {}
+      _value = _findData?.['label'] || ''
+    }
+    if(Object.prototype.toString.call(_option) === '[object Object]'){
+      console.log('对象')
+      _value = _option?.[_dataValue]
+    }
+
+    console.log('option',props.option)
+
+
+    return _value;
+  }
+
+})
+
 
 //  section sortable 排序开启
-const sortableCOM = computed(()=>{
+const sortableCOM = computed(() => {
   let _sortable = false;
   let _item = props?.item;
   let _itemSortable = _item?.sortable;
-  if(_itemSortable){
+  if (_itemSortable) {
     _sortable = _itemSortable
   }
 
@@ -240,28 +284,23 @@ const sortableCOM = computed(()=>{
 
 // 指定数据按照哪个属性进行排序，仅当 sortable 设置为 true 且没有设置 sort-method 的时候有效。
 // 如果 sort-by 为数组，则先按照第 1 个属性排序，如果第 1 个相等，再按照第 2 个排序，以此类推
-const sortBy = (row, index) =>{
-  console.log(row,index)
+const sortBy = (row, index) => {
+  console.log(row, index)
   return row.recordId
 }
 
-const sortOrdersCOM = computed(()=>{
+const sortOrdersCOM = computed(() => {
   let _sortOrders = ['ascending', 'descending', null];
   let _item = props?.item;
   let _itemSortable = _item?.sortOrders;
 
-  if(Array.isArray(_itemSortable) && _itemSortable?.length>=0){
+  if (Array.isArray(_itemSortable) && _itemSortable?.length >= 0) {
     _sortOrders = _itemSortable
   }
 
   return _sortOrders
 
 })
-
-
-
-
-
 
 
 // section filterMethod
@@ -272,15 +311,15 @@ const sortOrdersCOM = computed(()=>{
 // }
 
 //  过滤条件
-const filtersCOM = computed(()=>{
+const filtersCOM = computed(() => {
   let _filters = undefined;
   let _propFilters = props?.filters;
   let _item = props?.item;
   let _itemFilters = _item?.filters;
-  if(Array.isArray(_propFilters) && _propFilters?.length>=0){
+  if (Array.isArray(_propFilters) && _propFilters?.length >= 0) {
     _filters = _propFilters
   }
-  if(Array.isArray(_itemFilters) && _itemFilters?.length>=0){
+  if (Array.isArray(_itemFilters) && _itemFilters?.length >= 0) {
     _filters = _itemFilters
   }
 
@@ -289,12 +328,12 @@ const filtersCOM = computed(()=>{
 })
 
 // section 数据过滤的选项是否多选
-const filterMultipleCOM = computed(()=>{
+const filterMultipleCOM = computed(() => {
   let _filterMultiple = false;
   let _propFilters = props?.filters;
   let _item = props?.item;
   let _itemFilterMultiple = _item?.filterMultiple;
-  if(_itemFilterMultiple === true){
+  if (_itemFilterMultiple === true) {
     _filterMultiple = true
   }
 
@@ -304,52 +343,47 @@ const filterMultipleCOM = computed(()=>{
 
 
 // 过滤条件 默认勾选值 根据 value
-const filteredValueCOM = computed(()=>{
+const filteredValueCOM = computed(() => {
   let _filteredValue = []
 
   return _filteredValue;
 })
 
 // section 过滤弹出框的定位
-const filterPlacementCOM = computed(()=>{
+const filterPlacementCOM = computed(() => {
   let _filterPlacement = 'bottom'
   return _filterPlacement
 })
-
-
 
 
 // console.log('sectionData',props.sectionData)
 const isShowSelectionHeader = ref(false)
 const sectionNum = ref(0)
 // section watch sectionData
-watch(()=>props.sectionData,(sectionData,preSectionData)=>{
+watch(() => props.sectionData, (sectionData, preSectionData) => {
   // console.log('sectionData',sectionData)
   const _sectionData = sectionData;
 
-  if(_sectionData.selection?.length>0){
+  if (_sectionData.selection?.length > 0) {
     isShowSelectionHeader.value = true;
     sectionNum.value = _sectionData.selection?.length
-  }else{
+  } else {
     isShowSelectionHeader.value = false;
     sectionNum.value = 0
 
   }
 
-},{
-  deep:true
+}, {
+  deep: true
 })
 
 
-
-
-
-const beforeSwitchChangeFN = (data)=>{
+const beforeSwitchChangeFN = (data) => {
   let _beforeSwitchChange = props.beforeSwitchChange;
   console.log('beforeSwitchChangeFN')
-  if(typeof(_beforeSwitchChange) == 'function'){
+  if (typeof (_beforeSwitchChange) == 'function') {
     return _beforeSwitchChange(data)
-  }else{
+  } else {
     return _beforeSwitchChange
   }
 
@@ -490,21 +524,18 @@ const selectable = (row, index) => {
 }
 
 
-
-
-
 //section goTo
 const goTo = (key, data) => {
   console.log(key, data);
 
-  if(key == 'sectionDelete' || key == 'sectionClear'){
+  if (key == 'sectionDelete' || key == 'sectionClear') {
 
     console.log(props.sectionData)
-    let _selection = props.sectionData?.selection  || []
-    emits('sectionDelete',{selection:_selection})
+    let _selection = props.sectionData?.selection || []
+    emits('sectionDelete', {selection: _selection})
 
 
-    if(key == 'sectionClear'){
+    if (key == 'sectionClear') {
       const _tableModelRef = props.tableModelRef
       _tableModelRef?.clearSelection()
     }
@@ -519,11 +550,10 @@ const goTo = (key, data) => {
   //   return value;
   // }));
 
-  if(key == 'onSwitchChange' ){
-    emits('onSwitchChange',{...data})
+  if (key == 'onSwitchChange') {
+    emits('onSwitchChange', {...data})
 
   }
-
 
 
   if (key == 'settingsButtonClick' || key == 'settingsDropdownClick') {
@@ -569,33 +599,38 @@ init();
 
 <style scoped lang="less">
 
-.el-table-section-header{
-  height:100%;
-  display:flex;
-  flex:1;
-  align-items:center;
+.el-table-section-header {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
   justify-content: space-between;
-  .el-table-section-header-left{
-    height:100%;
-    display:flex;
-    align-items:center;
+
+  .el-table-section-header-left {
+    height: 100%;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    .el-table-section-header-section{
+
+    .el-table-section-header-section {
       padding-right: 50px;
-      span{
+
+      span {
         color: #4886FF;
       }
     }
 
   }
-  .el-table-section-header-right{
-    padding-right:40px;
+
+  .el-table-section-header-right {
+    padding-right: 40px;
   }
-  .el-table-section-header-btn-default{
-    height:100%;
-    padding:0;
-    display:flex;
-    align-items:center;
+
+  .el-table-section-header-btn-default {
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
   }
 }
 
