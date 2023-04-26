@@ -367,8 +367,6 @@ const formatItem = (item = {}) => {
 watch(() => props.item, (item, preItem) => {
   // console.log('tableItem-watch-item',item);
   formatItem(item);
-
-
 }, {
   deep: true,
   immediate: true,
