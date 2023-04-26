@@ -347,16 +347,19 @@ const headerCellStyleFN = (data) => {
           }
         }
 
+        let _selectionWidth = `${row?.[0]?.width}px`
+
         if (columnIndex == 1) {
           _style = {
             ..._style,
             position: 'absolute',
-            left: '60px',
-            width:`calc(100% - ${row?.[0]?.width}px )`
+            left: `${_selectionWidth}`,
+            width:`calc(100% - ${_selectionWidth} )`,
+            display:'flex'
           }
         }
 
-
+        row[1].fixed =  "left"
         row[1].colSpan = row.length - 1
       }
     } else {

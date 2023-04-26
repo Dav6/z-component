@@ -23,7 +23,6 @@
       :header-cell-class-name="headerRowClassNameFN"
       :filters="globalFilters"
       :filterMethod="globalFilterMethod"
-
       row-key="recordId"
       height="100%"
       @selection-change="data=>goTo('selectionChange',data)"
@@ -501,7 +500,17 @@ init();
 
 
 </script>
+<style lang="less">
+.el-table thead{
+  --el-table-header-bg-color:#F5F6FA;
 
+  .el-table__cell {
+    height:54px;
+    overflow: hidden;
+  }
+
+}
+</style>
 <style scoped lang="less">
 
 </style>

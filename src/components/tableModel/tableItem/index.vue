@@ -33,18 +33,21 @@
 
   >
 
-    <template v-if="isShowSelectionHeader" #header>
+    <template v-if="isShowSelectionHeader" #header="{ column, $index }">
+      <template v-if="$index == 1">
+        <div class="el-table-section-header">
+          <div class="el-table-section-header-left">
+            <div class="el-table-section-header-section">已选中 <span>{{sectionNum}}</span> 项  </div>
+            <d-el-button  class="el-table-section-header-btn-default" text icon="Delete" @click="goTo('sectionDelete')">删除</d-el-button>
+          </div>
+          <div class="el-table-section-header-right">
+            <d-el-button  class="el-table-section-header-btn-default" text @click="goTo('sectionClear')" >取消选择</d-el-button>
 
-      <div class="el-table-section-header">
-        <div class="el-table-section-header-left">
-          <div class="el-table-section-header-section">已选中 <span>{{sectionNum}}</span> 项</div>
-          <d-el-button  class="el-table-section-header-btn-default" text icon="Delete" @click="goTo('sectionDelete')">删除</d-el-button>
+          </div>
         </div>
-        <div class="el-table-section-header-right">
-          <d-el-button  class="el-table-section-header-btn-default" text @click="goTo('sectionClear')" >取消选择</d-el-button>
+      </template>
 
-        </div>
-      </div>
+
     </template>
 
 
@@ -316,7 +319,6 @@ const filterPlacementCOM = computed(()=>{
 
 
 
-
 // console.log('sectionData',props.sectionData)
 const isShowSelectionHeader = ref(false)
 const sectionNum = ref(0)
@@ -488,6 +490,9 @@ const selectable = (row, index) => {
 }
 
 
+
+
+
 //section goTo
 const goTo = (key, data) => {
   console.log(key, data);
@@ -567,6 +572,7 @@ init();
 .el-table-section-header{
   height:100%;
   display:flex;
+  flex:1;
   align-items:center;
   justify-content: space-between;
   .el-table-section-header-left{
