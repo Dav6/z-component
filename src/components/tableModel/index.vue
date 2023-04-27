@@ -8,7 +8,7 @@
 
 <template>
   <el-table
-      class="tableModel"
+      class="table-model"
       ref="tableModelRef"
       :data="tableListCOM"
       :row-key="rowKey"
@@ -106,6 +106,8 @@ const props = defineProps({
     type: [Object],
     default: {},
   },
+  // 行数据的 Key，用来优化 Table 的渲染； 在使用reserve-selection功能与显示树形数据时，该属性是必填的。
+  // 类型为 String 时，支持多层访问：user.info.id，但不支持 user.info[0].id，此种情况请使用 Function。
   rowKey: {
     type: [String, Function]
   },
@@ -345,7 +347,7 @@ const headerCellStyleFN = (data) => {
       const _sectionIndex = row?.findIndex(item => item.type == "selection")
       // 第一列为选项框 和 标题这一行
       if (row[0]?.type == 'selection' && rowIndex == 0) {
-        console.log('row,',row, )
+        // console.log('row,',row, )
         // console.log(' column', column, )
         // console.log('rowIndex',rowIndex)
         // console.log(' columnIndex', columnIndex)
@@ -455,8 +457,15 @@ defineExpose({
 
 <style scoped lang="less">
 
-.tableModel {
-
+.table-model {
+  background: red;
+  :deep(.el-table__header){
+    .el-table-column--selection.el-table__cell + .el-table__cell {
+      .cell{
+        width: 100%;
+      }
+    }
+  }
 }
 
 

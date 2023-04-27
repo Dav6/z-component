@@ -1,4 +1,4 @@
-import './assets/index.32dc7d49.css';
+import './assets/index.b2d537a3.css';
 import { defineComponent as q, inject as Ue, ref as N, resolveComponent as I, openBlock as E, createBlock as z, mergeProps as ue, unref as C, withCtx as L, renderSlot as de, computed as D, watch as pe, createElementBlock as Y, createElementVNode as P, createVNode as F, normalizeClass as ae, toDisplayString as $, getCurrentInstance as Be, isRef as le, markRaw as Ve, createTextVNode as ne, Fragment as ee, renderList as re, resolveDynamicComponent as ge, useSlots as be, normalizeProps as qe, guardReactiveProps as et, createSlots as ve, normalizeStyle as Pe, onMounted as it, useCssVars as je, createCommentVNode as me, withModifiers as ut, pushScopeId as st, popScopeId as dt } from "vue";
 const te = (e) => {
   let y = e, n = y == null ? void 0 : y.name;
@@ -5079,7 +5079,7 @@ const Lo = q({
     }), (c, p) => {
       const V = I("d-table-list"), A = I("el-table");
       return E(), z(A, ue({
-        class: "tableModel",
+        class: "table-model",
         ref_key: "tableModelRef",
         ref: g,
         data: C(v),
@@ -5121,7 +5121,7 @@ const Lo = q({
       }, 16, ["data", "row-key", "tree-props", "default-sort"]);
     };
   }
-}), Xo = /* @__PURE__ */ ce(Uo, [["__scopeId", "data-v-4212c640"]]), Ro = te(Xo), zo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Xo = /* @__PURE__ */ ce(Uo, [["__scopeId", "data-v-b268dde4"]]), Ro = te(Xo), zo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Ro
 }, Symbol.toStringTag, { value: "Module" }));
@@ -5429,7 +5429,7 @@ const Ho = {
       ]), 1032, ["label", "type", "width", "align", "fixed", "show-overflow-tooltip", "selectable", "prop", "column-key", "filters", "filter-method", "filtered-value", "filter-multiple", "filter-placement", "sortable", "sort-method", "sort-orders", "sort-by"]);
     };
   }
-}), Ko = /* @__PURE__ */ ce(Zo, [["__scopeId", "data-v-256efb2e"]]), qo = te(Ko), ea = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Ko = /* @__PURE__ */ ce(Zo, [["__scopeId", "data-v-bbebd6a2"]]), qo = te(Ko), ea = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: qo
 }, Symbol.toStringTag, { value: "Module" }));

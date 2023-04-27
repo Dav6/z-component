@@ -640,6 +640,7 @@ init();
 <style scoped lang="less">
 
 .el-table-section-header {
+  width: 100%;
   height: 100%;
   display: flex;
   flex: 1;

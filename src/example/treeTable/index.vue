@@ -8,20 +8,20 @@
 
 <template>
   <Component
-    is="d-table-model"
-    :list="list"
-    :keyList="keyList"
-    :pageData="pageData"
-    :isShowExpand="isShowExpand"
-    :isShowSelection="isShowSelection"
-    :isShowIndex="isShowIndex"
-    :settingsConfig="settingsConfig"
-    height="100%"
-    @select="(selection, row)=>goTo('select',{selection, row})"
-    @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-    row-key="id"
-    :tree-props="{children:'childDevices'}"
-    v-bind="$props"
+      is="d-table-model"
+      :list="list"
+      :keyList="keyList"
+      :pageData="pageData"
+      :isShowExpand="isShowExpand"
+      :isShowSelection="isShowSelection"
+      :isShowIndex="isShowIndex"
+      :settingsConfig="settingsConfig"
+      height="100%"
+      @select="(selection, row)=>goTo('select',{selection, row})"
+      @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+      row-key="id"
+      :tree-props="{children:'childDevices'}"
+      v-bind="$props"
 
   >
     <template #expand="{data}">
@@ -63,11 +63,11 @@ const defaultCOM = computed(() => {
 });
 
 const keyList = ref([
-  { label: "设备名称", key: "name", showOverflowTooltip: true },
-  { label: "设备编号", key: "serialNum", showOverflowTooltip: true },
-  { label: "设备型号", key: "model", showOverflowTooltip: true },
-  { label: "设备ID", key: "id", showOverflowTooltip: true },
-  { label: "位置", key: "location", showOverflowTooltip: true },
+  {label: "设备名称", key: "name", showOverflowTooltip: true},
+  {label: "设备编号", key: "serialNum", showOverflowTooltip: true},
+  {label: "设备型号", key: "model", showOverflowTooltip: true},
+  {label: "设备ID", key: "id", showOverflowTooltip: true},
+  {label: "位置", key: "location", showOverflowTooltip: true},
   {
     label: "设备二维码",
     type: "image",
@@ -78,7 +78,8 @@ const keyList = ref([
     showOverflowTooltip: false,
   },
   // 0 1
-  { label: "使用状态", key: "status", showOverflowTooltip: true,
+  {
+    label: "使用状态", key: "status", showOverflowTooltip: true,
     type: "custom",
     customName: "status",
   },
@@ -166,7 +167,40 @@ const list = ref([
     "gatewayId": "446620761306759172",
     "registerMode": 0,
     "status": 1,
-    "network": 1
+    "network": 1,
+    "childDevices": [
+      {
+        "id": "446771235116810244",
+        "name": "DH-IAS1262C-25B0039",
+        "type": "ZR-AS-WD",
+        "nodeType": 3,
+        "nodeTypeName": "子设备",
+        "dataProto": 2,
+        "model": "DH-IAS1262C-25B",
+        "serialNum": "8C05DA0PGE00039",
+        "gatewayId": "446620308019937284",
+        "parentDeviceId": 446771235083255812,
+        "registerMode": 0,
+        "status": 1,
+        "network": 1,
+        "address": "8C05DA0PGE00039"
+      }, {
+        "id": "446771235100033028",
+        "name": "接插座",
+        "type": "ZR-AS-WD",
+        "nodeType": 3,
+        "nodeTypeName": "子设备",
+        "dataProto": 2,
+        "model": "DH-IAS1262C-25B",
+        "serialNum": "8C05DA0PGE00046",
+        "gatewayId": "446620308019937284",
+        "parentDeviceId": 446771235083255812,
+        "registerMode": 0,
+        "status": 1,
+        "network": 1,
+        "address": "8C05DA0PGE00046"
+      }
+    ]
   }, {
     "id": "446763612338388996",
     "name": "ZHERUI_PRO_TEST001",
@@ -226,37 +260,39 @@ const list = ref([
     "network": 1,
     "address": "192.168.12.84:37777",
     "mac": "c0:39:5a:83:ff:e6",
-    "childDevices": [{
-      "id": "446771235116810244",
-      "name": "DH-IAS1262C-25B0039",
-      "type": "ZR-AS-WD",
-      "nodeType": 3,
-      "nodeTypeName": "子设备",
-      "dataProto": 2,
-      "model": "DH-IAS1262C-25B",
-      "serialNum": "8C05DA0PGE00039",
-      "gatewayId": "446620308019937284",
-      "parentDeviceId": 446771235083255812,
-      "registerMode": 0,
-      "status": 1,
-      "network": 1,
-      "address": "8C05DA0PGE00039"
-    }, {
-      "id": "446771235100033028",
-      "name": "接插座",
-      "type": "ZR-AS-WD",
-      "nodeType": 3,
-      "nodeTypeName": "子设备",
-      "dataProto": 2,
-      "model": "DH-IAS1262C-25B",
-      "serialNum": "8C05DA0PGE00046",
-      "gatewayId": "446620308019937284",
-      "parentDeviceId": 446771235083255812,
-      "registerMode": 0,
-      "status": 1,
-      "network": 1,
-      "address": "8C05DA0PGE00046"
-    }]
+    "childDevices": [
+      {
+        "id": "446771235116810244",
+        "name": "DH-IAS1262C-25B0039",
+        "type": "ZR-AS-WD",
+        "nodeType": 3,
+        "nodeTypeName": "子设备",
+        "dataProto": 2,
+        "model": "DH-IAS1262C-25B",
+        "serialNum": "8C05DA0PGE00039",
+        "gatewayId": "446620308019937284",
+        "parentDeviceId": 446771235083255812,
+        "registerMode": 0,
+        "status": 1,
+        "network": 1,
+        "address": "8C05DA0PGE00039"
+      }, {
+        "id": "446771235100033028",
+        "name": "接插座",
+        "type": "ZR-AS-WD",
+        "nodeType": 3,
+        "nodeTypeName": "子设备",
+        "dataProto": 2,
+        "model": "DH-IAS1262C-25B",
+        "serialNum": "8C05DA0PGE00046",
+        "gatewayId": "446620308019937284",
+        "parentDeviceId": 446771235083255812,
+        "registerMode": 0,
+        "status": 1,
+        "network": 1,
+        "address": "8C05DA0PGE00046"
+      }
+    ]
   }])
 
 

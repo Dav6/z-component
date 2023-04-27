@@ -25,7 +25,7 @@
       :filters="globalFilters"
       :filterMethod="globalFilterMethod"
 
-      row-key="recordId"
+      :row-key="'id'"
       height="100%"
       @selection-change="data=>goTo('selectionChange',data)"
       @select="(selection, row)=>goTo('select',{selection, row})"
@@ -309,7 +309,7 @@ list.value = Array(20).fill({})?.map((item, index) => {
 
     }
 
-    _item[cItem.key] = _value
+    _item[cItem.key] = JSON.stringify(_value)
 
   })
 
