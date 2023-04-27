@@ -18,7 +18,7 @@
       :prop="item.key"
 
       :column-key="item.key"
-      :filters="__filters"
+      :filters="filtersCOM"
       :filter-method="item?.filterMethod || filterMethod || undefined"
       :filtered-value="filteredValueCOM"
       :filter-multiple="filterMultipleCOM"
@@ -313,9 +313,9 @@ const sortOrdersCOM = computed(() => {
 //  过滤条件
 const filtersCOM = computed(() => {
   let _filters = undefined;
-  let _propFilters = props?.filters;
-  let _item = props?.item;
-  let _itemFilters = _item?.filters;
+  const _propFilters = props?.filters;
+  const _item = props?.item;
+  const _itemFilters = _item?.filters;
 
   // console.log('tableItem-filtersCOM-_propFilters',_propFilters)
   // console.log('tableItem-filtersCOM-_propFilters',Array.isArray(_propFilters))
@@ -333,33 +333,33 @@ const filtersCOM = computed(() => {
     _filters = _itemFilters
   }
 
-  console.log('tableItem-filtersCOM-_filters',_filters)
+  // console.log('tableItem-filtersCOM-_filters',_filters)
   return _filters;
 })
 
-const __filters = ref(undefined)
-watch([()=>props?.filters,()=>props?.item],([filters,preFilters],[item,preItem])=>{
-  __filters.value = undefined;
-  let _filters = filters || undefined;
-  let _item = item;
-  let _itemFilters = _item?.filters;
-  console.log('tableItem-watch-_filters',filters,)
-  console.log('tableItem-watch-_itemFilters',_itemFilters)
-
-  if(Array.isArray(_itemFilters) && _itemFilters?.length >= 0){
-    _filters = _itemFilters;
-  }
-
-  if (Array.isArray(filters) && filters?.length >= 0) {
-    __filters.value = filters;
-  }
-
-  console.log('tableItem-watch-__filters',__filters.value)
-},{
-  deep:true,
-  immediate:true,
-})
-
+// const __filters = ref(undefined)
+// watch([()=>props?.filters,()=>props?.item],([filters,preFilters],[item,preItem])=>{
+//   __filters.value = undefined;
+//   let _filters = filters || undefined;
+//   let _item = item;
+//   let _itemFilters = _item?.filters;
+//   console.log('tableItem-watch-_filters',filters,)
+//   console.log('tableItem-watch-_itemFilters',_itemFilters)
+//
+//   if(Array.isArray(_itemFilters) && _itemFilters?.length >= 0){
+//     _filters = _itemFilters;
+//   }
+//
+//   if (Array.isArray(filters) && filters?.length >= 0) {
+//     __filters.value = filters;
+//   }
+//
+//   console.log('__filters',__filters)
+// },{
+//   deep:true,
+//   immediate:true,
+// })
+//
 
 
 

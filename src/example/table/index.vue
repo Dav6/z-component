@@ -80,22 +80,22 @@ const defaultCOM = computed(() => {
   return '';
 });
 
-const globalFilters ={
-
-}
+const globalFilters =ref({
+  company:[]
+})
 
 setTimeout(() => {
   console.log('set')
-  globalFilters.company = [
+  globalFilters.value.company = [
     {text: '111', value: '111'},
     {text: '555', value: '555'},
   ]
 }, 2000)
 
 const globalFilterMethod = ref({
-  company: (value, row, column) => {
-    console.log(value, row, column)
-  }
+  // company: (value, row, column) => {
+  //   console.log(value, row, column)
+  // }
 })
 // setTimeout(()=>{
 //   console.log('set')
