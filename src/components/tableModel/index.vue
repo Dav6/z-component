@@ -31,7 +31,7 @@
         :beforeSwitchChange="beforeSwitchChange"
         :pageData="pageData"
 
-        :filters="filters"
+        :filters="filtersCOM"
         :filterMethod="filterMethod"
 
         :option="option"
@@ -143,6 +143,13 @@ const props = defineProps({
 
 });
 
+
+
+const filtersCOM = computed(()=>{
+  const _filters = props.filters || {}
+
+  return _filters;
+})
 
 
 

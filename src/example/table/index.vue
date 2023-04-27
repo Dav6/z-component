@@ -80,13 +80,13 @@ const defaultCOM = computed(() => {
   return '';
 });
 
-const globalFilters = ref({
-  company: []
-})
+const globalFilters ={
+
+}
 
 setTimeout(() => {
   console.log('set')
-  globalFilters.value.company = [
+  globalFilters.company = [
     {text: '111', value: '111'},
     {text: '555', value: '555'},
   ]
