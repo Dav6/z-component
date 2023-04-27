@@ -1,4 +1,4 @@
-import './assets/index.873d90be.css';
+import './assets/index.2c4f833f.css';
 import { defineComponent as q, inject as Xe, ref as N, resolveComponent as I, openBlock as E, createBlock as z, mergeProps as ue, unref as C, withCtx as L, renderSlot as de, computed as D, watch as pe, createElementBlock as Y, createElementVNode as P, createVNode as F, normalizeClass as ae, toDisplayString as $, getCurrentInstance as Be, isRef as le, markRaw as Ve, createTextVNode as ne, Fragment as ee, renderList as re, resolveDynamicComponent as ge, useSlots as be, normalizeProps as et, guardReactiveProps as tt, createSlots as ve, normalizeStyle as Pe, onMounted as st, useCssVars as je, createCommentVNode as me, withModifiers as dt, pushScopeId as ct, popScopeId as ft } from "vue";
 const te = (e) => {
   let y = e, n = y == null ? void 0 : y.name;
@@ -5252,12 +5252,13 @@ const Wo = {
       return A;
     }), u = (s, c) => n.selectable ? !n.selectable(s, c) : !s.selectable, d = (s, c) => {
       var p, V, A, k;
-      if (s == "sectionDelete" || s == "sectionClear") {
+      if (s == "sectionDelete") {
         let x = ((p = n.sectionData) == null ? void 0 : p.selection) || [];
-        if (y("sectionDelete", { selection: x }), s == "sectionClear") {
-          const B = n.tableModelRef;
-          B == null || B.clearSelection();
-        }
+        y("sectionDelete", { selection: x });
+      }
+      if (s == "sectionClear") {
+        const x = n.tableModelRef;
+        x == null || x.clearSelection();
       }
       if (s == "onSwitchChange" && y("onSwitchChange", { ...c }), s == "settingsButtonClick" || s == "settingsDropdownClick") {
         let x = (V = c == null ? void 0 : c.scope) == null ? void 0 : V.row, B = (A = c == null ? void 0 : c.scope) == null ? void 0 : A.$index, U = c == null ? void 0 : c.settingItem, T = U == null ? void 0 : U.key;
@@ -5426,7 +5427,7 @@ const Wo = {
       ]), 1032, ["label", "type", "width", "align", "fixed", "show-overflow-tooltip", "selectable", "prop", "column-key", "filters", "filter-method", "filtered-value", "filter-multiple", "filter-placement", "sortable", "sort-method", "sort-orders", "sort-by"]);
     };
   }
-}), qo = /* @__PURE__ */ ce(Ko, [["__scopeId", "data-v-bbebd6a2"]]), ea = te(qo), ta = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), qo = /* @__PURE__ */ ce(Ko, [["__scopeId", "data-v-6ff4c13a"]]), ea = te(qo), ta = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ea
 }, Symbol.toStringTag, { value: "Module" }));

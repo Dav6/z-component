@@ -568,19 +568,19 @@ const selectable = (row, index) => {
 const goTo = (key, data) => {
   console.log(key, data);
 
-  if (key == 'sectionDelete' || key == 'sectionClear') {
+  if (key == 'sectionDelete' ) {
 
     console.log(props.sectionData)
     let _selection = props.sectionData?.selection || []
     emits('sectionDelete', {selection: _selection})
 
 
-    if (key == 'sectionClear') {
-      const _tableModelRef = props.tableModelRef
-      _tableModelRef?.clearSelection()
-    }
-  }
 
+  }
+  if (key == 'sectionClear') {
+    const _tableModelRef = props.tableModelRef
+    _tableModelRef?.clearSelection()
+  }
   // let _data = JSON.parse(JSON.stringify(data,(key,value)=>{
   //   console.log(key,value)
   //   if (typeof value === 'object' && value !== null) {
