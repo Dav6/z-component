@@ -458,7 +458,6 @@ defineExpose({
 <style scoped lang="less">
 
 .table-model {
-  background: red;
   :deep(.el-table__header){
     .el-table-column--selection.el-table__cell + .el-table__cell {
       .cell{
