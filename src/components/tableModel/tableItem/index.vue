@@ -18,7 +18,7 @@
       :prop="item.key"
 
       :column-key="item.key"
-      :filters="filtersCOM"
+      :filters="__filters"
       :filter-method="item?.filterMethod || filterMethod || undefined"
       :filtered-value="filteredValueCOM"
       :filter-multiple="filterMultipleCOM"
@@ -317,12 +317,12 @@ const filtersCOM = computed(() => {
   let _item = props?.item;
   let _itemFilters = _item?.filters;
 
-  console.log('tableItem-filtersCOM-_propFilters',_propFilters)
-  console.log('tableItem-filtersCOM-_propFilters',Array.isArray(_propFilters))
-  console.log('tableItem-filtersCOM-_propFilters',_propFilters?.length >= 0)
-  console.log('tableItem-filtersCOM-_itemFilters',_itemFilters)
-  console.log('tableItem-filtersCOM-_itemFilters',Array.isArray(_itemFilters))
-  console.log('tableItem-filtersCOM-_itemFilters',_itemFilters?.length >= 0)
+  // console.log('tableItem-filtersCOM-_propFilters',_propFilters)
+  // console.log('tableItem-filtersCOM-_propFilters',Array.isArray(_propFilters))
+  // console.log('tableItem-filtersCOM-_propFilters',_propFilters?.length >= 0)
+  // console.log('tableItem-filtersCOM-_itemFilters',_itemFilters)
+  // console.log('tableItem-filtersCOM-_itemFilters',Array.isArray(_itemFilters))
+  // console.log('tableItem-filtersCOM-_itemFilters',_itemFilters?.length >= 0)
 
 
   if (Array.isArray(_propFilters) && _propFilters?.length >= 0) {
@@ -336,6 +336,36 @@ const filtersCOM = computed(() => {
   console.log('tableItem-filtersCOM-_filters',_filters)
   return _filters;
 })
+
+const __filters = ref(undefined)
+watch([()=>props?.filters,()=>props?.item],([filters,preFilters],[item,preItem])=>{
+  __filters.value = undefined;
+  let _filters = filters || undefined;
+  let _item = item;
+  let _itemFilters = _item?.filters;
+  console.log('tableItem-watch-_filters',filters,)
+  console.log('tableItem-watch-_itemFilters',_itemFilters)
+
+  if(Array.isArray(_itemFilters) && _itemFilters?.length >= 0){
+    _filters = _itemFilters;
+  }
+
+  if (Array.isArray(filters) && filters?.length >= 0) {
+    __filters.value = filters;
+  }
+
+  console.log('tableItem-watch-__filters',__filters.value)
+},{
+  deep:true,
+  immediate:true,
+})
+
+
+
+
+
+
+
 
 // section 数据过滤的选项是否多选
 const filterMultipleCOM = computed(() => {
