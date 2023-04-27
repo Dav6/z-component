@@ -230,23 +230,23 @@ const optionValueCOM = computed(() => {
     let _itemOption = _item?.option;
     let _data = data;
     let _dataValue = _data?.[_key]
-    console.log('_key',_key)
+    // console.log('_key',_key)
     if(Array.isArray(_itemOption) || Object.prototype.toString.call(_itemOption) === '[object Object]'){
-      console.log('item里有option',_itemOption)
+      // console.log('item里有option',_itemOption)
       _option = _itemOption;
     }
 
     if(Array.isArray(_option)){
-      console.log('数组')
+      // console.log('数组')
      const _findData = _option?.find(item=>item?.value == _dataValue ) || {}
       _value = _findData?.['label'] || ''
     }
     if(Object.prototype.toString.call(_option) === '[object Object]'){
-      console.log('对象')
+      // console.log('对象')
       _value = _option?.[_dataValue]
     }
 
-    console.log('option',props.option)
+    // console.log('option',props.option)
 
 
     return _value;

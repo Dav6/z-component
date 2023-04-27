@@ -20,7 +20,7 @@
         :sectionData="sectionData"
         @sectionDelete="data=>goTo('sectionDelete',data)"
         :beforeSwitchChange="beforeSwitchChange"
-        :filters="filters?.[item?.key]"
+        :filters="filtersCOM(item)"
         :filterMethod="filterMethod?.[item?.key]"
         :option="option?.[item?.key]"
     >
@@ -99,6 +99,21 @@ const props = defineProps({
 const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange','sectionDelete']);
 
 // console.log('keyList',props.keyList)
+const filtersCOM = computed(()=>{
+  return (item)=>{
+    let _filters = undefined;
+    const _filtersMap = props.filters || {}
+    let _item = item;
+    // console.log(_item)
+    let _key = _item?.key;
+    if(_filtersMap?.[_key]){
+      _filters = _filtersMap?.[_key]
+    }
+    // console.log('_key',_key,_filters)
+    return _filters
+  }
+
+})
 
 
 
