@@ -316,9 +316,19 @@ const filtersCOM = computed(() => {
   let _propFilters = props?.filters;
   let _item = props?.item;
   let _itemFilters = _item?.filters;
+
+  console.log('tableItem-filtersCOM-_propFilters',_propFilters)
+  console.log('tableItem-filtersCOM-_propFilters',Array.isArray(_propFilters))
+  console.log('tableItem-filtersCOM-_propFilters',_propFilters?.length >= 0)
+  console.log('tableItem-filtersCOM-_itemFilters',_itemFilters)
+  console.log('tableItem-filtersCOM-_itemFilters',Array.isArray(_itemFilters))
+  console.log('tableItem-filtersCOM-_itemFilters',_itemFilters?.length >= 0)
+
+
   if (Array.isArray(_propFilters) && _propFilters?.length >= 0) {
     _filters = _propFilters
   }
+
   if (Array.isArray(_itemFilters) && _itemFilters?.length >= 0) {
     _filters = _itemFilters
   }

@@ -109,6 +109,8 @@ const filtersCOM = computed(()=>{
     if(_filtersMap?.[_key]){
       _filters = _filtersMap?.[_key]
     }
+    console.log('tableItem-filtersCOM-filtersMap',_filtersMap)
+    console.log('tableItem-filtersCOM-_key',_key,_filters)
     // console.log('_key',_key,_filters)
     return _filters
   }
