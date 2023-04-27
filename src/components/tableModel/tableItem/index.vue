@@ -323,7 +323,7 @@ const filtersCOM = computed(() => {
     _filters = _itemFilters
   }
 
-  // console.log('_filters',_filters)
+  console.log('tableItem-filtersCOM-_filters',_filters)
   return _filters;
 })
 

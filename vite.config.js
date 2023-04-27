@@ -95,6 +95,6 @@ export default defineConfig({
         }, // rollup打包配置
     },
     esbuild: {
-        drop: ['console', 'debugger'],
+        // drop: ['console', 'debugger'],
     },
 })
