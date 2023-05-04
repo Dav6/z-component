@@ -135,7 +135,6 @@ const formList = ref([
         labelWidth: '0em',
         name: "", key: "layer11", value: "", placeholder: "层级1-1", disabled: false, formType: "", span: 24,
         // rules: [{required: true, message: "请输入", trigger: "blur"}],
-        // ownSpan: 0,
         childrenSpan: 24,
         children: [
 
@@ -241,11 +240,10 @@ const formList = ref([
         value: "1123",
         name: "层级1-1", key: "layer11", placeholder: "层级1-1", disabled: false, formType: "input",
         span: 12,
-        ownSpan: 12,
         childrenSpan: 18,
         isChildrenBr: true,
         // width:800,
-        rules: [{required: true, message: "请输入", trigger: "blur"}],
+        rules: [{required: true, message:  "请输入", trigger: "blur"}],
         children: [
 
           {
@@ -284,7 +282,7 @@ const formList = ref([
             disabled: false,
             formType: "select",
             span: 24,
-            width: 200,
+            // width: 200,
 
             rules: [{required: true, message: "请选择层级1-1-3", trigger: "blur"}],
             multiple: true,
