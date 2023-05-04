@@ -535,18 +535,20 @@ const goTo = (key, data) => {
 const setItemData = () => {
 
   if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
-    // console.log(props.item?.formType, 'props.item?.formType')
+    console.log(props.item?.formType, 'props.item?.formType')
     let _number = props.item.value;
-    if (_number == +_number) {
-      // console.log('_number', _number)
-      _number = Number(_number);
-    } else {
+    console.log('_number', _number === +_number)
+
       if (_number == '' || _number == ' ' || _number == undefined) {
         _number = undefined
       } else {
-        _number = isNaN(Number(_number)) ? undefined : Number(_number);
+        if (_number == +_number) {
+          // console.log('_number', _number)
+          _number = Number(_number);
+        } else {
+          _number = isNaN(Number(_number)) ? undefined : Number(_number);
+        }
       }
-    }
 
     if (props.item?.formType == 'slider') {
       if (Array.isArray(props.item.value)) {
