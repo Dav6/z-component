@@ -332,7 +332,19 @@ const filtersCOM = computed(() => {
   if (Array.isArray(_itemFilters) && _itemFilters?.length >= 0) {
     _filters = _itemFilters
   }
-
+  if(_filters?.length > 0) {
+    _filters = _filters?.map(item=>{
+      const _item = item;
+      const _text = _item?.text || _item?.label;
+      const _value = _item?.value
+      const _obj = {
+        ..._item,
+        text:_text,
+        value:_value,
+      }
+      return _obj;
+    })
+  }
   // console.log('tableItem-filtersCOM-_filters',_filters)
   return _filters;
 })

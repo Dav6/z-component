@@ -166,8 +166,8 @@ const keyList = ref([
     label: "状态", type: "switch", key: "status",
     showOverflowTooltip: false,
     filters: [
-      {text: 'Home', value: 'Home'},
-      {text: 'Office', value: 'Office'},
+      {label: 'Home', value: 'Home'},
+      {label: 'Office', value: 'Office'},
     ],
     filterMultiple: true,
     filterMethod: (value, row, column) => {

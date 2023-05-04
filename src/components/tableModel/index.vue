@@ -127,18 +127,18 @@ const props = defineProps({
     type: [Function, Boolean],
     default: true
   },
-  filters:{
+  filters: {
     type: [Object]
   },
-  filterMethod:{
+  filterMethod: {
     type: [Object]
   },
-  defaultSort:{
-    type:[Object]
-  //   如果只指定了 prop, 没有指定 order, 则默认顺序是 ascending
-  //   { prop: 'id', order: 'descending' }
+  defaultSort: {
+    type: [Object]
+    //   如果只指定了 prop, 没有指定 order, 则默认顺序是 ascending
+    //   { prop: 'id', order: 'descending' }
   },
-  option:{
+  option: {
     type: [Object]
   },
 
@@ -146,13 +146,11 @@ const props = defineProps({
 });
 
 
-
-const filtersCOM = computed(()=>{
+const filtersCOM = computed(() => {
   const _filters = props.filters || {}
 
   return _filters;
 })
-
 
 
 //  section sectionData
@@ -256,7 +254,7 @@ const keyListCOM = computed(() => {
 
   console.log('keyListCOM', props)
   console.log('props.keyList', props.keyList)
-  let _keyList = props.keyList ||  JSON.parse(JSON.stringify(props.keyList));
+  let _keyList = props.keyList || JSON.parse(JSON.stringify(props.keyList));
   console.log('_keyList', _keyList)
   let _settingsConfig = JSON.parse(JSON.stringify(props.settingsConfig))
   let _isShowExpand = props.isShowExpand;
@@ -311,7 +309,7 @@ const keyListCOM = computed(() => {
 const emits = defineEmits([
   'onSettingsButtonClick', 'onSwitchChange',
   'selectionChange', 'sectionDelete',
-    'sortChange','filterChange'
+  'sortChange', 'filterChange'
 ]);
 
 
@@ -342,6 +340,7 @@ const headerCellStyleFN = (data) => {
   const _sectionData = sectionData.value
   const _isShowSelection = props.isShowSelection;
   if (_isShowSelection) {
+
     if (_sectionData?.selection?.length > 0) {
 
       const _sectionIndex = row?.findIndex(item => item.type == "selection")
@@ -368,20 +367,24 @@ const headerCellStyleFN = (data) => {
             ..._style,
             position: 'absolute',
             left: `${_selectionWidth}`,
-            width:`calc(100% - ${_selectionWidth} )`,
-            display:'flex'
+            width: `calc(100% - ${_selectionWidth} )`,
+            display: 'flex',
+
           }
         }
-
-        row[1].fixed =  "left"
+        //
+        // row[1].fixed =  "left"
         row[1].colSpan = row.length - 1
       }
+
     } else {
       _style = {
         ..._style,
       }
       row[1].colSpan = 1
     }
+
+
   }
 
 
@@ -395,11 +398,11 @@ const goTo = (key, data) => {
 
   if (key == 'sortChange') {
     // console.log(key, data);
-    emits('sortChange',data)
+    emits('sortChange', data)
   }
   if (key == 'filterChange') {
     // console.log(key, data);
-    emits('filterChange',data)
+    emits('filterChange', data)
 
   }
 
@@ -458,9 +461,9 @@ defineExpose({
 <style scoped lang="less">
 
 .table-model {
-  :deep(.el-table__header){
+  :deep(.el-table__header) {
     .el-table-column--selection.el-table__cell + .el-table__cell {
-      .cell{
+      .cell {
         width: 100%;
       }
     }
