@@ -199,7 +199,6 @@ const settingsConfig = ref({
     {
       name: "详情",
       key: "detail",
-      type: 'button',
     },
     {
       name: "更多",

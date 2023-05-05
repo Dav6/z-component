@@ -333,7 +333,20 @@ const formList = ref([
     min: 0,
     max: "",
     span: 12,
-    rules: [{required: true, message: "请输入数字", trigger: "blur"}],
+    rules: [
+        {required: false, message: "请输入数字", trigger: "blur"},
+      {
+        validator :function (rule, value, callback) {
+          console.log('value',value);
+
+          // if (value != formData["password"]) {
+          //     return callback(new Error("两次密码不一样"));
+          // }
+
+          return true;
+        }, trigger: 'blur'
+      }
+    ],
 
   },
   {

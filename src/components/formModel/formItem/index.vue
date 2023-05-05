@@ -176,8 +176,6 @@ import {
 // import WangEditor from "@/components/wangEditor/index"
 
 // import {isSameObj} from "@/utils/tools"
-import dayjs
-  from "dayjs";
 
 let slots = useSlots()
 
@@ -283,7 +281,7 @@ const optionsCOM = computed(()=>{
   if(Array.isArray(_optionsData) && _optionsData?.length>=0){
     _options = _optionsData
   }
-  if(_optionsData?.[_key] && _optionsData?.[_key]?.length>=0){
+  if(_optionsData?.[_key] && Array.isArray(_optionsData?.[_key]) && _optionsData?.[_key]?.length>=0){
     _options = _optionsData?.[_key]
   }
   // console.log('_options',_options)
@@ -507,6 +505,7 @@ const goTo = (key, data) => {
     emits('onFormItemButtonClick', {key, ...data})
   }
   if (key == 'onChange') {
+    console.log(key,data)
     emits('onChange', {...data})
   }
   if (key == 'onInputSearch') {

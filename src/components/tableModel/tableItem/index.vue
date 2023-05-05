@@ -496,6 +496,8 @@ const settingsButtonItemCOM = computed(() => {
     if (_settingsButtonItem.type == 'dropdown') {
       _component = 'd-el-dropdown';
     }
+
+
     return _component
   }
 })

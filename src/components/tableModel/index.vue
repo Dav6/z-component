@@ -263,12 +263,19 @@ const keyListCOM = computed(() => {
   let _tableExpand = _tableExpandDefault;
   let _tableSelection = _tableSelectionDefault;
   let _tableIndex = _tableIndexDefault;
+
+
+
   let _tableSettings = {
     ..._tableSettingsDefault, // 默认
     ..._settingsConfig,
     type: "settings",
-
   };
+  _tableSettings?.buttonList?.map(item=>{
+    if(!item.type){ // type 为空时
+      item.type = 'button'
+    }
+  })
 
 
   if (!_isShowExpand) {
