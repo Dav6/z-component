@@ -50,7 +50,7 @@
                 :uploadFileAPI="uploadFileAPI"
                 :options="options"
                 @onChange="(data) => goTo('onChange', data)"
-                @submit="(data)=>goTo('submit', {...data})"
+                @onClick="(data)=>goTo('onClick', {...data})"
                 @onInputSearch="data=>goTo('onInputSearch',data)"
                 @onFormItemButtonClick="(data)=>goTo('onFormItemButtonClick', data)"
             >
@@ -79,7 +79,7 @@
                 :icon="item.icon"
                 :color="item.color"
                 :disabled="item.disabled"
-                @click="() => goTo('submit', item)"
+                @click="() => goTo('onClick', item)"
 
             >
               {{ item.name }}
@@ -153,7 +153,7 @@ const props = defineProps({
   }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange', 'submit', 'onInputSearch']);
+const emits = defineEmits(['onClick', 'onFormItemButtonClick', 'onChange', 'onClick', 'onInputSearch']);
 
 
 const defaultCOM = computed(() => {
@@ -346,9 +346,9 @@ const goTo = (key, data) => {
   if (key == 'onChange') {
     emits('onChange', {...data})
   }
-  if (key == 'submit') {
+  if (key == 'onClick') {
     // console.log(key, data);
-    emits('submit', {key: data.key, data,})
+    emits('onClick', {key: data.key, data,})
   }
 
 

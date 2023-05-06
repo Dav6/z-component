@@ -8,8 +8,6 @@
 
 <template>
   <div class="form-model">
-    <d-el-radio v-model="test" :data="{option:[{value:1,label:'lable'}]}"></d-el-radio>
-
     <d-form-model
 
         ref="addEditFormRef"
@@ -22,7 +20,8 @@
         :isButtonsRow="true"
         labelPosition="left"
         :uploadFileAPI="uploadFileAPI"
-        @onclick="(data)=>goTo('onclick', data)"
+        @onSubmit="(data)=>goTo('onSubmit', data)"
+        @onClick="data=>goTo('onClick', data)"
         @onChange="(data) => { goTo('onChange', data) }"
         @onFormItemButtonClick="(data)=>{goTo('onFormItemButtonClick', data)}"
         @onInputSearch="data=>goTo('onInputSearch',data)"
@@ -1045,14 +1044,14 @@ const formList = ref([
 const addEditFormRef = ref(null);
 const goTo = (key, data) => {
   console.log('example-formModel', key, data, formList.value);
-  if (key == 'onInputSearch') {
+  if (key === 'onInputSearch') {
     console.log('onInputSearch', data);
   }
 
-  if (key == 'cancel') {
+  if (key === 'cancel') {
     addEditFormRef.value.formModelRef.clearValidate();
   }
-  if (key == 'confirm') {
+  if (key === 'confirm') {
 
     console.log(addEditFormRef.value.getFormDataByNoHidden())
     console.log(addEditFormRef.value.getFormData())
@@ -1065,10 +1064,15 @@ const goTo = (key, data) => {
 
 
   }
-  if (key == 'onclick') {
+  if (key === 'onSubmit') {
     console.log(data);
   }
-  if (key == 'scroll') {
+  if(key === 'onClick'){
+      console.log(data);
+
+  }
+
+  if (key === 'scroll') {
     console.log()
     console.log(addEditFormRef.value.scrollToField([55, 'value'].join('.')))
 
