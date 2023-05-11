@@ -8,10 +8,11 @@
 
 <template>
   <div class="container-box">
-      <d-menu-model v-model="active" :list="list"
-                  @onClick="data=>goTo('onClick',data)"
-      ></d-menu-model>
-
+      <div class="container-box-menu">
+          <d-menu-model v-model="active" :list="list"
+                        @onClick="data=>goTo('onClick',data)"
+          ></d-menu-model>
+      </div>
   </div>
 </template>
 
@@ -38,35 +39,73 @@ const defaultCOM = computed(() => {
   return '';
 });
 
-const active = ref('')
+const active = ref('1')
 
+const list = ref([]);
 
-const list =   Array(5).fill({})?.map((item, index) => {
-    const _item = {}
-
-    _item.title =  `测试${index}`
-    _item.index = `${index}`
-
-    _item.children = []
-    if(index == 0 || index == 2 ){
-        _item.children =   Array(3).fill({})?.map((cItem, cIndex) => {
-            const _cItem = {}
-
-            _cItem.title =  `测试${index}-${cIndex}`
-            _cItem.index = `${index}-${cIndex}`
-
-
-
-
-
-            return _cItem;
-        })
+const setList = (list,parent,level=1)=>{
+    const _level = level;
+    // console.log('level',level)
+    if(_level>3){
+        return [];
     }
+    const _list = list?.map((item, index) => {
+        const _item = {}
+
+        _item.title =   parent?.index ?`测试 ${parent.index}-${index}`:`测试 ${index}`;
+        _item.index = parent?.index ?`${parent.index}-${index}`:`${index}`;
+
+        _item.children = []
+        if(index == 0 || index == 2 ){
+            _item.children =  setList(Array(3).fill({}),_item,_level+1)
+        }
+
+        return _item;
+    })
+
+    return _list
+}
+
+list.value = setList(Array(5).fill({}))
+console.log('list',setList(Array(5).fill({})))
 
 
 
-    return _item;
-})
+// const list =   Array(5).fill({})?.map((item, index) => {
+//     const _item = {}
+//
+//     _item.title =  `测试${index}`
+//     _item.index = `${index}`
+//
+//     _item.children = []
+//     if(index == 0 || index == 2 ){
+//         _item.children =   Array(3).fill({})?.map((cItem, cIndex) => {
+//             const _cItem = {}
+//
+//             _cItem.title =  `测试${index}-${cIndex}`
+//             _cItem.index = `${index}-${cIndex}`
+//             if(cIndex == 0 || cIndex == 2 ){
+//                 _item.children =   Array(3).fill({})?.map((cItem, cIndex) => {
+//                     const _cItem = {}
+//
+//                     _cItem.title =  `测试${index}-${cIndex}`
+//                     _cItem.index = `${index}-${cIndex}`
+//
+//
+//                     return _cItem;
+//                 })
+//             }
+//
+//
+//
+//             return _cItem;
+//         })
+//     }
+//
+//
+//
+//     return _item;
+// })
 
 
 
@@ -100,8 +139,13 @@ init();
   padding: 2px;
   height: 600px;
 
-  width:300px;
+  background: red;
+  width:100%;
   border: 1px solid red;
+  .container-box-menu{
+    width:300px;
+
+  }
 }
 
 

@@ -9,15 +9,15 @@
 -->
 
 <template>
-  <el-menu
-      class="menu-model"
-      ref="menuModelRef"
-      :default-active="modelValue"
-      @open="goTo('open','')"
-      @close="goTo('close','')"
-  >
-    <d-menu-list  :list="list"  @onClick="data=>goTo('onClick',data)"  ></d-menu-list>
-  </el-menu>
+    <el-menu
+            class="menu-model"
+            ref="menuModelRef"
+            :default-active="modelValue"
+            @open="goTo('open','')"
+            @close="goTo('close','')"
+    >
+        <d-menu-list :list="_listCOM" @onClick="data=>goTo('onClick',data)"></d-menu-list>
+    </el-menu>
 </template>
 
 <script setup>
@@ -30,29 +30,60 @@ import MenuList from "./menuList/index.vue"
 
 
 const props = defineProps({
-  // 配合emits v-model
-  modelValue: {
-    type: [String],
-  },
-  list:{
-    type: [Array]
-  }
+    // 配合emits v-model
+    modelValue: {
+        type: [String],
+    },
+    list: {
+        type: [Array],
+    },
+    maxLevel: {
+        type: [Number],
+        default: 2,
+    }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onClick']);
 
-const active  = ref('');
+const active = ref('');
 
 const menuModelRef = ref('')
 
 
+const setList = (list, parent, level = 1) => {
+    const _level = level;
+    // console.log('level',level)
+    const maxLevel = props.maxLevel>=2?2:props.maxLevel;
 
-const goTo = (key,data)=>{
-  // console.log(key,data)
-  if(key == 'onClick'){
-    console.log('menuModelRef',menuModelRef.value)
-    emits('onClick', {...data})
-  }
+    if (_level > maxLevel) {
+        return [];
+    }
+    let _list = list || [];
+    _list = _list?.map((item, index) => {
+        const _item = item;
+        if (Array.isArray(_item.children) && _item.children.length > 0) {
+            _item.children = setList(_item.children, _item, _level + 1)
+        }
+
+        return _item;
+    })
+
+    return _list
+}
+
+const _listCOM = computed(() => {
+    let _list = props.list || [];
+    _list = setList(_list)
+    return _list
+})
+
+
+const goTo = (key, data) => {
+    // console.log(key,data)
+    if (key == 'onClick') {
+        console.log('menuModelRef', menuModelRef.value)
+        emits('onClick', {...data})
+    }
 
 
 }
@@ -60,7 +91,7 @@ const goTo = (key,data)=>{
 
 // 接口请求方法放这
 const init = () => {
-  //getList();
+    //getList();
 
 }
 
@@ -71,10 +102,10 @@ init();
 </script>
 
 <style scoped lang="less">
-.menu-model{
+.menu-model {
   width: 100%;
-  border:0;
-  padding:24px 0 24px 24px;
+  border: 0;
+  padding: 24px 0 24px 24px;
   min-height: 100%;
   border-radius: 0px 24px 24px 0px;
   //height: 100%;
@@ -113,9 +144,8 @@ init();
     }
 
 
-
-
   }
+
   :deep(.menu-model-item) {
     //font-size: 16px;
     //font-family: PingFangSC-Regular, PingFang SC;
@@ -133,11 +163,12 @@ init();
     }
   }
 
-  >:deep(.menu-model-item) {
-    .menu-model-item-box{
+  > :deep(.menu-model-item) {
+    .menu-model-item-box {
       width: 100%;
     }
-    .el-sub-menu__title,.menu-model-item-box {
+
+    .el-sub-menu__title, .menu-model-item-box {
       border-radius: 12px;
 
       .menu-model-sub-text {
@@ -185,10 +216,10 @@ init();
 
     &.is-active {
       --el-menu-text-color: #fff;
-      --el-menu-active-color:#fff;
+      --el-menu-active-color: #fff;
 
 
-      .el-sub-menu__title,>.menu-model-item-box {
+      .el-sub-menu__title, > .menu-model-item-box {
         &:before {
           width: 4px;
           opacity: 1;
@@ -202,14 +233,8 @@ init();
       }
 
 
-
-
     }
   }
-
-
-
-
 
 
 }
