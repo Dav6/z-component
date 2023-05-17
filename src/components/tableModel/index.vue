@@ -337,7 +337,7 @@ const headerRowClassNameFN = (data) => {
                 const _key = key;
                 if(_key === _colKey){
                     // _sortOrders
-                    const _keyOrder = _sortMap[_key]?.toLowerCase();
+                    const _keyOrder = _sortMap[_key]?.toLowerCase() || null;
                     const index = _sortOrders.findIndex(item=>item?.indexOf(_keyOrder)>-1)
                     _column.order =  _sortOrders?.[index] || ""
                 }
@@ -347,7 +347,7 @@ const headerRowClassNameFN = (data) => {
         if (Array.isArray(_sortMap)){
             _sortMap?.map(item=>{
                 const _key = item?.key;
-                const _keyOrder = item?.order?.toLowerCase();
+                const _keyOrder = item?.order?.toLowerCase() || null;
                 if(_key === _colKey){
                     // _sortOrders
                     const index = _sortOrders.findIndex(item=>item?.indexOf(_keyOrder)>-1)

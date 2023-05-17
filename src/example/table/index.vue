@@ -358,7 +358,7 @@ const goTo = (key, data) => {
     console.log(key, data);
     if (key === 'sortChange') {
         const _key = data?.prop;
-        const _order = data?.order;
+        const _order = "";//|| data?.order;
         // 对象写法
         // sortMap.value[_key] = _order;
         console.log('sortMap', sortMap)
