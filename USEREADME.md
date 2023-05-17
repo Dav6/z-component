@@ -12,15 +12,13 @@
 ```
 #### 2. 插件安装 
 ```
-    npm cache clean --force
-    npm install zr-component --force  
+npm cache clean --force
+npm install zr-component --force  
 ```
 
 
 #### 3. 组件使用之前 先安装[element-plus](https://element-plus.gitee.io/zh-CN/guide/quickstart.html)
 #####  vue版本3.2.0以上  element-plus版本 2.2.0 以上 ，其他版本未测试
-
-
 ```
 import zrComponent from "zr-component"
 
@@ -39,4 +37,11 @@ createApp(App)
   .mount('#app')
 ```
 
- 
+##### Tip: ts项目中使用  如在vue3中 shims-vue.d.ts 文件中加入 
+```
+declare module 'zr-component'
+
+```
+
+
+

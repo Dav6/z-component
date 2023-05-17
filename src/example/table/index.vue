@@ -7,95 +7,98 @@
 -->
 
 <template>
-  <Component
-      ref="formModelRef"
-      is="d-table-model"
-      :list="list"
-      :keyList="keyList"
-      :option="optionsMap"
-      :pageData="pageData"
-      :isShowExpand="isShowExpand"
-      :isShowSelection="isShowSelection"
-      :isShowIndex="isShowIndex"
-      :isShowSettings="isShowSettings"
-      :settingsConfig="settingsConfig"
-      :selectable="selectable"
-      :beforeSwitchChange="beforeSwitchChange"
-      :header-cell-class-name="headerRowClassNameFN"
-      :filters="globalFilters"
-      :filterMethod="globalFilterMethod"
-
-      :row-key="'id'"
-      height="100%"
-      @selection-change="data=>goTo('selectionChange',data)"
-      @select="(selection, row)=>goTo('select',{selection, row})"
-      @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
-      @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-      @sectionDelete="data=>goTo('sectionDelete',data)"
-      @sortChange="data=>goTo('sortChange',data)"
-      @filterChange="(data)=>goTo('filterChange',data)"
+    <Component
+            ref="formModelRef"
+            is="d-table-model"
+            :list="list"
+            :keyList="keyList"
+            :option="optionsMap"
+            :pageData="pageData"
+            :isShowExpand="isShowExpand"
+            :isShowSelection="isShowSelection"
+            :isShowIndex="isShowIndex"
+            :isShowSettings="isShowSettings"
+            :settingsConfig="settingsConfig"
+            :selectable="selectable"
+            :beforeSwitchChange="beforeSwitchChange"
+            :header-cell-class-name="headerRowClassNameFN"
+            :filters="globalFilters"
+            :filterMethod="globalFilterMethod"
 
 
-      v-bind="$attrs"
+            :sortMap="sortMap"
 
-  >
-    <template #expand="{data}">
-      <!-- {{  images  }} -->
-      <div>
-        {{ data?.row }}
-      </div>
-    </template>
-
-    <template #test="{data}">
-      <!-- {{  images  }} -->
-      {{ data?.row }}
-
-    </template>
+            :row-key="'id'"
+            height="100%"
+            @selection-change="data=>goTo('selectionChange',data)"
+            @select="(selection, row)=>goTo('select',{selection, row})"
+            @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
+            @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
+            @sectionDelete="data=>goTo('sectionDelete',data)"
+            @sortChange="data=>goTo('sortChange',data)"
+            @filterChange="(data)=>goTo('filterChange',data)"
 
 
-  </Component>
+            v-bind="$attrs"
+
+    >
+        <template #expand="{data}">
+            <!-- {{  images  }} -->
+            <div>
+                {{ data?.row }}
+            </div>
+        </template>
+
+        <template #test="{data}">
+            <!-- {{  images  }} -->
+            {{ data?.row }}
+
+        </template>
+
+
+    </Component>
 </template>
 
 <script setup>
 import dayjs from "dayjs";
 
 defineOptions({
-  name: "表格table",
-  key: 'example-table',
-  isExposed: false
+    name: "表格table",
+    key: 'example-table',
+    isExposed: false
 });
 import {ref, reactive, computed, watch} from "vue"
 import {randomNum} from "@/tools/tools"
 
 const props = defineProps({
-  // 配合emits v-model
-  modelValue: {
-    type: [String, Boolean],
-  },
+    // 配合emits v-model
+    modelValue: {
+        type: [String, Boolean],
+    },
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits([]);
 
 const defaultCOM = computed(() => {
-  return '';
+    return '';
 });
 
-const globalFilters =ref({
-  company:[]
+const globalFilters = ref({
+    company: []
 })
 
 setTimeout(() => {
-  console.log('set')
-  globalFilters.value.company = [
-    {text: '111', value: '111'},
-    {text: '555', value: '555'},
-  ]
+    console.log('set')
+    globalFilters.value.company = [
+        {text: '111', value: '111'},
+        {text: '555', value: '555'},
+    ]
 }, 2000)
 
 const globalFilterMethod = ref({
-  // company: (value, row, column) => {
-  //   console.log(value, row, column)
-  // }
+    // company: (value, row, column) => {
+    //   console.log(value, row, column)
+    // }
 })
 // setTimeout(()=>{
 //   console.log('set')
@@ -106,124 +109,124 @@ const globalFilterMethod = ref({
 
 
 const optionsMap = ref({
-  option1: []
+    option1: []
 })
 
 setTimeout(() => {
-  optionsMap.value.option1 = [
-    {label: "选项1", value: 1},
-    {label: "选项2", value: 2},
-    {label: "选项3", value: 3},
-  ]
-  optionsMap.value.option1 = {
-    1:"选项1",
-    2:"选项2",
-    3:"选项3",
-  }
+    optionsMap.value.option1 = [
+        {label: "选项1", value: 1},
+        {label: "选项2", value: 2},
+        {label: "选项3", value: 3},
+    ]
+    optionsMap.value.option1 = {
+        1: "选项1",
+        2: "选项2",
+        3: "选项3",
+    }
 }, 2000)
 
 
 const keyList = ref([
-  {label: "id", width: 50, key: "id", showOverflowTooltip: true},
-  {
-    label: "设备名称", key: "deviceName", showOverflowTooltip: true,
-    width: 120,
-    sortable: 'custom',
-  },
-  {
-    label: "公司", key: "company", showOverflowTooltip: true,
-  },
-  {
-    label: "选项1", key: "option1", type: "option", showOverflowTooltip: true,
-
-
-  },
-
-  {
-    label: "选项2", key: "option2", type: "option", showOverflowTooltip: true,
-    // option:[],
-    // option:[
-    //   {label: "选项111", value: 1},
-    //   {label: "选项2222", value: 2},
-    //   {label: "选项33333", value: 3},
-    // ],
-    option:{
-      1:"选项12",
-      2:"选项23",
-      3:"选项34",
-    }
-  },
-  {
-    label: "时间", type: "time", format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
-    width: 200,
-    sortable: true,
-    // sortMethod:(a,b)=>{
-    //   // return a.createTime - b.createTime;
-    // }
-    // sortBy:'recordId'
-  },
-  {
-    label: "状态", type: "switch", key: "status",
-    showOverflowTooltip: false,
-    filters: [
-      {label: 'Home', value: 'Home'},
-      {label: 'Office', value: 'Office'},
-    ],
-    filterMultiple: true,
-    filterMethod: (value, row, column) => {
-      console.log('keyList-filterMethod', value, row, column)
-      return true;
+    {label: "id", width: 50, key: "id", showOverflowTooltip: true},
+    {
+        label: "设备名称", key: "deviceName", showOverflowTooltip: true,
+        width: 120,
+        sortable: 'custom',
     },
-  },
-  {label: "图片", type: "image", key: "image", size: "24 24", width: 100, limit: 5, showOverflowTooltip: false},
-  {label: "自定义", type: "custom", customName: "test", key: "personnelRoleName", showOverflowTooltip: true},
+    {
+        label: "公司", key: "company", showOverflowTooltip: true,
+    },
+    {
+        label: "选项1", key: "option1", type: "option", showOverflowTooltip: true,
+
+
+    },
+
+    {
+        label: "选项2", key: "option2", type: "option", showOverflowTooltip: true,
+        // option:[],
+        // option:[
+        //   {label: "选项111", value: 1},
+        //   {label: "选项2222", value: 2},
+        //   {label: "选项33333", value: 3},
+        // ],
+        option: {
+            1: "选项12",
+            2: "选项23",
+            3: "选项34",
+        }
+    },
+    {
+        label: "时间", type: "time", format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
+        width: 200,
+        sortable: true,
+        // sortMethod:(a,b)=>{
+        //   // return a.createTime - b.createTime;
+        // }
+        // sortBy:'recordId'
+    },
+    {
+        label: "状态", type: "switch", key: "status",
+        showOverflowTooltip: false,
+        filters: [
+            {label: 'Home', value: 'Home'},
+            {label: 'Office', value: 'Office'},
+        ],
+        filterMultiple: true,
+        filterMethod: (value, row, column) => {
+            console.log('keyList-filterMethod', value, row, column)
+            return true;
+        },
+    },
+    {label: "图片", type: "image", key: "image", size: "24 24", width: 100, limit: 5, showOverflowTooltip: false},
+    {label: "自定义", type: "custom", customName: "test", key: "personnelRoleName", showOverflowTooltip: true},
 
 ])
 //item.format : 'YYYY-MM-DD HH:mm:ss'"
 
 
 const settingsConfig = ref({
-  label: "设置",
-  fixed: 'right',
-  type: '123123',
-  align: "center",
-  width: 200,
-  isShow: true,
-  divided: true,
-  buttonList: [
-    {
-      name: "编辑",
-      key: "edit",
-      type: 'button',
-    },
-    {
-      name: "详情",
-      key: "detail",
-    },
-    {
-      name: "更多",
-      type: "dropdown",
-      trigger: "click", // hover/click/contextmenu
-      placement: "bottom-start",
-      teleported: false,//top/top-start/top-end/bottom/bottom-start/bottom-end
-      list: [
+    label: "设置",
+    fixed: 'right',
+    type: '123123',
+    align: "center",
+    width: 200,
+    isShow: true,
+    divided: true,
+    buttonList: [
         {
-          name: "修改",
-          key: "edit"
+            name: "编辑",
+            key: "edit",
+            type: 'button',
         },
         {
-          name: "删除",
-          key: "delete"
+            name: "详情",
+            key: "detail",
         },
+        {
+            name: "更多",
+            type: "dropdown",
+            trigger: "click", // hover/click/contextmenu
+            placement: "bottom-start",
+            teleported: false,//top/top-start/top-end/bottom/bottom-start/bottom-end
+            list: [
+                {
+                    name: "修改",
+                    key: "edit"
+                },
+                {
+                    name: "删除",
+                    key: "delete"
+                },
 
-        {
-          name: "设置",
-          key: "delete",
-          divided: true,
+                {
+                    name: "设置",
+                    key: "delete",
+                    divided: true,
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 })
 
 
@@ -250,114 +253,146 @@ const isShowSettings = ref(true)
 
 
 const pageData = ref({
-  page: 1,
-  pageSize: 20,
+    page: 1,
+    pageSize: 20,
 })
 const image = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-93dd36bf20dad23a01a51698733ed306_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674282885&t=f05370c806711f9117370dd745bb0d19'
 
 const list = ref([])
 list.value = Array(20).fill({})?.map((item, index) => {
-  const _item = {}
-  keyList.value?.map(cItem => {
-    // console.log(cItem);
-    let _value = `测试${randomNum(10, 200)}`
-    if (cItem.key == 'id') {
-      _value = index + 1
-    }
+    const _item = {}
+    keyList.value?.map(cItem => {
+        // console.log(cItem);
+        let _value = `测试${randomNum(10, 200)}`
+        if (cItem.key == 'id') {
+            _value = index + 1
+        }
 
-    if (cItem.key == 'deviceName') {
-      _value = `设备名称${randomNum(100, 2000)}`
-    }
-    if (cItem.key == 'company') {
-      _value = `公司名称${randomNum(100, 2000)}`
-    }
+        if (cItem.key == 'deviceName') {
+            _value = `设备名称${randomNum(100, 2000)}`
+        }
+        if (cItem.key == 'company') {
+            _value = `公司名称${randomNum(100, 2000)}`
+        }
 
-    if (cItem.key == 'option1') {
-      _value = randomNum(1, 3)
-    }
-    if (cItem.key == 'option2') {
-      _value = randomNum(1, 3)
-    }
+        if (cItem.key == 'option1') {
+            _value = randomNum(1, 3)
+        }
+        if (cItem.key == 'option2') {
+            _value = randomNum(1, 3)
+        }
 
-    if (cItem.key == 'createTime') {
-      _value = dayjs().valueOf() + randomNum(1000, 100000)
-    }
-
-
-    if (cItem.key == 'status') {
-      if (index % 3 == 0) {
-        _value = true
-        _item.selectable = true;
-      } else {
-        _value = false
-        _item.selectable = false;
-      }
-    }
+        if (cItem.key == 'createTime') {
+            _value = dayjs().valueOf() + randomNum(1000, 100000)
+        }
 
 
-    if (cItem.key == 'image') {
-      if (randomNum(0, 100) % 3 == 0) {
-        // _value = image
-        _value = Array(randomNum(1, 4)).fill({})?.map(item => {
-          return image
-        })
+        if (cItem.key == 'status') {
+            if (index % 3 == 0) {
+                _value = true
+                _item.selectable = true;
+            } else {
+                _value = false
+                _item.selectable = false;
+            }
+        }
 
-      } else {
-        _value = ""
-      }
 
-    }
+        if (cItem.key == 'image') {
+            if (randomNum(0, 100) % 3 == 0) {
+                // _value = image
+                _value = Array(randomNum(1, 4)).fill({})?.map(item => {
+                    return image
+                })
 
-    _item[cItem.key] = JSON.stringify(_value)
+            } else {
+                _value = ""
+            }
 
-  })
+        }
 
-  return _item;
+        _item[cItem.key] = JSON.stringify(_value)
+
+    })
+
+    return _item;
 })
 
 
 list.value?.map((item, index) => {
-  if (index % 3 == 0) {
-    item.status = true
-    item.selectable = true;
-  } else {
-    item.status = false
-    item.selectable = false;
-  }
+    if (index % 3 == 0) {
+        item.status = true
+        item.selectable = true;
+    } else {
+        item.status = false
+        item.selectable = false;
+    }
 })
 
 const selectable = (row, index) => {
-  // console.log('selectable',row,index)
-  return false;//|| row.selectable
+    // console.log('selectable',row,index)
+    return false;//|| row.selectable
 
 }
 
 const headerRowClassNameFN = (data) => {
-  // console.log('headerRowClassNameFN-外')
+    // console.log('headerRowClassNameFN-外')
 
-  return ''
+    return ''
 }
 
 
 const beforeSwitchChange = (data) => {
-  console.log('beforeSwitchChange', data)
-  return false;
-  return new Promise((resolve, reject) => {
-    // resolve(true)
-    // reject(false)
-  })
+    console.log('beforeSwitchChange', data)
+    return false;
+    return new Promise((resolve, reject) => {
+        // resolve(true)
+        // reject(false)
+    })
 }
+
+const sortMap = ref([])
 
 
 const goTo = (key, data) => {
-  console.log(key, data);
-  if (key == 'sectionDelete') {
+    console.log(key, data);
+    if (key === 'sortChange') {
+        const _key = data?.prop;
+        const _order = data?.order;
+        // 对象写法
+        // sortMap.value[_key] = _order;
+        console.log('sortMap', sortMap)
 
-  }
-  if (key == 'onSettingsButtonClick') {
-    console.log(data?.data.deviceName)
-    data.data.deviceName = 3000
-  }
+
+        // 数组写法
+
+        const isHave = sortMap.value.findIndex((item,index) => {
+            let _isHave = false;
+            if (item?.key === _key) {
+
+                item['order'] = _order
+
+                _isHave = true;
+            }
+            return _isHave;
+        })
+        if(!(isHave >=0)){
+            sortMap.value.push({
+                key:_key,
+                order:_order
+            })
+        }
+
+
+
+    }
+    if (key == 'sectionDelete') {
+
+    }
+    if (key == 'onSettingsButtonClick') {
+        console.log(data?.data.deviceName)
+        data.data.deviceName = 3000
+    }
 }
 
 const formModelRef = ref()
@@ -371,7 +406,7 @@ const formModelRef = ref()
 
 // 接口请求方法放这
 const init = () => {
-  //getList();
+    //getList();
 
 }
 
