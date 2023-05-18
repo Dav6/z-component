@@ -264,31 +264,31 @@ list.value = Array(20).fill({})?.map((item, index) => {
     keyList.value?.map(cItem => {
         // console.log(cItem);
         let _value = `测试${randomNum(10, 200)}`
-        if (cItem.key == 'id') {
+        if (cItem.key === 'id') {
             _value = index + 1
         }
 
-        if (cItem.key == 'deviceName') {
+        if (cItem.key === 'deviceName') {
             _value = `设备名称${randomNum(100, 2000)}`
         }
-        if (cItem.key == 'company') {
+        if (cItem.key === 'company') {
             _value = `公司名称${randomNum(100, 2000)}`
         }
 
-        if (cItem.key == 'option1') {
+        if (cItem.key === 'option1') {
             _value = randomNum(1, 3)
         }
-        if (cItem.key == 'option2') {
+        if (cItem.key === 'option2') {
             _value = randomNum(1, 3)
         }
 
-        if (cItem.key == 'createTime') {
+        if (cItem.key === 'createTime') {
             _value = dayjs().valueOf() + randomNum(1000, 100000)
         }
 
 
-        if (cItem.key == 'status') {
-            if (index % 3 == 0) {
+        if (cItem.key === 'status') {
+            if (index % 3 === 0) {
                 _value = true
                 _item.selectable = true;
             } else {
@@ -298,8 +298,8 @@ list.value = Array(20).fill({})?.map((item, index) => {
         }
 
 
-        if (cItem.key == 'image') {
-            if (randomNum(0, 100) % 3 == 0) {
+        if (cItem.key === 'image') {
+            if (randomNum(0, 100) % 3 === 0) {
                 // _value = image
                 _value = Array(randomNum(1, 4)).fill({})?.map(item => {
                     return image
@@ -311,9 +311,26 @@ list.value = Array(20).fill({})?.map((item, index) => {
 
         }
 
+
+
+
         _item[cItem.key] = JSON.stringify(_value)
 
     })
+    if (randomNum(0, 100) % 3 === 0) {
+        // _value = image
+        _item['isHiddenSettings'] = true
+    } else {
+        _item['isHiddenSettings'] = false
+    }
+
+    if (randomNum(0, 100) % 6 === 0) {
+        // _value = image
+        _item['isHiddenSwitch'] = true
+    } else {
+        _item['isHiddenSwitch'] = false
+    }
+
 
     return _item;
 })

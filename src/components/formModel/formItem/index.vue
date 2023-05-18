@@ -40,7 +40,7 @@
             :class="componentClassCOM"
             :is="formTypeKeyMap[item.formType]"
             v-model="item.value"
-            :uploadFileAPI="item?.uploadFileAPI || uploadFileAPI"
+            :uploadFileAPI="isUpload()?(item?.uploadFileAPI || uploadFileAPI):undefined"
             :size="item?.size"
             :borderRadius="item?.borderRadius"
             :buttonName="item?.buttonName"
@@ -497,6 +497,13 @@ watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig]
 })
 
 
+const isUpload = ()=>{
+    // item?.uploadFileAPI || uploadFileAPI
+    const _item = props.item;
+    return _item.formType?.indexOf("Upload") > -1;
+}
+
+
 //section goTo
 const goTo = (key, data) => {
   // console.log('formItem', key, data);
@@ -534,9 +541,9 @@ const goTo = (key, data) => {
 const setItemData = () => {
 
   if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
-    console.log(props.item?.formType, 'props.item?.formType')
+    // console.log(props.item?.formType, 'props.item?.formType')
     let _number = props.item.value;
-    console.log('_number', _number === +_number)
+    // console.log('_number', _number === +_number)
 
       if (_number == '' || _number == ' ' || _number == undefined) {
         _number = undefined

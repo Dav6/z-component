@@ -23,9 +23,8 @@
         v-for="(oItem, oIndex) in optionsCOM" :key="oIndex" :label="oItem.value"
         :border="data?.isRadioBorder"
     >
-      <d-el-tooltip :content="oItem.label" placement="top" :isShowByContent="isShowByContentCOM"> {{
-          oItem.label
-        }}
+      <d-el-tooltip :content="oItem.label" placement="top" :isShowByContent="isShowByContentCOM">
+          {{ oItem.label}}
       </d-el-tooltip>
 
     </Component>

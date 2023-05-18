@@ -98,6 +98,10 @@ const props = defineProps({
     rules: {
         type: [Object]
     },
+    // formList 的 {key :value,... } 数据
+    formData:{
+      type: [Object]
+    },
     formList: {
         type: [Array],
     },
@@ -142,17 +146,38 @@ const props = defineProps({
 const emits = defineEmits(['onClick', 'onSubmit', 'onFormItemButtonClick', 'onChange', 'onInputSearch']);
 const formModelRef = ref()
 
-const getFormData = () => {
-    // //console.log('getFormData', _formList.value);
-    let _list = JSON.parse(JSON.stringify(_formList.value))
+
+// section 获得平铺的数组
+const getFormListTiling = (isAll = true, {resultType = 'value'}={})=>{
+    const _isAll = isAll;
+    const _resultType = resultType;
+
+    let _list = _formList.value
     _list = _list?.length > 0 ? _list : [];
     let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key )]`
+    if(!_isAll){
+        _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.isHidden)]`
+    }
+
     let _dataList = JSONPath({
         json: _list,
-        path: _path
+        path: _path,
+        resultType:_resultType
     });
-    // //console.log('_dataList',_dataList)
 
+    return _dataList || []
+
+}
+
+
+const getFormData = (isAll=true) => {
+    // //console.log('getFormData', _formList.value);
+    // let _list = JSON.parse(JSON.stringify(_formList.value))
+    // _list = _list?.length > 0 ? _list : [];
+    // let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key )]`
+    let _dataList = getFormListTiling(isAll)
+    // //console.log('_dataList',_dataList)
+    _dataList = JSON.parse(JSON.stringify(_dataList))
 
     let _data = {}
     _dataList.map((item, index) => {
@@ -164,16 +189,18 @@ const getFormData = () => {
 
 const getFormDataByNoHidden = () => {
     // //console.log('getFormData', _formList.value);
-    let _list = JSON.parse(JSON.stringify(_formList.value))
-    _list = _list?.length > 0 ? _list : [];
-
-    let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.isHidden)]`
-    let _dataList = JSONPath({
-        json: _list,
-        path: _path
-    });
+    // let _list = JSON.parse(JSON.stringify(_formList.value))
+    // _list = _list?.length > 0 ? _list : [];
+    //
+    // let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.isHidden)]`
+    // let _dataList = JSONPath({
+    //     json: _list,
+    //     path: _path
+    // });
     // //console.log(_dataList)
-
+    let _dataList = getFormListTiling(false)
+    // //console.log('_dataList',_dataList)
+    _dataList = JSON.parse(JSON.stringify(_dataList))
 
     let _data = {}
     _dataList.map((item, index) => {
@@ -206,37 +233,45 @@ const _formList = computed(() => {
 
     return _list
 })
-// computed
-// const _formList = ref(props?.formList?.length > 0 ? props.formList : [])
-// const _formList = computed({ // 重新定义
-//   get: () => props?.formList || [],
-//   set: (value) => {
-//     console.log('_formList-computed-value',value)
-//     return props?.formList
-//   },
-// })
-watch(
-    () => props.formList, (formList, preFormList) => {
-        // console.log('formModel-props-formList', formList);
-        // setTimeout(() => {
-        //   setLinkageForm();
-        //
-        // },0)
-        ////console.log('oldValue', oldValue);
-        // defaultActive = newValue.path;
-        // _formModel.value = formList?.length > 0 ? formList : [];
-        // setFormList(props.formList);
-        // //console.log('formModelRef', formModelRef.value);
-        // nextTick(() => {
-        //   // formModelRef?.value?.clearValidate();
-        //   // formModelRef.value.validate(()=>{});
-        // })
-    },
-    {
-        immediate: false,
-        deep: true
+
+watch(()=> props.formData,(formData,preFormData)=>{
+    const _formData = formData;
+    if(Object.prototype.toString.call(_formData) === '[object Object]'){
+        let _dataList = getFormListTiling()
+        _dataList?.map(item=>{
+            if(_formData?.[item.key]){
+                item.value = _formData?.[item.key]
+            }
+        })
     }
-);
+
+},{
+    deep:true,
+    immediate:true
+})
+
+
+// watch(() => props.formList, (formList, preFormList) => {
+//         // console.log('formModel-props-formList', formList);
+//         // setTimeout(() => {
+//         //   setLinkageForm();
+//         //
+//         // },0)
+//         ////console.log('oldValue', oldValue);
+//         // defaultActive = newValue.path;
+//         // _formModel.value = formList?.length > 0 ? formList : [];
+//         // setFormList(props.formList);
+//         // //console.log('formModelRef', formModelRef.value);
+//         // nextTick(() => {
+//         //   // formModelRef?.value?.clearValidate();
+//         //   // formModelRef.value.validate(()=>{});
+//         // })
+//     },
+//     {
+//         immediate: false,
+//         deep: true
+//     }
+// );
 
 
 // getFormData()
