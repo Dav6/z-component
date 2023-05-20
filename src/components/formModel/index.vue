@@ -239,7 +239,7 @@ watch(()=> props.formData,(formData,preFormData)=>{
     if(Object.prototype.toString.call(_formData) === '[object Object]'){
         let _dataList = getFormListTiling()
         _dataList?.map(item=>{
-            if(_formData?.[item.key]){
+            if(_formData?.[item.key] || _formData?.[item.key] === 0){
                 item.value = _formData?.[item.key]
             }
         })

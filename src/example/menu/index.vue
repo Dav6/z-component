@@ -11,6 +11,7 @@
         <div class="container-box-menu">
             <d-menu-model
                     v-model="active"
+
                     :list="list"
                     @onClick="data=>goTo('onClick',data)"
             ></d-menu-model>
