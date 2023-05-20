@@ -543,9 +543,10 @@ const setItemData = () => {
   if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
     // console.log(props.item?.formType, 'props.item?.formType')
     let _number = props.item.value;
-    // console.log('_number', _number === +_number)
+      console.log('_number', _number)
+      console.log('_number', _number === +_number)
 
-      if (_number == '' || _number == ' ' || _number == undefined) {
+      if (_number === '' || _number === ' ' || _number === undefined || _number === null) {
         _number = undefined
       } else {
         if (_number == +_number) {
@@ -555,6 +556,7 @@ const setItemData = () => {
           _number = isNaN(Number(_number)) ? undefined : Number(_number);
         }
       }
+      console.log('_number', _number)
 
     if (props.item?.formType == 'slider') {
       if (Array.isArray(props.item.value)) {
@@ -591,6 +593,9 @@ const setItemData = () => {
     props.item.value = _number;
 
   }
+
+
+
   if (props.item?.formType == 'checkbox') {
     if (props.item.value === "") {
       props.item.value = undefined;

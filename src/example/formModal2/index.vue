@@ -225,6 +225,33 @@ const formList = ref([
         formRowClass: "row-info",
         children: [
             {
+                name: "数字", key: "number", value: "1", placeholder: "数字", disabled: false,
+                formType: "inputNumber",
+                controls: false,
+                textAlign: "left",
+                clearable: true,
+                unit: "次/分",
+                min: 0,
+                max: "",
+                span: 12,
+                // rules: [
+                //     {required: false, message: "请输入数字", trigger: "blur"},
+                //     {
+                //         validator: function (rule, value, callback) {
+                //             console.log('value', value);
+                //
+                //             // if (value != formData["password"]) {
+                //             //     return callback(new Error("两次密码不一样"));
+                //             // }
+                //
+                //
+                //             return true;
+                //         }, trigger: 'blur'
+                //     }
+                // ],
+
+            },
+            {
                 name: "车牌信息",
                 key: "info",
                 value: "",

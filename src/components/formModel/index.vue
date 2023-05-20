@@ -244,7 +244,10 @@ watch(()=> props.formData,(formData,preFormData)=>{
                 item.value = _formData?.[item.key]
             }
         })
-        setLinkage && setLinkage()
+
+        setTimeout(()=>{
+            setLinkageForm && setLinkageForm()
+        },0)
     }
 
 },{
@@ -527,6 +530,9 @@ const scrollToField = (prop) => {
 const setLinkage = () => {
     return setLinkageForm()
 }
+
+
+
 
 defineExpose({
     formModelRef,
