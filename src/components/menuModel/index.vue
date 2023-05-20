@@ -39,7 +39,11 @@ const props = defineProps({
     },
     maxLevel: {
         type: [Number],
-        default: 2,
+        default:2, // 最大两层 ，下面代码 超过2层 就会按照两层
+    },
+    isMerge:{
+        type: [Boolean],
+        default: false,
     }
 });
 //const emits = defineEmits(["update:modelValue"]);
@@ -50,7 +54,7 @@ const active = ref('');
 const menuModelRef = ref('')
 
 
-const setList = (list, parent, level = 1) => {
+const setList = (list, parent = {}, level = 1) => {
     const _level = level;
     // console.log('level',level)
     const maxLevel = props.maxLevel>=2?2:props.maxLevel;
@@ -60,9 +64,27 @@ const setList = (list, parent, level = 1) => {
     }
     let _list = list || [];
     _list = _list?.map((item, index) => {
-        const _item = item;
+        let _item = item;
         if (Array.isArray(_item.children) && _item.children.length > 0) {
-            _item.children = setList(_item.children, _item, _level + 1)
+
+            if(props.isMerge){
+                if(_item.children.length  === 1){
+                    // _item.children = setList(_item.children, _item, _level + 1)
+
+                    _item = _item.children[0];
+                    _item.children = [];
+
+                }else{
+                    _item.children = setList(_item.children, _item, _level + 1)
+
+                }
+            }else{
+                _item.children = setList(_item.children, _item, _level + 1)
+            }
+
+
+
+
         }
 
         return _item;
@@ -73,7 +95,9 @@ const setList = (list, parent, level = 1) => {
 
 const _listCOM = computed(() => {
     let _list = props.list || [];
+    _list = JSON.parse(JSON.stringify(_list));
     _list = setList(_list)
+    console.log('menuModel-_list',_list)
     return _list
 })
 

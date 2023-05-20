@@ -10,7 +10,8 @@
     <div class="container-box">
         <div class="container-box-menu">
             <d-menu-model
-                    v-model="active" :list="list"
+                    v-model="active"
+                    :list="list"
                     @onClick="data=>goTo('onClick',data)"
             ></d-menu-model>
         </div>
@@ -46,7 +47,7 @@ const list = ref([]);
 const setList = (list, parent, level = 1) => {
     const _level = level;
     // console.log('level',level)
-    if (_level > 3) {
+    if (_level > 4) {
         return [];
     }
     const _list = list?.map((item, index) => {
@@ -59,6 +60,9 @@ const setList = (list, parent, level = 1) => {
         if (index == 0 || index == 2) {
             _item.children = setList(Array(3).fill({}), _item, _level + 1)
         }
+        if (index == 3 || index == 4) {
+            _item.children = setList(Array(1).fill({}), _item, _level + 1)
+        }
 
         return _item;
     })
@@ -66,8 +70,8 @@ const setList = (list, parent, level = 1) => {
     return _list
 }
 
-list.value = setList(Array(5).fill({}))
-console.log('list', setList(Array(5).fill({})))
+list.value = setList(Array(6).fill({}))
+console.log('list', list.value)
 
 
 // const list =   Array(5).fill({})?.map((item, index) => {

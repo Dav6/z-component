@@ -1,4 +1,4 @@
-import './assets/index.ee6cfafa.css';
+import './assets/index.7c69dfd4.css';
 import { defineComponent as K, inject as Xe, ref as I, resolveComponent as P, openBlock as _, createBlock as z, mergeProps as se, unref as D, withCtx as X, renderSlot as fe, computed as M, watch as pe, createElementBlock as $, createElementVNode as F, createVNode as E, normalizeClass as re, toDisplayString as W, getCurrentInstance as Be, isRef as oe, markRaw as Ve, createTextVNode as le, Fragment as Z, renderList as ie, resolveDynamicComponent as he, useSlots as we, normalizeProps as et, guardReactiveProps as tt, createSlots as be, normalizeStyle as Fe, onMounted as st, useCssVars as je, createCommentVNode as ce, withModifiers as dt, pushScopeId as ct, popScopeId as ft } from "vue";
 const te = (e) => {
   let y = e, t = y == null ? void 0 : y.name;
@@ -4995,24 +4995,28 @@ const Yo = K({
     maxLevel: {
       type: [Number],
       default: 2
+    },
+    isMerge: {
+      type: [Boolean],
+      default: !1
     }
   },
   emits: ["onClick"],
   setup(e, { emit: y }) {
     const t = e;
     I("");
-    const r = I(""), V = (S, m, l = 1) => {
+    const r = I(""), V = (S, m = {}, l = 1) => {
       const b = l, d = t.maxLevel >= 2 ? 2 : t.maxLevel;
       if (b > d)
         return [];
       let o = S || [];
       return o = o == null ? void 0 : o.map((u, O) => {
-        const n = u;
-        return Array.isArray(n.children) && n.children.length > 0 && (n.children = V(n.children, n, b + 1)), n;
+        let n = u;
+        return Array.isArray(n.children) && n.children.length > 0 && (t.isMerge && n.children.length === 1 ? (n = n.children[0], n.children = []) : n.children = V(n.children, n, b + 1)), n;
       }), o;
     }, w = M(() => {
       let S = t.list || [];
-      return S = V(S), S;
+      return S = JSON.parse(JSON.stringify(S)), S = V(S), S;
     }), p = (S, m) => {
       S == "onClick" && y("onClick", { ...m });
     };
@@ -5036,7 +5040,7 @@ const Yo = K({
       }, 8, ["default-active"]);
     };
   }
-}), Qo = /* @__PURE__ */ de(Jo, [["__scopeId", "data-v-cf1b8623"]]), Go = te(Qo), Zo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Qo = /* @__PURE__ */ de(Jo, [["__scopeId", "data-v-848b524a"]]), Go = te(Qo), Zo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Go
 }, Symbol.toStringTag, { value: "Module" })), Ko = te(Ho), qo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
