@@ -146,6 +146,20 @@ const props = defineProps({
 const emits = defineEmits(['onClick', 'onSubmit', 'onFormItemButtonClick', 'onChange', 'onInputSearch']);
 const formModelRef = ref()
 
+// section computed formList
+const _formList = computed(() => {
+    let _list = props?.formList?.length > 0 ? props.formList : [];
+
+    // console.log('formModel-computed-_list', _list)
+
+
+    // setFormList(_list);
+    // //console.log('_com-list', _list)
+
+
+    return _list
+})
+
 
 // section 获得平铺的数组
 const getFormListTiling = (isAll = true, {resultType = 'value'}={})=>{
@@ -220,14 +234,16 @@ const formModelClassCOM = computed(() => {
 })
 
 
+
+
 // section watch-formData
 watch(()=> props.formData,(formData,preFormData)=>{
-    console.log('watch-formData', props.formData)
-    const _formData = JSON.parse(JSON.stringify(formData));
+    console.log('watch-formData', formData)
+    const _formData = formData
     if(Object.prototype.toString.call(_formData) === '[object Object]'){
         let _dataList = getFormListTiling()
         _dataList?.map(item=>{
-            // console.log('_dataList',item)
+            console.log('_dataList',item)
 
             item.value = _formData?.[item.key] || undefined;
             if(_formData?.[item.key] === 0){
@@ -251,45 +267,27 @@ watch(()=> props.formData,(formData,preFormData)=>{
 
 
 
-// section computed formList
-// const _formList = computed(() => {
-//     let _list = props?.formList?.length > 0 ? props.formList : [];
-//
-//     // console.log('formModel-computed-_list', _list)
-//
-//
-//     // setFormList(_list);
-//     // //console.log('_com-list', _list)
-//
-//
-//     return _list
-// })
-const _formList = ref([])
-watch(() => props.formList, (formList, preFormList) => {
-
-    setTimeout(()=>{
-        _formList.value = formList?.length > 0 ? formList : [];
-    },0)
-        // console.log('formModel-props-formList', formList);
-        // setTimeout(() => {
-        //   setLinkageForm();
-        //
-        // },0)
-        ////console.log('oldValue', oldValue);
-        // defaultActive = newValue.path;
-        // _formModel.value = formList?.length > 0 ? formList : [];
-        // setFormList(props.formList);
-        // //console.log('formModelRef', formModelRef.value);
-        // nextTick(() => {
-        //   // formModelRef?.value?.clearValidate();
-        //   // formModelRef.value.validate(()=>{});
-        // })
-    },
-    {
-        immediate: true,
-        deep: true
-    }
-);
+// watch(() => props.formList, (formList, preFormList) => {
+//         // console.log('formModel-props-formList', formList);
+//         // setTimeout(() => {
+//         //   setLinkageForm();
+//         //
+//         // },0)
+//         ////console.log('oldValue', oldValue);
+//         // defaultActive = newValue.path;
+//         // _formModel.value = formList?.length > 0 ? formList : [];
+//         // setFormList(props.formList);
+//         // //console.log('formModelRef', formModelRef.value);
+//         // nextTick(() => {
+//         //   // formModelRef?.value?.clearValidate();
+//         //   // formModelRef.value.validate(()=>{});
+//         // })
+//     },
+//     {
+//         immediate: false,
+//         deep: true
+//     }
+// );
 
 
 // getFormData()
