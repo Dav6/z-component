@@ -236,7 +236,7 @@ const _formList = computed(() => {
 
 // section watch-formData
 watch(()=> props.formData,(formData,preFormData)=>{
-    const _formData = formData;
+    const _formData = JSON.parse(JSON.stringify(formData));
     if(Object.prototype.toString.call(_formData) === '[object Object]'){
         let _dataList = getFormListTiling()
         _dataList?.map(item=>{

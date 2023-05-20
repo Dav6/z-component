@@ -1,4 +1,4 @@
-import './assets/index.1f4fa14a.css';
+import './assets/index.ee81b33b.css';
 import { defineComponent as K, inject as Ue, ref as I, resolveComponent as P, openBlock as _, createBlock as z, mergeProps as se, unref as D, withCtx as X, renderSlot as fe, computed as M, watch as pe, createElementBlock as $, createElementVNode as F, createVNode as E, normalizeClass as re, toDisplayString as W, getCurrentInstance as Be, isRef as oe, markRaw as Ve, createTextVNode as le, Fragment as Z, renderList as ie, resolveDynamicComponent as he, useSlots as we, normalizeProps as qe, guardReactiveProps as et, createSlots as be, normalizeStyle as Fe, onMounted as it, useCssVars as je, createCommentVNode as ce, withModifiers as ut, pushScopeId as st, popScopeId as dt } from "vue";
 const te = (e) => {
   let y = e, t = y == null ? void 0 : y.name;
@@ -4749,7 +4749,7 @@ const Eo = K({
       return ((s = r == null ? void 0 : r.formList) == null ? void 0 : s.length) > 0 ? r.formList : [];
     });
     pe(() => r.formData, (h, s) => {
-      const f = h;
+      const f = JSON.parse(JSON.stringify(h));
       if (Object.prototype.toString.call(f) === "[object Object]") {
         let v = S();
         v == null || v.map((A) => {
@@ -4900,7 +4900,7 @@ const Eo = K({
       }, 8, ["label-position", "model", "class", "label-width", "status-icon", "scroll-to-error", "rules"]);
     };
   }
-}), Po = /* @__PURE__ */ de(Fo, [["__scopeId", "data-v-f88303b6"]]), No = te(Po), Io = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Po = /* @__PURE__ */ de(Fo, [["__scopeId", "data-v-9eb275b2"]]), No = te(Po), Io = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: No
 }, Symbol.toStringTag, { value: "Module" })), Lo = { class: "menu-model-sub-text" }, Uo = { class: "menu-model-item-box" }, Xo = { class: "menu-model-item-text" }, Ro = K({
