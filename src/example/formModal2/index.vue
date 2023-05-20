@@ -393,17 +393,41 @@ const formData = ref({
     name : "名称",
 })
 
+
+
+
+
+
 setTimeout(()=>{
-     formData.value = {
-        info:"信息1",
-        carBrand : "车品牌1",
-        carColor : "车颜色1",
-        carType : "车类型2",
-        faceImg :"http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
-        hidden : "隐藏3",
-        licensePlateColor : "车牌颜色4",
-        name : "名称5",
+    //  formData.value = {
+    //     info:"信息1",
+    //     carBrand : "车品牌1",
+    //     carColor : "车颜色1",
+    //     carType : "车类型2",
+    //     faceImg :"http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
+    //     hidden : "隐藏3",
+    //     licensePlateColor : "车牌颜色4",
+    //     name : "名称5",
+    // }
+
+    const _data = {
+        name: "车牌颜色_data",
+        key: "cs",
+        value: "555",
+        formType: "input",
+        placeholder: "请选择性别",
+        disabled: false,
+        span: 12,
+        rules: [{required: true, message: "请选择性别", trigger: "blur"}],
+        options: [],
+        clearable: true,
+
     }
+    formList.value[0]['children'].push(_data)
+    formList.value[0]['children'].push(_data)
+
+
+
 },2000)
 
 

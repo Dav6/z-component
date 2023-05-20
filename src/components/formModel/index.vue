@@ -236,11 +236,12 @@ const _formList = computed(() => {
 
 // section watch-formData
 watch(()=> props.formData,(formData,preFormData)=>{
+    console.log('watch-formData', props.formData)
     const _formData = JSON.parse(JSON.stringify(formData));
     if(Object.prototype.toString.call(_formData) === '[object Object]'){
         let _dataList = getFormListTiling()
         _dataList?.map(item=>{
-            console.log('_dataList',item)
+            // console.log('_dataList',item)
 
             item.value = _formData?.[item.key] || undefined;
             if(_formData?.[item.key] === 0){
@@ -258,6 +259,10 @@ watch(()=> props.formData,(formData,preFormData)=>{
     deep:true,
     immediate:true
 })
+
+
+
+
 
 
 // watch(() => props.formList, (formList, preFormList) => {
