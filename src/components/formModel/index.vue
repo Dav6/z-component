@@ -220,20 +220,6 @@ const formModelClassCOM = computed(() => {
 })
 
 
-// section computed formList
-const _formList = computed(() => {
-    let _list = props?.formList?.length > 0 ? props.formList : [];
-
-    // console.log('formModel-computed-_list', _list)
-
-
-    // setFormList(_list);
-    // //console.log('_com-list', _list)
-
-
-    return _list
-})
-
 // section watch-formData
 watch(()=> props.formData,(formData,preFormData)=>{
     console.log('watch-formData', props.formData)
@@ -265,27 +251,45 @@ watch(()=> props.formData,(formData,preFormData)=>{
 
 
 
-// watch(() => props.formList, (formList, preFormList) => {
-//         // console.log('formModel-props-formList', formList);
-//         // setTimeout(() => {
-//         //   setLinkageForm();
-//         //
-//         // },0)
-//         ////console.log('oldValue', oldValue);
-//         // defaultActive = newValue.path;
-//         // _formModel.value = formList?.length > 0 ? formList : [];
-//         // setFormList(props.formList);
-//         // //console.log('formModelRef', formModelRef.value);
-//         // nextTick(() => {
-//         //   // formModelRef?.value?.clearValidate();
-//         //   // formModelRef.value.validate(()=>{});
-//         // })
-//     },
-//     {
-//         immediate: false,
-//         deep: true
-//     }
-// );
+// section computed formList
+// const _formList = computed(() => {
+//     let _list = props?.formList?.length > 0 ? props.formList : [];
+//
+//     // console.log('formModel-computed-_list', _list)
+//
+//
+//     // setFormList(_list);
+//     // //console.log('_com-list', _list)
+//
+//
+//     return _list
+// })
+const _formList = ref([])
+watch(() => props.formList, (formList, preFormList) => {
+
+    setTimeout(()=>{
+        _formList.value = formList?.length > 0 ? formList : [];
+    },0)
+        // console.log('formModel-props-formList', formList);
+        // setTimeout(() => {
+        //   setLinkageForm();
+        //
+        // },0)
+        ////console.log('oldValue', oldValue);
+        // defaultActive = newValue.path;
+        // _formModel.value = formList?.length > 0 ? formList : [];
+        // setFormList(props.formList);
+        // //console.log('formModelRef', formModelRef.value);
+        // nextTick(() => {
+        //   // formModelRef?.value?.clearValidate();
+        //   // formModelRef.value.validate(()=>{});
+        // })
+    },
+    {
+        immediate: true,
+        deep: true
+    }
+);
 
 
 // getFormData()
