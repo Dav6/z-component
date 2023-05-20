@@ -234,6 +234,7 @@ const _formList = computed(() => {
     return _list
 })
 
+// section watch-formData
 watch(()=> props.formData,(formData,preFormData)=>{
     const _formData = formData;
     if(Object.prototype.toString.call(_formData) === '[object Object]'){
@@ -243,6 +244,7 @@ watch(()=> props.formData,(formData,preFormData)=>{
                 item.value = _formData?.[item.key]
             }
         })
+        setLinkage && setLinkage()
     }
 
 },{
