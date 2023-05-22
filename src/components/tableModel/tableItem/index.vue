@@ -593,7 +593,7 @@ const goTo = (key, data) => {
 
         console.log(props.sectionData)
         let _selection = props.sectionData?.selection || []
-        emits('onSection', {key:"delete",selection: _selection})
+        emits('onSection', {key:"delete",data: _selection})
 
 
     }
