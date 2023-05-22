@@ -18,7 +18,7 @@
         @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
         :selectable="selectable"
         :sectionData="sectionData"
-        @sectionDelete="data=>goTo('sectionDelete',data)"
+        @onSection="data=>goTo('onSection',data)"
         :beforeSwitchChange="beforeSwitchChange"
         :filters="filters?.[item?.key]"
         :filterMethod="filterMethod?.[item?.key]"
@@ -96,7 +96,7 @@ const props = defineProps({
 
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange','sectionDelete']);
+const emits = defineEmits(['onSettingsButtonClick', 'onSwitchChange','onSection']);
 
 // console.log('keyList',props.keyList)
 const filtersCOM = computed(()=>{
@@ -122,8 +122,8 @@ const filtersCOM = computed(()=>{
 const goTo = (key, data) => {
   // console.log('formList',key,data);
   // data = JSON.parse(JSON.stringify(data));
-  if(key == 'sectionDelete'){
-    emits('sectionDelete',data)
+  if(key == 'onSection'){
+    emits('onSection',data)
   }
 
   if (key == 'onSwitchChange') {

@@ -38,7 +38,7 @@
                     <div class="el-table-section-header-left">
                         <div class="el-table-section-header-section">已选中 <span>{{ sectionNum }}</span> 项</div>
                         <d-el-button class="el-table-section-header-btn-default" text icon="Delete"
-                                     @click="goTo('sectionDelete')">
+                                     @click="goTo('onSection')">
                             删除
                         </d-el-button>
                     </div>
@@ -227,7 +227,7 @@ const props = defineProps({
     }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(['onSettingsButtonClick', 'onChange', 'onSwitchChange', 'sectionDelete']);
+const emits = defineEmits(['onSettingsButtonClick', 'onChange', 'onSwitchChange', 'onSection']);
 
 
 // console.log(props.item)
@@ -249,6 +249,7 @@ const optionValueCOM = computed(() => {
             // console.log('item里有option',_itemOption)
             _option = _itemOption;
         }
+
 
         if (Array.isArray(_option)) {
             // console.log('数组')
@@ -588,11 +589,11 @@ const isShowFN = (type, scope) => {
 const goTo = (key, data) => {
     console.log(key, data);
 
-    if (key == 'sectionDelete') {
+    if (key == 'onSection') {
 
         console.log(props.sectionData)
         let _selection = props.sectionData?.selection || []
-        emits('sectionDelete', {selection: _selection})
+        emits('onSection', {key:"delete",selection: _selection})
 
 
     }

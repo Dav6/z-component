@@ -38,7 +38,7 @@
 
                 @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
                 @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
-                @sectionDelete="data=>goTo('sectionDelete',data)"
+                @onSection="data=>goTo('onSection',data)"
         >
 
             <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
@@ -317,7 +317,7 @@ const keyListCOM = computed(() => {
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits([
     'onSettingsButtonClick', 'onSwitchChange',
-    'selectionChange', 'sectionDelete',
+    'selectionChange', 'onSection',
     'sortChange', 'filterChange'
 ]);
 
@@ -462,8 +462,8 @@ const goTo = (key, data) => {
         getSelection && getSelection()
         emits('selectionChange', data);
     }
-    if (key == 'sectionDelete') {
-        emits('sectionDelete', data)
+    if (key == 'onSection') {
+        emits('onSection', data)
     }
 
 

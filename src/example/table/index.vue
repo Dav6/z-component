@@ -34,7 +34,7 @@
             @select="(selection, row)=>goTo('select',{selection, row})"
             @select-all="(selection, row)=>goTo('selectAll',{selection, row})"
             @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
-            @sectionDelete="data=>goTo('sectionDelete',data)"
+            @onSection="data=>goTo('onSection',data)"
             @sortChange="data=>goTo('sortChange',data)"
             @filterChange="(data)=>goTo('filterChange',data)"
 
@@ -403,7 +403,7 @@ const goTo = (key, data) => {
 
 
     }
-    if (key == 'sectionDelete') {
+    if (key == 'onSection') {
 
     }
     if (key == 'onSettingsButtonClick') {
