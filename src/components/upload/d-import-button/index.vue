@@ -25,6 +25,7 @@
     >
         <el-upload
                 class="import-upload"
+                :class="{'have':fileData?.uid}"
                 ref="importUploadRef"
                 drag
                 v-model:file-lis="fileList"
@@ -39,7 +40,7 @@
                 :auto-upload="false"
         >
             <!--      <el-icon class="el-icon&#45;&#45;upload"><upload-filled /></el-icon>-->
-            <div class="import-upload-image-box" :class="{'have':fileData?.uid}">
+            <div class="import-upload-image-box" >
                 <d-el-image
                         class="import-upload-image"
                         :src="fileData?.uid?haveFileIcon :defaultIcon" size="100% 100%"
@@ -422,17 +423,28 @@ init();
         }
     }
 
+
+
+
     .import-upload-image-box {
         width: 72px;
         height: 50px;
         margin: 0 auto;
         position: relative;
         z-index: 10;
-        &.have {
-            height: 70px;
 
+    }
+    &.have {
+        :deep(.el-upload-dragger){
+            border-style:solid;
+        }
+        .import-upload-image-box {
+            height: 70px;
         }
     }
+
+
+
 
     .el-upload__text {
         padding-top: 8px;
