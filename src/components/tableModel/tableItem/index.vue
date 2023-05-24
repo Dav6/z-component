@@ -735,6 +735,12 @@ init();
     padding: 0;
     display: flex;
     align-items: center;
+
+      &.zr-iconfont{
+          :before{
+              margin-right:6px;
+          }
+      }
   }
 }
 
