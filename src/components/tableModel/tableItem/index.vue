@@ -737,7 +737,7 @@ init();
     align-items: center;
 
       &.zr-iconfont{
-          :before{
+          &:before{
               margin-right:6px;
           }
       }
