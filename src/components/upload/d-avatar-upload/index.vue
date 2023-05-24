@@ -197,7 +197,7 @@ const uploadClassCOM = computed(() => {
 const fileList = ref([]);
 const isHaveFile = ref(false)
 let defaultBackground = defaultAvatar
-console.log('defaultAvatar---------',defaultAvatar)
+// console.log('defaultAvatar---------',defaultAvatar)
 if (props.defaultBackground) {
     defaultBackground = props.defaultBackground
 }
@@ -342,7 +342,15 @@ const uploadFile = async (params) => {
         key: ""
     }
     if (uploadFileAPI) {
-        const _res = await uploadFileAPI(params.file);
+        let _res = {};
+        try {
+            _res = await uploadFileAPI(params.file)
+        }catch (e) {
+            // console.log('失败e',e)
+            // 只需要一张 ，防止上传第二张 ，清空列表
+            fileList.value = [];
+        }
+
         // console.log(res);
         _fileData.url = _res?.url || "";
         _fileData.key = _res?.key || "";
