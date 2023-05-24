@@ -632,10 +632,11 @@ const goTo = (key, data) => {
     console.log(key, data);
 
     if (key == 'onSection') {
-
-        console.log(props.sectionData)
-        // let _selection = props.sectionData?.selection || []
-        // emits('onSection', {key:"delete",data: _selection})
+        const _data = data;
+        const _key = _data?.key;
+        // console.log(props.sectionData)
+        let _selection = props.sectionData?.selection || []
+        emits('onSection', {key:_key,data: _selection})
 
 
     }
