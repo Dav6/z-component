@@ -232,7 +232,6 @@ const formList = ref([
                     url: "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
                     key: "123123",
                 }
-
                 resolve(_obj)
             })
         }
