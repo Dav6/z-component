@@ -8,7 +8,11 @@
 
 <template>
   <div class="container-box">
-    <d-import-button ></d-import-button>
+    <d-import-button
+            accept=".csv,.xls,.xlsx"
+
+            :uploadFileAPI="uploadFile"
+    ></d-import-button>
 
   </div>
 </template>
@@ -35,6 +39,41 @@ const emits = defineEmits([]);
 const defaultCOM = computed(() => {
   return '';
 });
+
+
+const uploadFile = (file)=> {
+    console.log('addEditDialogStore', file)
+
+
+    return new Promise((resolve, reject) => {
+        const _data = {
+            type: 'personnel',
+            file: file,
+        }
+        resolve();
+        // uploadFileAPI(_data).then((res: any) => {
+        //     // console.log(res);
+        //     if (res?.success) {
+        //         const _obj = {
+        //             url: res?.data?.objectUrl,
+        //             key: res?.data?.objectName
+        //         }
+        //         resolve(_obj)
+        //     } else {
+        //         this.globalStore.message({message: '上传失败', type: "error"})
+        //         reject(res)
+        //
+        //     }
+        // }, err => {
+        //     reject(err)
+        //     this.globalStore.message({message: '上传失败', type: "error"})
+        //
+        // })
+
+    })
+
+
+};
 
 
 

@@ -139,6 +139,9 @@ const props = defineProps({
     defaultIcon: {
         type: [String],
         default: defaultIcon
+    },
+    uploadFileAPI:{
+        type:[Function]
     }
 });
 //const emits = defineEmits(["update:modelValue"]);
@@ -218,6 +221,12 @@ const beforeUpload = async (file) => {
             // console.log('验证成功')
             _isPass = true;
         }
+        const _names = file.name?.split('.')
+        console.log('names',_names);
+        if(_item === _names?.[_names?.length-1]){
+            _isPass = true;
+        }
+
 
         let _itemAccept = _item?.split('/')
         let _fileTypes = file.type?.split('/');
@@ -288,19 +297,21 @@ const uploadFile = async (params) => {
         _fileData.url = _res?.url || "";
         _fileData.key = _res?.key || "";
 
-
+        isShow.value = false;
+        return true;
     }
 
     isShow.value = false;
-    console.log('uploadFile-fileData',_fileData)
-    // fileList.value.push(_fileData)
 
-
-    // importUploadRef?.value?.abort()
-
-    return new Promise((resolve, reject) => {
-
-    })
+    // console.log('uploadFile-fileData',_fileData)
+    // // fileList.value.push(_fileData)
+    //
+    //
+    // // importUploadRef?.value?.abort()
+    //
+    // return new Promise((resolve, reject) => {
+    //
+    // })
     // _res = params.file
 
     // let res = await uploadFileApi(params.file);
@@ -326,7 +337,6 @@ const uploadFile = async (params) => {
     //   return item;
     // })
 
-return false;
     // emits('update:modelValue',_fileList)
     // handleOnChange(_fileData)
 }
@@ -358,7 +368,7 @@ const goTo = (key, data) => {
     isShow.value = true
 
 
-    if (key == 'confirm') {
+    if (key === 'confirm') {
         console.log(importUploadRef.value)
         console.log('fileData', fileData)
         console.log('fileList',fileList)
@@ -367,7 +377,7 @@ const goTo = (key, data) => {
     }
 
 
-    if (key == 'close') {
+    if (key === 'close') {
         isShow.value = false;
     }
 
