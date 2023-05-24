@@ -343,14 +343,15 @@ const uploadFile = async (params) => {
     }
     if (uploadFileAPI) {
         let _res = {};
-        try {
-            _res = await uploadFileAPI(params.file)
-        }catch (e) {
-            // console.log('失败e',e)
-            // 只需要一张 ，防止上传第二张 ，清空列表
-            fileList.value = [];
-        }
-
+        _res = await uploadFileAPI(params.file)
+        // try {
+        // }catch (e) {
+        //     // console.log('失败e',e)
+        //     // 只需要一张 ，防止上传第二张 ，清空列表
+        //     fileList.value = [];
+        // }
+        // 只需要一张 ，防止上传第二张 ，清空列表
+        fileList.value = [];
         // console.log(res);
         _fileData.url = _res?.url || "";
         _fileData.key = _res?.key || "";
