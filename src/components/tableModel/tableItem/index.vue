@@ -38,9 +38,18 @@
                     <div class="el-table-section-header-left">
                         <div class="el-table-section-header-section">已选中 <span>{{ sectionNum }}</span> 项</div>
                         <d-el-button class="el-table-section-header-btn-default" text icon="Delete"
-                                     @click="goTo('onSection')">
+                                     @click="goTo('onSection',{key:'delete'})">
                             删除
                         </d-el-button>
+                        <template v-for="(item,index) in sectionButtons" :key="index" >
+                            <d-el-button :class="sectionButtonsClassCOM(item)" text :icon="item.icon"
+                                         @click="goTo('onSection',{key:item?.key})">
+                                {{ item?.name }}
+                            </d-el-button>
+                        </template>
+
+
+
                     </div>
                     <div class="el-table-section-header-right">
                         <d-el-button class="el-table-section-header-btn-default" text @click="goTo('sectionClear')">取消选择
@@ -224,6 +233,10 @@ const props = defineProps({
     },
     option: {
         type: [Array, Object]
+    },
+    sectionButtons:{
+        type: [Array]
+
     }
 });
 //const emits = defineEmits(["update:modelValue"]);
@@ -447,6 +460,35 @@ watch(() => props.item, (item, preItem) => {
 })
 
 
+const sectionButtonsClassCOM = computed(()=>{
+    return (item)=>{
+        const _item = item;
+        let _class = ['el-table-section-header-btn-default']
+
+        let _itemClass = _item?.class;
+        if (typeof (_itemClass) == 'string') {
+            let _bClass = _itemClass?.split(' ')
+            _class = [..._class, ..._bClass]
+        }
+        if (Object.prototype.toString.call(_itemClass) === '[object Object]') {
+            let _bClass = Object.keys(_itemClass)?.map(key => {
+                // console.log(key)
+                return _itemClass[key] ? key : ''
+            })
+            _class = [..._class, ..._bClass]
+        }
+        if (Array.isArray(_itemClass)) {
+            let _bClass = _itemClass || [];
+            _class = [..._class, ..._bClass]
+        }
+
+        return _class;
+
+    }
+})
+
+
+
 const timeFormatCOM = computed(() => {
     return (time) => {
         // console.log(time);
@@ -592,8 +634,8 @@ const goTo = (key, data) => {
     if (key == 'onSection') {
 
         console.log(props.sectionData)
-        let _selection = props.sectionData?.selection || []
-        emits('onSection', {key:"delete",data: _selection})
+        // let _selection = props.sectionData?.selection || []
+        // emits('onSection', {key:"delete",data: _selection})
 
 
     }

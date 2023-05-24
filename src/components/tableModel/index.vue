@@ -36,10 +36,15 @@
 
                 :option="option"
 
+                :sectionButtons="sectionButtons"
+
                 @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
                 @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
                 @onSection="data=>goTo('onSection',data)"
         >
+
+
+
 
             <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
                 <slot :name="item.name" :data="data.data"></slot>
@@ -143,6 +148,9 @@ const props = defineProps({
     },
     sortMap: {
         type: [Array, Object]
+    },
+    sectionButtons:{
+        type: [Array]
     }
 
 

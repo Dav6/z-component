@@ -24,9 +24,8 @@
             :header-cell-class-name="headerRowClassNameFN"
             :filters="globalFilters"
             :filterMethod="globalFilterMethod"
-
-
             :sortMap="sortMap"
+            :sectionButtons="sectionButtons"
 
             :row-key="'id'"
             height="100%"
@@ -82,6 +81,17 @@ const emits = defineEmits([]);
 const defaultCOM = computed(() => {
     return '';
 });
+
+
+
+
+const sectionButtons = ref([
+    {name: "导入", key: "import",class:"import",  icon:"",},
+    {name: "导出", key: "export",class:"export", icon:"",}
+])
+
+
+
 
 const globalFilters = ref({
     company: []
