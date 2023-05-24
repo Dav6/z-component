@@ -8,7 +8,7 @@
 
 <template>
   <div class="container-box">
-    <d-import-export-button ></d-import-export-button>
+    <d-import-button ></d-import-button>
 
   </div>
 </template>
