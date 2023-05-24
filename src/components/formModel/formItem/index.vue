@@ -43,11 +43,12 @@
             :uploadFileAPI="isUpload()?(item?.uploadFileAPI || uploadFileAPI):undefined"
             :size="item?.size"
             :borderRadius="item?.borderRadius"
-            :buttonName="item?.buttonName"
             :accept="item?.accept"
             :disabled="item?.disabled"
             :options="optionsCOM"
             :data="item"
+            :defaultBackground="item?.defaultBackground"
+            :buttonName="item?.buttonName"
             @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
 
         >

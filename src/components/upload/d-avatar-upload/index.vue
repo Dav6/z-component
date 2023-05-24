@@ -96,7 +96,7 @@ const props = defineProps({
     uploadFileAPI: {
         type: [Function]
     },
-    defaultImage: {
+    defaultBackground: {
         type: [String]
     },
 
@@ -196,13 +196,14 @@ const uploadClassCOM = computed(() => {
 
 const fileList = ref([]);
 const isHaveFile = ref(false)
-let defaultImage = defaultAvatar
-if (props.defaultImage) {
-    defaultImage = props.defaultImage
+let defaultBackground = defaultAvatar
+console.log('defaultAvatar---------',defaultAvatar)
+if (props.defaultBackground) {
+    defaultBackground = props.defaultBackground
 }
 
 const _file = ref({
-    url: defaultImage,
+    url: defaultBackground,
     key: "",
 })
 // section v-model value处理
@@ -211,7 +212,7 @@ watch(() => props.modelValue, (value, preValue) => {
         let _value = value;
         isHaveFile.value = false;
         // console.log('_value',_value)
-        _file.value.url = defaultImage
+        _file.value.url = defaultBackground
         _file.value.key = ""
         if (_value?.url) {
             _file.value.url = _value?.url;

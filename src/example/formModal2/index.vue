@@ -225,6 +225,27 @@ const formList = ref([
         formRowClass: "row-info",
         children: [
             {
+
+                name: "多选",
+                key: "isRadio",
+                value: "",
+                placeholder: "请选择是否多选",
+                disabled: false,
+                formType: "radio",
+                span: 24,
+                rules: [{required: true, message: "请选择是否多选", trigger: "blur"}],
+                options: [
+                    {
+                        label: "是",
+                        value: 0,
+                    },
+                    {
+                        label: "否",
+                        value: 1,
+                    },
+                ],
+            },
+            {
                 name: "数字", key: "number", value: "1", placeholder: "数字", disabled: false,
                 formType: "inputNumber",
                 controls: false,
