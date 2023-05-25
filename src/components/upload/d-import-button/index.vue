@@ -60,7 +60,7 @@
                             class="import-upload-tip-icon"
                             :src="downloadIcon" size="16 16"
                     ></d-el-image>
-                    <div class="import-upload-tip-text">请下载导入模板</div>
+                    <div class="import-upload-tip-text" @click="goTo('download')">请下载导入模板</div>
                 </div>
 
             </template>
@@ -146,7 +146,7 @@ const props = defineProps({
     }
 });
 //const emits = defineEmits(["update:modelValue"]);
-const emits = defineEmits(["update:modelValue", "change"]);
+const emits = defineEmits(["update:modelValue", "change","download"]);
 
 const {appContext} = getCurrentInstance();
 
@@ -368,6 +368,9 @@ const goTo = (key, data) => {
     console.log(key, data)
     isShow.value = true
 
+    if(key === 'download'){
+        emits('download',{})
+    }
 
     if (key === 'confirm') {
         console.log(importUploadRef.value)
