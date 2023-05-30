@@ -216,14 +216,14 @@ const beforeUpload = async (file) => {
         // accept: "image/jpeg,image/jpg",
         // 两种格式的验证
         let _item = item.match(/^(.*)(\.)(.{1,8})$/) ? item.match(/^(.*)(\.)(.{1,8})$/)[3] : item;
-        console.log(_item);
-        console.log(file.type);
+        // console.log(_item);
+        // console.log(file.type);
         if (file.type.indexOf(_item) > -1) {
             // console.log('验证成功')
             _isPass = true;
         }
         const _names = file.name?.split('.')
-        console.log('names',_names);
+        // console.log('names',_names);
         if(_item === _names?.[_names?.length-1]){
             _isPass = true;
         }
@@ -294,12 +294,12 @@ const uploadFile = async (params) => {
     }
     if (uploadFileAPI) {
         const _res = await uploadFileAPI(params.file);
-        // console.log(res);
+        console.log(res);
         _fileData.url = _res?.url || "";
         _fileData.key = _res?.key || "";
 
         isShow.value = false;
-        return true;
+        return false;
     }
 
     isShow.value = false;
@@ -308,7 +308,7 @@ const uploadFile = async (params) => {
     // // fileList.value.push(_fileData)
     //
     //
-    // // importUploadRef?.value?.abort()
+    // importUploadRef?.value?.abort()
     //
     // return new Promise((resolve, reject) => {
     //
@@ -373,9 +373,9 @@ const goTo = (key, data) => {
     }
 
     if (key === 'confirm') {
-        console.log(importUploadRef.value)
-        console.log('fileData', fileData)
-        console.log('fileList',fileList)
+        console.log('confirm-importUploadRef',importUploadRef.value)
+        console.log('confirm-fileData', fileData)
+        console.log('confirm-fileList',fileList)
         importUploadRef?.value?.submit()
 
     }

@@ -45,12 +45,13 @@ const uploadFile = (file)=> {
     console.log('addEditDialogStore', file)
 
 
+    // 如果想要重复点击上传 不要 resolve, reject ,让状态处于中止在那
     return new Promise((resolve, reject) => {
         const _data = {
             type: 'personnel',
             file: file,
         }
-        resolve();
+        // resolve();
         // uploadFileAPI(_data).then((res: any) => {
         //     // console.log(res);
         //     if (res?.success) {
@@ -69,6 +70,7 @@ const uploadFile = (file)=> {
         //     this.globalStore.message({message: '上传失败', type: "error"})
         //
         // })
+        // reject()
 
     })
 
