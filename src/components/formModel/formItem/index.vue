@@ -465,7 +465,7 @@ const isShowEditor = ref(true)
 
 watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig], [preItem, preToolbarConfig]) => {
 
-
+    setItemData && setItemData()
   if (item?.formType == 'editor') {
     //   toolbarConfig = toolbarConfig || {};
     //   item = JSON.parse(JSON.stringify(item))

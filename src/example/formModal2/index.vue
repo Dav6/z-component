@@ -324,13 +324,19 @@ const formList = ref([
             {
                 name: "车辆类型",
                 key: "carType",
-                value: "",
+                value: ["小型汽车"],
                 formType: "select",
                 placeholder: "请选择性别",
+                multiple:true,
                 disabled: false,
                 span: 12,
                 rules: [{required: true, message: "请选择性别", trigger: "blur"}],
-                options: [],
+                options: [
+                    {label:"小型汽车",value:"小型汽车"},
+                    {label:"SUV",value:"SUV"},
+                    {label:"大型汽车",value:"大型汽车"},
+                    {label:"小型卡车",value:"小型卡车"}
+                ],
                 clearable: true,
             },
             {
@@ -340,6 +346,7 @@ const formList = ref([
                 formType: "select",
                 placeholder: "请选择性别",
                 disabled: false,
+
                 span: 12,
                 rules: [{required: true, message: "请选择性别", trigger: "blur"}],
                 options: [],
@@ -407,7 +414,7 @@ const formData = ref({
     info:"信息",
     carBrand : "车品牌",
     carColor : "车颜色",
-    carType : "车类型",
+    carType : "",
     faceImg :"http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
     hidden : "隐藏",
     licensePlateColor : "车牌颜色",
@@ -420,16 +427,17 @@ const formData = ref({
 
 
 setTimeout(()=>{
-    //  formData.value = {
-    //     info:"信息1",
-    //     carBrand : "车品牌1",
-    //     carColor : "车颜色1",
-    //     carType : "车类型2",
-    //     faceImg :"http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
-    //     hidden : "隐藏3",
-    //     licensePlateColor : "车牌颜色4",
-    //     name : "名称5",
-    // }
+     formData.value = {
+        info:"信息1",
+        carBrand : "车品牌1",
+        carColor : "车颜色1",
+        carType : ["小型汽车","SUV"],
+        faceImg :"http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
+        hidden : "隐藏3",
+        licensePlateColor : "车牌颜色4",
+        name : "名称5",
+         number:"555",
+    }
 
     const _data = {
         name: "车牌颜色_data",
