@@ -72,7 +72,7 @@
         <template v-if="item.isShow" #default="scope">
 
             <template v-if="item.type === 'index'">
-                {{ getIndex(scope) }}{{isShowSelectionHeader}}
+                {{ getIndex(scope) }}
             </template>
             <template v-else-if="item.type === 'expand'">
                 <slot :name="item.type" :data="scope"></slot>
