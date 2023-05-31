@@ -364,9 +364,6 @@ const headerRowClassNameFN = (data) => {
 
             })
         }
-
-
-
     }
 
 
@@ -390,14 +387,17 @@ const headerRowClassNameFN = (data) => {
 
 const headerCellStyleFN = (data) => {
     const {row, column, rowIndex, columnIndex} = data;
-    // console.log('row,',row, )
 
-    let _style = {}
+    let _style = {
+        display: 'table-cell',
+    }
 
     // 用于 选中状态的界面修改
     const _sectionData = sectionData.value
     const _isShowSelection = props.isShowSelection;
     if (_isShowSelection) {
+        console.log('data,',data, )
+        console.log('_sectionData,',_sectionData?.selection?.length, )
 
         if (_sectionData?.selection?.length > 0) {
 
@@ -409,11 +409,15 @@ const headerCellStyleFN = (data) => {
                 // console.log('rowIndex',rowIndex)
                 // console.log(' columnIndex', columnIndex)
                 //expand / selection / index / settings / time
+
+
+
                 // 选项框这一列 和 后面这一列不隐藏
                 // 后面这一列合并到最后
                 if (!(column.type == 'selection' || columnIndex == 1)) {
+
+                    console.log('取消进入了么')
                     _style = {
-                        ..._style,
                         display: 'none',
                     }
                 }
@@ -422,7 +426,6 @@ const headerCellStyleFN = (data) => {
 
                 if (columnIndex == 1) {
                     _style = {
-                        ..._style,
                         position: 'absolute',
                         left: `${_selectionWidth}`,
                         width: `calc(100% - ${_selectionWidth} )`,
@@ -431,14 +434,16 @@ const headerCellStyleFN = (data) => {
                     }
                 }
                 //
-                // row[1].fixed =  "left"
-                row[1].colSpan = row.length - 1
+                row[1].fixed =  "left"
+                row[1].colSpan = row.length
             }
 
         } else {
+            console.log('没选择-----------')
             _style = {
-                ..._style,
+                display:'table-cell'
             }
+            row[1].fixed =  ""
             row[1].colSpan = 1
         }
 

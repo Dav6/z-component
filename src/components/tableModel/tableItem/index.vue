@@ -31,42 +31,48 @@
 
 
     >
-
-        <template v-if="isShowSelectionHeader" #header="{ column, $index }">
-            <template v-if="$index == 1">
-                <div class="el-table-section-header">
-                    <div class="el-table-section-header-left">
-                        <div class="el-table-section-header-section">已选中 <span>{{ sectionNum }}</span> 项</div>
-                        <d-el-button class="el-table-section-header-btn-default" text icon="Delete"
-                                     @click="goTo('onSection',{key:'delete'})">
-                            删除
-                        </d-el-button>
-                        <template v-for="(item,index) in sectionButtons" :key="index" >
-                            <d-el-button :class="sectionButtonsClassCOM(item)" text :icon="item.icon"
-                                         @click="goTo('onSection',{key:item?.key})">
-                                {{ item?.name }}
+        <template  #header="scope" >
+            <template v-if="isShowSelectionHeaderFN(scope)">
+                <template v-if="true">
+                    <div class="el-table-section-header">
+                        <div class="el-table-section-header-left">
+                            <div class="el-table-section-header-section">已选中 <span>{{ sectionNum }}</span> 项</div>
+                            <d-el-button class="el-table-section-header-btn-default" text icon="Delete"
+                                         @click="goTo('onSection',{key:'delete'})">
+                                删除
                             </d-el-button>
-                        </template>
+                            <template v-for="(item,index) in sectionButtons" :key="index" >
+                                <d-el-button :class="sectionButtonsClassCOM(item)" text :icon="item.icon"
+                                             @click="goTo('onSection',{key:item?.key})">
+                                    {{ item?.name }}
+                                </d-el-button>
+                            </template>
 
 
 
+                        </div>
+                        <div class="el-table-section-header-right">
+                            <d-el-button class="el-table-section-header-btn-default" text @click="goTo('sectionClear')">取消选择
+                            </d-el-button>
+
+                        </div>
                     </div>
-                    <div class="el-table-section-header-right">
-                        <d-el-button class="el-table-section-header-btn-default" text @click="goTo('sectionClear')">取消选择
-                        </d-el-button>
-
-                    </div>
-                </div>
+                </template>
+            </template>
+            <template v-else>
+                {{ scope.column.label }}
             </template>
 
 
         </template>
 
 
+
+
         <template v-if="item.isShow" #default="scope">
 
             <template v-if="item.type === 'index'">
-                {{ getIndex(scope) }}
+                {{ getIndex(scope) }}{{isShowSelectionHeader}}
             </template>
             <template v-else-if="item.type === 'expand'">
                 <slot :name="item.type" :data="scope"></slot>
@@ -441,9 +447,16 @@ const filterPlacementCOM = computed(() => {
 // console.log('sectionData',props.sectionData)
 const isShowSelectionHeader = ref(false)
 const sectionNum = ref(0)
+
+const isShowSelectionHeaderFN = (scope)=>{
+    console.log(scope)
+    const _index = scope.$index;
+    return isShowSelectionHeader.value && _index === 1;
+}
+
 // section watch sectionData
 watch(() => props.sectionData, (sectionData, preSectionData) => {
-    // console.log('sectionData',sectionData)
+    console.log('sectionData---------------',sectionData)
     const _sectionData = sectionData;
 
     if (_sectionData.selection?.length > 0) {
@@ -454,6 +467,7 @@ watch(() => props.sectionData, (sectionData, preSectionData) => {
         sectionNum.value = 0
 
     }
+    nextTick(()=>{})
 
 }, {
     deep: true
@@ -664,6 +678,19 @@ const isShowFN = (type, scope) => {
     
     return true;
 }
+
+
+
+
+
+
+const getScope = (scope)=>{
+    console.log('getScope',scope)
+
+}
+
+
+
 
 
 //section goTo
