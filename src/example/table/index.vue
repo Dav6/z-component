@@ -155,16 +155,17 @@ const keyList = ref([
     {
         label: "选项2", key: "option2", type: "option", showOverflowTooltip: true,
         // option:[],
-        // option:[
-        //   {label: "选项111", value: 1},
-        //   {label: "选项2222", value: 2},
-        //   {label: "选项33333", value: 3},
-        // ],
-        option: {
-            1: "选项12",
-            2: "选项23",
-            3: "选项34",
-        }
+        option:[
+          {label: "选项111", value: 1},
+          {label: "选项2222", value: 2},
+          {label: "选项33333", value: 3},
+        ],
+        multiple:true,
+        // option: {
+        //     1: "选项12",
+        //     2: "选项23",
+        //     3: "选项34",
+        // }
     },
     {
         label: "时间", type: "time", format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
@@ -289,7 +290,7 @@ list.value = Array(20).fill({})?.map((item, index) => {
             _value = randomNum(1, 3)
         }
         if (cItem.key === 'option2') {
-            _value = randomNum(1, 3)
+            _value = [randomNum(1, 3),randomNum(1, 3)]
         }
 
         if (cItem.key === 'createTime') {
@@ -324,7 +325,7 @@ list.value = Array(20).fill({})?.map((item, index) => {
 
 
 
-        _item[cItem.key] = JSON.stringify(_value)
+        _item[cItem.key] = _value
 
     })
     if (randomNum(0, 100) % 3 === 0) {

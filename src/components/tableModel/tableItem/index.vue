@@ -255,6 +255,7 @@ const optionValueCOM = computed(() => {
         let _item = props?.item;
         let _key = _item?.key;
         let _itemOption = _item?.option;
+        // const _isMultiple = _item.multiple?true:false;
         let _data = data;
         let _dataValue = _data?.[_key]
         // console.log('_key',_key)
@@ -263,16 +264,46 @@ const optionValueCOM = computed(() => {
             _option = _itemOption;
         }
 
+        // console.log('_option',_option,)
+        // console.log('_dataValue',_dataValue,typeof _dataValue)
 
         if (Array.isArray(_option)) {
-            // console.log('数组')
-            const _findData = _option?.find(item => item?.value == _dataValue) || {}
-            _value = _findData?.['label'] || ''
+            if(Array.isArray(_dataValue)){
+                console.log('值-数组')
+                const _intersection =  _option?.filter(o=>_dataValue?.indexOf(o?.value)>-1)
+                console.log('intersection',_intersection)
+                _value = [];
+                _intersection?.map(cItem=>{
+                    const _valueItem = cItem?.label || "";
+                    _value.push(_valueItem)
+                })
+                _value = _value.join(',');
+            }else{
+                // console.log('值-不是数组')
+                const _findData = _option?.find(item => item?.value === _dataValue) || {}
+                _value = _findData?.['label'] || ''
+            }
+
         }
         if (Object.prototype.toString.call(_option) === '[object Object]') {
             // console.log('对象')
-            _value = _option?.[_dataValue]
+            if(Array.isArray(_dataValue)){
+                // console.log('值-数组')
+                _value = [];
+                _dataValue?.map(cItem=>{
+                    const _valueItem = _option?.[cItem]
+                    _value.push(_valueItem)
+                })
+                _value = _value.join(',');
+
+            }else{
+                // console.log('值-不是数组')
+                _value = _option?.[_dataValue]
+
+            }
         }
+
+
 
         // console.log('option',props.option)
 
