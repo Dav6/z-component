@@ -264,8 +264,8 @@ const optionValueCOM = computed(() => {
             _option = _itemOption;
         }
 
-        // console.log('_option',_option,)
-        // console.log('_dataValue',_dataValue,typeof _dataValue)
+        console.log('_option',_option,)
+        console.log('_dataValue',_dataValue,typeof _dataValue)
 
         if (Array.isArray(_option)) {
             if(Array.isArray(_dataValue)){
@@ -524,10 +524,18 @@ const timeFormatCOM = computed(() => {
     return (time) => {
         // console.log(time);
         let _time = time;
+        if(!_time){
+            return _time;
+        }
         let _item = props.item;
         let _format = _item?.format || 'YYYY-MM-DD HH:mm:ss'
         _time = dayjs(_time).format(_format);
+
+
+
         return _time;
+
+
     }
 
 })
