@@ -264,14 +264,14 @@ const optionValueCOM = computed(() => {
             _option = _itemOption;
         }
 
-        console.log('_option',_option,)
-        console.log('_dataValue',_dataValue,typeof _dataValue)
+        // console.log('_option',_option,)
+        // console.log('_dataValue',_dataValue,typeof _dataValue)
 
         if (Array.isArray(_option)) {
-            if(Array.isArray(_dataValue)){
-                console.log('值-数组')
+            if(Array.isArray(_dataValue)) {
+                // console.log('值-数组')
                 const _intersection =  _option?.filter(o=>_dataValue?.indexOf(o?.value)>-1)
-                console.log('intersection',_intersection)
+                // console.log('intersection',_intersection)
                 _value = [];
                 _intersection?.map(cItem=>{
                     const _valueItem = cItem?.label || "";

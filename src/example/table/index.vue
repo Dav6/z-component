@@ -290,7 +290,7 @@ list.value = Array(20).fill({})?.map((item, index) => {
             _value = randomNum(1, 3)
         }
         if (cItem.key === 'option2') {
-            _value = [randomNum(1, 3),randomNum(1, 3)]
+            _value = [randomNum(1, 3),randomNum(1, 3)].join(',')
         }
 
         if (cItem.key === 'createTime') {
