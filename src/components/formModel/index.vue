@@ -218,7 +218,6 @@ const getFormData = (isAll=true) => {
     // let _data = getFormKeyData(_list);
     return _data;
 }
-
 const getFormDataByNoHidden = () => {
     // //console.log('getFormData', _formList.value);
     // let _list = JSON.parse(JSON.stringify(_formList.value))
