@@ -145,7 +145,7 @@ const _value = computed(() => {
     _cron = _cron.join(' ');
 
     // console.log(props.modelValue)
-    // console.log('watch-_value----------------', _cron)
+    console.log('watch-_value----------------', _cron)
 
     if (_isError) {
         _cron = '';

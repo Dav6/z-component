@@ -39,7 +39,7 @@ const defaultCOM = computed(() => {
 });
 
 const isShow = ref(false)
-const cronData = ref('1/2 1/6 * * * ? *');
+const cronData = ref('* * * ? * 2');
 
 
 const goTo = (key, data) => {
