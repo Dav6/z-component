@@ -168,16 +168,34 @@ const getFormListTiling = (isAll = true, {resultType = 'value'}={})=>{
 
     let _list = _formList.value
     _list = _list?.length > 0 ? _list : [];
+    let _dataList = []
+    console.log('_list',_list)
+    _list = JSON.parse(JSON.stringify(_list))
     let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key )]`
     if(!_isAll){
+        // _path = `$..[?(@parentProperty === 'buttonList' )]`
         _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.isHidden)]`
     }
 
-    let _dataList = JSONPath({
+    // console.log('_list',JSON.stringify(_list))
+
+    // let _path = `$..[?]`
+    _dataList = JSONPath({
         json: _list,
         path: _path,
         resultType:_resultType
     });
+  // try {
+  //     _dataList = JSONPath({
+  //         json: _list,
+  //         path: _path,
+  //         resultType:_resultType
+  //     });
+  //     console.log('_dataList',_dataList)
+  // }catch (e) {
+  //     _dataList = _list
+  // }
+
 
     return _dataList || []
 

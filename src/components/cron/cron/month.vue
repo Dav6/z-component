@@ -13,10 +13,10 @@
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'1',label:`每${unit}`}]}"></d-el-radio>
     </div>
-    <div>
-      <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'5',label:`不指定`}]}"></d-el-radio>
+<!--    <div>-->
+<!--      <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'5',label:`不指定`}]}"></d-el-radio>-->
 
-    </div>
+<!--    </div>-->
     <div>
       <d-el-radio v-model="type" :data="{isRadioBorder:true,options:[{value:'2',label:'周期'}]}"></d-el-radio>
 

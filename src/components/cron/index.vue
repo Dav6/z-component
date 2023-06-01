@@ -1,36 +1,37 @@
 <template>
-  <el-card :shadow="shadow" class="cron" :_data="_value">
+    <el-card :shadow="shadow" class="cron" :_data="_value">
 
-    时间：{{cronDesc}}
+        时间：{{ cronDesc }}
 
-    <el-form-item class="cron-el-form-item" :rules="[]">
+        <el-form-item class="cron-el-form-item" :rules="[]">
 
-      <el-tabs class="cron-tab"   v-model="activeName">
+            <el-tabs class="cron-tab" v-model="activeName">
 
-        <template v-for="(item,index) in cronData" :key="item.key">
-          <el-tab-pane :label="item.label" :name="item.key">
-            <Component :is="item.component" v-model="item.value" :cronData="cronData" :unit="item.label"  ></Component>
-          </el-tab-pane>
-        </template>
+                <template v-for="(item,index) in cronData" :key="item.key">
+                    <el-tab-pane :label="item.label" :name="item.key">
+                        <Component :is="item.component" v-model="item.value" :cronData="cronData"
+                                   :unit="item.label"></Component>
+                    </el-tab-pane>
+                </template>
 
-      </el-tabs>
-      <!-- table -->
-    </el-form-item>
-<!--    <d-table-model-->
-<!--      :list="[cronKeyData]"-->
-<!--      :keyList="cronData"-->
-<!--      :settingsConfig="{isShow:false}"-->
-<!--      border-->
-<!--    ></d-table-model>-->
+            </el-tabs>
+            <!-- table -->
+        </el-form-item>
+        <!--    <d-table-model-->
+        <!--      :list="[cronKeyData]"-->
+        <!--      :keyList="cronData"-->
+        <!--      :settingsConfig="{isShow:false}"-->
+        <!--      border-->
+        <!--    ></d-table-model>-->
 
 
-  </el-card>
+    </el-card>
 
 
 </template>
 <script setup>
 defineOptions({
-  name: 'd-cron',
+    name: 'd-cron',
 });
 import SecondAndMinute from './cron/secondAndMinute.vue'
 import Hour from './cron/hour.vue'
@@ -43,19 +44,19 @@ import 'cronstrue/locales/zh_CN'
 import {ref, reactive, markRaw, computed, watch} from "vue"
 
 const props = defineProps({
-  // 配合emits v-model
-  modelValue: {
-    type: [String],
-    default:()=>{
-      return '* * * * * ? *'
+    // 配合emits v-model
+    modelValue: {
+        type: [String],
+        default: () => {
+            return '* * * * * ? *'
+        }
+    },
+    shadow: {
+        type: [String],
+        default: () => {
+            return 'never'
+        }
     }
-  },
-  shadow:{
-    type: [String],
-    default:()=>{
-      return 'never'
-    }
-  }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(["update:modelValue", "change"]);
@@ -63,67 +64,67 @@ const emits = defineEmits(["update:modelValue", "change"]);
 // const cronstrue = ref(cronstrue);
 const activeName = ref('s');
 const cronData = ref([
-  {
-    key: 's',
-    value: '*',
-    label: '秒',
-    component: markRaw(SecondAndMinute),
-    showOverflowTooltip:true,
-  },
-  {
-    key: 'm',
-    value: '*',
-    label: '分',
-    component: markRaw(SecondAndMinute),
-    showOverflowTooltip:true,
-  },
-  {
-    key: 'h',
-    value: '*',
-    label: '时',
-    component: markRaw(Hour),
-    showOverflowTooltip:true,
-  },
-  {
-    key: 'd',
-    value: '*',
-    label: '日',
-    component: markRaw(Day),
-    showOverflowTooltip:true,
-  },
-  {
-    key: 'month',
-    value: '*',
-    label: '月',
-    component: markRaw(Month),
-    showOverflowTooltip:true,
-  },
-  {
-    key: 'week',
-    value: '?',
-    label: '周',
-    component: markRaw(Week),
-    showOverflowTooltip:true,
-  },
-  {
-    key: 'year',
-    value: '*',
-    label: '年',
-    component: markRaw(Year),
-    showOverflowTooltip:true,
-  }
+    {
+        key: 's',
+        value: '*',
+        label: '秒',
+        component: markRaw(SecondAndMinute),
+        showOverflowTooltip: true,
+    },
+    {
+        key: 'm',
+        value: '*',
+        label: '分',
+        component: markRaw(SecondAndMinute),
+        showOverflowTooltip: true,
+    },
+    {
+        key: 'h',
+        value: '*',
+        label: '时',
+        component: markRaw(Hour),
+        showOverflowTooltip: true,
+    },
+    {
+        key: 'd',
+        value: '*',
+        label: '日',
+        component: markRaw(Day),
+        showOverflowTooltip: true,
+    },
+    {
+        key: 'month',
+        value: '*',
+        label: '月',
+        component: markRaw(Month),
+        showOverflowTooltip: true,
+    },
+    {
+        key: 'week',
+        value: '?',
+        label: '周',
+        component: markRaw(Week),
+        showOverflowTooltip: true,
+    },
+    // {
+    //   key: 'year',
+    //   value: '*',
+    //   label: '年',
+    //   component: markRaw(Year),
+    //   showOverflowTooltip:true,
+    // }
 ])
 const cronKeyData = computed(() => {
-  let _data = {};
-  cronData.value?.map(item => {
-    _data[item.key] = item.value
-  })
-  return _data;
+    let _data = {};
+    cronData.value?.map(item => {
+        _data[item.key] = item.value
+    })
+    return _data;
 })
 const cronDesc = ref('')
 const modelValue = computed({ // 重新定义
-  get: () => props.modelValue,
-  set: (value) => emits("update:modelValue", value),
+    get: () => props.modelValue,
+    set: (value) => emits("update:modelValue", value),
 })
 
 
@@ -131,42 +132,46 @@ const _isValueFirst = ref(true);
 
 const _value = computed(() => {
 
-  let _data = cronData.value;
-  let _isError = false;
-  let _cronDesc = '';
-  let _cron = _data?.map(c => {
-    if(!c.value){
-      _isError = true;
-      cronDesc.value = `${c.label}为空`;
-    }
-    return c.value
-  })
-  _cron = _cron.join(' ');
+    let _data = cronData.value;
+    let _isError = false;
+    let _cronDesc = '';
+    let _cron = _data?.map(c => {
+        if (!c.value) {
+            _isError = true;
+            cronDesc.value = `${c.label}为空`;
+        }
+        return c.value
+    })
+    _cron = _cron.join(' ');
 
-  // console.log(props.modelValue)
-  // console.log('watch-_value----------------', _cron)
+    // console.log(props.modelValue)
+    // console.log('watch-_value----------------', _cron)
 
-  if(_isError){
-    _cron = '';
-    // cronDesc.value = cronstrue.toString(_cron,{locale:'zh_CN'})
+    if (_isError) {
+        _cron = '';
+        // cronDesc.value = cronstrue.toString(_cron,{locale:'zh_CN'})
 
-  }else{
-    cronDesc.value = cronstrue.toString(_cron,{locale:'zh_CN'})
-
-  }
-
-  if (_cron !== props.modelValue) {
-    // this.$emit('input', v)
-    emits("update:modelValue", _cron);
-    if (!_isValueFirst.value) {
-      emits("change", _cron);
-
-      // console.log('watch-_value----------------onchange------', _cron)
+    } else {
+        cronDesc.value = cronstrue.toString(_cron,
+            {
+                monthStartIndexZero: true,
+                locale: 'zh_CN'
+            })
 
     }
-    _isValueFirst.value = false;
-  }
-  return _cron
+
+    if (_cron !== props.modelValue) {
+        // this.$emit('input', v)
+        emits("update:modelValue", _cron);
+        if (!_isValueFirst.value) {
+            emits("change", _cron);
+
+            // console.log('watch-_value----------------onchange------', _cron)
+
+        }
+        _isValueFirst.value = false;
+    }
+    return _cron
 })
 
 // watch(()=>_value.value,()=>{
@@ -174,46 +179,50 @@ const _value = computed(() => {
 // },{deep:true})
 
 watch(() => props.modelValue, (modelValue, preModelValue) => {
-    // console.log('modelValue', modelValue);
-    // console.log('preModelValue', preModelValue);
-    if (modelValue != preModelValue) {
-      updateVal();
+        // console.log('modelValue', modelValue);
+        // console.log('preModelValue', preModelValue);
+        if (modelValue != preModelValue) {
+            updateVal();
 
-    }
-    // emits("change", '_cron');
+        }
+        // emits("change", '_cron');
 
-    // defaultActive = newValue.path;
-  },
-  {deep: true}
+        // defaultActive = newValue.path;
+    },
+    {deep: true}
 );
 
 
 const updateVal = () => {
-  // console.log('updateVal', props.modelValue);
-  if (!props.modelValue) {
-    return '';
-  }
-  let arrays = props.modelValue.split(' ')
-  // console.log('updateVal', arrays);
-  arrays?.map((item, index) => cronData.value[index].value = item)
-  // sVal.value = arrays[0]
-  // mVal.value = arrays[1]
-  // hVal.value = arrays[2]
-  // dVal.value = arrays[3]
-  // monthVal.value = arrays[4]
-  // weekVal.value = arrays[5]
-  // yearVal.value = arrays[6]
+    // console.log('updateVal', props.modelValue);
+    if (!props.modelValue) {
+        return '';
+    }
+    let arrays = props.modelValue.split(' ')
+    // console.log('updateVal', arrays);
+    arrays?.map((item, index) => {
+        if (cronData.value[index]) {
+            cronData.value[index].value = item
+        }
+    })
+    // sVal.value = arrays[0]
+    // mVal.value = arrays[1]
+    // hVal.value = arrays[2]
+    // dVal.value = arrays[3]
+    // monthVal.value = arrays[4]
+    // weekVal.value = arrays[5]
+    // yearVal.value = arrays[6]
 }
 
-const goTo = (key,data) => {
-  console.log(key,data);
+const goTo = (key, data) => {
+    console.log(key, data);
 }
 
 
 // 接口请求方法放这
 const init = () => {
-  //getList();
-  updateVal();
+    //getList();
+    updateVal();
 
 }
 
@@ -224,7 +233,7 @@ init();
 </script>
 
 <style lang="less" scoped>
-:deep(.is-error.form-item){
+:deep(.is-error.form-item) {
 
 }
 
@@ -237,35 +246,33 @@ init();
       width: 100%;
 
 
-
-
-
     }
   }
 
-  .cron-el-form-item{
+  .cron-el-form-item {
     margin-bottom: 0;
   }
 
 
-  :deep(.el-tabs){
-    .el-tabs__item.is-top{
-      padding:0 20px;
-      text-align:center;
+  :deep(.el-tabs) {
+    .el-tabs__item.is-top {
+      padding: 0 20px;
+      text-align: center;
       //margin:0 10px;
     }
 
   }
 
-  .cron-tab{
+  .cron-tab {
     //width:100%;
   }
 
   :deep(.cron-item) {
-    .flex-item{
+    .flex-item {
       display: flex;
       align-items: center;
     }
+
     > div {
       padding-bottom: 8px;
       display: flex;
@@ -273,12 +280,13 @@ init();
       white-space: nowrap;
     }
 
-    .el-input-number{
+    .el-input-number {
       width: 100px;
       flex-shrink: 0;
     }
-    .el-select{
-      margin-left:10px;
+
+    .el-select {
+      margin-left: 10px;
     }
 
     .el-checkbox-group {

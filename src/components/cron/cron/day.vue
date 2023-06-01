@@ -17,7 +17,7 @@
                          :data="{min:1,max:31,}"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">至</span>
       <d-el-input-number @change="goTo('setType','2')"
-                         v-model="cycle.start"
+                         v-model="cycle.end"
                          :data="{min:2,max:31,}"></d-el-input-number>
       <span style="margin-left: 5px; margin-right: 5px;">{{ unit }}</span>
     </div>

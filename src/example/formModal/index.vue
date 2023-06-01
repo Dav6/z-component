@@ -58,7 +58,7 @@
         <el-affix position="bottom" :offset="30">
             <el-button @click="goTo('cancel')">清空</el-button>
             <el-button type="primary" @click="goTo('confirm')">确定</el-button>
-            <el-button type="primary" @click="goTo('scroll')">确定</el-button>
+            <el-button type="primary" @click="goTo('scroll')">确定跳转</el-button>
 
         </el-affix>
 
@@ -1062,8 +1062,9 @@ const goTo = (key, data) => {
     }
     if (key === 'confirm') {
 
-        console.log(addEditFormRef.value.getFormDataByNoHidden())
-        console.log(addEditFormRef.value.getFormData())
+        console.log('confirm-getFormDataByNoHidden',addEditFormRef.value.getFormDataByNoHidden())
+        console.log('confirm-getFormData',addEditFormRef.value.getFormData())
+        console.log('confirm-getFormData-false',addEditFormRef.value.getFormData(false))
         addEditFormRef.value.formModelRef.validate((valid, invalidFields) => {
             console.log('invalidFields', valid, invalidFields)
             if (valid) {

@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.0.10",
-        "cronstrue": "^2.23.0",
+        "cronstrue": "^2.27.0",
         "dayjs": "^1.11.6",
         "element-plus": "^2.2.29",
         "jsonpath-plus": "^7.2.0",
