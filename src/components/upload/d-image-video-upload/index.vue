@@ -196,9 +196,8 @@ const isHiddenUploadBtnCOM = computed(() => {
 })
 
 
-watch(
-  () => props.modelValue, (value, preValue) => {
-    //console.log('value,preValue', value, preValue);
+watch( () => props.modelValue, (value, preValue) => {
+    console.log('value,preValue', value, preValue);
     fileList.value = [];
     if (Array.isArray(value)) {
       if (value?.length > 0) {
@@ -209,7 +208,7 @@ watch(
       }
     }
 
-    if (typeof value == 'string') {
+    if (typeof value == 'string' && value) {
       fileList.value = [
         {
           url: value

@@ -104,7 +104,7 @@ const _listCOM = computed(() => {
 
 const goTo = (key, data) => {
     // console.log(key,data)
-    if (key == 'onClick') {
+    if (key === 'onClick') {
         console.log('menuModelRef', menuModelRef.value)
         emits('onClick', {...data})
     }

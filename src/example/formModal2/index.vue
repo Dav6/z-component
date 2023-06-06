@@ -255,27 +255,27 @@ const formList = ref([
                 min: 0,
                 max: "",
                 span: 12,
-                // rules: [
-                //     {required: false, message: "请输入数字", trigger: "blur"},
-                //     {
-                //         validator: function (rule, value, callback) {
-                //             console.log('value', value);
-                //
-                //             // if (value != formData["password"]) {
-                //             //     return callback(new Error("两次密码不一样"));
-                //             // }
-                //
-                //
-                //             return true;
-                //         }, trigger: 'blur'
-                //     }
-                // ],
+                rules: [
+                    {required: false, message: "请输入数字", trigger: "blur"},
+                    {
+                        validator: function (rule, value, callback) {
+                            console.log('value', value);
+
+                            // if (value != formData["password"]) {
+                            //     return callback(new Error("两次密码不一样"));
+                            // }
+
+
+                            return true;
+                        }, trigger: 'blur'
+                    }
+                ],
 
             },
             {
                 name: "车牌信息",
                 key: "info",
-                value: "",
+                value: "555",
                 formType: "input",
                 placeholder: "请输入中英文",
                 disabled: false,
@@ -327,15 +327,15 @@ const formList = ref([
                 value: ["小型汽车"],
                 formType: "select",
                 placeholder: "请选择性别",
-                multiple:true,
+                multiple: true,
                 disabled: false,
                 span: 12,
                 rules: [{required: true, message: "请选择性别", trigger: "blur"}],
                 options: [
-                    {label:"小型汽车",value:"小型汽车"},
-                    {label:"SUV",value:"SUV"},
-                    {label:"大型汽车",value:"大型汽车"},
-                    {label:"小型卡车",value:"小型卡车"}
+                    {label: "小型汽车", value: "小型汽车"},
+                    {label: "SUV", value: "SUV"},
+                    {label: "大型汽车", value: "大型汽车"},
+                    {label: "小型卡车", value: "小型卡车"}
                 ],
                 clearable: true,
             },
@@ -351,9 +351,23 @@ const formList = ref([
                 rules: [{required: true, message: "请选择性别", trigger: "blur"}],
                 options: [],
                 clearable: true,
-                buttonList:[
-                    { name: "", class:"dividerButton optionButton add", icon: "Plus",type:"primary", key: "add", isText: false },
-                    { name: "", class:"dividerButton optionButton delete", icon: "Delete", type:"danger", key: "delete", isText: false },
+                buttonList: [
+                    {
+                        name: "",
+                        class: "dividerButton optionButton add",
+                        icon: "Plus",
+                        type: "primary",
+                        key: "add",
+                        isText: false
+                    },
+                    {
+                        name: "",
+                        class: "dividerButton optionButton delete",
+                        icon: "Delete",
+                        type: "danger",
+                        key: "delete",
+                        isText: false
+                    },
                 ]
             },
 
@@ -366,7 +380,7 @@ const formList = ref([
                 disabled: false,
                 span: 12,
                 rules: [{required: true, message: "请输入人员编号", trigger: "blur"}],
-                isHidden:true,
+                isHidden: true,
                 clearable: true,
 
 
@@ -404,39 +418,55 @@ const formList = ref([
                 rules: [{required: true, message: "上传车辆照片", trigger: "blur"}],
                 clearable: true,
             },
+
+
         ]
+    },
+    {
+        name: "人员头像",
+        key: "image",
+        limit: 2,
+        disabled: false,
+        formType: "imageVideoUpload",
+        span: 24,
+        accept: "image/jpeg,image/jpg",
+        previewTeleported: true,
+        rules: [{required: true, message: "请上传图片", trigger: "blur"}],
+        value: []
     },
 ])
 
 
-
 const formData = ref({
-    info:"信息",
-    carBrand : "车品牌",
-    carColor : "车颜色",
-    carType : "",
-    faceImg :"http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
-    hidden : "隐藏",
-    licensePlateColor : "车牌颜色",
-    name : "名称",
+    info: "信息",
+    carBrand: "车品牌",
+    carColor: "车颜色",
+    carType: "",
+    faceImg: "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
+    hidden: "隐藏",
+    licensePlateColor: "车牌颜色",
+    name: "名称",
 })
 
 
+setTimeout(() => {
+    formData.value = {
+        info: "信息1",
+        carBrand: "车品牌1",
+        carColor: "车颜色1",
+        carType: ["小型汽车", "SUV"],
+        faceImg: "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
+        hidden: "隐藏3",
+        licensePlateColor: "车牌颜色4",
+        name: "名称5",
+        number: "555",
+        image: [
+            {
+                key: "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
+                url: "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg"
+            }
+        ]
 
-
-
-
-setTimeout(()=>{
-     formData.value = {
-        info:"信息1",
-        carBrand : "车品牌1",
-        carColor : "车颜色1",
-        carType : ["小型汽车","SUV"],
-        faceImg :"http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
-        hidden : "隐藏3",
-        licensePlateColor : "车牌颜色4",
-        name : "名称5",
-         number:"555",
     }
 
     const _data = {
@@ -456,8 +486,7 @@ setTimeout(()=>{
     formList.value[0]['children'].push(_data)
 
 
-
-},2000)
+}, 2000)
 
 
 const addEditFormRef = ref(null);
@@ -473,8 +502,8 @@ const goTo = (key, data) => {
     if (key === 'confirm') {
 
         // console.log('getFormDataByNoHidden',addEditFormRef.value.getFormDataByNoHidden())
-        console.log('getFormData-all',addEditFormRef.value.getFormData())
-        console.log('getFormData-noHidden',addEditFormRef.value.getFormData(false))
+        console.log('getFormData-all', addEditFormRef.value.getFormData())
+        console.log('getFormData-noHidden', addEditFormRef.value.getFormData(false))
         addEditFormRef.value.formModelRef.validate((valid, invalidFields) => {
             console.log('invalidFields', valid, invalidFields)
             if (valid) {

@@ -170,11 +170,11 @@ const getFormListTiling = (isAll = true, {resultType = 'value'}={})=>{
     _list = _list?.length > 0 ? _list : [];
     let _dataList = []
     console.log('_list',_list)
-    _list = JSON.parse(JSON.stringify(_list))
-    let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key )]`
+    // _list = JSON.parse(JSON.stringify(_list))
+    let _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.url )]`
     if(!_isAll){
         // _path = `$..[?(@parentProperty === 'buttonList' )]`
-        _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.isHidden)]`
+        _path = `$..[?(!@path.match(/buttonList/g) && @ && @.key && !@.url && !@.isHidden)]`
     }
 
     // console.log('_list',JSON.stringify(_list))
@@ -269,9 +269,9 @@ watch(()=> props.formData,(formData,preFormData)=>{
 
         })
 
-        setTimeout(()=>{
-            setLinkageForm && setLinkageForm()
-        },0)
+        // setTimeout(()=>{
+        //     setLinkageForm && setLinkageForm()
+        // },0)
     }
 
 },{

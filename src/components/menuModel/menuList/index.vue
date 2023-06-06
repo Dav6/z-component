@@ -43,7 +43,7 @@ const defaultCOM = computed(() => {
 
 const goTo = (key,data)=>{
   // console.log(key,data)
-  if(key == 'onClick'){
+  if(key === 'onClick'){
     emits('onClick', {...data})
   }
 }
