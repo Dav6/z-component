@@ -461,10 +461,7 @@ setTimeout(() => {
         name: "名称5",
         number: "555",
         image: [
-            {
-                key: "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg",
-                url: "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg"
-            }
+            "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg"
         ]
 
     }

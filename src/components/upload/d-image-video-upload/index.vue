@@ -202,8 +202,22 @@ watch( () => props.modelValue, (value, preValue) => {
     if (Array.isArray(value)) {
       if (value?.length > 0) {
         fileList.value = value?.map((item, index) => {
-          item.index = index;
-          return item;
+            const _item = item;
+            let _obj = {}
+            if (typeof item == 'string' ) {
+                _obj =  {
+                    url: item
+                }
+            }else{
+                _obj = {
+                    ..._item
+                }
+
+            }
+            _obj.index = index;
+
+
+          return _obj;
         })
       }
     }
