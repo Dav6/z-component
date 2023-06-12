@@ -239,7 +239,7 @@ let _tableSettingsDefault = {
             type: "dropdown",
             trigger: "click", // hover/click/contextmenu
             placement: "bottom-start",
-            teleported: false,//top/top-start/top-end/bottom/bottom-start/bottom-end
+            teleported: true,//top/top-start/top-end/bottom/bottom-start/bottom-end
             list: [
                 {
                     name: "修改",
@@ -284,6 +284,10 @@ const keyListCOM = computed(() => {
     _tableSettings?.buttonList?.map(item => {
         if (!item.type) { // type 为空时
             item.type = 'button'
+        }
+        if(item.type === 'dropdown'){
+            //  table里 为false 不显示
+            item.teleported = true;
         }
     })
 

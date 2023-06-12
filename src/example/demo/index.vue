@@ -60,9 +60,11 @@ const buttonList = ref({
         {
             name: "更多",
             type: "dropdown",
-            trigger: "click", // hover/click/contextmenu
+            // hover/click/contextmenu
+            trigger: "click",
+            //top/top-start/top-end/bottom/bottom-start/bottom-end
             placement: "bottom-start",
-            teleported: false,//top/top-start/top-end/bottom/bottom-start/bottom-end
+            teleported: true,
             class:"dropdown-button",
             list: [
                 {

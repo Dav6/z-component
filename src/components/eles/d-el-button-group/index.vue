@@ -19,6 +19,7 @@
                     :trigger="item.trigger"
                     :placement="item.placement"
                     :class="item.type==='button'?buttonItemClassCOM(item):''"
+                    :teleported="item.type === 'dropdown'?item.teleported:undefined"
                     @click.stop="goTo('onClick',{data:item,index:index})"
                     @command="(key)=>goTo('onCommand', {data:item,index:index,key:key})"
             >
