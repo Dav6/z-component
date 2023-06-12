@@ -316,8 +316,8 @@ const keyListCOM = computed(() => {
         item.$key = Symbol()
         return item;
     })
-    // _temKeyList.value = JSON.parse(JSON.stringify(_keyList))
-    console.log(_keyList);
+    _keyList= JSON.parse(JSON.stringify(_keyList))
+    // console.log(_keyList);
     return _keyList
 })
 
@@ -391,19 +391,18 @@ const headerCellStyleFN = (data) => {
     let _style = {
         display: 'table-cell',
     }
-
     // 用于 选中状态的界面修改
     const _sectionData = sectionData.value
     const _isShowSelection = props.isShowSelection;
     if (_isShowSelection) {
-        console.log('data,',data, )
-        console.log('_sectionData,',_sectionData?.selection?.length, )
+        // console.log('data,',data, )
+        // console.log('_sectionData,',_sectionData?.selection?.length, )
 
         if (_sectionData?.selection?.length > 0) {
 
             const _sectionIndex = row?.findIndex(item => item.type == "selection")
             // 第一列为选项框 和 标题这一行
-            if (row[0]?.type == 'selection' && rowIndex == 0) {
+            if (row[0]?.type === 'selection' && rowIndex === 0) {
                 // console.log('row,',row, )
                 // console.log(' column', column, )
                 // console.log('rowIndex',rowIndex)
@@ -414,7 +413,7 @@ const headerCellStyleFN = (data) => {
 
                 // 选项框这一列 和 后面这一列不隐藏
                 // 后面这一列合并到最后
-                if (!(column.type == 'selection' || columnIndex == 1)) {
+                if (!(column.type === 'selection' || columnIndex === 1)) {
 
                     console.log('取消进入了么')
                     _style = {
@@ -424,7 +423,7 @@ const headerCellStyleFN = (data) => {
 
                 let _selectionWidth = `${row?.[0]?.width}px`
 
-                if (columnIndex == 1) {
+                if (columnIndex === 1) {
                     _style = {
                         position: 'absolute',
                         left: `${_selectionWidth}`,
@@ -439,7 +438,7 @@ const headerCellStyleFN = (data) => {
             }
 
         } else {
-            console.log('没选择-----------')
+            // console.log('没选择-----------')
             _style = {
                 display:'table-cell'
             }

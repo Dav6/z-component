@@ -71,6 +71,7 @@
 
         <template v-if="item.isShow" #default="scope">
 
+<!--            {{scope.row}}{{item.key}}-->
             <template v-if="item.type === 'index'">
                 {{ getIndex(scope) }}
             </template>
@@ -80,35 +81,48 @@
 
             <template v-else-if="item.type === 'settings'">
                 <template v-if="isShowFN('settings',scope)">
-                    <el-button-group class="settings-group">
-                        <template v-for="(bItem,bIndex) in item.buttonList" :key="bIndex">
 
-                            <Component
-                                    :is="settingsButtonItemCOM(bItem)"
-                                    :text="bItem.type==='button'"
-                                    :list="bItem.list"
-                                    :trigger="bItem.trigger"
-                                    :placement="bItem.placement"
-                                    @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"
-                                    @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"
-                            >
+<!--                    <el-button-group class="settings-group">-->
+<!--                        <template v-for="(bItem,bIndex) in item.buttonList" :key="bIndex">-->
 
-                                <template v-if="bItem.type === 'dropdown'">
-                                    <d-el-button text class="settings-dropdown-button">
-                                        {{ bItem.name ? bItem.name : '···' }}
-                                    </d-el-button>
-                                </template>
-                                <template v-if="bItem.type ==='button' ">
-                                    {{ bItem.name }}
-                                </template>
-                            </Component>
-                            <template v-if="item.divided  && (item.buttonList?.length - 1 != bIndex)">
-                                <div class="settings-group-divided"></div>
-                            </template>
+<!--                            <Component-->
+<!--                                    :is="settingsButtonItemCOM(bItem)"-->
+<!--                                    :text="bItem.type==='button'"-->
+<!--                                    :list="bItem.list"-->
+<!--                                    :trigger="bItem.trigger"-->
+<!--                                    :placement="bItem.placement"-->
+<!--                                    @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"-->
+<!--                                    @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"-->
+<!--                            >-->
 
-                        </template>
+<!--                                <template v-if="bItem.type === 'dropdown'">-->
+<!--                                    <d-el-button text class="settings-dropdown-button">-->
+<!--                                        {{ bItem.name ? bItem.name : '···' }}-->
+<!--                                    </d-el-button>-->
+<!--                                </template>-->
+<!--                                <template v-if="bItem.type ==='button' ">-->
+<!--                                    {{ bItem.name }}-->
+<!--                                </template>-->
+<!--                            </Component>-->
+<!--                            <template v-if="item.divided  && (item.buttonList?.length - 1 != bIndex)">-->
+<!--                                <div class="settings-group-divided"></div>-->
+<!--                            </template>-->
 
-                    </el-button-group>
+<!--                        </template>-->
+
+<!--                    </el-button-group>-->
+
+<!--                    <br>-->
+                    <d-el-button-group
+                            :class="'settings-group'"
+                        :list="item.buttonList"
+                        :isDivided="item.divided"
+                        @onClick="data=>goTo('onSettingsButtonClick',{scope:scope,keyItem:item,button:data})"
+                    >
+
+                    </d-el-button-group>
+
+
 
                 </template>
             </template>
@@ -139,7 +153,7 @@
 
             </template>
             <template v-else-if="item.type == 'time'">
-                {{ timeFormatCOM(scope.row[item.key]) }}
+                {{ timeFormatCOM(scope.row?.[item.key]) }}
             </template>
 
             <template v-else-if="item.type == 'image'">
@@ -173,7 +187,7 @@
             </template>
 
             <template v-else>
-                {{ scope.row[item.key] }}
+                {{ scope.row?.[item.key] }}
             </template>
 
 
@@ -449,14 +463,14 @@ const isShowSelectionHeader = ref(false)
 const sectionNum = ref(0)
 
 const isShowSelectionHeaderFN = (scope)=>{
-    console.log(scope)
+    // console.log(scope)
     const _index = scope.$index;
     return isShowSelectionHeader.value && _index === 1;
 }
 
 // section watch sectionData
 watch(() => props.sectionData, (sectionData, preSectionData) => {
-    console.log('sectionData---------------',sectionData)
+    // console.log('sectionData---------------',sectionData)
     const _sectionData = sectionData;
 
     if (_sectionData.selection?.length > 0) {
@@ -746,8 +760,27 @@ const goTo = (key, data) => {
             dataIndex: _dataIndex,
             buttonKey: _buttonKey,
         }
-
+        console.log('_emitsData',_emitsData)
+        // emits('onSettingsButtonClick', _emitsData)
+    }
+    if(key === 'onSettingsButtonClick'){
+        const _data = data;
+        const _scope = data?.scope;
+        const _row = _scope?.row
+        const _dataIndex = _scope?.$index;
+        const _button = _data?.button;
+        const _buttonKey = _button.key;
+        let _emitsData = {
+            ...data,
+            data: _row,
+            dataIndex: _dataIndex,
+            buttonKey: _buttonKey,
+            key:_buttonKey,
+        }
+        // console.log('_emitsData',_emitsData)
         emits('onSettingsButtonClick', _emitsData)
+
+
     }
 
 

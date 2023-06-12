@@ -19,7 +19,9 @@
       <el-dropdown-menu>
         <template v-for="(item,index) in list" :key="index">
           <el-dropdown-item
-            :command="item.key" :disabled="item.disabled"
+            :command="item.key"
+            :class="dropdownItemClassCOM(item)"
+            :disabled="item.disabled"
             :divided="item.divided"
           >{{ item.name }}</el-dropdown-item>
 
@@ -32,6 +34,8 @@
 </template>
 
 <script setup>
+import {computed} from "vue";
+
 defineOptions({
   name: 'd-el-dropdown',
 });
@@ -56,7 +60,32 @@ const props = defineProps({
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits([]);
 
+const dropdownItemClassCOM = computed(()=>{
+    return (item)=>{
+        const _item = item;
+        let _class = ['']
 
+        let _itemClass = _item?.class;
+        if (typeof (_itemClass) == 'string') {
+            let _bClass = _itemClass?.split(' ')
+            _class = [..._class, ..._bClass]
+        }
+        if (Object.prototype.toString.call(_itemClass) === '[object Object]') {
+            let _bClass = Object.keys(_itemClass)?.map(key => {
+                // console.log(key)
+                return _itemClass[key] ? key : ''
+            })
+            _class = [..._class, ..._bClass]
+        }
+        if (Array.isArray(_itemClass)) {
+            let _bClass = _itemClass || [];
+            _class = [..._class, ..._bClass]
+        }
+
+        return _class;
+
+    }
+})
 
 
 

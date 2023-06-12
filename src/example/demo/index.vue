@@ -14,6 +14,14 @@
             :uploadFileAPI="uploadFile"
     ></d-import-button>
 
+      <d-el-button-group
+              :list="buttonList.list"
+              :isDivided="buttonList.isDivided"
+              @onClick="data=>goTo('onButtonClick',data)"
+      >
+
+      </d-el-button-group>
+
   </div>
 </template>
 
@@ -35,11 +43,48 @@ const props = defineProps({
 const emits = defineEmits([]);
 
 
+const buttonList = ref({
+    isDivided: true,
+    list:[
+        {
+            name: "编辑",
+            key: "edit",
+            type: 'button',
+            class:"edit-button",
+        },
+        {
+            name: "详情",
+            key: "detail",
+            class:"detail-button",
+        },
+        {
+            name: "更多",
+            type: "dropdown",
+            trigger: "click", // hover/click/contextmenu
+            placement: "bottom-start",
+            teleported: false,//top/top-start/top-end/bottom/bottom-start/bottom-end
+            class:"dropdown-button",
+            list: [
+                {
+                    name: "修改",
+                    key: "edit",
+                    class:"edit",
+                },
+                {
+                    name: "删除",
+                    key: "delete",
+                    class:"delete",
+                },
 
-const defaultCOM = computed(() => {
-  return '';
-});
-
+                {
+                    name: "设置",
+                    key: "delete",
+                    divided: true,
+                }
+            ]
+        }
+    ]
+})
 
 const uploadFile = (file)=> {
     console.log('addEditDialogStore', file)

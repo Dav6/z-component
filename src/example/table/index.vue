@@ -210,10 +210,12 @@ const settingsConfig = ref({
             name: "编辑",
             key: "edit",
             type: 'button',
+            class:"edit-button",
         },
         {
             name: "详情",
             key: "detail",
+            class:"detail-button",
         },
         {
             name: "更多",
@@ -221,14 +223,17 @@ const settingsConfig = ref({
             trigger: "click", // hover/click/contextmenu
             placement: "bottom-start",
             teleported: false,//top/top-start/top-end/bottom/bottom-start/bottom-end
+            class:"dropdown-button",
             list: [
                 {
                     name: "修改",
-                    key: "edit"
+                    key: "edit",
+                    class:"edit",
                 },
                 {
                     name: "删除",
-                    key: "delete"
+                    key: "delete",
+                    class:"delete",
                 },
 
                 {
@@ -345,16 +350,19 @@ list.value = Array(20).fill({})?.map((item, index) => {
     return _item;
 })
 
+console.log('list--------',list)
 
-list.value?.map((item, index) => {
-    if (index % 3 == 0) {
-        item.status = true
-        item.selectable = true;
-    } else {
-        item.status = false
-        item.selectable = false;
-    }
-})
+// list.value?.map((item, index) => {
+//     if (index % 3 == 0) {
+//         item.status = true
+//         item.selectable = true;
+//     } else {
+//         item.status = false
+//         item.selectable = false;
+//     }
+// })
+
+console.log('list--------',list)
 
 const selectable = (row, index) => {
     // console.log('selectable',row,index)
