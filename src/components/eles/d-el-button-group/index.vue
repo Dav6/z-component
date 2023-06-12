@@ -23,7 +23,6 @@
                     @click.stop="goTo('onClick',{data:item,index:index})"
                     @command="(key)=>goTo('onCommand', {data:item,index:index,key:key})"
             >
-
                 <template v-if="item.type === 'dropdown'">
                     <d-el-button text :class="buttonItemClassCOM(item)" class="group-dropdown-button"  @click.stop="()=>{}">
                         {{ item.name ? item.name : '···' }}
