@@ -36,6 +36,12 @@
 
             </template>
 
+             <template #labelCustom="data">
+                 <div>
+                     自定义label {{data.data.label}}
+                 </div>
+             </template>
+
             <template #test="test">
                 <!-- {{  images  }} -->
                 <div>
@@ -307,6 +313,7 @@ const formList = ref([
         isSearch: true,
     },
     {
+        labelCustomName:"labelCustom",
         name: "滑块", key: "slider", value: "6", min: 1, max: 10, placeholder: "数字", disabled: false,
         formType: "slider",
         unit: "次/分",

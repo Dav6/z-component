@@ -8,11 +8,16 @@
 
 <template>
   <div class="container-box">
-    <d-import-button
+
+      <d-el-input
+              ref="inputRef"
+               ></d-el-input>
+      <d-import-button
             accept=".csv,.xls,.xlsx"
 
             :uploadFileAPI="uploadFile"
     ></d-import-button>
+
 
       <d-el-button-group
               :list="buttonList.list"
@@ -41,7 +46,16 @@ const props = defineProps({
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits([]);
+const inputRef = ref()
+const inputData = ref({
+    autofocus:false,
+})
+inputRef?.value?.ref().blur()
 
+setTimeout(()=>{
+    console.log('inputRef',inputRef?.value?.ref().focus())
+
+},2000)
 
 const buttonList = ref({
     isDivided: true,

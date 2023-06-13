@@ -8,6 +8,7 @@
 
 <template>
   <el-input
+          ref="inputRef"
     class="form-input"
     v-model="modelValue"
     :disabled="data?.disabled"
@@ -80,6 +81,8 @@ const modelValue = computed({ // 重新定义
   set: (value) => emits("update:modelValue", value),
 })
 
+const inputRef = ref()
+
 
 const placeholderCOM = computed(() => {
   return (data) => {
@@ -93,17 +96,15 @@ const placeholderCOM = computed(() => {
     return _placeholder;
   }
 })
+// console.log('input-inputRef',inputRef )
+const getRef = ()=>{
+    return inputRef.value
+}
 
-//watch(
-//  () => props, (newValue, oldValue) => {
-//    //console.log('newValue', newValue);
-//    //console.log('oldValue', oldValue);
-//    // defaultActive = newValue.path;
-//
-//  },
-//   {immediate: true}
-//);
 
+defineExpose({
+    ref:getRef
+})
 
 // 接口请求方法放这
 const init = () => {

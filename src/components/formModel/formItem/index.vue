@@ -17,6 +17,11 @@
       :rules="!item.isHiddenRulers ? item.rules : []"
       :prop="[...prop,'value'].join('.')"
   >
+      <template v-if="item?.labelCustomName" #label="data"	>
+<!--          <div>{{data}}</div>-->
+          <slot :name="item.labelCustomName" :data="{...item,...data}"></slot>
+
+      </template>
 
     <template v-if="!item.isText">
 
