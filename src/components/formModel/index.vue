@@ -262,6 +262,7 @@ watch(()=> props.formData,(formData,preFormData)=>{
         _dataList?.map(item=>{
             // console.log('_dataList',item)
 
+
             item.value = _formData?.[item.key] || undefined;
             if(_formData?.[item.key] === 0){
                 item.value = _formData?.[item.key]

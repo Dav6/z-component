@@ -546,6 +546,7 @@ const goTo = (key, data) => {
 
 const setItemData = () => {
 
+
     if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
         // console.log(props.item?.formType, 'props.item?.formType')
         let _number = props.item.value;
@@ -600,6 +601,11 @@ const setItemData = () => {
 
     }
 
+    if(props.item?.formType === "tabs" ){
+        if (props.item.value === undefined) {
+            props.item.value = "";
+        }
+    }
 
     if (props.item?.formType == 'checkbox') {
         if (props.item.value === "") {

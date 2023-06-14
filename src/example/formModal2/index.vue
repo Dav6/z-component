@@ -225,6 +225,34 @@ const formList = ref([
         formRowClass: "row-info",
         children: [
             {
+                name: "按钮滑块", key: "tabs", value: 2,   placeholder: "按钮滑块",
+                formType: "tabs",
+                span: 24,
+                rules: [{required: true, message: "请输入按钮滑块", trigger: "blur"}],
+                options: [
+                    {
+                        label: "User",
+                        value: 1,
+                    },
+                    {
+                        label: "Config",
+                        value: 2,
+                        disabled:true,
+                    },
+                    {
+                        label: "Role",
+                        value: 3,
+                    },
+                    {
+                        label: "User1231231",
+                        value: 4,
+                    },
+                ]
+
+
+            },
+
+            {
 
                 name: "多选",
                 key: "isRadio",
@@ -448,7 +476,9 @@ const formData = ref({
     name: "名称",
 })
 
-
+// formData.value = {
+//     tabs:1,
+// }
 setTimeout(() => {
     formData.value = {
         info: "信息1",
@@ -462,7 +492,8 @@ setTimeout(() => {
         number: "555",
         image: [
             "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg"
-        ]
+        ],
+        tabs:"",
 
     }
 
@@ -483,7 +514,7 @@ setTimeout(() => {
     formList.value[0]['children'].push(_data)
 
 
-}, 2000)
+}, 10)
 
 
 const addEditFormRef = ref(null);
