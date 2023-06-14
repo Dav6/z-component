@@ -7,175 +7,175 @@
 -->
 
 <template>
-  <el-form-item
+    <el-form-item
 
-      ref="formItemRef"
-      class="form-item"
-      :class="formItemClassCOM"
-      :label="item.name"
-      :label-width="item.labelWidth"
-      :rules="!item.isHiddenRulers ? item.rules : []"
-      :prop="[...prop,'value'].join('.')"
-  >
-      <template v-if="item?.labelCustomName" #label="data"	>
-<!--          <div>{{data}}</div>-->
-          <slot :name="item.labelCustomName" :data="{...item,...data}"></slot>
+            ref="formItemRef"
+            class="form-item"
+            :class="formItemClassCOM"
+            :label="item.name"
+            :label-width="item.labelWidth"
+            :rules="!item.isHiddenRulers ? item.rules : []"
+            :prop="[...prop,'value'].join('.')"
+    >
+        <template v-if="item?.labelCustomName" #label="data">
+            <!--          <div>{{data}}</div>-->
+            <slot :name="item.labelCustomName" :data="{...item,...data}"></slot>
 
-      </template>
-
-    <template v-if="!item.isText">
-
-      <template v-if="item.formType == 'custom' ">
-        <!--        {{item.formType}}-->
-        <!--        {{item.customName}}-->
-        <slot :name="item.customName" :data="item"></slot>
-
-      </template>
-
-
-      <template v-if="item.formType == 'line' ">
-        <div class="form-line"></div>
-      </template>
-
-
-      <!--         section  Component formTypeKeyMap[item.formType] -->
-      <template v-if="formTypeKeyMap[item.formType]">
-
-        <Component
-            :class="componentClassCOM"
-            :is="formTypeKeyMap[item.formType]"
-            v-model="item.value"
-            :uploadFileAPI="isUpload()?(item?.uploadFileAPI || uploadFileAPI):undefined"
-            :size="item?.size"
-            :borderRadius="item?.borderRadius"
-            :accept="item?.accept"
-            :disabled="item?.disabled"
-            :options="optionsCOM"
-            :data="item"
-            :defaultBackground="item?.defaultBackground"
-            :buttonName="item?.buttonName"
-            @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
-
-        >
-          <template v-if="item.formType == 'input' && item.isSearch" #append>
-            <el-button class="input-search-button" icon="Search"
-                       @click="goTo('onInputSearch', { prop: onChangeProp, item, index, })"></el-button>
-          </template>
-
-        </Component>
-
-
-      </template>
-
-
-      <template v-if="item.formType == 'editor'">
-
-
-        <template v-if="isShowEditor">
-          <!--          <wang-editor-->
-          <!--            v-model="item.value"-->
-          <!--            :height="item.height"-->
-          <!--            :placeholder="item.placeholder"-->
-          <!--            :disabled="item.disabled"-->
-          <!--            :toolbarConfig="item.toolbarConfig?item.toolbarConfig:''"-->
-          <!--            @onChange="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"-->
-          <!--            @onFocus="(data) => { goTo('onFocus', { prop: onChangeProp, item, index, data }) }"-->
-          <!--            @onBlur="(data) => { goTo('onBlur', { prop: onChangeProp, item, index, data }) }"-->
-
-          <!--          ></wang-editor>-->
         </template>
 
+        <template v-if="!item.isText">
 
-      </template>
+            <template v-if="item.formType == 'custom' ">
+                <!--        {{item.formType}}-->
+                <!--        {{item.customName}}-->
+                <slot :name="item.customName" :data="item"></slot>
 
-
-    </template>
-
-    <template v-else>
-      <template v-if="item.formType == 'imageVideoUpload'">
-        <Component
-            :class="item.class"
-            :is="formTypeKeyMap[item.formType]"
-            v-model="item.value"
-            :item="item"
-            :data="item"
-            @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
-        />
-        <!--        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />-->
-
-      </template>
+            </template>
 
 
-      <template v-else-if="item.formType == 'select'">
-        {{ selectTextValueCOM(item) }}
-      </template>
+            <template v-if="item.formType == 'line' ">
+                <div class="form-line"></div>
+            </template>
 
 
-      <template v-else-if="item.formType == 'datePicker'">
-        <template v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
-          {{ item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : '' }}
+            <!--         section  Component formTypeKeyMap[item.formType] -->
+            <template v-if="formTypeKeyMap[item.formType]">
+
+                <Component
+                        :class="componentClassCOM"
+                        :is="formTypeKeyMap[item.formType]"
+                        v-model="item.value"
+                        :uploadFileAPI="isUpload()?(item?.uploadFileAPI || uploadFileAPI):undefined"
+                        :size="item?.size"
+                        :borderRadius="item?.borderRadius"
+                        :accept="item?.accept"
+                        :disabled="item?.disabled"
+                        :options="optionsCOM"
+                        :data="item"
+                        :defaultBackground="item?.defaultBackground"
+                        :buttonName="item?.buttonName"
+                        @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
+
+                >
+                    <template v-if="item.formType == 'input' && item.isSearch" #append>
+                        <el-button class="input-search-button" icon="Search"
+                                   @click="goTo('onInputSearch', { prop: onChangeProp, item, index, })"></el-button>
+                    </template>
+
+                </Component>
+
+
+            </template>
+
+
+            <template v-if="item.formType == 'editor'">
+
+
+                <template v-if="isShowEditor">
+                    <!--          <wang-editor-->
+                    <!--            v-model="item.value"-->
+                    <!--            :height="item.height"-->
+                    <!--            :placeholder="item.placeholder"-->
+                    <!--            :disabled="item.disabled"-->
+                    <!--            :toolbarConfig="item.toolbarConfig?item.toolbarConfig:''"-->
+                    <!--            @onChange="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"-->
+                    <!--            @onFocus="(data) => { goTo('onFocus', { prop: onChangeProp, item, index, data }) }"-->
+                    <!--            @onBlur="(data) => { goTo('onBlur', { prop: onChangeProp, item, index, data }) }"-->
+
+                    <!--          ></wang-editor>-->
+                </template>
+
+
+            </template>
+
+
         </template>
+
         <template v-else>
-          {{ item.value }}
+            <template v-if="item.formType == 'imageVideoUpload'">
+                <Component
+                        :class="item.class"
+                        :is="formTypeKeyMap[item.formType]"
+                        v-model="item.value"
+                        :item="item"
+                        :data="item"
+                        @change="(data) => { goTo('onChange', { prop: onChangeProp, item, index, data }) }"
+                />
+                <!--        <Component   :is="formTypeKeyMap[item.formType]" :item="item"  />-->
+
+            </template>
+
+
+            <template v-else-if="item.formType == 'select'">
+                {{ selectTextValueCOM(item) }}
+            </template>
+
+
+            <template v-else-if="item.formType == 'datePicker'">
+                <template v-if="item.dateType == 'datetimerange' || item.dateType == 'daterange'">
+                    {{ item.value?.length > 0 ? `${item.value[0]} - ${item.value[1]}` : '' }}
+                </template>
+                <template v-else>
+                    {{ item.value }}
+                </template>
+            </template>
+
+            <template v-else-if="item.formType == 'custom' ">
+                <!--        {{item.formType}}-->
+                <!--        {{item.customName}}-->
+                <slot :name="item.customName" :data="item"></slot>
+
+            </template>
+
+
+            <template v-else>
+                {{ item.value }}
+            </template>
         </template>
-      </template>
-
-      <template v-else-if="item.formType == 'custom' ">
-        <!--        {{item.formType}}-->
-        <!--        {{item.customName}}-->
-        <slot :name="item.customName" :data="item"></slot>
-
-      </template>
 
 
-      <template v-else>
-        {{ item.value }}
-      </template>
-    </template>
+        <!--    <template v-if="item.isShowFormItemButton">-->
+        <!--      <el-button style="margin-left:10px" :type="item.formItemButtonType" @click="goTo('onFormItemButtonClick',{item,index})">{{ item.formItemButtonText }}</el-button>-->
+        <!--    </template>-->
 
 
-    <!--    <template v-if="item.isShowFormItemButton">-->
-    <!--      <el-button style="margin-left:10px" :type="item.formItemButtonType" @click="goTo('onFormItemButtonClick',{item,index})">{{ item.formItemButtonText }}</el-button>-->
-    <!--    </template>-->
+        <template
+                v-for="(bItem, bIndex) in item.buttonList"
+                :key="index">
+            <el-button
+                    class="form-item-button"
+                    :class="formItemButtonItemClassCOM(bItem)"
+                    :type="bItem.type"
+                    :text="bItem.isText"
+                    :icon="bItem.icon"
+                    :color="bItem.color"
+                    :disabled="bItem.disabled"
+                    @click="goTo('onFormItemButtonClick', { prop: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
+                {{ bItem.name }}
+            </el-button>
+        </template>
 
 
-    <template
-        v-for="(bItem, bIndex) in item.buttonList"
-        :key="index">
-      <el-button
-          class="form-item-button"
-          :class="formItemButtonItemClassCOM(bItem)"
-          :type="bItem.type"
-          :text="bItem.isText"
-          :icon="bItem.icon"
-          :color="bItem.color"
-          :disabled="bItem.disabled"
-          @click="goTo('onFormItemButtonClick', { prop: [...buttonProp, 'buttonList', bIndex], bItem, bIndex, item, index })">
-        {{ bItem.name }}
-      </el-button>
-    </template>
-
-
-  </el-form-item>
+    </el-form-item>
 </template>
 
 <script setup>
 
 defineOptions({
-  name: 'd-el-form-item',
-  isExposed: false
+    name: 'd-el-form-item',
+    isExposed: false
 });
 
 import {
-  ref,
-  reactive,
-  computed,
-  watch,
-  onBeforeUnmount,
-  shallowRef,
-  onMounted,
-  nextTick,
-  useSlots
+    ref,
+    reactive,
+    computed,
+    watch,
+    onBeforeUnmount,
+    shallowRef,
+    onMounted,
+    nextTick,
+    useSlots
 } from "vue"
 
 
@@ -187,87 +187,88 @@ let slots = useSlots()
 
 // console.log('form-Item-slots', slots)
 const slotListCOM = computed(() => {
-  return () => {
-    // const slots1 = useSlots()
-    // console.log(slots )
-    let _slots = [];
-    // console.log('slots1', slots1, Object.keys(slots1))
-    // console.log('useSlots', slots, Object.keys(slots))
-    _slots = Object.keys(slots) || [];
-    _slots = _slots?.map(item => {
-      return {
-        name: item,
-      }
-    })
-    return _slots
-  }
+    return () => {
+        // const slots1 = useSlots()
+        // console.log(slots )
+        let _slots = [];
+        // console.log('slots1', slots1, Object.keys(slots1))
+        // console.log('useSlots', slots, Object.keys(slots))
+        _slots = Object.keys(slots) || [];
+        _slots = _slots?.map(item => {
+            return {
+                name: item,
+            }
+        })
+        return _slots
+    }
 })
 const props = defineProps({
-  // 配合emits v-model
-  modelValue: {
-    type: [String, Number, Boolean, Object, Array],
-  },
-  prop: {
-    type: [String, Array]
-  },
-  item: {
-    type: [Object],
-    default: {
-      childrenSpan: 12,
-      clearable: false,
-      isText: false,
-      isHiddenRulers: false,
-      marginBottom: "",
-      customName: "",
-      value: undefined,
+    // 配合emits v-model
+    modelValue: {
+        type: [String, Number, Boolean, Object, Array],
     },
-  },
-  index: {
-    type: [Number]
-  },
-  // buttonList 的路径 用于 按钮点击的时候找到位置
-  buttonProp: {
-    type: [String, Array]
-  },
-  // onChange 的路径 用于 form 触发onChange的时候找到位置是哪个
-  onChangeProp: {
-    type: [String, Array]
-  },
-  formModelRef: {
-    type: [Object]
-  },
-  formList: {
-    type: [Array]
-  },
+    prop: {
+        type: [String, Array]
+    },
+    item: {
+        type: [Object],
+        default: {
+            childrenSpan: 12,
+            clearable: false,
+            isText: false,
+            isHiddenRulers: false,
+            marginBottom: "",
+            customName: "",
+            value: undefined,
+        },
+    },
+    index: {
+        type: [Number]
+    },
+    // buttonList 的路径 用于 按钮点击的时候找到位置
+    buttonProp: {
+        type: [String, Array]
+    },
+    // onChange 的路径 用于 form 触发onChange的时候找到位置是哪个
+    onChangeProp: {
+        type: [String, Array]
+    },
+    formModelRef: {
+        type: [Object]
+    },
+    formList: {
+        type: [Array]
+    },
 
-  uploadFileAPI:{
-    type:[Function]
-  },
-  options:{
-    type:[Object,Array]
-  }
+    uploadFileAPI: {
+        type: [Function]
+    },
+    options: {
+        type: [Object, Array]
+    }
 
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onFormItemButtonClick', 'onChange', 'onInputSearch']);
 // section formTypeKeyMap
 const formTypeKeyMap = ref({
-  input: 'd-el-input',
-  switch: 'd-el-switch',
-  inputNumber: 'd-el-input-number',
-  slider: 'd-el-slider',
-  radio: 'd-el-radio',
-  checkbox: 'd-el-checkbox',
-  select: 'd-el-select',
-  treeSelect: 'd-el-tree-select',
-  cascader: 'd-el-cascader',
-  timePicker: 'd-el-time-picker',
-  datePicker: 'd-el-date-picker',
-  imageVideoUpload: 'd-el-image-video-upload',
-  avatarUpload:"d-avatar-upload",
-  tag: 'd-el-tag',
-  divider: 'd-el-divider',
-  cron: 'd-cron',
+    input: 'd-el-input',
+    switch: 'd-el-switch',
+    inputNumber: 'd-el-input-number',
+    slider: 'd-el-slider',
+    radio: 'd-el-radio',
+    checkbox: 'd-el-checkbox',
+    select: 'd-el-select',
+    treeSelect: 'd-el-tree-select',
+    cascader: 'd-el-cascader',
+    timePicker: 'd-el-time-picker',
+    datePicker: 'd-el-date-picker',
+    imageVideoUpload: 'd-el-image-video-upload',
+    avatarUpload: "d-avatar-upload",
+    tag: 'd-el-tag',
+    divider: 'd-el-divider',
+    cron: 'd-cron',
+    tabs: 'd-el-tabs'
 })
 
 
@@ -275,187 +276,186 @@ const formItemRef = ref();
 
 
 if (props?.item) {
-  let _item = props.item;
-  _item.prop = [...props.prop, 'value']
+    let _item = props.item;
+    _item.prop = [...props.prop, 'value']
 }
 
-const optionsCOM = computed(()=>{
-  let _optionsData = props.options
-  let _options = undefined;
-  let _data = props.item;
-  let _key = _data?.key;
-  if(Array.isArray(_optionsData) && _optionsData?.length>=0){
-    _options = _optionsData
-  }
-  if(_optionsData?.[_key] && Array.isArray(_optionsData?.[_key]) && _optionsData?.[_key]?.length>=0){
-    _options = _optionsData?.[_key]
-  }
-  // console.log('_options',_options)
+const optionsCOM = computed(() => {
+    let _optionsData = props.options
+    let _options = undefined;
+    let _data = props.item;
+    let _key = _data?.key;
+    if (Array.isArray(_optionsData) && _optionsData?.length >= 0) {
+        _options = _optionsData
+    }
+    if (_optionsData?.[_key] && Array.isArray(_optionsData?.[_key]) && _optionsData?.[_key]?.length >= 0) {
+        _options = _optionsData?.[_key]
+    }
+    // console.log('_options',_options)
 
-  return _options;
+    return _options;
 })
-
 
 
 //  section placeholderCOM
 const placeholderCOM = computed(() => {
-  return (data) => {
+    return (data) => {
 
-    if (data.placeholder) return data.placeholder;
-    let _placeholder = '';
-    let _selects = ['treeSelect', 'select', 'cascader', 'timePicker', 'datePicker', 'cron'];
-    let _inputs = ['input', 'inputNumber', 'textArea'];
-    let _placeholderPrefix = ''
-    if (_selects.indexOf(data.formType) > -1) {
-      _placeholderPrefix = '请选择'
+        if (data.placeholder) return data.placeholder;
+        let _placeholder = '';
+        let _selects = ['treeSelect', 'select', 'cascader', 'timePicker', 'datePicker', 'cron'];
+        let _inputs = ['input', 'inputNumber', 'textArea'];
+        let _placeholderPrefix = ''
+        if (_selects.indexOf(data.formType) > -1) {
+            _placeholderPrefix = '请选择'
+        }
+        // console.log(data )
+        if (_inputs.indexOf(data.formType) > -1) {
+            _placeholderPrefix = '请输入'
+        }
+        let _name = data?.name || '';
+        _placeholder = `${_placeholderPrefix}${_name}`
+        return _placeholder;
     }
-    // console.log(data )
-    if (_inputs.indexOf(data.formType) > -1) {
-      _placeholderPrefix = '请输入'
-    }
-    let _name = data?.name || '';
-    _placeholder = `${_placeholderPrefix}${_name}`
-    return _placeholder;
-  }
 })
 
 const selectTextValueCOM = computed(() => {
 
-  return (data) => {
-    let _str = '';
-    // console.log('selectTextValueCOM', data)
-    if (data.multiple) {
-      let _options = JSON.parse(JSON.stringify(data.options)) || [];
-      let _values = JSON.parse(JSON.stringify(data.value))
-      let arr = _options?.filter(option => _values.includes(option.value))
-      // console.log(arr);
-      _str = arr.map(item => item?.label).join(',')
-    } else {
-      _str = data.options?.find(option => option.value == data.value)?.label
-    }
+    return (data) => {
+        let _str = '';
+        // console.log('selectTextValueCOM', data)
+        if (data.multiple) {
+            let _options = JSON.parse(JSON.stringify(data.options)) || [];
+            let _values = JSON.parse(JSON.stringify(data.value))
+            let arr = _options?.filter(option => _values.includes(option.value))
+            // console.log(arr);
+            _str = arr.map(item => item?.label).join(',')
+        } else {
+            _str = data.options?.find(option => option.value == data.value)?.label
+        }
 
-    return _str;
-  }
+        return _str;
+    }
 })
 
 
 const componentClassCOM = computed(() => {
 //  item.formType == 'input' && item.isSearch
-  let _data = props.item;
-  let _class = []
+    let _data = props.item;
+    let _class = []
 
-  let _componentClass = _data?.class;
-  if (typeof (_componentClass) == 'string') {
-    let _bClass = _componentClass?.split(' ')
-    _class = [..._class, ..._bClass]
-  }
-  if (_componentClass?.constructor == Object) {
-    let _bClass = Object.keys(_componentClass)?.map(key => {
-      // console.log(key)
-      return _componentClass[key] ? key : ''
-    })
-    _class = [..._class, ..._bClass]
-  }
-  if (_componentClass?.constructor == Array) {
-    let _bClass = _componentClass || [];
-    _class = [..._class, ..._bClass]
-  }
+    let _componentClass = _data?.class;
+    if (typeof (_componentClass) == 'string') {
+        let _bClass = _componentClass?.split(' ')
+        _class = [..._class, ..._bClass]
+    }
+    if (_componentClass?.constructor == Object) {
+        let _bClass = Object.keys(_componentClass)?.map(key => {
+            // console.log(key)
+            return _componentClass[key] ? key : ''
+        })
+        _class = [..._class, ..._bClass]
+    }
+    if (_componentClass?.constructor == Array) {
+        let _bClass = _componentClass || [];
+        _class = [..._class, ..._bClass]
+    }
 
-  if (_data.formType == 'input' && _data.isSearch) {
-    _class = [..._class, 'input-search']
-  }
+    if (_data.formType == 'input' && _data.isSearch) {
+        _class = [..._class, 'input-search']
+    }
 
 
-  return _class;
+    return _class;
 })
 
 
 const formItemClassCOM = computed(() => {
 
-  let _data = props.item;
-  //{br:item.formType=='br',noFormType:!item.formType,labelPositionLeft:item.labelPosition}
-  let _labelPosition = _data?.labelPosition ? _data.labelPosition : 'left';
-  let _labelPositionClass = `form-item-label-position-${_labelPosition}`;
-  let _formLine = _data?.formType == 'line' ? true : false;
-  let _marginBottom = Boolean(_data?.marginBottom || _data?.marginBottom === 0)
+    let _data = props.item;
+    //{br:item.formType=='br',noFormType:!item.formType,labelPositionLeft:item.labelPosition}
+    let _labelPosition = _data?.labelPosition ? _data.labelPosition : 'left';
+    let _labelPositionClass = `form-item-label-position-${_labelPosition}`;
+    let _formLine = _data?.formType == 'line' ? true : false;
+    let _marginBottom = Boolean(_data?.marginBottom || _data?.marginBottom === 0)
 
-  let _class = []
-  let _baseClassObject = {
-    br: _data.formType == 'br',
-    marginBottom: _marginBottom,
-    noFormType: !_data.formType,
-    [_labelPositionClass]: _data?.labelPosition ? true : false,
-    'form-line': _formLine,
-  }
-  let _baseClass = Object.keys(_baseClassObject)?.map(key => {
-    return _baseClassObject[key] ? key : ''
-  })
-  _class = [..._baseClass]
-
-
-  let _formClass = _data?.formClass;
-  if (typeof (_formClass) == 'string') {
-    let _bClass = _formClass?.split(' ')
-    _class = [..._class, ..._bClass]
-  }
-  if (_formClass?.constructor == Object) {
-    let _bClass = Object.keys(_formClass)?.map(key => {
-      // console.log(key)
-      return _formClass[key] ? key : ''
+    let _class = []
+    let _baseClassObject = {
+        br: _data.formType == 'br',
+        marginBottom: _marginBottom,
+        noFormType: !_data.formType,
+        [_labelPositionClass]: _data?.labelPosition ? true : false,
+        'form-line': _formLine,
+    }
+    let _baseClass = Object.keys(_baseClassObject)?.map(key => {
+        return _baseClassObject[key] ? key : ''
     })
-    _class = [..._class, ..._bClass]
-  }
-  if (_formClass?.constructor == Array) {
-    let _bClass = _formClass || [];
-    _class = [..._class, ..._bClass]
-  }
+    _class = [..._baseClass]
 
 
-  return _class;
+    let _formClass = _data?.formClass;
+    if (typeof (_formClass) == 'string') {
+        let _bClass = _formClass?.split(' ')
+        _class = [..._class, ..._bClass]
+    }
+    if (_formClass?.constructor == Object) {
+        let _bClass = Object.keys(_formClass)?.map(key => {
+            // console.log(key)
+            return _formClass[key] ? key : ''
+        })
+        _class = [..._class, ..._bClass]
+    }
+    if (_formClass?.constructor == Array) {
+        let _bClass = _formClass || [];
+        _class = [..._class, ..._bClass]
+    }
+
+
+    return _class;
 });
 
 
 const formItemButtonItemClassCOM = computed(() => {
-  return (bItem) => {
-    let _data = props.item;
-    let _bItem = bItem;
-    // console.log("_bItem", _bItem.class)
-    let _class = [
-      !bItem.name ? 'formItemButtonNoName' : '',
-      (!bItem.name && bItem.icon) ? 'formItemButtonOnlyIcon' : '',
-    ];
+    return (bItem) => {
+        let _data = props.item;
+        let _bItem = bItem;
+        // console.log("_bItem", _bItem.class)
+        let _class = [
+            !bItem.name ? 'formItemButtonNoName' : '',
+            (!bItem.name && bItem.icon) ? 'formItemButtonOnlyIcon' : '',
+        ];
 
-    if (typeof (_bItem.class) == 'string') {
-      let _bClass = _bItem.class?.split(' ')
-      _class = [..._class, ..._bClass]
+        if (typeof (_bItem.class) == 'string') {
+            let _bClass = _bItem.class?.split(' ')
+            _class = [..._class, ..._bClass]
+        }
+        if (_bItem?.class?.constructor == Object) {
+            let _bClass = Object.keys(_bItem?.class)?.map(key => {
+                // console.log(key)
+                return _bItem?.class[key] ? key : ''
+            })
+            _class = [..._class, ..._bClass]
+        }
+        if (_bItem?.class?.constructor == Array) {
+            let _bClass = _bItem?.class || [];
+            _class = [..._class, ..._bClass]
+        }
+
+        // console.log('_class', _class)
+
+        // :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon,...bItem.class }"
+
+
+        return _class
     }
-    if (_bItem?.class?.constructor == Object) {
-      let _bClass = Object.keys(_bItem?.class)?.map(key => {
-        // console.log(key)
-        return _bItem?.class[key] ? key : ''
-      })
-      _class = [..._class, ..._bClass]
-    }
-    if (_bItem?.class?.constructor == Array) {
-      let _bClass = _bItem?.class || [];
-      _class = [..._class, ..._bClass]
-    }
-
-    // console.log('_class', _class)
-
-    // :class="{ formItemButtonNoName: !bItem.name, formItemButtonOnlyIcon: !bItem.name && bItem.icon,...bItem.class }"
-
-
-    return _class
-  }
-  // // //{br:item.formType=='br',noFormType:!item.formType,labelPositionLeft:item.labelPosition}
-  // // let _labelPosition = _data?.labelPosition ? _data.labelPosition : 'left';
-  // // let _labelPositionClass = `form-item-label-position-${_labelPosition}`;
-  // // let _formLine = _data?.formType == 'line' ? true : false;
-  // // let _marginBottom = Boolean(_data?.marginBottom || _data?.marginBottom === 0)
-  // return {
-  //
-  // }
+    // // //{br:item.formType=='br',noFormType:!item.formType,labelPositionLeft:item.labelPosition}
+    // // let _labelPosition = _data?.labelPosition ? _data.labelPosition : 'left';
+    // // let _labelPositionClass = `form-item-label-position-${_labelPosition}`;
+    // // let _formLine = _data?.formType == 'line' ? true : false;
+    // // let _marginBottom = Boolean(_data?.marginBottom || _data?.marginBottom === 0)
+    // return {
+    //
+    // }
 
 });
 
@@ -471,39 +471,39 @@ const isShowEditor = ref(true)
 watch([() => props.item, () => props.item.toolbarConfig], ([item, toolbarConfig], [preItem, preToolbarConfig]) => {
 
     setItemData && setItemData()
-  if (item?.formType == 'editor') {
-    //   toolbarConfig = toolbarConfig || {};
-    //   item = JSON.parse(JSON.stringify(item))
-    //   toolbarConfig = JSON.parse(JSON.stringify(toolbarConfig))
-    //   console.log('item', [item, toolbarConfig],);
-    // //   console.log('preItem', [preItem, preToolbarConfig]);
-    // //   isShowEditor.value = true;
-    //   let _toolbarConfig = toolbarConfig ? toolbarConfig : {};
-    //   _toolbarConfig = JSON.parse(JSON.stringify(_toolbarConfig));
-    //   let _preToolbarConfig = preToolbarConfig ? preToolbarConfig : {};
-    //   _preToolbarConfig = JSON.parse(JSON.stringify(_preToolbarConfig));
-    //
-    //   // console.log('isSameObj(_toolbarConfig,_preToolbarConfig)', isSameObj(_toolbarConfig, _preToolbarConfig))
-    //   if (!isSameObj(_toolbarConfig, _preToolbarConfig)) {
-    //     isShowEditor.value = false;
-    //     setTimeout(() => {
-    //       isShowEditor.value = true
-    //
-    //     },100)
-    //
-    //   }
+    if (item?.formType == 'editor') {
+        //   toolbarConfig = toolbarConfig || {};
+        //   item = JSON.parse(JSON.stringify(item))
+        //   toolbarConfig = JSON.parse(JSON.stringify(toolbarConfig))
+        //   console.log('item', [item, toolbarConfig],);
+        // //   console.log('preItem', [preItem, preToolbarConfig]);
+        // //   isShowEditor.value = true;
+        //   let _toolbarConfig = toolbarConfig ? toolbarConfig : {};
+        //   _toolbarConfig = JSON.parse(JSON.stringify(_toolbarConfig));
+        //   let _preToolbarConfig = preToolbarConfig ? preToolbarConfig : {};
+        //   _preToolbarConfig = JSON.parse(JSON.stringify(_preToolbarConfig));
+        //
+        //   // console.log('isSameObj(_toolbarConfig,_preToolbarConfig)', isSameObj(_toolbarConfig, _preToolbarConfig))
+        //   if (!isSameObj(_toolbarConfig, _preToolbarConfig)) {
+        //     isShowEditor.value = false;
+        //     setTimeout(() => {
+        //       isShowEditor.value = true
+        //
+        //     },100)
+        //
+        //   }
 
-    //
-  }
+        //
+    }
 
 
 }, {
-  deep: true,
-  immediate: false
+    deep: true,
+    immediate: false
 })
 
 
-const isUpload = ()=>{
+const isUpload = () => {
     // item?.uploadFileAPI || uploadFileAPI
     const _item = props.item;
     return _item.formType?.indexOf("Upload") > -1;
@@ -512,33 +512,33 @@ const isUpload = ()=>{
 
 //section goTo
 const goTo = (key, data) => {
-  // console.log('formItem', key, data);
-  data = JSON.parse(JSON.stringify(data));
-  if (key == 'onFormItemButtonClick') {
-    emits('onFormItemButtonClick', {key, ...data})
-  }
-  if (key == 'onChange') {
-    console.log(key,data)
-    emits('onChange', {...data})
-  }
-  if (key == 'onInputSearch') {
-    emits('onInputSearch', {key, ...data})
+    // console.log('formItem', key, data);
+    data = JSON.parse(JSON.stringify(data));
+    if (key == 'onFormItemButtonClick') {
+        emits('onFormItemButtonClick', {key, ...data})
+    }
+    if (key == 'onChange') {
+        console.log(key, data)
+        emits('onChange', {...data})
+    }
+    if (key == 'onInputSearch') {
+        emits('onInputSearch', {key, ...data})
 
-  }
+    }
 
-  if (key == 'onBlur') {
-    // console.log(props.formModelRef.validateField);
-    // let _key = data.item.key;
-    // _key = [...props.prop, 'value'].join('.')
-    // console.log(_key);
-    // props.formModelRef?.validateField(_key, () => null)
+    if (key == 'onBlur') {
+        // console.log(props.formModelRef.validateField);
+        // let _key = data.item.key;
+        // _key = [...props.prop, 'value'].join('.')
+        // console.log(_key);
+        // props.formModelRef?.validateField(_key, () => null)
 
 
-  }
+    }
 
-  if (key == 'onFocus') {
+    if (key == 'onFocus') {
 
-  }
+    }
 
 
 }
@@ -546,69 +546,68 @@ const goTo = (key, data) => {
 
 const setItemData = () => {
 
-  if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
-    // console.log(props.item?.formType, 'props.item?.formType')
-    let _number = props.item.value;
-      // console.log('_number', _number)
-      // console.log('_number', _number === +_number)
+    if (props.item?.formType == 'inputNumber' || props.item?.formType == 'slider') {
+        // console.log(props.item?.formType, 'props.item?.formType')
+        let _number = props.item.value;
+        // console.log('_number', _number)
+        // console.log('_number', _number === +_number)
 
-      if (_number === '' || _number === ' ' || _number === undefined || _number === null) {
-        _number = undefined
-      } else {
-        if (_number == +_number) {
-          // console.log('_number', _number)
-          _number = Number(_number);
+        if (_number === '' || _number === ' ' || _number === undefined || _number === null) {
+            _number = undefined
         } else {
-          _number = isNaN(Number(_number)) ? undefined : Number(_number);
+            if (_number == +_number) {
+                // console.log('_number', _number)
+                _number = Number(_number);
+            } else {
+                _number = isNaN(Number(_number)) ? undefined : Number(_number);
+            }
         }
-      }
-      console.log('_number', _number)
+        console.log('_number', _number)
 
-    if (props.item?.formType == 'slider') {
-      if (Array.isArray(props.item.value)) {
-        _number = props.item.value;
-      } else {
-        let _min = props.item?.min;
-        if (_min === +_min) {
+        if (props.item?.formType == 'slider') {
+            if (Array.isArray(props.item.value)) {
+                _number = props.item.value;
+            } else {
+                let _min = props.item?.min;
+                if (_min === +_min) {
 
-        } else {
-          _min = 0
+                } else {
+                    _min = 0
+                }
+                let _max = props.item?.max;
+                if (_max === +_max) {
+
+                } else {
+                    _max = 100
+                }
+                if (props.item?.range) {
+                    if (_number >= _max || _number <= _min) {
+                        _number = [_min, _max]
+                    }
+                    if (_number >= _min && _number <= _max) {
+                        _number = [_min, _number]
+                    }
+                }
+
+
+                // _number= [_minNumber,_maxNumber]
+                // console.log('_number-range', _number)
+            }
         }
-        let _max = props.item?.max;
-        if (_max === +_max) {
-
-        } else {
-          _max = 100
-        }
-        if (props.item?.range) {
-          if (_number >= _max || _number <= _min) {
-            _number = [_min, _max]
-          }
-          if (_number >= _min && _number <= _max) {
-            _number = [_min, _number]
-          }
-        }
 
 
-        // _number= [_minNumber,_maxNumber]
-        // console.log('_number-range', _number)
-      }
+        props.item.value = _number;
+
     }
 
 
-    props.item.value = _number;
+    if (props.item?.formType == 'checkbox') {
+        if (props.item.value === "") {
+            props.item.value = undefined;
+        }
 
-  }
 
-
-
-  if (props.item?.formType == 'checkbox') {
-    if (props.item.value === "") {
-      props.item.value = undefined;
     }
-
-
-  }
 
 
 }
@@ -616,8 +615,8 @@ const setItemData = () => {
 
 // 接口请求方法放这
 const init = () => {
-  //getList();
-  setItemData()
+    //getList();
+    setItemData()
 }
 
 // 统一执行初始化方法
@@ -865,6 +864,13 @@ init();
     width: auto;
     flex: 1;
   }
+
+  .form-tabs {
+    width: auto;
+    flex: 1;
+      margin-bottom: 2px;
+  }
+
 
   .form-input-number {
     width: auto;

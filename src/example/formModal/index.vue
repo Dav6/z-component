@@ -217,6 +217,33 @@ mapOptions = [
 
 const formList = ref([
     {
+        name: "按钮滑块", key: "tabs", value: 2,   placeholder: "按钮滑块",
+        formType: "tabs",
+        span: 12,
+        rules: [{required: true, message: "请输入按钮滑块", trigger: "blur"}],
+        options: [
+            {
+                label: "User",
+                value: 1,
+            },
+            {
+                label: "Config",
+                value: 2,
+                disabled:true,
+            },
+            {
+                label: "Role",
+                value: 3,
+            },
+            {
+                label: "User1231231",
+                value: 4,
+            },
+        ]
+
+
+    },
+    {
         name: "图片上传2",
         key: "imageAvatar2",
         formClass: "form-image-item",
@@ -231,7 +258,7 @@ const formList = ref([
         accept: "image/jpeg,image/jpg",
         previewTeleported: true,
         rules: [{required: true, message: "请上传图片", trigger: "blur"}],
-        uploadFileAPI: (file) => {
+        uploadFileAPI: function (file) {
             return new Promise((resolve, reject) => {
                 console.log(file)
                 const _obj = {
@@ -823,7 +850,7 @@ const formList = ref([
         type: "date",
         span: 12,
         rules: [{required: true, message: "请选择开始时间", trigger: "blur"}],
-        disabledDate: (date) => {
+        disabledDate: function(date) {
 
             let _nowTime = dayjs().subtract(24, 'hour').valueOf()
             // 选项里的的时间戳 和 今天的时间戳  比较
@@ -843,7 +870,7 @@ const formList = ref([
         type: "datetime",
         span: 12,
         rules: [{required: true, message: "请选择开始时间", trigger: "blur"}],
-        disabledDate: (date) => {
+        disabledDate: function(date) {
             let _nowTime = dayjs().subtract(24, 'hour').valueOf()
             // 选项里的的时间戳 和 今天的时间戳  比较
             // 小于今天的禁止点击
@@ -865,7 +892,7 @@ const formList = ref([
         isClearable: true,
         rules: [{required: true, message: "请选择开始时间", trigger: "blur"}],
 
-        disabledDate: (date, value) => {
+        disabledDate:function (date, value)  {
             // console.log(date);
             // console.log(value);
 
@@ -930,7 +957,7 @@ const formList = ref([
         dateType: "date",
         span: 12,
         rules: [{required: true, message: "请选择开始时间", trigger: "blur"}],
-        disabledDate: (date) => {
+        disabledDate: function (date)  {
 
             let _nowTime = dayjs().subtract(24, 'hour').valueOf()
             // 选项里的的时间戳 和 今天的时间戳  比较
@@ -948,7 +975,7 @@ const formList = ref([
         dateType: "datetime",
         span: 12,
         rules: [{required: true, message: "请选择开始时间", trigger: "blur"}],
-        disabledDate: (date) => {
+        disabledDate: function (date){
 
             let _nowTime = dayjs().subtract(24, 'hour').valueOf()
             // 选项里的的时间戳 和 今天的时间戳  比较
