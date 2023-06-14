@@ -493,7 +493,7 @@ setTimeout(() => {
         image: [
             "http://img.likebizhi.com/uploads/likebizhi/up/2022/10/bfd3a04549c751eba445faaf0c9eefb1704.jpg"
         ],
-        tabs:"",
+
 
     }
 

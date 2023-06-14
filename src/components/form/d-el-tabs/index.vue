@@ -12,7 +12,7 @@
     <el-tabs v-model="modelValue"
              class="form-tabs"
              :class="{isActive:isActive}"
-             @tab-click="data=>goTo('change',data)"
+             @tab-click="data=>goTo('click',data)"
     >
         <template v-for="(item,index) in optionsCOM" :key="index">
             <el-tab-pane  :label="item.label"
@@ -79,7 +79,7 @@ const optionsCOM = computed(() => {
 
 const goTo = (key, data) =>{
     console.log('key',key,data)
-    if(key ==='change'){
+    if(key ==='click'){
         emits('change',{data: data})
     }
 

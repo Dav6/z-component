@@ -601,11 +601,12 @@ const setItemData = () => {
 
     }
 
-    // if(props.item?.formType === "tabs" ){
-    //     if (props.item.value === undefined) {
-    //         props.item.value = "";
-    //     }
-    // }
+    if(props.item?.formType === "tabs" ){
+        console.log('props.item.value',props.item.value)
+        if (props.item.value === undefined) {
+            props.item.value = "";
+        }
+    }
 
     if (props.item?.formType == 'checkbox') {
         if (props.item.value === "") {
