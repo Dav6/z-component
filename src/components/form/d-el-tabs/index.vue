@@ -16,7 +16,11 @@
     >
         <template v-for="(item,index) in optionsCOM" :key="index">
             <el-tab-pane  :label="item.label"
-                          :disabled="item.disabled" :name="item.value"></el-tab-pane>
+                          :disabled="item.disabled" :name="item.value">
+                <template #label >
+                    <div class="form-tabs-label">{{item.label}}</div>
+                </template>
+            </el-tab-pane>
 
         </template>
 
@@ -138,17 +142,17 @@ init();
 
 
         .el-tabs__active-bar{
-            &:after{
-                content:" ";
-                display: inline-block;
-                font-size: var(--el-font-size-base);
-                font-weight: 500;
-
-            }
+            //&:after{
+            //    content:" ";
+            //    display: inline-block;
+            //    font-size: var(--el-font-size-base);
+            //    font-weight: 500;
+            //
+            //}
             height:var(--el-tabs-header-height);
 
-            padding:0 var(--text-padding-lr);
-            left:calc( var(--text-padding-lr) * -1 );
+            //padding:0 var(--text-padding-lr);
+            //left:calc( var(--text-padding-lr) * -1 );
             border-radius:999px;
             background: linear-gradient(180deg, #53A4FD 0%, #4886FF 100%);
             box-shadow: 0px 6px 12px 0px rgba(63,140,255,0.26);
@@ -158,16 +162,21 @@ init();
 
         .el-tabs__item{
             z-index:5;
-            padding:0 var(--text-padding-lr);
+            padding:0;
             text-align: center;
             color: var(--el-text-color-primary);
+
+            &.is-active{
+                color:var(--el-tabs-active-color);
+            }
+        }
+        .form-tabs-label{
+            box-sizing: border-box;
+            padding:0 var(--text-padding-lr);
             width:86px ;
             transition: color .22s ease-in-out;
             overflow: hidden;
             text-overflow: ellipsis;
-            &.is-active{
-                color:var(--el-tabs-active-color);
-            }
         }
 
 

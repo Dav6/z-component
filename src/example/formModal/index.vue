@@ -1143,7 +1143,8 @@ init();
   //height:300vh;
   //background:red;
   width: calc(100% - 24px);
-
+    overflow-y:auto ;
+    height:90vh;
   .formRowClassTest {
     background: red;
   }
