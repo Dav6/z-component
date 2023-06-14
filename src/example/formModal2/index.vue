@@ -476,9 +476,9 @@ const formData = ref({
     name: "名称",
 })
 
-// formData.value = {
-//     tabs:1,
-// }
+formData.value = {
+    tabs:1,
+}
 setTimeout(() => {
     formData.value = {
         info: "信息1",

@@ -12,7 +12,7 @@
     <el-tabs v-model="modelValue"
              class="form-tabs"
              :class="{isActive:isActive}"
-             @tab-change="data=>goTo('change',data)"
+             @tab-click="data=>goTo('change',data)"
     >
         <template v-for="(item,index) in optionsCOM" :key="index">
             <el-tab-pane  :label="item.label"
