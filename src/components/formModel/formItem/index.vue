@@ -868,7 +868,7 @@ init();
   .form-tabs {
     width: auto;
     flex: 1;
-      margin-bottom: 2px;
+    margin-bottom: 2px;
   }
 
 

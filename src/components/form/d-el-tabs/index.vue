@@ -105,7 +105,7 @@ init();
 
     :deep(.el-tabs__header){
         margin:0;
-
+        display: flex;
         .el-tabs__nav-prev,.el-tabs__nav-next{
             line-height:var(--el-tabs-header-height)
         }
@@ -116,6 +116,7 @@ init();
             border-radius:999px;
             padding: 4px;
             box-shadow: 0px 2px 4px 0px rgba(63,140,255,0.26);
+
             &:after{
                 height: 100%;
                 background: rgba(72,134,255,0.1);

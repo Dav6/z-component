@@ -219,7 +219,7 @@ const formList = ref([
     {
         name: "按钮滑块", key: "tabs", value: 2,   placeholder: "按钮滑块",
         formType: "tabs",
-        span: 12,
+        span: 24,
         rules: [{required: true, message: "请输入按钮滑块", trigger: "blur"}],
         options: [
             {
