@@ -17,6 +17,7 @@
                 :buttonList="buttonList"
                 :rules="rules"
                 :options="mapOptions"
+                buttonsClass="sdasdasd"
                 :isButtonsRow="true"
                 labelPosition="left"
                 :uploadFileAPI="uploadFileAPI"

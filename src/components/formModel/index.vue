@@ -25,6 +25,7 @@
                 :formModelRef="formModelRef"
                 :formList="_formList"
                 :buttonList="buttonList"
+                :buttonsClass="buttonsClass"
                 :isButtonsRow="isButtonsRow"
                 :gutter="gutter"
                 :options="options"
@@ -104,6 +105,9 @@ const props = defineProps({
     },
     formList: {
         type: [Array],
+    },
+    buttonsClass:{
+        type:[String,Array,Object]
     },
     buttonList: {
         type: [Array],

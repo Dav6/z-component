@@ -135,6 +135,9 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    buttonsClass:{
+        type:[String,Array,Object]
+    },
     buttonList: {
         type: [Array],
     },
@@ -194,6 +197,9 @@ const buttonListClassCOM = computed(()=>{
     let _class = []
     let _buttonsClass = props?.buttonsClass;
     const _isButtonsRow = props?.isButtonsRow;
+
+    console.log('buttonsClass',_buttonsClass)
+    console.log('isButtonsRow',_isButtonsRow)
     if(_isButtonsRow){
         _class.push('fixedWidth')
     }
