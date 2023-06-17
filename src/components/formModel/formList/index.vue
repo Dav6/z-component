@@ -10,7 +10,7 @@
     <el-row class="d-form-list-row" :class="formListRowClassCOM" :gutter="gutter">
         <template v-for="(item, index) in _formList" :key="index">
             <template v-if="!item.isHidden">
-                <el-col class="d-form-list-col" :span="item.span"
+                <el-col class="d-form-list-col" :span="item.span==='auto'?undefined:item.span"
                         :class="formListColClassCOM(item,index)"
                         :style="formListColStyleCOM(item,index)"
                 >
