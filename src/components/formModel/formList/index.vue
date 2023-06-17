@@ -192,25 +192,25 @@ const _formList = computed(() => {
 
 const buttonListClassCOM = computed(()=>{
     let _class = []
-    let _buttonClass = props?.buttonClass;
+    let _buttonsClass = props?.buttonsClass;
     const _isButtonsRow = props?.isButtonsRow;
     if(_isButtonsRow){
         _class.push('fixedWidth')
     }
 
-    if (typeof (_buttonClass) == 'string') {
-        let _bClass = _buttonClass?.split(' ')
+    if (typeof (_buttonsClass) == 'string') {
+        let _bClass = _buttonsClass?.split(' ')
         _class = [..._class, ..._bClass]
     }
-    if (_buttonClass?.constructor == Object) {
-        let _bClass = Object.keys(_buttonClass)?.map(key => {
+    if (_buttonsClass?.constructor == Object) {
+        let _bClass = Object.keys(_buttonsClass)?.map(key => {
             // console.log(key)
-            return _buttonClass[key] ? key : ''
+            return _buttonsClass[key] ? key : ''
         })
         _class = [..._class, ..._bClass]
     }
-    if (_buttonClass?.constructor == Array) {
-        let _bClass = _buttonClass || [];
+    if (_buttonsClass?.constructor == Array) {
+        let _bClass = _buttonsClass || [];
         _class = [..._class, ..._bClass]
     }
 
