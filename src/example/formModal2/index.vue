@@ -282,7 +282,7 @@ const formList = ref([
                 unit: "次/分",
                 min: 0,
                 max: "",
-                span: 12,
+                span: 'auto',
                 rules: [
                     {required: false, message: "请输入数字", trigger: "blur"},
                     {
@@ -307,7 +307,7 @@ const formList = ref([
                 formType: "input",
                 placeholder: "请输入中英文",
                 disabled: false,
-                span: 12,
+                span: 8,
                 rules: [{required: true, message: "请输入人员名称", trigger: "blur"}],
                 clearable: true,
             },
