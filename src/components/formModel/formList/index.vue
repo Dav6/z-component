@@ -69,7 +69,7 @@
 
 
         <template v-if="buttonList?.length > 0">
-            <el-col :class="{ 'fixedWidth': !isButtonsRow }">
+            <el-col :class="buttonListClassCOM">
                 <el-form-item class="form-item " label="" label-width="0">
                     <template v-for="(item, index) in buttonList" :key="index">
                         <el-button
@@ -189,6 +189,37 @@ const _formList = computed(() => {
 //  },
 //   {deep:true}
 // );
+
+const buttonListClassCOM = computed(()=>{
+    let _class = []
+    let _buttonClass = props?.buttonClass;
+    const _isButtonsRow = props?.isButtonsRow;
+    if(_isButtonsRow){
+        _class.push('fixedWidth')
+    }
+
+    if (typeof (_buttonClass) == 'string') {
+        let _bClass = _buttonClass?.split(' ')
+        _class = [..._class, ..._bClass]
+    }
+    if (_buttonClass?.constructor == Object) {
+        let _bClass = Object.keys(_buttonClass)?.map(key => {
+            // console.log(key)
+            return _buttonClass[key] ? key : ''
+        })
+        _class = [..._class, ..._bClass]
+    }
+    if (_buttonClass?.constructor == Array) {
+        let _bClass = _buttonClass || [];
+        _class = [..._class, ..._bClass]
+    }
+
+
+
+    return _class;
+
+})
+
 
 const formListRowClassCOM = computed(() => {
 
