@@ -194,7 +194,7 @@ const formListRowClassCOM = computed(() => {
 
     let _data = props.item;
     let _class = []
-    // console.log('propsClass',props.formRowClass)
+    console.log('propsClass',props.formRowClass)
 
     let _formRowClass = props?.formRowClass;
     if (typeof (_formRowClass) == 'string') {
@@ -235,6 +235,30 @@ const formListColClassCOM = computed(() => {
         if ((_width || _width == 0) && _widthNum >= 0) {
             _class.push('fixedWidth');
         }
+
+
+
+        let _formRowClass = item?.formRowClass;
+        if (typeof (_formRowClass) === 'string') {
+            let _bClass = _formRowClass?.split(' ')
+            _class = [..._class, ..._bClass]
+        }
+        if (_formRowClass?.constructor === Object) {
+            let _bClass = Object.keys(_formRowClass)?.map(key => {
+                // console.log(key)
+                return _formRowClass[key] ? key : ''
+            })
+            _class = [..._class, ..._bClass]
+        }
+        if (_formRowClass?.constructor === Array) {
+            let _bClass = _formRowClass || [];
+            _class = [..._class, ..._bClass]
+        }
+
+
+
+
+
         return _class
     }
 
@@ -296,6 +320,8 @@ const formListChildrenColClassCOM = computed(() => {
         if (_isWidthFill) {
             _class.push('widthFill');
         }
+
+
 
 
         return _class

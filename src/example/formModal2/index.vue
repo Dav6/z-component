@@ -274,6 +274,8 @@ const formList = ref([
                 ],
             },
             {
+                formRowClass:"cccc",
+                class:"gggggggggggg",
                 name: "数字", key: "number", value: "1", placeholder: "数字", disabled: false,
                 formType: "inputNumber",
                 controls: false,
