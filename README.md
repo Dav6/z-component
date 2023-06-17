@@ -17,6 +17,19 @@ npm run dev
 npm run build
 ```
 
+### 打包提交
+```sh
+git push
+git commit -m "save"
+git add . 
+npm run build 
+
+```
+
+
+
+
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup

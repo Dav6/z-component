@@ -200,7 +200,7 @@ const buttonListClassCOM = computed(()=>{
 
     console.log('buttonsClass',_buttonsClass)
     console.log('isButtonsRow',_isButtonsRow)
-    if(_isButtonsRow){
+    if(!_isButtonsRow){
         _class.push('fixedWidth')
     }
 
