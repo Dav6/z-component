@@ -19,7 +19,7 @@ npm run build
 
 ### 打包提交
 ```sh
-git push
+git push 
 git commit -m "save"
 git add . 
 npm run build 
