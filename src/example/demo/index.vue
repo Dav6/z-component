@@ -98,6 +98,34 @@ const buttonList = ref({
                     divided: true,
                 }
             ]
+        },
+        {
+            name: "更多",
+            type: "dropdown",
+            // hover/click/contextmenu
+            trigger: "click",
+            //top/top-start/top-end/bottom/bottom-start/bottom-end
+            placement: "bottom-start",
+            teleported: true,
+            class:"dropdown-button",
+            list: [
+                {
+                    name: "修改",
+                    key: "edit",
+                    class:"edit",
+                },
+                {
+                    name: "删除",
+                    key: "delete",
+                    class:"delete",
+                },
+
+                {
+                    name: "设置",
+                    key: "delete",
+                    divided: true,
+                }
+            ]
         }
     ]
 })

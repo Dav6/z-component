@@ -14,6 +14,7 @@
 
             <template v-if="item.type === 'dropdown'">
                 <Component
+                        class="group-dropdown"
                         :is="isComponentCOM(item)"
                         :list="item.list"
                         :trigger="item.trigger"
@@ -225,10 +226,56 @@ init();
 
   > .el-button {
     padding: 8px;
+
+    &:not(:last-child) {
+      margin-right: -2px;
+    }
   }
+
+  > .el-dropdown {
+      > .el-button {
+          border-radius: var(--el-border-radius-base);
+      }
+
+    &:not(:last-child) {
+      margin-right: -2px;
+    }
+
+    &:not(:first-child):not(:last-child) {
+      > .el-button {
+        border-radius: 0;
+      }
+    }
+
+
+
+    &:first-child {
+      > .el-button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &:last-child {
+
+      > .el-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+
+  }
+
 
   .group-dropdown-button {
     padding: 8px;
+  }
+
+  > .el-dropdown {
+    > .el-button {
+      border-left-color: var(--el-button-border-color)
+    }
   }
 
   .group-list-divided {
