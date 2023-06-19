@@ -285,6 +285,13 @@ const keyListCOM = computed(() => {
         if (!item.type) { // type 为空时
             item.type = 'button'
         }
+        if(item.text === true || item.text === false) {
+
+        }else{
+            item.text = true;
+        }
+
+
         if(item.type === 'dropdown'){
             //  table里 为false 不显示
             item.teleported = true;

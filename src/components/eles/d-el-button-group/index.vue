@@ -12,26 +12,61 @@
     <el-button-group class="group-list">
         <template v-for="(item,index) in list" :key="index">
 
-            <Component
-                    :is="isComponentCOM(item)"
-                    :text="item.type==='button'"
-                    :list="item.list"
-                    :trigger="item.trigger"
-                    :placement="item.placement"
-                    :class="item.type==='button'?buttonItemClassCOM(item):''"
-                    :teleported="item.type === 'dropdown'?item.teleported:undefined"
-                    @click.stop="goTo('onClick',{data:item,index:index})"
-                    @command="(key)=>goTo('onCommand', {data:item,index:index,key:key})"
-            >
-                <template v-if="item.type === 'dropdown'">
-                    <d-el-button text :class="buttonItemClassCOM(item)" class="group-dropdown-button"  @click.stop="()=>{}">
+            <template v-if="item.type === 'dropdown'">
+                <Component
+                        :is="isComponentCOM(item)"
+                        :list="item.list"
+                        :trigger="item.trigger"
+                        :placement="item.placement"
+                        :teleported="item.teleported"
+
+                        @command="(key)=>goTo('onCommand', {data:item,index:index,key:key})"
+                >
+                    <d-el-button
+
+                            class="group-dropdown-button"
+                            :class="buttonItemClassCOM(item)"
+                            :type="item.buttonType"
+                            :text="item.text"
+                            :icon="item.icon"
+                            :color="item.color"
+                            :disabled="item.disabled"
+                            @click.stop="()=>{}"
+                    >
                         {{ item.name ? item.name : '···' }}
                     </d-el-button>
-                </template>
-                <template v-if="item.type ==='button' ">
+                </Component>
+
+            </template>
+
+
+            <template v-else>
+                <Component
+                        :is="'d-el-button'"
+                        :list="item.list"
+                        :class="buttonItemClassCOM(item)"
+
+                        :type="item.buttonType"
+                        :text="item.text"
+                        :plain="item.plain"
+                        :link="item.link"
+                        :round="item.round"
+                        :circle="item.circle"
+                        :loading="item.loading"
+                        :loading-icon="item.loadingIcon"
+                        :icon="item.icon"
+                        :color="item.color"
+                        :disabled="item.disabled"
+
+                        @click.stop="goTo('onClick',{data:item,index:index})"
+                >
+
                     {{ item.name }}
-                </template>
-            </Component>
+
+                </Component>
+            </template>
+
+
             <template v-if="isDivided  && (list?.length - 1 != index)">
                 <div class="group-list-divided"></div>
             </template>
@@ -108,7 +143,6 @@ const isComponentCOM = computed(() => {
         return _component
     }
 })
-
 
 
 const buttonItemClassCOM = computed(() => {

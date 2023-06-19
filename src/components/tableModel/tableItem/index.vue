@@ -31,7 +31,7 @@
 
 
     >
-        <template  #header="scope" >
+        <template #header="scope">
             <template v-if="isShowSelectionHeaderFN(scope)">
                 <template v-if="true">
                     <div class="el-table-section-header">
@@ -41,7 +41,7 @@
                                          @click="goTo('onSection',{key:'delete'})">
                                 删除
                             </d-el-button>
-                            <template v-for="(item,index) in sectionButtons" :key="index" >
+                            <template v-for="(item,index) in sectionButtons" :key="index">
                                 <d-el-button :class="sectionButtonsClassCOM(item)" text :icon="item.icon"
                                              @click="goTo('onSection',{key:item?.key})">
                                     {{ item?.name }}
@@ -49,10 +49,10 @@
                             </template>
 
 
-
                         </div>
                         <div class="el-table-section-header-right">
-                            <d-el-button class="el-table-section-header-btn-default" text @click="goTo('sectionClear')">取消选择
+                            <d-el-button class="el-table-section-header-btn-default" text @click="goTo('sectionClear')">
+                                取消选择
                             </d-el-button>
 
                         </div>
@@ -67,11 +67,9 @@
         </template>
 
 
-
-
         <template v-if="item.isShow" #default="scope">
 
-<!--            {{scope.row}}{{item.key}}-->
+            <!--            {{scope.row}}{{item.key}}-->
             <template v-if="item.type === 'index'">
                 {{ getIndex(scope) }}
             </template>
@@ -82,46 +80,45 @@
             <template v-else-if="item.type === 'settings'">
                 <template v-if="isShowFN('settings',scope)">
 
-<!--                    <el-button-group class="settings-group">-->
-<!--                        <template v-for="(bItem,bIndex) in item.buttonList" :key="bIndex">-->
+                    <!--                    <el-button-group class="settings-group">-->
+                    <!--                        <template v-for="(bItem,bIndex) in item.buttonList" :key="bIndex">-->
 
-<!--                            <Component-->
-<!--                                    :is="settingsButtonItemCOM(bItem)"-->
-<!--                                    :text="bItem.type==='button'"-->
-<!--                                    :list="bItem.list"-->
-<!--                                    :trigger="bItem.trigger"-->
-<!--                                    :placement="bItem.placement"-->
-<!--                                    @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"-->
-<!--                                    @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"-->
-<!--                            >-->
+                    <!--                            <Component-->
+                    <!--                                    :is="settingsButtonItemCOM(bItem)"-->
+                    <!--                                    :text="bItem.type==='button'"-->
+                    <!--                                    :list="bItem.list"-->
+                    <!--                                    :trigger="bItem.trigger"-->
+                    <!--                                    :placement="bItem.placement"-->
+                    <!--                                    @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"-->
+                    <!--                                    @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"-->
+                    <!--                            >-->
 
-<!--                                <template v-if="bItem.type === 'dropdown'">-->
-<!--                                    <d-el-button text class="settings-dropdown-button">-->
-<!--                                        {{ bItem.name ? bItem.name : '···' }}-->
-<!--                                    </d-el-button>-->
-<!--                                </template>-->
-<!--                                <template v-if="bItem.type ==='button' ">-->
-<!--                                    {{ bItem.name }}-->
-<!--                                </template>-->
-<!--                            </Component>-->
-<!--                            <template v-if="item.divided  && (item.buttonList?.length - 1 != bIndex)">-->
-<!--                                <div class="settings-group-divided"></div>-->
-<!--                            </template>-->
+                    <!--                                <template v-if="bItem.type === 'dropdown'">-->
+                    <!--                                    <d-el-button text class="settings-dropdown-button">-->
+                    <!--                                        {{ bItem.name ? bItem.name : '···' }}-->
+                    <!--                                    </d-el-button>-->
+                    <!--                                </template>-->
+                    <!--                                <template v-if="bItem.type ==='button' ">-->
+                    <!--                                    {{ bItem.name }}-->
+                    <!--                                </template>-->
+                    <!--                            </Component>-->
+                    <!--                            <template v-if="item.divided  && (item.buttonList?.length - 1 != bIndex)">-->
+                    <!--                                <div class="settings-group-divided"></div>-->
+                    <!--                            </template>-->
 
-<!--                        </template>-->
+                    <!--                        </template>-->
 
-<!--                    </el-button-group>-->
+                    <!--                    </el-button-group>-->
 
-<!--                    <br>-->
+                    <!--                    <br>-->
                     <d-el-button-group
                             :class="'settings-group'"
-                        :list="item.buttonList"
-                        :isDivided="item.divided"
-                        @onClick="data=>goTo('onSettingsButtonClick',{scope:scope,keyItem:item,button:data})"
+                            :list="item.buttonList"
+                            :isDivided="item.divided"
+                            @onClick="data=>goTo('onSettingsButtonClick',{scope:scope,keyItem:item,button:data})"
                     >
 
                     </d-el-button-group>
-
 
 
                 </template>
@@ -130,22 +127,22 @@
             <template v-else-if="item.type == 'switch'">
                 <template v-if="isShowFN('switch',scope)">
                     <Component
-                        :is="'d-el-switch'"
-                        v-model="scope.row[item.key]"
-                        :disabled="item?.disabled"
-                        :loading="item?.loading"
-                        :size="item?.size"
-                        :width="item?.width"
-                        :inline-prompt="item?.inlinePrompt"
-                        :active-icon="item?.activeIcon"
-                        :inactive-icon="item?.inactiveIcon"
-                        :active-text="item?.activeText"
-                        :inactive-text="item?.inactiveText"
-                        :active-value="item?.activeValue"
-                        :inactive-value="item?.inactiveValue"
-                        :name="item?.name"
-                        :before-change="data => beforeSwitchChangeFN({ data:scope ,value:data })"
-                        @change="(data) => { goTo('onSwitchChange', { data:scope ,value:data }) }"
+                            :is="'d-el-switch'"
+                            v-model="scope.row[item.key]"
+                            :disabled="item?.disabled"
+                            :loading="item?.loading"
+                            :size="item?.size"
+                            :width="item?.width"
+                            :inline-prompt="item?.inlinePrompt"
+                            :active-icon="item?.activeIcon"
+                            :inactive-icon="item?.inactiveIcon"
+                            :active-text="item?.activeText"
+                            :inactive-text="item?.inactiveText"
+                            :active-value="item?.activeValue"
+                            :inactive-value="item?.inactiveValue"
+                            :name="item?.name"
+                            :before-change="data => beforeSwitchChangeFN({ data:scope ,value:data })"
+                            @change="(data) => { goTo('onSwitchChange', { data:scope ,value:data }) }"
                     ></Component>
 
                 </template>
@@ -189,7 +186,6 @@
             <template v-else>
                 {{ scope.row?.[item.key] }}
             </template>
-
 
 
         </template>
@@ -254,7 +250,7 @@ const props = defineProps({
     option: {
         type: [Array, Object]
     },
-    sectionButtons:{
+    sectionButtons: {
         type: [Array]
 
     }
@@ -288,17 +284,17 @@ const optionValueCOM = computed(() => {
         // console.log('_dataValue',_dataValue,typeof _dataValue)
 
         if (Array.isArray(_option)) {
-            if(Array.isArray(_dataValue)) {
+            if (Array.isArray(_dataValue)) {
                 // console.log('值-数组')
-                const _intersection =  _option?.filter(o=>_dataValue?.indexOf(o?.value)>-1)
+                const _intersection = _option?.filter(o => _dataValue?.indexOf(o?.value) > -1)
                 // console.log('intersection',_intersection)
                 _value = [];
-                _intersection?.map(cItem=>{
+                _intersection?.map(cItem => {
                     const _valueItem = cItem?.label || "";
                     _value.push(_valueItem)
                 })
                 _value = _value.join(',');
-            }else{
+            } else {
                 // console.log('值-不是数组')
                 const _findData = _option?.find(item => item?.value === _dataValue) || {}
                 _value = _findData?.['label'] || ''
@@ -307,22 +303,21 @@ const optionValueCOM = computed(() => {
         }
         if (Object.prototype.toString.call(_option) === '[object Object]') {
             // console.log('对象')
-            if(Array.isArray(_dataValue)){
+            if (Array.isArray(_dataValue)) {
                 // console.log('值-数组')
                 _value = [];
-                _dataValue?.map(cItem=>{
+                _dataValue?.map(cItem => {
                     const _valueItem = _option?.[cItem]
                     _value.push(_valueItem)
                 })
                 _value = _value.join(',');
 
-            }else{
+            } else {
                 // console.log('值-不是数组')
                 _value = _option?.[_dataValue]
 
             }
         }
-
 
 
         // console.log('option',props.option)
@@ -462,7 +457,7 @@ const filterPlacementCOM = computed(() => {
 const isShowSelectionHeader = ref(false)
 const sectionNum = ref(0)
 
-const isShowSelectionHeaderFN = (scope)=>{
+const isShowSelectionHeaderFN = (scope) => {
     // console.log(scope)
     const _index = scope.$index;
     return isShowSelectionHeader.value && _index === 1;
@@ -481,7 +476,8 @@ watch(() => props.sectionData, (sectionData, preSectionData) => {
         sectionNum.value = 0
 
     }
-    nextTick(()=>{})
+    nextTick(() => {
+    })
 
 }, {
     deep: true
@@ -519,8 +515,8 @@ watch(() => props.item, (item, preItem) => {
 })
 
 
-const sectionButtonsClassCOM = computed(()=>{
-    return (item)=>{
+const sectionButtonsClassCOM = computed(() => {
+    return (item) => {
         const _item = item;
         let _class = ['el-table-section-header-btn-default']
 
@@ -547,18 +543,16 @@ const sectionButtonsClassCOM = computed(()=>{
 })
 
 
-
 const timeFormatCOM = computed(() => {
     return (time) => {
         // console.log(time);
         let _time = time;
-        if(!_time){
+        if (!_time) {
             return _time;
         }
         let _item = props.item;
         let _format = _item?.format || 'YYYY-MM-DD HH:mm:ss'
         _time = dayjs(_time).format(_format);
-
 
 
         return _time;
@@ -677,34 +671,27 @@ const isShowFN = (type, scope) => {
     // console.log('scope', scope)
     const _type = type;
     const _row = scope.row;
-    if(_type === 'settings'){
-        if(_row?.['isHiddenSettings']){
+    if (_type === 'settings') {
+        if (_row?.['isHiddenSettings']) {
             return false;
         }
     }
 
-    if(_type === 'switch'){
-        if(_row?.['isHiddenSwitch']){
+    if (_type === 'switch') {
+        if (_row?.['isHiddenSwitch']) {
             return false;
         }
     }
-    
-    
+
+
     return true;
 }
 
 
-
-
-
-
-const getScope = (scope)=>{
-    console.log('getScope',scope)
+const getScope = (scope) => {
+    console.log('getScope', scope)
 
 }
-
-
-
 
 
 //section goTo
@@ -716,7 +703,7 @@ const goTo = (key, data) => {
         const _key = _data?.key;
         // console.log(props.sectionData)
         let _selection = props.sectionData?.selection || []
-        emits('onSection', {key:_key,data: _selection})
+        emits('onSection', {key: _key, data: _selection})
 
 
     }
@@ -760,10 +747,10 @@ const goTo = (key, data) => {
             dataIndex: _dataIndex,
             buttonKey: _buttonKey,
         }
-        console.log('_emitsData',_emitsData)
+        console.log('_emitsData', _emitsData)
         // emits('onSettingsButtonClick', _emitsData)
     }
-    if(key === 'onSettingsButtonClick'){
+    if (key === 'onSettingsButtonClick') {
         const _data = data;
         const _scope = data?.scope;
         const _row = _scope?.row
@@ -775,7 +762,7 @@ const goTo = (key, data) => {
             data: _row,
             dataIndex: _dataIndex,
             buttonKey: _buttonKey,
-            key:_buttonKey,
+            key: _buttonKey,
         }
         // console.log('_emitsData',_emitsData)
         emits('onSettingsButtonClick', _emitsData)
@@ -835,11 +822,11 @@ init();
     display: flex;
     align-items: center;
 
-      &.zr-iconfont{
-          &:before{
-              margin-right:6px;
-          }
+    &.zr-iconfont {
+      &:before {
+        margin-right: 6px;
       }
+    }
   }
 }
 
