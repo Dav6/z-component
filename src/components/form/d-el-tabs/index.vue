@@ -174,7 +174,7 @@ init();
         .form-tabs-label{
             box-sizing: border-box;
             padding:0 var(--text-padding-lr);
-            width:86px ;
+            width:90px ;
             transition: color .22s ease-in-out;
             overflow: hidden;
             text-overflow: ellipsis;
