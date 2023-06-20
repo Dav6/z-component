@@ -358,6 +358,22 @@ const formListChildrenColClassCOM = computed(() => {
             _class.push('widthFill');
         }
 
+        let _childrenFormClass = _data?.childrenFormClass;
+        if (typeof (_childrenFormClass) === 'string') {
+            let _bClass = _childrenFormClass?.split(' ')
+            _class = [..._class, ..._bClass]
+        }
+        if (_childrenFormClass?.constructor === Object) {
+            let _bClass = Object.keys(_childrenFormClass)?.map(key => {
+                // console.log(key)
+                return _childrenFormClass[key] ? key : ''
+            })
+            _class = [..._class, ..._bClass]
+        }
+        if (_childrenFormClass?.constructor === Array) {
+            let _bClass = _childrenFormClass || [];
+            _class = [..._class, ..._bClass]
+        }
 
 
 
