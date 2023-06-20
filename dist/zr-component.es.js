@@ -1,4 +1,4 @@
-import './assets/index.6817fd41.css';
+import './assets/index.e86bd96d.css';
 import { defineComponent as K, inject as Xe, ref as U, resolveComponent as I, openBlock as E, createBlock as z, mergeProps as ue, unref as j, withCtx as X, renderSlot as de, computed as B, watch as ce, createElementBlock as $, createElementVNode as L, createVNode as F, normalizeClass as ne, toDisplayString as W, getCurrentInstance as Be, markRaw as xe, createTextVNode as te, Fragment as Q, renderList as ae, resolveDynamicComponent as pe, useSlots as he, withModifiers as Ne, createCommentVNode as me, normalizeProps as et, guardReactiveProps as tt, createSlots as ve, normalizeStyle as Fe, onMounted as ut, isRef as ge, useCssVars as je, nextTick as st } from "vue";
 const q = (e) => {
   let v = e, t = v == null ? void 0 : v.name;
@@ -2772,7 +2772,7 @@ const ll = K({
   setup(e, { emit: v }) {
     const t = e;
     je((n) => ({
-      "0e8f3c96": j(S)
+      "7dbca639": j(S)
     }));
     const s = B({
       get: () => t.modelValue,
@@ -2821,6 +2821,7 @@ const ll = K({
             return E(), z(pe(j(f)), {
               key: l,
               label: g.value,
+              disabled: g.disabled,
               border: (o = e.data) == null ? void 0 : o.isRadioBorder
             }, {
               default: X(() => [
@@ -2836,14 +2837,14 @@ const ll = K({
                 }, 1032, ["content", "isShowByContent"])
               ]),
               _: 2
-            }, 1032, ["label", "border"]);
+            }, 1032, ["label", "disabled", "border"]);
           }), 128))
         ]),
         _: 1
       }, 16, ["modelValue", "disabled", "class"]);
     };
   }
-}), al = /* @__PURE__ */ ie(ol, [["__scopeId", "data-v-4990f294"]]), rl = q(al), il = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), al = /* @__PURE__ */ ie(ol, [["__scopeId", "data-v-850b11a2"]]), rl = q(al), il = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: rl
 }, Symbol.toStringTag, { value: "Module" })), ul = K({

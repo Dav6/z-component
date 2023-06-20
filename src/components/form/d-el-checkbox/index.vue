@@ -20,6 +20,7 @@
     <Component
         :is="checkboxComponentCOM"
         v-for="(oItem, oIndex) in  optionsCOM" :key="oIndex" :label="oItem.value"
+        :disabled="oItem.disabled"
         :border="data?.isRadioBorder"
     >
       <d-el-tooltip :content="oItem.label" placement="top" :isShowByContent="isShowByContentCOM"> {{ oItem.label }}</d-el-tooltip>
