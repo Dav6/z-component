@@ -21,6 +21,8 @@
     :disabled-minutes="data?.disabledMinutes?data?.disabledMinutes:undefined"
     :disabled-seconds="data?.disabledSeconds?data?.disabledSeconds:undefined"
 
+    :prefix-icon="data?.prefixIcon"
+    :clear-icon="data?.clearIcon"
     :format="data?.format ? data?.format : 'HH:mm:ss'"
     :teleported="data?.teleported"
     :value-format="data?.valueFormat ? data?.valueFormat : 'HH:mm:ss'"
