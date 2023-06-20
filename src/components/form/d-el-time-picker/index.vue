@@ -20,7 +20,7 @@
     :disabled-hours="data?.disabledHours?data?.disabledHours:undefined"
     :disabled-minutes="data?.disabledMinutes?data?.disabledMinutes:undefined"
     :disabled-seconds="data?.disabledSeconds?data?.disabledSeconds:undefined"
-
+    :default-value="data?.defaultValue"
     :prefix-icon="data?.prefixIcon"
     :clear-icon="data?.clearIcon"
     :format="data?.format ? data?.format : 'HH:mm:ss'"
