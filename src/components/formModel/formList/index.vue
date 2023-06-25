@@ -36,7 +36,7 @@
                     </template>
                     <el-col
                             class="d-form-list-children-col"
-                            :span="item?.childrenSpan?item?.childrenSpan:24"
+                            :span="item.childrenSpan==='auto'?undefined:item.childrenSpan"
                             :class="formListChildrenColClassCOM(item,index)"
                             :style="formListChildrenColStyleCOM(item,index)"
 
@@ -387,6 +387,7 @@ const formListChildrenColStyleCOM = computed(() => {
         let _style = {};
         let _data = item;
         let _isWidthFill = _data?.isChildWidthFill;
+        const _childrenSpan = _data?.childrenSpan;
         let _width = _data?.childrenWidth;
         let _widthNum = '';
         let _widthUnit = 'px';
@@ -409,6 +410,10 @@ const formListChildrenColStyleCOM = computed(() => {
         }
         if (_isWidthFill) {
             _style.width = 'auto';
+        }
+
+        if (_childrenSpan === 'auto') {
+            _style.flex =1
         }
 
 
