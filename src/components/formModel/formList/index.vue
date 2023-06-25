@@ -275,22 +275,23 @@ const formListColClassCOM = computed(() => {
 
 
 
-        let _formRowClass = item?.formRowClass;
-        if (typeof (_formRowClass) === 'string') {
-            let _bClass = _formRowClass?.split(' ')
+        let _formColClass = item?.formColClass;
+        if (typeof (_formColClass) === 'string') {
+            let _bClass = _formColClass?.split(' ')
             _class = [..._class, ..._bClass]
         }
-        if (_formRowClass?.constructor === Object) {
-            let _bClass = Object.keys(_formRowClass)?.map(key => {
+        if (_formColClass?.constructor === Object) {
+            let _bClass = Object.keys(_formColClass)?.map(key => {
                 // console.log(key)
-                return _formRowClass[key] ? key : ''
+                return _formColClass[key] ? key : ''
             })
             _class = [..._class, ..._bClass]
         }
-        if (_formRowClass?.constructor === Array) {
-            let _bClass = _formRowClass || [];
+        if (_formColClass?.constructor === Array) {
+            let _bClass = _formColClass || [];
             _class = [..._class, ..._bClass]
         }
+
 
 
 
