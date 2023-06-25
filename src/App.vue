@@ -9,7 +9,7 @@
 
 <template>
     <div class="App">
-      <el-tabs :tab-position="tabPosition" v-model="tabCurrent"  class="onCommand"  @tab-change="(data)=>goTo('tabChange',data)">
+      <el-tabs :tab-position="tabPosition" v-model="tabCurrent"  class="example-tabs onCommand"  @tab-change="(data)=>goTo('tabChange',data)">
         <template v-for="(item,index) in list" :key="index">
           <el-tab-pane  class="example-tab-pane"  :label="item.name"  :name="index" >
 

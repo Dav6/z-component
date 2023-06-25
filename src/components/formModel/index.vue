@@ -103,6 +103,12 @@ const props = defineProps({
     formData:{
       type: [Object]
     },
+    // 如果formData 的key 存在
+    // 才去修改formList
+    // 不存在 就不修改
+    isFormDataKey:{
+        type: [Boolean]
+    },
     formList: {
         type: [Array],
     },
@@ -266,11 +272,22 @@ watch(()=> props.formData,(formData,preFormData)=>{
         _dataList?.map(item=>{
             // console.log('_dataList',item)
 
+            // 如果formData 的key 存在
+            // 才去修改formList
+            // 不存在 就不修改
 
-            item.value = _formData?.[item.key] || undefined;
-            if(_formData?.[item.key] === 0){
-                item.value = _formData?.[item.key]
+            if(props.isFormDataKey){
+                Object.keys(_formData)
+
+
+            }else{
+                item.value = _formData?.[item.key] || undefined;
+                if(_formData?.[item.key] === 0){
+                    item.value = _formData?.[item.key]
+                }
             }
+
+
 
         })
 
@@ -401,7 +418,7 @@ const setLinkageForm = () => {
                 // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
 
                 if (_prevFormValue || _prevFormValue == 0) {
-                    // //console.log('有值')
+                    // console.log('有值')
                     // 判断当前的值是不是数组
                     if (Array.isArray(_prevFormValue)) {
                         // 数组为空就隐藏，不为空就系那是
@@ -439,13 +456,34 @@ const setLinkageForm = () => {
 
 
                     } else {
-                        // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
-                        //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
-                        if (_prevLinkageValue || _prevLinkageValue == 0) {
-                            if (_prevLinkageValue != _prevFormValue) {
+
+
+
+
+                        let _arr1 = _formValue;
+                        let _arr2 = _linkageValue
+
+                        if (Array.isArray(_arr2)) {
+                            _arr1 = [_arr1];
+                            const filteredArray = _arr1.filter(value => _arr2.includes(value));
+                            if (filteredArray?.length > 0) {
+
+                            } else {
                                 _prevLinkageFormItemIsHidden = true;
                             }
+                        }else{
+                            // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
+                            //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
+                            if (_prevLinkageValue || _prevLinkageValue == 0) {
+                                if (_prevLinkageValue != _prevFormValue) {
+                                    _prevLinkageFormItemIsHidden = true;
+                                }
+                            }
+
                         }
+
+
+
                     }
 
                 } else {
@@ -485,10 +523,13 @@ const setLinkageForm = () => {
         _linkageFormList?.map(item => {
             let _lItem = item;
             let _linkageValue = _lItem.linkageValue;
+            console.log('linkageValue',_linkageValue)
             let _linkageFormItemIsHidden = false;
             //  判断当前联动key对应的formItem的值 是否为空
             // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
             if (_formValue || _formValue === 0) {
+                console.log('有值',_formValue)
+
                 if (Array.isArray(_formValue)) {
                     // 数组为空就隐藏，不为空就系那是
                     if (_formValue?.length > 0) {
@@ -498,6 +539,7 @@ const setLinkageForm = () => {
                         // 判断是否和联动key对应的formItem的值有交集
                         // 有就显示, 无就隐藏
                         if (Array.isArray(_arr2)) {
+
                             const filteredArray = _arr1.filter(value => _arr2.includes(value));
                             if (filteredArray?.length > 0) {
 
@@ -523,13 +565,33 @@ const setLinkageForm = () => {
                         _linkageFormItemIsHidden = true
                     }
                 } else {
-                    // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
-                    //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
-                    if (_linkageValue || _linkageValue === 0) {
-                        if (_linkageValue != _formValue) {
-                            _linkageFormItemIsHidden = true
+
+                    let _arr1 = _formValue;
+                    let _arr2 = _linkageValue
+
+                    if (Array.isArray(_arr2)) {
+                        _arr1 = [_arr1]
+                        const filteredArray = _arr1.filter(value => _arr2.includes(value));
+                        if (filteredArray?.length > 0) {
+
+                        } else {
+                            _linkageFormItemIsHidden = true;
+                        }
+                    }else{
+                        // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
+                        //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
+                        if (_linkageValue || _linkageValue === 0) {
+                            if (_linkageValue != _formValue) {
+                                _linkageFormItemIsHidden = true
+                            }
                         }
                     }
+
+
+
+
+
+
                 }
 
             } else {

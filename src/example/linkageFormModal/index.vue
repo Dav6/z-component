@@ -258,7 +258,7 @@ const formList2 = [
     ]
   },
   {
-    name: "测试2",
+    name: "测试22222",
     key: "test2",
     placeholder: "请选择 ",
     formType: "checkbox",
@@ -276,6 +276,10 @@ const formList2 = [
         label:"定时触发",
         value:1,
       },
+        {
+            label:"手动触发",
+            value:2,
+        },
     ]
   },
   {
@@ -284,7 +288,7 @@ const formList2 = [
     placeholder: "请选择 ",
     formType: "input",
     linkageKey: "prev",
-    linkageValue: 1,
+    linkageValue: [0,2],
     isClearable: true,
     labelWidth: "0",
     span: 24,
@@ -378,12 +382,14 @@ const formList2 = [
     rules: [{ required: true, message: "请输入描述", trigger: "blur" }],
   },
   {
-    name: "触发类型",
+    name: "触发类型123123",
     key: "triggerType",
     placeholder: "请选择触发类型",
     formType: "select",
     isClearable: true,
-    labelWidth: "0",
+      // multiple: true,
+
+      labelWidth: "0",
     span: 24,
     rules: [{ required: true, message: "请选择名称", trigger: "blur" }],
     options:[
@@ -406,7 +412,7 @@ const formList2 = [
   {
     name: "定时器", key: "triggerTime", value: "", placeholder: "请选择", formType: "cron", span: 24,
     linkageKey: "triggerType",
-    linkageValue: 1,
+    linkageValue: [1,2],
     rules: [{required: true, message: "请选择", trigger: "blur"}],
   },
 
