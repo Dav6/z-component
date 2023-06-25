@@ -129,7 +129,7 @@
 
 
             <template v-else>
-                {{ item.value }}
+               <div class="form-text">{{ item.value }}</div>
             </template>
         </template>
 
