@@ -277,7 +277,13 @@ watch(()=> props.formData,(formData,preFormData)=>{
             // 不存在 就不修改
 
             if(props.isFormDataKey){
-                Object.keys(_formData)
+                // [1,2,3,4].indexOf(1)
+                if(_formData && Object.keys(_formData)?.indexOf(item.key)>-1){
+                    item.value = _formData?.[item.key] || undefined;
+                    if(_formData?.[item.key] === 0){
+                        item.value = _formData?.[item.key]
+                    }
+                }
 
 
             }else{
