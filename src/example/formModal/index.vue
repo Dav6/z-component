@@ -361,6 +361,7 @@ const formList = ref([
         name: "开关", key: "number", value: "123", placeholder: "数字", disabled: false,
         formType: "switch",
         validateEvent: true,
+        width:"300px",
         span: 12,
         rules: [{required: true, message: "请输入数字", trigger: "blur"}],
     },
