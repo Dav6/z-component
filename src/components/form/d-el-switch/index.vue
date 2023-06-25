@@ -14,7 +14,7 @@
             :disabled="data?.disabled"
             :loading="data?.loading"
             :size="data?.size"
-            :width="width"
+            :width="data?.switchWidth"
             :inline-prompt="data?.inlinePrompt"
             :active-icon="data?.activeIcon"
             :inactive-icon="data?.inactiveIcon"
@@ -47,9 +47,6 @@ const props = defineProps({
     data: {
         type: [Object],
     },
-    width: {
-        type:[Number, String]
-    }
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(["update:modelValue"]);
