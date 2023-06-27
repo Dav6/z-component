@@ -8,8 +8,8 @@
 
 <template>
     <template v-for="(item,index) in keyList" :key="item.$key">
-
-        <d-table-item
+        <template v-if="!item.isHidden">
+            <d-table-item
                 :tableModelRef="tableModelRef"
                 :item="item"
                 :pageData="pageData"
@@ -24,11 +24,14 @@
                 :filters="filters?.[item?.key]"
                 :filterMethod="filterMethod?.[item?.key]"
                 :option="option?.[item?.key]"
-        >
-            <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
-                <slot :name="item.name" :data="data.data"></slot>
-            </template>
-        </d-table-item>
+                :isHiddenSectionButtons="isHiddenSectionButtons"
+            >
+                <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
+                    <slot :name="item.name" :data="data.data"></slot>
+                </template>
+            </d-table-item>
+        </template>
+
 
     </template>
 </template>
@@ -96,6 +99,9 @@ const props = defineProps({
     },
     sectionButtons: {
         type: [Array]
+    },
+    isHiddenSectionButtons:{
+        type: [Boolean]
     }
 
 });

@@ -26,7 +26,7 @@
             :filterMethod="globalFilterMethod"
             :sortMap="sortMap"
             :sectionButtons="sectionButtons"
-
+            :isHiddenSectionButtons="true"
             :row-key="'id'"
             height="100%"
             @selection-change="data=>goTo('selectionChange',data)"

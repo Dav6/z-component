@@ -37,6 +37,7 @@
                 :option="option"
 
                 :sectionButtons="sectionButtons"
+                :isHiddenSectionButtons="isHiddenSectionButtons"
 
                 @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
                 @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
@@ -151,6 +152,9 @@ const props = defineProps({
     },
     sectionButtons:{
         type: [Array]
+    },
+    isHiddenSectionButtons:{
+        type: [Boolean]
     }
 
 
@@ -405,7 +409,8 @@ const headerCellStyleFN = (data) => {
     // 用于 选中状态的界面修改
     const _sectionData = sectionData.value
     const _isShowSelection = props.isShowSelection;
-    if (_isShowSelection) {
+    const _isHiddenSectionButtons = props.isHiddenSectionButtons
+    if (_isShowSelection && !_isHiddenSectionButtons) {
         // console.log('data,',data, )
         // console.log('_sectionData,',_sectionData?.selection?.length, )
 

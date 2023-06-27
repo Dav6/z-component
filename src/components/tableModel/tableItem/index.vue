@@ -252,8 +252,11 @@ const props = defineProps({
     },
     sectionButtons: {
         type: [Array]
-
+    },
+    isHiddenSectionButtons:{
+        type: [Boolean]
     }
+
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits(['onSettingsButtonClick', 'onChange', 'onSwitchChange', 'onSection']);
@@ -460,7 +463,8 @@ const sectionNum = ref(0)
 const isShowSelectionHeaderFN = (scope) => {
     // console.log(scope)
     const _index = scope.$index;
-    return isShowSelectionHeader.value && _index === 1;
+    const _isHiddenSectionButtons = props.isHiddenSectionButtons
+    return isShowSelectionHeader.value && _index === 1 && !_isHiddenSectionButtons;
 }
 
 // section watch sectionData
