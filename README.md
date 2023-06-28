@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "table-model 增加参数 isHiddenSectionButtons 用于显示选择显示的表头  keyList 中增加 isHidden 用于显示隐藏 当前列" 
+git commit -m "优化table 卡顿" 
 git add . 
 npm run build 
 

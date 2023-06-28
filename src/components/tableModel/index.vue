@@ -10,7 +10,7 @@
     <el-table
             class="table-model"
             ref="tableModelRef"
-            :data="tableListCOM"
+            :data="tableList"
             :row-key="rowKey"
             :tree-props="treeProps"
             :header-cell-class-name="headerRowClassNameFN"
@@ -31,7 +31,7 @@
                 :beforeSwitchChange="beforeSwitchChange"
                 :pageData="pageData"
 
-                :filters="filtersCOM"
+                :filters="tableFilters"
                 :filterMethod="filterMethod"
 
                 :option="option"
@@ -60,6 +60,7 @@
 <script setup>
 import {JSONPath} from "jsonpath-plus";
 import {computed, ref, useSlots, watch} from "vue"
+import {debounce} from "@/tools/tools";
 
 defineOptions({
     name: 'd-table-model',
@@ -161,11 +162,23 @@ const props = defineProps({
 });
 
 
-const filtersCOM = computed(() => {
-    const _filters = props.filters || {}
 
-    return _filters;
+
+
+const tableFilters = ref({})
+tableFilters.value = props.filters
+const setTableFilters = debounce(()=>{
+    tableFilters.value =  props.filters;
+},100)
+
+watch(()=>props.filters,()=>{
+    setTableFilters()
+},{
+    deep:true
 })
+
+
+
 
 
 //  section sectionData
@@ -176,9 +189,7 @@ const sectionData = ref({
 
 const setListConfig = async () => {
     let _list = JSON.parse(JSON.stringify(props.list));
-
     // console.log(JSON.stringify(_list))
-
     let _treeProps = props?.treeProps
     let _childrenName = _treeProps?.children || 'children'
     _list = {
@@ -193,11 +204,27 @@ const setListConfig = async () => {
 }
 
 
-const tableListCOM = computed(() => {
-    const _list = props.list;
+const tableList = ref([])
+tableList.value = props.list
+const setTable = debounce(()=>{
+    tableList.value =  props.list;
     setListConfig()
-    return _list
+},100)
+
+watch(()=>props.list,()=>{
+    setTable()
+},{
+    deep:true
 })
+
+
+
+
+// const tableListCOM = computed(() => {
+//     const _list = props.list;
+//     setListConfig()
+//     return _list
+// })
 
 
 // <!--selection / index / expand / settings -->
@@ -380,10 +407,6 @@ const headerRowClassNameFN = (data) => {
             })
         }
     }
-
-
-
-
 
     let _strClass = ''
     let _headerCellClassName = props.headerCellClassName;

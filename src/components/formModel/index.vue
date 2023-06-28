@@ -156,6 +156,16 @@ const props = defineProps({
 const emits = defineEmits(['onClick', 'onSubmit', 'onFormItemButtonClick', 'onChange', 'onInputSearch']);
 const formModelRef = ref()
 
+const formList = ref([]);
+
+
+watch(()=>props.formList,()=>{
+
+},{
+    deep:true
+})
+
+
 // section computed formList
 const _formList = computed(() => {
     let _list = props?.formList?.length > 0 ? props.formList : [];
