@@ -330,7 +330,7 @@ const pageData = ref({
 const image = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-93dd36bf20dad23a01a51698733ed306_r.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674282885&t=f05370c806711f9117370dd745bb0d19'
 
 const list = ref([])
-list.value = Array(20).fill({})?.map((item, index) => {
+const _list = Array(20).fill({})?.map((item, index) => {
     const _item = {}
     keyList.value?.map(cItem => {
         // console.log(cItem);
@@ -403,7 +403,9 @@ list.value = Array(20).fill({})?.map((item, index) => {
 
     return _item;
 })
-
+setTimeout(()=>{
+    // list.value = _list;
+},100)
 console.log('list--------',list)
 
 // list.value?.map((item, index) => {
