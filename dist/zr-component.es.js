@@ -1,4 +1,4 @@
-import './assets/index.92026a28.css';
+import './assets/index.8f94a136.css';
 import { defineComponent as q, inject as He, ref as L, resolveComponent as I, openBlock as P, createBlock as z, mergeProps as se, unref as E, withCtx as R, renderSlot as ce, computed as j, watch as ie, createElementBlock as W, createElementVNode as U, createVNode as N, normalizeClass as le, toDisplayString as J, getCurrentInstance as Me, markRaw as Ce, createTextVNode as oe, Fragment as Z, renderList as ae, resolveDynamicComponent as ge, useSlots as he, withModifiers as Ie, createCommentVNode as pe, normalizeProps as tt, guardReactiveProps as nt, createSlots as ve, normalizeStyle as Fe, onMounted as st, isRef as ye, useCssVars as je, useAttrs as dt, nextTick as ct } from "vue";
 const te = (e) => {
   let O = e, t = O == null ? void 0 : O.name;
@@ -5364,15 +5364,14 @@ const da = q({
       };
       let B = `$..${T}[:]`;
       s = K({ json: s, path: B }), n.value.list = s;
-    }, d = L([]);
-    d.value = a.list;
-    const i = Ne(() => {
+    }, d = L([]), i = Ne(() => {
       d.value = a.list, u();
     }, 100);
     ie(() => a.list, () => {
       i();
     }, {
-      deep: !0
+      deep: !0,
+      immediate: !0
     });
     let r = {
       label: "\u5E8F\u53F7",
@@ -5459,7 +5458,8 @@ const da = q({
     ], (s, V) => {
       console.log("watchList", s), p();
     }, {
-      deep: !0
+      deep: !0,
+      immediate: !0
     });
     const w = (s) => {
       var M;
@@ -5567,7 +5567,7 @@ const da = q({
       }, 16, ["data", "row-key", "tree-props", "default-sort"]);
     };
   }
-}), fa = /* @__PURE__ */ ue(ca, [["__scopeId", "data-v-861a3154"]]), ma = te(fa), pa = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), fa = /* @__PURE__ */ ue(ca, [["__scopeId", "data-v-7f4f0bbb"]]), ma = te(fa), pa = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ma
 }, Symbol.toStringTag, { value: "Module" }));

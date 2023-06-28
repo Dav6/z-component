@@ -205,7 +205,9 @@ const setListConfig = async () => {
 
 
 const tableList = ref([])
-tableList.value = props.list
+// tableList.value = props.list
+// setListConfig()
+
 const setTable = debounce(()=>{
     tableList.value =  props.list;
     setListConfig()
@@ -214,7 +216,8 @@ const setTable = debounce(()=>{
 watch(()=>props.list,()=>{
     setTable()
 },{
-    deep:true
+    deep:true,
+    immediate:true
 })
 
 
@@ -369,13 +372,13 @@ const setKeyList = debounce(() => {
 
 
 
-const watchList = [
-    ()=>props.keyList,
-    ()=>props.settingsConfig,
-    ()=>props.isShowExpand,
-    ()=>props.isShowSelection,
-    ()=>props.isShowIndex,
-]
+// const watchList = [
+//     ()=>props.keyList,
+//     ()=>props.settingsConfig,
+//     ()=>props.isShowExpand,
+//     ()=>props.isShowSelection,
+//     ()=>props.isShowIndex,
+// ]
 watch([
     ()=>props.keyList,
     ()=>props.settingsConfig,
@@ -386,7 +389,8 @@ watch([
     console.log('watchList',watchList)
     setKeyList()
 },{
-    deep:true
+    deep:true,
+    immediate:true,
 })
 
 
