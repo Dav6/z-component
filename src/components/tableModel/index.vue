@@ -25,7 +25,7 @@
 
         <d-table-list
                 :tableModelRef="tableModelRef"
-                :keyList="keyListCOM"
+                :keyList="tableKeyList"
                 :selectable="selectable"
                 :sectionData="sectionData"
                 :beforeSwitchChange="beforeSwitchChange"
@@ -291,17 +291,20 @@ let _tableSettingsDefault = {
     ]
 }
 
-// const _temKeyList = ref([])
-const keyListCOM = computed(() => {
+
+ const tableKeyList = ref([])
+
+const setKeyList = debounce(() => {
 
     console.log('keyListCOM', props)
     console.log('props.keyList', props.keyList)
-    let _keyList = props.keyList || JSON.parse(JSON.stringify(props.keyList));
+    let _keyList = JSON.parse(JSON.stringify(props.keyList))  || []; // JSON.parse(JSON.stringify(props.keyList));
     console.log('_keyList', _keyList)
     let _settingsConfig = JSON.parse(JSON.stringify(props.settingsConfig))
     let _isShowExpand = props.isShowExpand;
     let _isShowSelection = props.isShowSelection;
     let _isShowIndex = props.isShowIndex;
+
     let _tableExpand = _tableExpandDefault;
     let _tableSelection = _tableSelectionDefault;
     let _tableIndex = _tableIndexDefault;
@@ -350,7 +353,7 @@ const keyListCOM = computed(() => {
         _tableIndex,
         ..._keyList,
         _tableSettings
-    ].filter(item => item != '')
+    ].filter(item => item !== '')
 
 
     // 每一列加上 不重复key ， 用于视图刷新正常
@@ -360,8 +363,40 @@ const keyListCOM = computed(() => {
     })
     _keyList= JSON.parse(JSON.stringify(_keyList))
     // console.log(_keyList);
+    tableKeyList.value = _keyList;
     return _keyList
+},100)
+
+
+
+const watchList = [
+    ()=>props.keyList,
+    ()=>props.settingsConfig,
+    ()=>props.isShowExpand,
+    ()=>props.isShowSelection,
+    ()=>props.isShowIndex,
+]
+watch([
+    ()=>props.keyList,
+    ()=>props.settingsConfig,
+    ()=>props.isShowExpand,
+    ()=>props.isShowSelection,
+    ()=>props.isShowIndex,
+],(watchList,preWatchList)=>{
+    console.log('watchList',watchList)
+    setKeyList()
+},{
+    deep:true
 })
+
+
+
+
+
+
+
+
+
 
 
 //const emits = defineEmits(["update:modelValue"]);

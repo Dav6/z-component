@@ -133,6 +133,60 @@ setTimeout(() => {
 
 
 const keyList = ref([
+    {label: "id", width: 50, key: "id", showOverflowTooltip: true},
+    {
+        label: "设备名称", key: "deviceName", showOverflowTooltip: true,
+        width: 120,
+        sortable: 'custom',
+    },
+    {
+        label: "公司", key: "company", showOverflowTooltip: true,
+    },
+    {
+        label: "选项1", key: "option1", type: "option", showOverflowTooltip: true,
+
+
+    },
+
+    {
+        label: "选项2", key: "option2", type: "option", showOverflowTooltip: true,
+        // option:[],
+        option: [
+            {label: "选项111", value: 1},
+            {label: "选项2222", value: 2},
+            {label: "选项33333", value: 3},
+        ],
+        multiple: true,
+        // option: {
+        //     1: "选项12",
+        //     2: "选项23",
+        //     3: "选项34",
+        // }
+    },
+    {
+        label: "时间", type: "time", format: 'YYYY-MM-DD HH:mm:ss', key: "createTime", showOverflowTooltip: true,
+        width: 200,
+        sortable: true,
+        // sortMethod:(a,b)=>{
+        //   // return a.createTime - b.createTime;
+        // }
+        // sortBy:'recordId'
+    },
+    {
+        label: "状态", type: "switch", key: "status",
+        showOverflowTooltip: false,
+        filters: [
+            {label: 'Home', value: 'Home'},
+            {label: 'Office', value: 'Office'},
+        ],
+        filterMultiple: true,
+        filterMethod: (value, row, column) => {
+            console.log('keyList-filterMethod', value, row, column)
+            return true;
+        },
+    },
+    {label: "图片", type: "image", key: "image", size: "24 24", width: 100, limit: 5, showOverflowTooltip: false},
+    {label: "自定义", type: "custom", customName: "test", key: "personnelRoleName", showOverflowTooltip: true},
 
 ])
 //item.format : 'YYYY-MM-DD HH:mm:ss'"
@@ -393,7 +447,7 @@ const goTo = (key, data) => {
     console.log(key, data);
     if (key === 'sortChange') {
         const _key = data?.prop;
-        const _order = "";//|| data?.order;
+        const _order =  "";//|| data?.order;
         // 对象写法
         // sortMap.value[_key] = _order;
         console.log('sortMap', sortMap)
