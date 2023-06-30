@@ -71,6 +71,7 @@ import {
 import {
     JSONPath
 } from "jsonpath-plus";
+import {debounce} from "@/tools/tools";
 
 
 let slots = useSlots()
@@ -273,10 +274,9 @@ const formModelClassCOM = computed(() => {
 
 
 
-// section watch-formData
-watch(()=> props.formData,(formData,preFormData)=>{
-    console.log('watch-formData', formData)
-    const _formData = formData
+
+const setFormDataByFormData = debounce(()=>{
+    const _formData = props.formData
     if(Object.prototype.toString.call(_formData) === '[object Object]'){
         let _dataList = getFormListTiling()
         _dataList?.map(item=>{
@@ -307,11 +307,17 @@ watch(()=> props.formData,(formData,preFormData)=>{
 
         })
 
-        // setTimeout(()=>{
-        //     setLinkageForm && setLinkageForm()
-        // },0)
+        setLinkageForm && setLinkageForm()
     }
 
+},100)
+
+
+
+// section watch-formData
+watch(()=> props.formData,(formData,preFormData)=>{
+    // console.log('watch-formData', formData)
+    setFormDataByFormData && setFormDataByFormData();
 },{
     deep:true,
     immediate:true
@@ -365,9 +371,8 @@ const goTo = (key, data) => {
         setTimeout(() => {
             formModelRef.value?.validateField(_prop, () => null)
         }, 300)
-        setTimeout(() => setLinkageForm(), 50)
 
-
+        setLinkageForm && setLinkageForm()
         emits('onChange', {...data})
     }
     if (key === 'onSubmit') {
@@ -388,7 +393,7 @@ const goTo = (key, data) => {
 
 
 // section set
-const setLinkageForm = () => {
+const setLinkageForm = debounce(() => {
     let _list = props?.formList?.length > 0 ? props.formList : [];
     // //console.log('_list', _list);
     let _linkageListPath = `$..linkageKey^`
@@ -433,8 +438,8 @@ const setLinkageForm = () => {
                 //  判断当前联动key对应的formItem的值 是否为空
                 // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
 
-                if (_prevFormValue || _prevFormValue == 0) {
-                    // console.log('有值')
+                if (_prevFormValue || _prevFormValue === 0) {
+                    console.log('有值')
                     // 判断当前的值是不是数组
                     if (Array.isArray(_prevFormValue)) {
                         // 数组为空就隐藏，不为空就系那是
@@ -455,7 +460,7 @@ const setLinkageForm = () => {
                                 //  不是就套层数组
                                 //  判断是否和联动key对应的formItem的值有交集
                                 //  有就显示, 无就隐藏
-                                if (_arr2 || _arr2 == 0) {
+                                if (_arr2 || _arr2 === 0) {
                                     _arr2 = [_arr2];
                                     const filteredArray = _arr1.filter(value => _arr2.includes(value));
                                     if (filteredArray?.length > 0) {
@@ -473,11 +478,8 @@ const setLinkageForm = () => {
 
                     } else {
 
-
-
-
-                        let _arr1 = _formValue;
-                        let _arr2 = _linkageValue
+                        let _arr1 = _prevFormValue;
+                        let _arr2 = _prevLinkageValue
 
                         if (Array.isArray(_arr2)) {
                             _arr1 = [_arr1];
@@ -490,7 +492,7 @@ const setLinkageForm = () => {
                         }else{
                             // 判断当前 linkageKey 的formItem的 _linkageValue 是否有
                             //  有就和当前联动key对应的formItem的值 比较，相同就显示 ，不相同就隐藏
-                            if (_prevLinkageValue || _prevLinkageValue == 0) {
+                            if (_prevLinkageValue || _prevLinkageValue === 0) {
                                 if (_prevLinkageValue != _prevFormValue) {
                                     _prevLinkageFormItemIsHidden = true;
                                 }
@@ -566,7 +568,7 @@ const setLinkageForm = () => {
                             //  不是就套层数组
                             //  判断是否和联动key对应的formItem的值有交集
                             //  有就显示, 无就隐藏
-                            if (_arr2 || _arr2 == 0) {
+                            if (_arr2 || _arr2 === 0) {
                                 _arr2 = [_arr2];
                                 const filteredArray = _arr1.filter(value => _arr2.includes(value));
                                 if (filteredArray?.length > 0) {
@@ -623,7 +625,7 @@ const setLinkageForm = () => {
 
     })
 
-}
+},100)
 
 const clearValidate = () => {
     return formModelRef.value.clearValidate()
@@ -658,7 +660,7 @@ defineExpose({
 
 // section init 接口请求方法放这
 const init = () => {
-    setTimeout(() => setLinkageForm(), 50)
+    setLinkageForm()
 
 }
 

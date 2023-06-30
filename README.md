@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "优化table 卡顿" 
+git commit -m "修复formModel 联动为空的bug " 
 git add . 
 npm run build 
 

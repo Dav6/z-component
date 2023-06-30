@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import "./styles/normalize.css"
+import "./styles/common.less"
+
 
 import elementIcon from "@/plugins/svgicon";
 import "element-plus/dist/index.css";
