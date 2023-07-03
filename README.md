@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "table-model 表头上的按钮显示 根据 sectionButtons 字段显示，不在显示默认 delete 按钮，但是设置key为delete 会有默认参数 " 
+git commit -m "  修复 formModel formData 值违false 时不显示bug " 
 git add . 
 npm run build 
 

@@ -293,6 +293,9 @@ const setFormDataByFormData = debounce(()=>{
                     if(_formData?.[item.key] === 0){
                         item.value = _formData?.[item.key]
                     }
+                    if(_formData?.[item.key] === true || _formData?.[item.key] === false){
+                        item.value = _formData?.[item.key]
+                    }
                 }
 
 
@@ -301,6 +304,11 @@ const setFormDataByFormData = debounce(()=>{
                 if(_formData?.[item.key] === 0){
                     item.value = _formData?.[item.key]
                 }
+                if(_formData?.[item.key] === true || _formData?.[item.key] === false){
+                    item.value = _formData?.[item.key]
+                }
+
+
             }
 
 
