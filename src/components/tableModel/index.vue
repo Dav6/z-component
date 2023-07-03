@@ -36,15 +36,13 @@
 
                 :option="option"
 
-                :sectionButtons="sectionButtons"
+                :sectionButtons="tableSectionButtons"
                 :isHiddenSectionButtons="isHiddenSectionButtons"
 
                 @onSettingsButtonClick="(data)=>goTo('onSettingsButtonClick',data)"
                 @onSwitchChange="(data) =>  goTo('onSwitchChange', data) "
                 @onSection="data=>goTo('onSection',data)"
         >
-
-
 
 
             <template v-for="(item, index) in slotListCOM()" :key="index" #[item.name]="data">
@@ -151,10 +149,10 @@ const props = defineProps({
     sortMap: {
         type: [Array, Object]
     },
-    sectionButtons:{
+    sectionButtons: {
         type: [Array]
     },
-    isHiddenSectionButtons:{
+    isHiddenSectionButtons: {
         type: [Boolean]
     }
 
@@ -162,23 +160,17 @@ const props = defineProps({
 });
 
 
-
-
-
 const tableFilters = ref({})
 tableFilters.value = props.filters
-const setTableFilters = debounce(()=>{
-    tableFilters.value =  props.filters;
-},100)
+const setTableFilters = debounce(() => {
+    tableFilters.value = props.filters;
+}, 100)
 
-watch(()=>props.filters,()=>{
+watch(() => props.filters, () => {
     setTableFilters()
-},{
-    deep:true
+}, {
+    deep: true
 })
-
-
-
 
 
 //  section sectionData
@@ -208,19 +200,17 @@ const tableList = ref([])
 // tableList.value = props.list
 // setListConfig()
 
-const setTable = debounce(()=>{
-    tableList.value =  props.list;
+const setTable = debounce(() => {
+    tableList.value = props.list;
     setListConfig()
-},100)
+}, 100)
 
-watch(()=>props.list,()=>{
+watch(() => props.list, () => {
     setTable()
-},{
-    deep:true,
-    immediate:true
+}, {
+    deep: true,
+    immediate: true
 })
-
-
 
 
 // const tableListCOM = computed(() => {
@@ -295,13 +285,13 @@ let _tableSettingsDefault = {
 }
 
 
- const tableKeyList = ref([])
+const tableKeyList = ref([])
 
 const setKeyList = debounce(() => {
 
     console.log('keyListCOM', props)
     console.log('props.keyList', props.keyList)
-    let _keyList = JSON.parse(JSON.stringify(props.keyList))  || []; // JSON.parse(JSON.stringify(props.keyList));
+    let _keyList = JSON.parse(JSON.stringify(props.keyList)) || []; // JSON.parse(JSON.stringify(props.keyList));
     console.log('_keyList', _keyList)
     let _settingsConfig = JSON.parse(JSON.stringify(props.settingsConfig))
     let _isShowExpand = props.isShowExpand;
@@ -322,14 +312,14 @@ const setKeyList = debounce(() => {
         if (!item.type) { // type 为空时
             item.type = 'button'
         }
-        if(item.text === true || item.text === false) {
+        if (item.text === true || item.text === false) {
 
-        }else{
+        } else {
             item.text = true;
         }
 
 
-        if(item.type === 'dropdown'){
+        if (item.type === 'dropdown') {
             //  table里 为false 不显示
             item.teleported = true;
         }
@@ -364,12 +354,11 @@ const setKeyList = debounce(() => {
         item.$key = Symbol()
         return item;
     })
-    _keyList= JSON.parse(JSON.stringify(_keyList))
+    _keyList = JSON.parse(JSON.stringify(_keyList))
     // console.log(_keyList);
     tableKeyList.value = _keyList;
     return _keyList
-},100)
-
+}, 100)
 
 
 // const watchList = [
@@ -380,27 +369,61 @@ const setKeyList = debounce(() => {
 //     ()=>props.isShowIndex,
 // ]
 watch([
-    ()=>props.keyList,
-    ()=>props.settingsConfig,
-    ()=>props.isShowExpand,
-    ()=>props.isShowSelection,
-    ()=>props.isShowIndex,
-],(watchList,preWatchList)=>{
-    console.log('watchList',watchList)
+    () => props.keyList,
+    () => props.settingsConfig,
+    () => props.isShowExpand,
+    () => props.isShowSelection,
+    () => props.isShowIndex,
+], (watchList, preWatchList) => {
+    console.log('watchList', watchList)
     setKeyList()
-},{
-    deep:true,
-    immediate:true,
+}, {
+    deep: true,
+    immediate: true,
 })
 
 
+const tableSectionButtons = ref([]);
 
 
+const _deleteButton = {name: "删除", key: "delete", class: "", icon: "delete",}
+
+const setTableSectionButtons = debounce(() => {
 
 
+    let _sectionButtons = JSON.parse(JSON.stringify(props.sectionButtons));
+    // console.log('_sectionButtons', _sectionButtons)
+    const _deleteIndex = _sectionButtons?.findIndex(item => item.key === 'delete')
+    // console.log('_deleteIndex', _deleteIndex)
+    if (_deleteIndex > -1) {
+        _sectionButtons[_deleteIndex] = {
+            ..._deleteButton,
+            ..._sectionButtons[_deleteIndex],
+        };
+    } else {
+        _sectionButtons = [
+            ..._sectionButtons
+        ]
+    }
+    _sectionButtons?.map(item => {
+
+        // 默认为 true  除非直接设置 为false 否者都为true
+        item.text = item.text !== false
+    })
 
 
+    tableSectionButtons.value = _sectionButtons;
 
+
+}, 100)
+
+
+watch(() => props.sectionButtons, (sectionButtons) => {
+    setTableSectionButtons()
+}, {
+    deep: true,
+    immediate: true,
+})
 
 
 //const emits = defineEmits(["update:modelValue"]);
@@ -415,32 +438,32 @@ const headerRowClassNameFN = (data) => {
     // console.log('headerRowClassNameFN',data,_temKeyList)
     const _column = data?.column || {};
 
-    if(_column?.sortable){
+    if (_column?.sortable) {
         const _colKey = _column.property
         // sortOrders ['ascending', 'descending', null]
         const _sortOrders = _column.sortOrders;
         const _sortMap = props.sortMap;
-        console.log('_sortMap',_sortMap)
+        // console.log('_sortMap',_sortMap)
         if (Object.prototype.toString.call(_sortMap) === '[object Object]') {
-            Object.keys(_sortMap)?.map(key=>{
+            Object.keys(_sortMap)?.map(key => {
                 const _key = key;
-                if(_key === _colKey){
+                if (_key === _colKey) {
                     // _sortOrders
                     const _keyOrder = _sortMap[_key]?.toLowerCase() || null;
-                    const index = _sortOrders.findIndex(item=>item?.indexOf(_keyOrder)>-1)
-                    _column.order =  _sortOrders?.[index] || ""
+                    const index = _sortOrders.findIndex(item => item?.indexOf(_keyOrder) > -1)
+                    _column.order = _sortOrders?.[index] || ""
                 }
 
             })
         }
-        if (Array.isArray(_sortMap)){
-            _sortMap?.map(item=>{
+        if (Array.isArray(_sortMap)) {
+            _sortMap?.map(item => {
                 const _key = item?.key;
                 const _keyOrder = item?.order?.toLowerCase() || null;
-                if(_key === _colKey){
+                if (_key === _colKey) {
                     // _sortOrders
-                    const index = _sortOrders.findIndex(item=>item?.indexOf(_keyOrder)>-1)
-                    _column.order =  _sortOrders?.[index] || ""
+                    const index = _sortOrders.findIndex(item => item?.indexOf(_keyOrder) > -1)
+                    _column.order = _sortOrders?.[index] || ""
                 }
 
             })
@@ -488,7 +511,6 @@ const headerCellStyleFN = (data) => {
                 //expand / selection / index / settings / time
 
 
-
                 // 选项框这一列 和 后面这一列不隐藏
                 // 后面这一列合并到最后
                 if (!(column.type === 'selection' || columnIndex === 1)) {
@@ -511,16 +533,16 @@ const headerCellStyleFN = (data) => {
                     }
                 }
                 //
-                row[1].fixed =  "left"
+                row[1].fixed = "left"
                 row[1].colSpan = row.length
             }
 
         } else {
             // console.log('没选择-----------')
             _style = {
-                display:'table-cell'
+                display: 'table-cell'
             }
-            row[1].fixed =  ""
+            row[1].fixed = ""
             row[1].colSpan = 1
         }
 

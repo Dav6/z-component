@@ -56,10 +56,7 @@ const modelValue = computed({ // 重新定义
 })
 
 const _attrs = useAttrs();
-setTimeout(() => {
-    console.log('_attrs------------', _attrs)
 
-}, 100)
 
 const placeholderCOM = computed(() => {
     return (data) => {

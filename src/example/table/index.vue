@@ -26,7 +26,7 @@
             :filterMethod="globalFilterMethod"
             :sortMap="sortMap"
             :sectionButtons="sectionButtons"
-            :isHiddenSectionButtons="true"
+            :isHiddenSectionButtons="isHiddenSectionButtons"
             :row-key="'id'"
             height="100%"
             @selection-change="data=>goTo('selectionChange',data)"
@@ -82,9 +82,10 @@ const defaultCOM = computed(() => {
     return '';
 });
 
-
+const isHiddenSectionButtons = ref(false)
 const sectionButtons = ref([
-    {name: "导入", key: "import", class: "import", icon: "",},
+    {key:"delete",name:"删除11"},
+    {name: "导入", key: "import", class: "zr-sharp", icon: "",},
     {name: "导出", key: "export", class: "export", icon: "",}
 ])
 
@@ -404,7 +405,7 @@ const _list = Array(20).fill({})?.map((item, index) => {
     return _item;
 })
 setTimeout(()=>{
-    // list.value = _list;
+    list.value = _list;
 },100)
 console.log('list--------',list)
 

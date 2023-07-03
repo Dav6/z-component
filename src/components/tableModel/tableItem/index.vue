@@ -37,15 +37,18 @@
                     <div class="el-table-section-header">
                         <div class="el-table-section-header-left">
                             <div class="el-table-section-header-section">已选中 <span>{{ sectionNum }}</span> 项</div>
-                            <d-el-button class="el-table-section-header-btn-default" text icon="Delete"
-                                         @click="goTo('onSection',{key:'delete'})">
-                                删除
-                            </d-el-button>
+<!--                            <d-el-button class="el-table-section-header-btn-default" text icon="delete"-->
+<!--                                         @click="goTo('onSection',{key:'delete'})">-->
+<!--                                删除-->
+<!--                            </d-el-button>-->
                             <template v-for="(item,index) in sectionButtons" :key="index">
-                                <d-el-button :class="sectionButtonsClassCOM(item)" text :icon="item.icon"
-                                             @click="goTo('onSection',{key:item?.key})">
-                                    {{ item?.name }}
-                                </d-el-button>
+                                <template v-if="!item.isHidden">
+                                    <d-el-button :class="sectionButtonsClassCOM(item)" :text="item.text" :icon="item.icon"
+                                                 @click="goTo('onSection',{key:item?.key})">
+                                        {{ item?.name }}
+                                    </d-el-button>
+                                </template>
+
                             </template>
 
 
@@ -522,7 +525,7 @@ watch(() => props.item, (item, preItem) => {
 const sectionButtonsClassCOM = computed(() => {
     return (item) => {
         const _item = item;
-        let _class = ['el-table-section-header-btn-default']
+        let _class = ['el-table-section-header-btn-default','zr-iconfont']
 
         let _itemClass = _item?.class;
         if (typeof (_itemClass) == 'string') {
@@ -822,7 +825,7 @@ init();
 
   .el-table-section-header-btn-default {
     height: 100%;
-    padding: 0;
+    padding: 0 5px;
     display: flex;
     align-items: center;
 
