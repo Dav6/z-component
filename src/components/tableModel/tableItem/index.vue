@@ -70,7 +70,7 @@
         </template>
 
 
-        <template v-if="item.isShow" #default="scope">
+        <template  #default="scope">
 
             <!--            {{scope.row}}{{item.key}}-->
             <template v-if="item.type === 'index'">
@@ -83,40 +83,9 @@
             <template v-else-if="item.type === 'settings'">
                 <template v-if="isShowFN('settings',scope)">
 
-                    <!--                    <el-button-group class="settings-group">-->
-                    <!--                        <template v-for="(bItem,bIndex) in item.buttonList" :key="bIndex">-->
-
-                    <!--                            <Component-->
-                    <!--                                    :is="settingsButtonItemCOM(bItem)"-->
-                    <!--                                    :text="bItem.type==='button'"-->
-                    <!--                                    :list="bItem.list"-->
-                    <!--                                    :trigger="bItem.trigger"-->
-                    <!--                                    :placement="bItem.placement"-->
-                    <!--                                    @click="goTo('settingsButtonClick',{scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex})"-->
-                    <!--                                    @command="(key)=>goTo('settingsDropdownClick', {scope:scope,keyItem:item,settingItem:bItem,settingIndex:bIndex,dropdownItemKey:key})"-->
-                    <!--                            >-->
-
-                    <!--                                <template v-if="bItem.type === 'dropdown'">-->
-                    <!--                                    <d-el-button text class="settings-dropdown-button">-->
-                    <!--                                        {{ bItem.name ? bItem.name : '···' }}-->
-                    <!--                                    </d-el-button>-->
-                    <!--                                </template>-->
-                    <!--                                <template v-if="bItem.type ==='button' ">-->
-                    <!--                                    {{ bItem.name }}-->
-                    <!--                                </template>-->
-                    <!--                            </Component>-->
-                    <!--                            <template v-if="item.divided  && (item.buttonList?.length - 1 != bIndex)">-->
-                    <!--                                <div class="settings-group-divided"></div>-->
-                    <!--                            </template>-->
-
-                    <!--                        </template>-->
-
-                    <!--                    </el-button-group>-->
-
-                    <!--                    <br>-->
                     <d-el-button-group
                             :class="'settings-group'"
-                            :list="item.buttonList"
+                            :list="getButtonListFN(scope)"
                             :isDivided="item.divided"
                             @onClick="data=>goTo('onSettingsButtonClick',{scope:scope,keyItem:item,button:data})"
                     >
@@ -127,7 +96,7 @@
                 </template>
             </template>
 
-            <template v-else-if="item.type == 'switch'">
+            <template v-else-if="item.type === 'switch'">
                 <template v-if="isShowFN('switch',scope)">
                     <Component
                             :is="'d-el-switch'"
@@ -214,6 +183,7 @@ import {ref, reactive, computed, watch, onBeforeUnmount, shallowRef, onMounted, 
 // import {isSameObj} from "@/utils/tools"
 // import tools from "@/index"
 import dayjs from "dayjs";
+import {debounce} from "@/tools/tools"
 
 // console.log(tools.debounce)
 
@@ -381,6 +351,11 @@ const sortOrdersCOM = computed(() => {
     return _sortOrders
 
 })
+
+
+
+
+
 
 
 // section filterMethod
@@ -561,9 +536,7 @@ const timeFormatCOM = computed(() => {
         let _format = _item?.format || 'YYYY-MM-DD HH:mm:ss'
         _time = dayjs(_time).format(_format);
 
-
         return _time;
-
 
     }
 
@@ -693,6 +666,50 @@ const isShowFN = (type, scope) => {
 
     return true;
 }
+
+
+
+const getButtonListFN = (scope)=>{
+    const _item = props.item;
+    const _row = scope.row;
+    let _buttonList = []
+    const _itemButtonList = _item?.buttonList
+    const _rowButtonList = _row?.buttonList
+    if(Array.isArray(_itemButtonList)  ){
+        _buttonList = _itemButtonList
+    }
+    if(Array.isArray(_rowButtonList)  ){
+        _buttonList = _rowButtonList
+    }
+
+    // console.log('_row',_row)
+    _buttonList?.map(bItem => {
+        const _bItem = bItem;
+        if (!_bItem.type) { // type 为空时
+            _bItem.type = 'button'
+        }
+        if (_bItem.text === true || _bItem.text === false) {
+
+        } else {
+            _bItem.text = true;
+        }
+
+
+        if (_bItem.type === 'dropdown') {
+            //  table里 为false 不显示
+            _bItem.teleported = true;
+        }
+
+    })
+
+
+
+
+    return _buttonList;
+
+}
+
+
 
 
 const getScope = (scope) => {

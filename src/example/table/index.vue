@@ -202,6 +202,7 @@ setTimeout(() => {
         },
         {
             label: "公司", key: "company", showOverflowTooltip: true,
+
         },
         {
             label: "选项1", key: "option1", type: "option", showOverflowTooltip: true,
@@ -405,9 +406,34 @@ const _list = Array(20).fill({})?.map((item, index) => {
     return _item;
 })
 setTimeout(()=>{
-    list.value = _list;
+    list.value = _list
 },100)
+
+setTimeout(()=>{
+    list.value.map((item,index)=>{
+        if (randomNum(0, 100) % 3 === 0) {
+            console.log('item',item)
+            item.buttonList = [
+                {
+                    name: "编辑",
+                    key: "edit",
+                    type: 'button',
+                    class:"edit-button",
+                },
+
+            ]
+        }
+
+
+        return item;
+    })
+
+    console.log(' list.value', list.value)
+},500)
+
 console.log('list--------',list)
+
+
 
 // list.value?.map((item, index) => {
 //     if (index % 3 == 0) {
@@ -483,6 +509,9 @@ const goTo = (key, data) => {
     if (key == 'onSettingsButtonClick') {
         console.log(data?.data.deviceName)
         data.data.deviceName = 3000
+
+
+       data.scope.row.buttonList = "";
     }
 }
 

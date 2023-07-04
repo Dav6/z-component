@@ -131,14 +131,14 @@ const filtersCOM = computed(() => {
 const goTo = (key, data) => {
     // console.log('formList',key,data);
     // data = JSON.parse(JSON.stringify(data));
-    if (key == 'onSection') {
+    if (key === 'onSection') {
         emits('onSection', data)
     }
 
-    if (key == 'onSwitchChange') {
+    if (key === 'onSwitchChange') {
         emits('onSwitchChange', data)
     }
-    if (key == 'onSettingsButtonClick') {
+    if (key === 'onSettingsButtonClick') {
         emits('onSettingsButtonClick', data)
 
     }
