@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "  修复 formModel formData 值违false 时不显示bug " 
+git commit -m "  treeSelect 增加参数 clearable " 
 git add . 
 npm run build 
 

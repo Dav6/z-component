@@ -11,6 +11,7 @@
     class="form-tree-select"
     v-model="modelValue"
     :data="optionsCOM"
+    :clearable="data?.clearable"
     :multiple="data?.multiple"
     :collapse-tags="data?.collapseTags"
     :collapse-tags-tooltip="data?.collapseTagsTooltip"
