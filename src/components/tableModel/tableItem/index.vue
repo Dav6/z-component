@@ -70,7 +70,7 @@
         </template>
 
 
-        <template  #default="scope">
+        <template v-if="item.isShow"  #default="scope">
 
             <!--            {{scope.row}}{{item.key}}-->
             <template v-if="item.type === 'index'">
