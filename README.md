@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "table list 增加 buttonList 同 settingsConfig里的buttonlist 如果列表中有buttonList 就会取列表里的，buttonList 如果为非数组 就会取settingsConfig里的 " 
+git commit -m "menu-model 列表增加icon 参数, isCollapse 是否切换伸缩   事假回调 onCollapseClick 接口变化的值 " 
 git add . 
 npm run build 
 

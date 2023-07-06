@@ -13,6 +13,9 @@
         <el-sub-menu class="menu-model-sub menu-model-item" :index="item?.index">
             <template #title>
                 <!--          <el-icon><location /></el-icon>-->
+                <div class="menu-item-icon zr-iconfont " :class="[item.icon]">
+                    {{collapse?(item.icon?'':item?.title?.[0])  :''}}
+                </div>
                 <div class="menu-model-sub-text">{{ item?.title }}</div>
             </template>
             <d-menu-list :list="item.children" @onClick="data=>goTo('onClick',data)"></d-menu-list>
@@ -25,6 +28,9 @@
                 @click="data=>goTo('onClick',{menuItem:data,data:item})"
                 :index="item?.index"
         >
+            <div class="menu-item-icon zr-iconfont " :class="[item.icon]">
+                {{collapse?(item.icon?'':item?.title?.[0])  :''}}
+            </div>
             <template #title>
                 <div class="menu-model-item-box">
                     <div class="menu-model-item-text">{{ item?.title }}</div>
@@ -50,6 +56,10 @@ const props = defineProps({
     },
     item: {
         type: [Object]
+    },
+
+    collapse: {
+        type: [Boolean],
     }
 });
 const emits = defineEmits(['onClick']);
@@ -77,6 +87,10 @@ init();
 
 <style scoped lang="less">
 
+.menu-item-icon{
+    font-size:22px;
+    padding-right: 8px;
+}
 
 
 </style>

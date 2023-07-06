@@ -10,10 +10,12 @@
     <div class="container-box">
         <div class="container-box-menu">
             <d-menu-model
+                class="menu-model"
                     v-model="active"
-
                     :list="list"
+                    :isCollapse="isCollapse"
                     @onClick="data=>goTo('onClick',data)"
+                @onCollapseClick="data=>goTo('onCollapseClick',data)"
             ></d-menu-model>
         </div>
     </div>
@@ -56,7 +58,7 @@ const setList = (list, parent, level = 1) => {
 
         _item.title = parent?.index ? `测试 ${parent.index}-${index}` : `测试 ${index}`;
         _item.index = parent?.index ? `${parent.index}-${index}` : `${index}`;
-
+        // _item.icon = 'zr-jiemuguanli'
         _item.children = []
         if (index == 0 || index == 2) {
             _item.children = setList(Array(3).fill({}), _item, _level + 1)
@@ -73,6 +75,9 @@ const setList = (list, parent, level = 1) => {
 
 list.value = setList(Array(6).fill({}))
 console.log('list', list.value)
+
+const isCollapse = ref(true);
+
 
 
 // const list =   Array(5).fill({})?.map((item, index) => {
@@ -145,7 +150,13 @@ init();
   border: 1px solid red;
 
   .container-box-menu {
-    width: 300px;
+    //width: 300px;
+    height: 100%;
+
+      .menu-model{
+          --el-menu-width:300px;
+      }
+
 
   }
 }
