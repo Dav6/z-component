@@ -448,7 +448,7 @@ const setLinkageForm = debounce(() => {
                 // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
 
                 if (_prevFormValue || _prevFormValue === 0) {
-                    console.log('有值')
+                    // console.log('有值')
                     // 判断当前的值是不是数组
                     if (Array.isArray(_prevFormValue)) {
                         // 数组为空就隐藏，不为空就系那是
@@ -550,12 +550,12 @@ const setLinkageForm = debounce(() => {
         _linkageFormList?.map(item => {
             let _lItem = item;
             let _linkageValue = _lItem.linkageValue;
-            console.log('linkageValue',_linkageValue)
+            // console.log('linkageValue',_linkageValue)
             let _linkageFormItemIsHidden = false;
             //  判断当前联动key对应的formItem的值 是否为空
             // 存在显示当前 linkageKey 的formItem ,不存在就隐藏
             if (_formValue || _formValue === 0) {
-                console.log('有值',_formValue)
+                // console.log('有值',_formValue)
 
                 if (Array.isArray(_formValue)) {
                     // 数组为空就隐藏，不为空就系那是
@@ -634,7 +634,7 @@ const setLinkageForm = debounce(() => {
 
     })
 
-},100)
+},10)
 
 const clearValidate = () => {
     return formModelRef.value.clearValidate()

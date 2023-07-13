@@ -1,4 +1,4 @@
-import './assets/index.583a3209.css';
+import './assets/index.99aeddc0.css';
 import { defineComponent as te, inject as He, ref as L, resolveComponent as I, openBlock as _, createBlock as z, mergeProps as se, unref as F, withCtx as X, renderSlot as fe, computed as E, watch as ie, createElementBlock as Y, createElementVNode as U, createVNode as N, normalizeClass as le, toDisplayString as J, getCurrentInstance as Fe, markRaw as Te, createTextVNode as ae, Fragment as K, renderList as re, resolveDynamicComponent as ye, useSlots as Oe, withModifiers as Le, createCommentVNode as me, normalizeProps as nt, guardReactiveProps as lt, createSlots as he, normalizeStyle as Ne, onMounted as ct, isRef as ve, useCssVars as Pe, useAttrs as ft, nextTick as mt } from "vue";
 const ne = (e) => {
   let v = e, t = v == null ? void 0 : v.name;
@@ -5039,7 +5039,7 @@ const zo = te({
           G.isHidden = Q;
         }), !1;
       });
-    }, 100);
+    }, 10);
     return v({
       formModelRef: b,
       resetFields: () => b.value.resetFields(),
@@ -5094,7 +5094,7 @@ const zo = te({
       }, 8, ["label-position", "model", "class", "label-width", "status-icon", "scroll-to-error", "rules"]);
     };
   }
-}), Wo = /* @__PURE__ */ ue($o, [["__scopeId", "data-v-26bb5e39"]]), Yo = ne(Wo), Jo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Wo = /* @__PURE__ */ ue($o, [["__scopeId", "data-v-7c847834"]]), Yo = ne(Wo), Jo = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Yo
 }, Symbol.toStringTag, { value: "Module" }));
@@ -5488,7 +5488,8 @@ const fa = te({
       immediate: !0
     });
     const h = L([]), w = { name: "\u5220\u9664", key: "delete", class: "", icon: "delete" }, k = Be(() => {
-      let x = JSON.parse(JSON.stringify(r.sectionButtons));
+      let x = r.sectionButtons || [];
+      x = JSON.parse(JSON.stringify(x));
       const D = x == null ? void 0 : x.findIndex((T) => T.key === "delete");
       D > -1 ? x[D] = {
         ...w,
@@ -5611,7 +5612,7 @@ const fa = te({
       }, 16, ["data", "row-key", "tree-props", "default-sort"]);
     };
   }
-}), pa = /* @__PURE__ */ ue(ma, [["__scopeId", "data-v-744442e5"]]), ga = ne(pa), ya = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), pa = /* @__PURE__ */ ue(ma, [["__scopeId", "data-v-317ccaa5"]]), ga = ne(pa), ya = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: ga
 }, Symbol.toStringTag, { value: "Module" }));

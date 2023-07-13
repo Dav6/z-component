@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "menu-model 列表增加icon 参数, isCollapse 是否切换伸缩   事假回调 onCollapseClick 接口变化的值 " 
+git commit -m " tableModel 修复sectionButtons为 undefined 错误 " 
 git add . 
 npm run build 
 

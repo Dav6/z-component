@@ -391,7 +391,8 @@ const _deleteButton = {name: "删除", key: "delete", class: "", icon: "delete",
 const setTableSectionButtons = debounce(() => {
 
 
-    let _sectionButtons = JSON.parse(JSON.stringify(props.sectionButtons));
+    let _sectionButtons = props.sectionButtons || []
+    _sectionButtons = JSON.parse(JSON.stringify(_sectionButtons));
     // console.log('_sectionButtons', _sectionButtons)
     const _deleteIndex = _sectionButtons?.findIndex(item => item.key === 'delete')
     // console.log('_deleteIndex', _deleteIndex)
