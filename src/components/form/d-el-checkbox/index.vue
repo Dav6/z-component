@@ -218,16 +218,16 @@ const time = dayjs().format('YYYY-MM-DD')
 const trueLabel = `${time}-true`
 const isCheckAll = ref(false)
 const isIndeterminate = ref(false)
-const changeAll = (data)=>{
+const changeAll = (data)=> {
 
     // console.log('isCheckAll',isCheckAll.value);
     // console.log('checkboxALl',checkboxALl.value);
     // const _isCheckAll = isCheckAll.value;
 
-    modelValue.value = isCheckAll.value? optionsValue.value: []
+    modelValue.value = isCheckAll.value ? optionsValue.value : []
+    isIndeterminate.value = false;
 
 }
-
 const change = (data)=>{
     const _modelValue = modelValue.value;
     const _options = options.value;
