@@ -154,7 +154,7 @@ const _value = computed(() => {
     } else {
         cronDesc.value = cronstrue.toString(_cron,
             {
-                monthStartIndexZero: true,
+                monthStartIndexZero: false,
                 locale: 'zh_CN'
             })
 

@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "formModel checkbox  增加参数 isCheckAll , true 显示全选" 
+git commit -m "cron  cronDesc 显示 monthStartIndexZero: false, 月份值 回填" 
 git add . 
 npm run build 
 

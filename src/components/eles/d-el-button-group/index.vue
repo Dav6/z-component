@@ -46,7 +46,6 @@
                         :is="'d-el-button'"
                         :list="item.list"
                         :class="buttonItemClassCOM(item)"
-
                         :type="item.buttonType"
                         :text="item.text"
                         :plain="item.plain"

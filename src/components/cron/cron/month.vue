@@ -90,11 +90,12 @@ const appoint = ref([])
 const appointOptions = ref([]);
 appointOptions.value = new Array(12).fill('').map((item, index) => {
   let _index = index +1 ;
-  let _label = _index < 10 ? `0${_index}` : _index;
+    console.log('_index',_index)
+  let _label = (_index) < 10 ? `0${_index}` : _index;
 
   return {
     label: _label,
-    value: `${_index-1}`,
+    value: `${_index}`,
   }
 })
 
