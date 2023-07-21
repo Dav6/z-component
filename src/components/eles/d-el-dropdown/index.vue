@@ -30,7 +30,7 @@
                     >
                         <span class="d-el-dropdown-item"
                             :class="[(item?.key === activeName && isActive)?'active':'']"
-                        >{{ item.name }}/{{item.key}}</span>
+                        >{{ item.name }} </span>
                     </el-dropdown-item>
 
                 </template>

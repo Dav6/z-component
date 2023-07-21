@@ -1,4 +1,4 @@
-import './assets/index.75cdecdc.css';
+import './assets/index.66011560.css';
 import { defineComponent as te, inject as Xe, ref as I, resolveComponent as L, openBlock as F, createBlock as z, mergeProps as se, unref as P, withCtx as R, renderSlot as me, computed as E, watch as re, createElementBlock as W, createElementVNode as U, createVNode as N, normalizeClass as ne, toDisplayString as J, getCurrentInstance as Fe, markRaw as Be, createTextVNode as ae, Fragment as K, renderList as ie, resolveDynamicComponent as ye, useSlots as Oe, withModifiers as tt, createCommentVNode as fe, normalizeProps as nt, guardReactiveProps as lt, createSlots as he, normalizeStyle as Ne, onMounted as ct, isRef as ve, useCssVars as Pe, useAttrs as ft, nextTick as mt } from "vue";
 const le = (e) => {
   let h = e, t = h == null ? void 0 : h.name;
@@ -2572,7 +2572,7 @@ const Rn = te({
                 default: R(() => [
                   U("span", {
                     class: ne(["d-el-dropdown-item", [(i == null ? void 0 : i.key) === v.value && e.isActive ? "active" : ""]])
-                  }, J(i.name) + "/" + J(i.key), 3)
+                  }, J(i.name), 3)
                 ]),
                 _: 2
               }, 1032, ["command", "class", "disabled", "divided"]))), 128))
@@ -2587,7 +2587,7 @@ const Rn = te({
       }, 16, ["trigger", "placement"]);
     };
   }
-}), Hn = /* @__PURE__ */ ue(Xn, [["__scopeId", "data-v-829474a0"]]), zn = le(Hn), $n = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}), Hn = /* @__PURE__ */ ue(Xn, [["__scopeId", "data-v-74a22af6"]]), zn = le(Hn), $n = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: zn
 }, Symbol.toStringTag, { value: "Module" }));
