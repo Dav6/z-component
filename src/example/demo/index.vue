@@ -7,69 +7,83 @@
 -->
 
 <template>
-  <div class="container-box">
+    <div class="container-box">
 
-      <d-el-input
-              ref="inputRef"
-               ></d-el-input>
-      <d-import-button
-            accept=".csv,.xls,.xlsx"
+        <d-el-input
+                ref="inputRef"
+        ></d-el-input>
+        <d-import-button
+                accept=".csv,.xls,.xlsx"
 
-            :uploadFileAPI="uploadFile"
-    ></d-import-button>
+                :uploadFileAPI="uploadFile"
+        ></d-import-button>
 
 
-      <d-el-button-group
-              :list="buttonList.list"
-              :isDivided="buttonList.isDivided"
-              @onClick="data=>goTo('onButtonClick',data)"
-      >
+        <d-el-button-group
+                :list="buttonList.list"
+                :isDivided="buttonList.isDivided"
+                @onClick="data=>goTo('onButtonClick',data)"
+        >
 
-      </d-el-button-group>
+        </d-el-button-group>
 
-  </div>
+        <div style="height:30px"></div>
+
+        <d-el-button @click="goTo('open')">打开</d-el-button>
+        <d-el-dropdown
+                ref="dropdownRef"
+                :trigger="'click'"
+                :list="dropdownList"
+                :isActive="true"
+                :activeName="activeName"
+                @command="data=>goTo('command',data)"
+        >
+            123
+        </d-el-dropdown>
+
+    </div>
 </template>
 
 <script setup>
 defineOptions({
-  name: "测试案例",
-  key: 'example-test',
-  isExposed: false
+    name: "测试案例",
+    key: 'example-test',
+    isExposed: false
 });
 import {ref, reactive, computed, watch} from "vue"
 
 const props = defineProps({
-  // 配合emits v-model
-  modelValue: {
-    type: [String, Boolean],
-  },
+    // 配合emits v-model
+    modelValue: {
+        type: [String, Boolean],
+    },
 });
 //const emits = defineEmits(["update:modelValue"]);
 const emits = defineEmits([]);
 const inputRef = ref()
 const inputData = ref({
-    autofocus:false,
+    autofocus: false,
 })
 inputRef?.value?.ref().blur()
 
-setTimeout(()=>{
-    console.log('inputRef',inputRef?.value?.ref().focus())
+setTimeout(() => {
+    console.log('inputRef', inputRef?.value?.ref().focus())
 
-},2000)
+}, 2000)
 
 const buttonList = ref({
     isDivided: true,
-    list:[
+    list: [
         {
             name: "编辑",
             key: "edit",
             type: 'button',
-            class:"edit-button",
+            class: "edit-button",
         },
         {
             name: "详情",
             key: "detail",
-            class:"detail-button",
+            class: "detail-button",
         },
         {
             name: "更多",
@@ -79,17 +93,17 @@ const buttonList = ref({
             //top/top-start/top-end/bottom/bottom-start/bottom-end
             placement: "bottom-start",
             teleported: true,
-            class:"dropdown-button",
+            class: "dropdown-button",
             list: [
                 {
                     name: "修改",
                     key: "edit",
-                    class:"edit",
+                    class: "edit",
                 },
                 {
                     name: "删除",
                     key: "delete",
-                    class:"delete",
+                    class: "delete",
                 },
 
                 {
@@ -107,17 +121,17 @@ const buttonList = ref({
             //top/top-start/top-end/bottom/bottom-start/bottom-end
             placement: "bottom-start",
             teleported: true,
-            class:"dropdown-button",
+            class: "dropdown-button",
             list: [
                 {
                     name: "修改",
                     key: "edit",
-                    class:"edit",
+                    class: "edit",
                 },
                 {
                     name: "删除",
                     key: "delete",
-                    class:"delete",
+                    class: "delete",
                 },
 
                 {
@@ -130,7 +144,7 @@ const buttonList = ref({
     ]
 })
 
-const uploadFile = (file)=> {
+const uploadFile = (file) => {
     console.log('addEditDialogStore', file)
 
 
@@ -166,23 +180,48 @@ const uploadFile = (file)=> {
 
 };
 
+const dropdownRef = ref();
+const activeName = ref('edit')
+const dropdownList = ref([
+    {
+        name: "修改",
+        key: "edit",
+        class: "edit",
+    },
+    {
+        name: "删除",
+        key: "delete",
+        class: "delete",
+    },
 
+    {
+        name: "设置",
+        key: "delete",
+        divided: true,
+    }
+])
 
 // console.log('cutBg', cutBgWidth)
 // setTimeout(()=>cutWidth.value = 20,1000)
 
 const goTo = (key, data) => {
-  if (key == 'show') {
-    isShow.value = true;
-  }
-  if (key == 'cancel') {
-    isShow.value = false;
-  }
+    console.log(key, data);
+    const _key = key;
+    const _data = data;
+    if (_key === 'command') {
+        console.log('dropdownRef', dropdownRef.value.dropdownRef.handleOpen())
+
+    }
+
+    if(_key === 'open'){
+        dropdownRef.value.dropdownRef.handleOpen()
+    }
+
 }
 
 // 接口请求方法放这
 const init = () => {
-  //getList();
+    //getList();
 
 }
 

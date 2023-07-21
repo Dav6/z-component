@@ -32,7 +32,6 @@
                             :icon="item.icon"
                             :color="item.color"
                             :disabled="item.disabled"
-                            @click.stop="()=>{}"
                     >
                         {{ item.name ? item.name : '···' }}
                     </d-el-button>

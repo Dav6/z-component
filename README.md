@@ -20,7 +20,7 @@ npm run build
 ### 打包提交
 ```sh
 git push 
-git commit -m "cron  cronDesc 显示 monthStartIndexZero: false, 月份值 回填" 
+git commit -m "d-el-dropdown 增加 参数 isActive activeName 抛出ref" 
 git add . 
 npm run build 
 
