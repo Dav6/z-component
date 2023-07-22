@@ -211,6 +211,7 @@ const goTo = (key, data) => {
     if (_key === 'command') {
         console.log('dropdownRef', dropdownRef.value.dropdownRef.handleOpen())
 
+        activeName.value = _data;
     }
 
     if(_key === 'open'){

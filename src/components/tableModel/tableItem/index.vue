@@ -256,6 +256,8 @@ const optionValueCOM = computed(() => {
             _option = _itemOption;
         }
 
+        _value = (_dataValue || _dataValue === 0)?_dataValue:'';
+
         // console.log('_option',_option,)
         // console.log('_dataValue',_dataValue,typeof _dataValue)
 

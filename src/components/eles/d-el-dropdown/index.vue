@@ -79,7 +79,7 @@ activeName.value = props.activeName
 
 
 
-watch(() => props.activeName, (activeName) => {
+watch(() => props.activeName, (active) => {
     activeName.value = props.activeName
 }, {
     deep: true,
