@@ -612,10 +612,17 @@ const getRef = () => {
     return tableModelRef?.value;
 };
 
+const clearSelection = () =>{
+    tableModelRef.value?.clearSelection()
+    sectionData.value.selection = []
+    return []
+}
+
 
 defineExpose({
     getRef,
-    getSelection
+    getSelection,
+    clearSelection
 })
 
 

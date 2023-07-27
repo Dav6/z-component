@@ -7,7 +7,7 @@
 #### 1. package.json 加入 
 ```
 "dependencies": { 
-    "zr-component": "git+http://192.168.10.100:8070/develops/zr-component.git"
+    "zr-component": "git+http://192.168.1.162:8070/develops/zr-component.git"
 },
 ```
 #### 2. 插件安装 
